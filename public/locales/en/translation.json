@@ -1,0 +1,50 @@
+{
+  "auditLog":
+  {
+    "header":
+    {
+      "heading": "Audit Log Records"
+    },
+    "grid":
+    {
+      "column":
+      {
+        "auditappid": "Role ID",
+        "auditappiddescription": "A unique ID for each AMT Role",
+        "eventId": "Event ID",
+        "eventIddescription": "ID of an event of the application",
+        "initiatortype": "InitiatorType",
+        "auditapp": "Role Name",
+        "auditappdescription": "The role group name for each AMT functional area",
+        "event": "Event",
+        "eventdescription": "ID of an event of the application",
+        "initiator": "Initiator",
+        "initiatordescription": "User ID performing action",
+        "time": "Device Time(UTC)",
+        "timedescription": "Server time to indicate the event occurance",
+        "mclocationtype": "MCLocationType",
+        "mclocationtypedescription": "Management console interface",
+        "netaddress": "Network Address",
+        "netaddressdescription": "Network address details",
+        "exstr": "Event Details",
+        "exstrdescription": "Extended data length details"
+      },
+      "footer":
+      {
+        "exporttocsv":
+        {
+          "title": "Export to CSV"
+        },
+        "gotopage":
+        {
+          "title": "Go to page"
+        },
+        "pagination":
+        {
+          "text1": "Page",
+          "text2": "of"
+        }
+      }
+    }
+  }
+}
