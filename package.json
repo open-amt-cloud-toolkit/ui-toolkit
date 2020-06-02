@@ -1,6 +1,6 @@
 {
   "name": "ui-toolkit",
-  "version": "0.0.1",
+  "version": "0.9.0",
   "description": "UI controls for Intel AMT features",
   "scripts": {
     "build": "npm run build-prod",
