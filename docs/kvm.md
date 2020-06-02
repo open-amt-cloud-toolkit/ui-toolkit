@@ -19,8 +19,8 @@ In order to deploy and make changes, the following tools and application has to 
 
 At a command prompt, run the following commands:
 ```
-git clone https://github.impcloud.net/Danger-Bay/MPS_UI_Toolkit.git
-cd MPS_UI_Toolkit
+git clone https://github.com/open-amt-cloud-toolkit/ui-toolkit.git
+cd ui-toolkit
 npm install
 ```
 ## Create Bundle for KVM
@@ -60,7 +60,7 @@ Open Chrome browser, navigate to the following url
 http://<localhost>:5000/src/sample/sampleKVM.htm?deviceId=<device GUID>&server=<mps IPaddress>:<mps port>
 ```
 You will see the errors in the following scenario's: 
- - compilation errors if  mps-ui-toolkit has not downloaded and installed to your react app.
+ - compilation errors if ui-toolkit has not downloaded and installed to your react app.
  - MPS server not running
  - MPS server running and device not connected.
 
@@ -109,6 +109,28 @@ isAuthenticated(req, res, next) {
 return  next();
 }
 ```
+Search for **Handle upgrade on websocket** and comment the code as shown below
+
+```
+//Handle upgrade on websocket
+this.server.on('upgrade', (request, socket, head) => {
+    // this.sessionParser(request, {}, () => {
+    // if (request.session && request.session.loggedin === true) { //Validate if the user session is active and valid. TODO: Add user validation if needed
+        this.handleUpgrade(request, socket, head)
+    // }
+    // else if (request.headers['X-MPS-API-Key'] && //Validate REST API key
+    //   request.headers['X-MPS-API-Key'] === this.config.mpsxapikey) {
+    //   this.handleUpgrade(request, socket, head)
+    // }
+    // else {//Auth failed
+    //   log.info('WebSocket authentication failed. Closing connection...');
+    //   socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
+    //   socket.destroy();
+    // }
+    // })
+});
+```
+
 - Save the changes.
 - At the command prompt, run the below command from the root of **mps** application 
 ```

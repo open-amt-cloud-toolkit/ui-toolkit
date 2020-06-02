@@ -55,14 +55,12 @@ Open **src/App.js**, add the following code as show below:
 
 ```
 import  React  from  "react";
-import  logo  from  "./logo.svg";
-import  "./App.css";
 import { KVM } from  "ui-toolkit";
 function  App() {
 	return (
-	<div  className="App">
+	<div>
 	    <KVM  deviceId="038d0240-045c-05f4-7706-980700080009"
-          mpsServer="localhost:9300/relay"
+          mpsServer="localhost:3000/relay"
           mouseDebounceTime="200"
           canvasHeight="100%"
           canvasWidth="100%"></KVM>
@@ -93,8 +91,6 @@ Open **src/App.js**, add the following code as show below:
 
 ```
 import  React  from  "react";
-import  logo  from  "./logo.svg";
-import  "./App.css";
 import { AuditLog } from  "ui-toolkit";
 import  '../node_modules/ag-grid-community/dist/styles/ag-grid.css';
 import  '../node_modules/ag-grid-community/dist/styles/ag-theme-balham-dark.css';
@@ -102,10 +98,10 @@ import  '../node_modules/ag-grid-community/dist/styles/agGridBalhamFont.css';
 
 function  App() {
 	return (
-	<div  className="App">
+	<div>
 	<AuditLog
 	deviceId="038d0240-045c-05f4-7706-980700080009"
-	mpsServer="localhost:9300"></AuditLog>
+	mpsServer="localhost:3000"></AuditLog>
 	</div>
 	);
 }
@@ -175,18 +171,18 @@ Search for **Handle upgrade on websocket** and comment the code as shown below
 //Handle upgrade on websocket
 this.server.on('upgrade', (request, socket, head) => {
     // this.sessionParser(request, {}, () => {
-    //   if (request.session && request.session.loggedin === true) { //Validate if the user session is active and valid. TODO: Add user validation if needed
-    //     this.handleUpgrade(request, socket, head)
-    //   }
-    //   // else if (request.headers['X-MPS-API-Key'] && //Validate REST API key
-    //   //   request.headers['X-MPS-API-Key'] === this.config.mpsxapikey) {
+    // if (request.session && request.session.loggedin === true) { //Validate if the user session is active and valid. TODO: Add user validation if needed
         this.handleUpgrade(request, socket, head)
-    //   // }
-    //   else {//Auth failed
-    //     log.info('WebSocket authentication failed. Closing connection...');
-    //     socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
-    //     socket.destroy();
-    //   }
+    // }
+    // else if (request.headers['X-MPS-API-Key'] && //Validate REST API key
+    //   request.headers['X-MPS-API-Key'] === this.config.mpsxapikey) {
+    //   this.handleUpgrade(request, socket, head)
+    // }
+    // else {//Auth failed
+    //   log.info('WebSocket authentication failed. Closing connection...');
+    //   socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
+    //   socket.destroy();
+    // }
     // })
 });
 ```

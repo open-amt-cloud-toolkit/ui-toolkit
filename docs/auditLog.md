@@ -20,8 +20,8 @@ In order to deploy and make changes, the following tools and application has to 
 
 At a command prompt, run the following commands:
 ```
-git clone https://github.impcloud.net/Danger-Bay/MPS_UI_Toolkit.git
-cd MPS_UI_Toolkit
+git clone https://github.com/open-amt-cloud-toolkit/ui-toolkit.git
+cd ui-toolkit
 npm install
 ```
 ## Create Bundle for AuditLog
@@ -61,7 +61,7 @@ Open Chrome browser, navigate to the following url
 http://<localhost>:5000/src/sample/sampleAuditLog.htm?deviceId=<device GUID>&server=<mps IPaddress>:<mps port>
 ```
 You will see the errors in the following scenario's: 
- - compilation errors if  mps-ui-toolkit has not downloaded and installed to your react app.
+ - compilation errors if ui-toolkit has not downloaded and installed to your react app.
  - MPS server not running
  - MPS server running and device not connected.
 
