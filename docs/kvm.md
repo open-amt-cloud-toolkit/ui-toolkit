@@ -15,7 +15,7 @@ In order to deploy and make changes, the following tools and application has to 
 -   Intel AMT device is configured and connected to MPS. See the [MPS](https://github.com/open-amt-cloud-toolkit/MPS) for documentation.
 -   Chrome Browser
 
-## Download and Install MPS UI Toolkit
+## Download and Install UI Toolkit
 
 At a command prompt, run the following commands:
 ```
@@ -24,7 +24,7 @@ cd ui-toolkit
 npm install
 ```
 ## Create Bundle for KVM
-At a command prompt navigate to the root of MPS_UI_Toolkit, run the below command.
+At a command prompt navigate to the root of ui-toolkit, run the below command.
 > **Note:** Remove or rename the existing **kvm.core.min.js**  in **dist/**
 ```
 npm run build-kvm-prod
@@ -51,7 +51,7 @@ To display the KVM control on a sample web page, update following changes to the
 </body>
 ```
 ## Test the sample page
-At a command prompt navigate to the root of MPS_UI_Toolkit, run the below command.
+At a command prompt navigate to the root of ui-toolkit, run the below command.
 ```
 npx serve
 ```

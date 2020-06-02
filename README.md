@@ -1,6 +1,6 @@
-# Quickstart: Add MPS UI Toolkit controls to WebUI
+# Quickstart: Add UI Toolkit controls to WebUI
 
-This  document shows how to integrate controls from MPS UI Toolkit into a create-react-app for testing or development. 
+This  document shows how to integrate controls from UI Toolkit into a create-react-app for testing or development. 
 -   How to create a new react app.
 -   How to add UI controls to react app.
 -   How to create bundles for each UI control
@@ -35,7 +35,7 @@ You can now view my-app in the browser.
 
 Press **ctrl+c** on terminal to exit application.
 
-## Add MPS UI Toolkit 
+## Add UI Toolkit 
 To access UI controls in react app , add the following line to dependencies section in **my-app/package.json** :
 
 ```
@@ -47,7 +47,7 @@ At a command prompt navigate to the root of react app, and run the following com
 npm install
 npm start
 ```
-### Add  KVM Control 
+### Add KVM Control 
 
 Open **src/App.js**, add the following code as show below:
 
