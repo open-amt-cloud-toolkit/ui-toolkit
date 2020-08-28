@@ -9,10 +9,23 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
 import translationEN from './public/locales/en/translation.json';
+import translationTE from './public/locales/te/translation.json';
+import translationFR from './public/locales/fr/translation.json';
+import translationES from './public/locales/es/translation.json';
+
 
 const resources = {
   en: {
     translations: translationEN
+  },
+  te: {
+    translations: translationTE
+  },
+  fr: {
+    translations: translationFR
+  },
+  es: {
+    translations: translationES
   }
 };
 
@@ -24,15 +37,16 @@ i18n
     resources,
     ns: ["translations"],
     defaultNS: "translations",
-    debug:false,
+    debug: false,
     fallbackLng: 'en',
-    
+
     interpolation: {
       escapeValue: false,
       formatSeparator: ","
     },
-    react: 
-    {       wait: false
+    react:
+    {
+      wait: false
     }
   });
 

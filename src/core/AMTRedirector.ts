@@ -345,7 +345,7 @@ export class AMTRedirector implements ICommunicator {
           this.logger.verbose("Response to settings")
           cmdsize = 23;
           this.socketSend(String.fromCharCode(0x27, 0x00, 0x00, 0x00) + TypeConverter.IntToStrX(this.amtSequence++) + String.fromCharCode(0x00, 0x00, 0x1B, 0x00, 0x00, 0x00));
-          if (this.protocol == 1) { this.amtKeepAliveTimer = setInterval(this.sendAmtKeepAlive, 2000); }
+          if (this.protocol == 1) { this.amtKeepAliveTimer = setInterval(this.sendAmtKeepAlive.bind(this), 2000); }
           this.connectState = 1;
           this.onStateChange(3);
           break;

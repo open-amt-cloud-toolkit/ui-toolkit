@@ -29,7 +29,7 @@ export class EncodingOptions extends React.Component<IEncodingOptions, { value: 
     return (
       <span  className="encoding">
         <label >Encoding:</label>
-        <select value={this.state.value} onChange={this.onEncodingChange} disabled={this.props.getConnectState() === 2}>
+        <select value={this.state.value}  className= {this.props.getConnectState() === 2 ? 'reldisabled' : ''} onChange={this.onEncodingChange} disabled={this.props.getConnectState() === 2}>
           <option value="1">RLE 8</option>
           <option value="2">RLE 16</option>
         </select>

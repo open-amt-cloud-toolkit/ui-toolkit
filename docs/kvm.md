@@ -2,6 +2,7 @@
 
 This document shows how to bundle only KVM control and display it on a sample html page for testing. 
 
+ - How to customize the control
  - How to create a bundle for only KVM control
  - How to add to sample html file 
 
@@ -15,21 +16,45 @@ In order to deploy and make changes, the following tools and application has to 
 -   Intel AMT device is configured and connected to MPS. See the [MPS](https://github.com/open-amt-cloud-toolkit/MPS) for documentation.
 -   Chrome Browser
 
-## Download and Install UI Toolkit
+## Download and Install MPS UI Toolkit
 
 At a command prompt, run the following commands:
 ```
-git clone https://github.com/open-amt-cloud-toolkit/ui-toolkit.git
-cd ui-toolkit
+git clone https://github.impcloud.net/Danger-Bay/MPS_UI_Toolkit.git
+cd MPS_UI_Toolkit
 npm install
 ```
+
+## Customize the control
+
+To add new changes and test the changes  instantly before bundling the control, webpack dev server can be used
+
+After making  the changes, open a command prompt and navigate to the root of ui-toolkit, run the below command.
+
+```
+npm start
+```
+
+- Open the browser and navigate to http://localhost:8080/kvm.htm?deviceId=<Device uuid>&server=<MPS server>
+
+**Note:** By default webpack dev server runs on port 8080. If port 8080 is already in use, webpack automatically runs on  the next immediate available port
+
+
 ## Create Bundle for KVM
-At a command prompt navigate to the root of ui-toolkit, run the below command.
+At a command prompt navigate to the root of MPS_UI_Toolkit, run the below command.
 > **Note:** Remove or rename the existing **kvm.core.min.js**  in **dist/**
 ```
-npm run build-kvm-prod
+npm run build
 ```
 A new **kvm.core.min.js** will be created in **dist/** directory.
+
+To bundle the KVM control without node_modules,  run the below command in a command prompt on the root of ui-toolkit,
+
+```
+npm run built-ext
+```
+
+**Note**: The bundle generated using build-ext command can be used in react apps as an independent control
 
 ## Add to sample html page
 
@@ -38,20 +63,11 @@ To display the KVM control on a sample web page, update following changes to the
 ```
 <body>
   <div id="kvm"></div>
-  <script src="../../dist/react/react.production.min.js" crossorigin></script>
-  <script src="../../dist/react/react-dom.production.min.js"></script>
   <script src="../../dist/kvm.core.min.js" crossorigin></script>
-  <script crossorigin>
-    const e = React.createElement;
-    var url = new URL(window.location.href);
-    var params = new URLSearchParams(url.search);
-    const domContainer = document.querySelector('#kvm');
-    ReactDOM.render(e(uitk.RemoteDesktop, { deviceId: params.get('deviceId'), mpsServer: params.get('server')+'/relay', mouseDebounceTime: 200, canvasHeight: "100%", canvasWidth: "100%" } ), domContainer);
-  </script>
 </body>
 ```
 ## Test the sample page
-At a command prompt navigate to the root of ui-toolkit, run the below command.
+At a command prompt navigate to the root of MPS_UI_Toolkit, run the below command.
 ```
 npx serve
 ```
@@ -60,7 +76,7 @@ Open Chrome browser, navigate to the following url
 http://<localhost>:5000/src/sample/sampleKVM.htm?deviceId=<device GUID>&server=<mps IPaddress>:<mps port>
 ```
 You will see the errors in the following scenario's: 
- - compilation errors if ui-toolkit has not downloaded and installed to your react app.
+ - compilation errors if  mps-ui-toolkit has not downloaded and installed to your react app.
  - MPS server not running
  - MPS server running and device not connected.
 
@@ -109,28 +125,6 @@ isAuthenticated(req, res, next) {
 return  next();
 }
 ```
-Search for **Handle upgrade on websocket** and comment the code as shown below
-
-```
-//Handle upgrade on websocket
-this.server.on('upgrade', (request, socket, head) => {
-    // this.sessionParser(request, {}, () => {
-    // if (request.session && request.session.loggedin === true) { //Validate if the user session is active and valid. TODO: Add user validation if needed
-        this.handleUpgrade(request, socket, head)
-    // }
-    // else if (request.headers['X-MPS-API-Key'] && //Validate REST API key
-    //   request.headers['X-MPS-API-Key'] === this.config.mpsxapikey) {
-    //   this.handleUpgrade(request, socket, head)
-    // }
-    // else {//Auth failed
-    //   log.info('WebSocket authentication failed. Closing connection...');
-    //   socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
-    //   socket.destroy();
-    // }
-    // })
-});
-```
-
 - Save the changes.
 - At the command prompt, run the below command from the root of **mps** application 
 ```

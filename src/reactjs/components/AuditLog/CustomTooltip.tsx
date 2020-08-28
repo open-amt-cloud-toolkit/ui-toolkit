@@ -21,21 +21,22 @@ export class CustomTooltip extends React.Component<CustomTooltipProps> {
     }
 
     render() {
+        const {api, rowIndex, column} = this.props;
         //get row data based on index
-        const data = this.props.api.getDisplayedRowAtIndex(this.props.rowIndex).data; 
-        const isRoleName = this.props.column.colDef.field === 'auditApp';
-        const isEvent = this.props.column.colDef.field === 'event';
+        const data = api.getDisplayedRowAtIndex(rowIndex) ? api.getDisplayedRowAtIndex(rowIndex).data : '' ; 
+        const isRoleName = column.colDef.field === 'auditApp';
+        const isEvent = column.colDef.field === 'event';
 
         return (
             <React.Fragment>
-                {isRoleName && (<div className="custom-tooltip">
+                {(isRoleName && data)? (<div className="custom-tooltip">
                     <p><span>Role Name:{data.auditApp}</span></p>
                     <p><span>Role ID: {data.auditAppId}</span></p>
-                </div>)}
-                {isEvent && <div className="custom-tooltip">
+                </div>) : null}
+                {(isEvent  && data )? (<div className="custom-tooltip">
                     <p><span>Event: {data.event}</span></p>
                     <p><span>Event ID: {data.eventId}</span></p>
-                </div>}
+                </div>): null}
             </React.Fragment>
         );
     }

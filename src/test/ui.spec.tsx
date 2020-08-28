@@ -20,7 +20,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     // function call saveContext
@@ -46,7 +47,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     // function call cleanUp
@@ -73,7 +75,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     const ui = shallow(<UI {...kvmprops}  />);
@@ -102,7 +105,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     const ui = shallow(<UI {...kvmprops}  />);
@@ -131,7 +135,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     const ui = shallow(<UI {...kvmprops}  />);
@@ -155,7 +160,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     const ui = shallow(<UI {...kvmprops}  />);
@@ -179,7 +185,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     const ui = shallow(<UI {...kvmprops}  />);
@@ -209,7 +216,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     const ui = shallow(<UI {...kvmprops}  />);
@@ -239,7 +247,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     const ui = shallow(<UI {...kvmprops}  />);
@@ -267,7 +276,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     const ui = shallow(<UI {...kvmprops}  />);
@@ -293,7 +303,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     const ui = shallow(<UI {...kvmprops}  />);
@@ -319,7 +330,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     const ui = shallow(<UI {...kvmprops}  />);
@@ -359,7 +371,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     const ui = shallow(<UI {...kvmprops}  />);
@@ -397,7 +410,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     const ui = shallow(<UI {...kvmprops}  />);
@@ -429,7 +443,8 @@ describe('Testing UI',()=>{
         mpsServer: "localhost/mps",
         mouseDebounceTime: 10,
         canvasHeight: "600",
-        canvasWidth: "400"
+        canvasWidth: "400",
+        autoConnect:false
     };
 
     const ui = shallow(<UI {...kvmprops}  />);

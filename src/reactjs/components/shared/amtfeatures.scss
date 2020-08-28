@@ -1,0 +1,13 @@
+/*********************************************************************
+ * Copyright (c) Intel Corporation 2020
+ * SPDX-License-Identifier: Apache-2.0
+ **********************************************************************/
+ $marginLeft: 8px;
+ $opacity: 0.5;
+ .label-text {
+     margin-left: $marginLeft;
+ }
+
+ .grey-label {
+     opacity: $opacity;
+ }

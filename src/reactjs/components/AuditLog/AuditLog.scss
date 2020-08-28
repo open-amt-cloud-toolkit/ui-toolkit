@@ -79,6 +79,8 @@ $footerHeight: 50px;
   font-size: $fsize;
   font-weight: $fontweight;
   font-family: $family;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .data-export-info-icon {
