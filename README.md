@@ -1,3 +1,5 @@
+The Default ("master") branch is our release branch that is for production use.  All other branches are pre-production and should not be used for production deployments.
+
 # Quickstart: Add MPS UI Toolkit controls to WebUI
 
 This document shows how to integrate controls from MPS UI Toolkit into a create-react-app for testing or development.
