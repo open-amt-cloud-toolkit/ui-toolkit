@@ -1,5 +1,3 @@
-The Default ("master") branch is our release branch that is for production use.  All other branches are pre-production and should not be used for production deployments.
-
 # Quickstart: Add MPS UI Toolkit controls to WebUI
 
 This document shows how to integrate controls from MPS UI Toolkit into a create-react-app for testing or development.
@@ -15,9 +13,10 @@ In order to deploy and make changes, the following tools and application has to 
 - [Git](https://git-scm.com/)
 - [Visual Studio Code](https://code.visualstudio.com/) or any other IDE
 - [Node.js](https://nodejs.org/)
-- [MPS](https://github.com/open-amt-cloud-toolkit/MPS) stands for **M**anagement **P**resence **S**erver
-- [RPS](https://github.com/open-amt-cloud-toolkit/RCS) stands for **R**emote **P**rovisioning **S**erver
-- Intel AMT device is configured and connected to MPS. See the [MPS](https://github.com/open-amt-cloud-toolkit/MPS) for documentation.
+- [MPS](https://github.com/open-amt-cloud-toolkit/mps) stands for **M**anagement **P**resence **S**erver
+- [RPS](https://github.com/open-amt-cloud-toolkit/rps) stands for **R**emote **P**rovisioning **S**erver
+- Build and deploy MPS and RPS MicroServices locally.
+- Intel AMT device is configured and connected to MPS. See the [MPS](https://github.com/open-amt-cloud-toolkit/mps) for documentation.
 - Chrome Browser
 
 ## Create a New React App
@@ -69,19 +68,20 @@ Open **src/App.js**, add the following code as show below:
 
 ```
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { KVM, MpsProvider } from "ui-toolkit";
-import '../node_modules/mps-ui-toolkit/i18n.ts';
+import '../node_modules/ui-toolkit/i18n.ts';
+
 function App() {
   const data = {
     mpsKey: '<MPS API key>'
   };
+
   return (
     <div className="App">
       <MpsProvider data={data}>
-        <KVM deviceId="038d0240-045c-05f4-7706-980700080009"
-        mpsServer="localhost:9300/relay"
+        <KVM deviceId="<d12428be-9fa1-4226-9784-54b2038beab6>"
+        mpsServer="<192.168.1.38>:<3000>/relay"
         mouseDebounceTime="200"
         canvasHeight="100%"
         canvasWidth="100%"></KVM>
@@ -102,11 +102,11 @@ Open **src/App.js**, add the following code as show below:
 
 ```
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { AuditLog, MpsProvider } from "ui-toolkit";
 
 function App() {
+
   const data = {
     mpsKey: '<MPS API key>'
   };
@@ -114,11 +114,12 @@ function App() {
     <div className="App">
       <MpsProvider data={data}>
         <AuditLog
-        deviceId="038d0240-045c-05f4-7706-980700080009"
-        mpsServer="localhost:9300"></AuditLog>
+       deviceId="<d12428be-9fa1-4226-9784-54b2038beab6>"
+       mpsServer="<192.168.1.38>:<3000>"></AuditLog>
       </MpsProvider>
     </div>
   );
+
 }
 
 export default App;
@@ -134,7 +135,7 @@ Open **src/App.js**, add the following code as show below:
 ```
 import React from "react";
 import { DeviceGrid, MpsProvider } from "ui-toolkit";
-import '../node_modules/mps-ui-toolkit/i18n.ts'
+import '../node_modules/ui-toolkit/i18n.ts'
 
 function App() {
   const data = {
@@ -144,7 +145,7 @@ function App() {
     <div>
       <MpsProvider data={data}>
         <DeviceGrid
-          mpsServer="localhost:9300"></DeviceGrid>
+          mpsServer="<192.168.1.38>:<3000>"></DeviceGrid>
       </MpsProvider>
     </div>
   );
@@ -162,18 +163,18 @@ Open **src/App.js**, add the following code as show below:
 
 ```
 import React from "react";
-import { SOL, MpsProvider } from "ui-toolkit";
-import '../node_modules/mps-ui-toolkit/i18n.ts'
+import { Sol, MpsProvider } from "ui-toolkit";
+import '../node_modules/ui-toolkit/i18n.ts'
 
-function App() {
+const App = () => {
   const data = {
     mpsKey: '<MPS API key>'
   };
   return (
     <div>
       <MpsProvider data={data}>
-        <SOL deviceId="038d0240-045c-05f4-7706-980700080009"
-        mpsServer="localhost:9300"></SOL>
+        <Sol deviceId="d12428be-9fa1-4226-9784-54b2038beab6"
+        mpsServer="192.168.1.38:3000"></Sol>
       </MpsProvider>
     </div>
   );
@@ -186,7 +187,7 @@ export default App;
 
 Open **src/App.js**, add the following code as show below:
 
-> **Note:** Change **rpsServer** value to your RPS server address and appropriate webport.
+> **Note:** Change **rpsServer** value to your RPS server address and appropriate webport.**rpsKey** value is the value set to **xapikey** in .rpsrc file in rps application root directory.
 
 ```
 import React from "react";
@@ -195,14 +196,13 @@ import '../node_modules/ui-toolkit/i18n.ts'
 
 function App() {
   const data = {
-    rpsKey: '<RPS API key>',
-    mpsKey: '<MPS API key>'
+    rpsKey: '<APIKEYFORRPS123!>'
   };
   return (
     <div>
       <RpsProvider data={data}>
         <Profile
-        rpsServer="http://localhost:8081"/>
+        rpsServer="https://<192.168.1.38>:<8081>"/>
       </RpsProvider>
     </div>
   );
@@ -216,7 +216,7 @@ export default App;
 
 Open **src/App.js**, add the following code as show below:
 
-> **Note:** Change **rpsServer** value to your RPS server address and appropriate webport.
+> **Note:** Change **rpsServer** value to your RPS server address and appropriate webport.**rpsKey** value is the value set to **xapikey** in .rpsrc file in rps application root directory.
 
 ```
 import React from "react";
@@ -225,14 +225,13 @@ import '../node_modules/ui-toolkit/i18n.ts'
 
 function App() {
   const data = {
-    rpsKey: '<RPS API key>',
-    mpsKey: '<MPS API key>'
+    rpsKey: '<APIKEYFORRPS123!>'
   };
   return (
     <div>
       <RpsProvider data={data}>
         <CiraEditor
-        rpsServer="http://localhost:8081"/>
+        rpsServer="https://<192.168.1.38>:<8081>"/>
       </RpsProvider>
     </div>
   );
@@ -246,7 +245,7 @@ export default App;
 
 Open **src/App.js**, add the following code as show below:
 
-> **Note:** Change **rpsServer** value to your RPS server address and appropriate webport.
+> **Note:** Change **rpsServer** value to your RPS server address and appropriate webport.**rpsKey** value is the value set to **xapikey** in .rpsrc file in rps application root directory.
 
 ```
 import React from "react";
@@ -255,13 +254,13 @@ import '../node_modules/ui-toolkit/i18n.ts'
 
 function App() {
   const data = {
-    rpsKey: '<RPS API key>'
+    rpsKey: 'APIKEYFORRPS123!'
   };
   return (
     <div>
       <RpsProvider data={data}>
         <DomainEditor
-        rpsServer="http://localhost:8081"/>
+        rpsServer="https://192.168.1.38:8081"/>
       </RpsProvider>
     </div>
   );
@@ -283,97 +282,10 @@ Go to the chrome browser, ensure controls shows up correctly.
 
 You will see the errors in the following scenario's:
 
-- compilation errors if mps-ui-toolkit has not downloaded and installed to your react app.
-- MPS server not running
+- compilation errors if ui-toolkit has not downloaded and installed to your react app.
+- MPS / RPS server not running, appropriate controls fail to work.
 - MPS server running and device not connected.
 - If your browser is IE / Edge, there might be some compatibility issues.
-
-## By-pass CORS Security for testing
-
-### MPS
-
-To display UI controls on local react Web UI for **testing**, make the following changes to by-pass CORS.
-
-- Go to your local **mps** application where it is running.
-- Press **ctrl+c** to exit the application.
-- Edit the file **mps/src/server/webserver.ts**
-- Update the code as shown below to allow any origin by MPS
-
-Search for **X-Frame-Options** and update the code as shown below
-
-```
-
-//Clickjacking defence
-this.app.use((req, res, next) => {
-  //res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers','*');
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', '*');
-    return res.status(200).json({});
-  }
-  next();
-})
-
-```
-
-Search for **isAuthenticated** and comment the code as shown below
-
-```
-
-isAuthenticated(req, res, next) {
-
-// if (req.session.loggedin){
-// return next();
-// }
-
-// if (req.header('User-Agent').startsWith('Mozilla')) {
-// // all browser calls that are not authenticated
-// res.redirect('/login.htm')
-// return;
-// }
-
-// // other api calls
-// if(req.header('X-MPS-API-Key') !== process.env.XAPIKEY){
-// res.status(401).end("Not Authenticated.")
-// return;
-// }
-
-// else
-return next();
-
-}
-
-```
-
-- Save the changes.
-
-- At the command prompt, run the below command from the root of **mps** application
-
-```
-npm start
-```
-
-## Run RPS server in DEV mode
-
-To display UI controls on local react Web UI for **testing**, make the following changes.
-
-- Go to your local **rps** application where it is running.
-- Press **ctrl+c** to exit the application.
-- Edit the file **rps/.rpsrc**
-
-Update the _xapikey_ value with below snippet
-
-```
-"xapikey": "APIKEYFORRPS123!"
-```
-
-- Save the changes.
-- At the command prompt, run the below command from the root of **rps** application
-
-```
-npm run dev
-```
 
 ## Customize and create bundles
 

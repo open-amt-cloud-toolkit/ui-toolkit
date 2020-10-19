@@ -13,7 +13,7 @@ import { TerminalDataProcessor } from '../../../core/TerminalDataProcessor';
 import { PowerOptions } from '../shared/PowerOptions';
 import { Terminal } from 'xterm';
 import Term from './Terminal';
-import { availablePowerActions } from '../shared/PowerActions';
+import { availablePowerActions, getActionById } from '../shared/PowerActions';
 import 'xterm/css/xterm.css'
 import './sol.scss';
 import { powerActions, getPowerState } from '../services/PowerActionServices';
@@ -44,7 +44,7 @@ const StyledLabel = Style.label`
 export interface SOLProps {
 	deviceId: string;
 	mpsServer: string;
-	autoConnect ?: boolean;
+	autoConnect?: boolean;
 }
 
 export interface SOLStates {
@@ -59,15 +59,6 @@ export interface SOLStates {
 	deviceOnSleep: string;
 	isPowerStateLoaded: boolean;
 }
-
-
-// const term = new Terminal({
-// 	cursorStyle: 'block',
-// 	fontWeight: 'bold',
-// 	rows: 30,
-// 	cols: 100
-// });
-
 
 /** container class for SOL */
 export class Sol extends React.Component<SOLProps, SOLStates>{
@@ -99,8 +90,7 @@ export class Sol extends React.Component<SOLProps, SOLStates>{
 			cols: 100
 		});
 	}
-
-	componentDidMount() {
+	init = () => {
 		this.terminal = new AmtTerminal();
 		this.redirector = new AMTRedirector(
 			this.logger,
@@ -121,6 +111,16 @@ export class Sol extends React.Component<SOLProps, SOLStates>{
 		this.redirector.onProcessData = this.dataProcessor.processData.bind(this.dataProcessor);
 		this.dataProcessor.processDataToXterm = this.handleWriteToXterm.bind(this);
 		this.dataProcessor.clearTerminal = this.handleClearTerminal.bind(this);
+	}
+
+	cleanUp = () => {
+		this.terminal = null;
+		this.redirector = null;
+		this.dataProcessor = null;
+	}
+
+	componentDidMount() {
+		this.init();
 	}
 
 	/** write the processed data from webscoket in to xterm */
@@ -145,9 +145,11 @@ export class Sol extends React.Component<SOLProps, SOLStates>{
 	stopSOL = () => {
 		if (typeof this.redirector !== 'undefined') {
 			this.redirector.stop();
-			this.handleClearTerminal()
-			document.location.reload()
 		}
+		this.handleClearTerminal();
+		this.cleanUp();
+		this.init();
+		// document.location.reload()
 	};
 
 	handleSOLConnect = (e) => {
@@ -165,26 +167,50 @@ export class Sol extends React.Component<SOLProps, SOLStates>{
 	handlePowerOptions = async (e) => {
 		if (e.detail === 0) {
 			const { mpsKey } = this.context.data;
-			const response = await powerActions(this.props.deviceId, e.target.value, this.props.mpsServer,  mpsKey, true)
-			if (response.Body !== undefined && response.Body.ReturnValueStr === 'SUCCESS') {
+			let powerAction = getActionById(parseInt(e.target.value));
+			if (this.state.SOLstate === 3 && (e.target.value === "8" || e.target.value === "5")) {
 				this.setState({
 					showSuccess: true,
-					type: 'success',
-					message: 'Power action was success.please wait till system boots up',
+					type: "warning",
+					message: `${powerAction} not allowed while termina1 is connected`,
 					isSelected: !this.state.isSelected,
-				})
+				});
 			} else {
-				this.setState({
-					showSuccess: true,
-					type: 'error',
-					message: 'Sorry! there was some technical difficulties',
-					isSelected: !this.state.isSelected
+				powerActions(this.props.deviceId, e.target.value, this.props.mpsServer, mpsKey, true).then(response => {
+					let resBody = response.Body
+					if (resBody !== undefined && resBody.ReturnValueStr === 'SUCCESS') {
+						this.setState({
+							showSuccess: true,
+							type: 'success',
+							message: `${powerAction} success`,
+							isSelected: !this.state.isSelected,
+						})
+					} else {
+						this.setState({
+							showSuccess: true,
+							type: 'error',
+							message: (resBody !== undefined && resBody.ReturnValue !== 0) ? `${powerAction} ${resBody.ReturnValueStr}` : response.errorDescription || 'Sorry! there was some technical difficulties',
+							isSelected: !this.state.isSelected
+						})
+					}
+					setTimeout(() => this.setState({
+						showSuccess: false,
+						isSelected: !this.state.isSelected
+					}), 4000);
+				}).catch(error => {
+					console.log(error)
+					this.setState({
+						showSuccess: true,
+						type: 'error',
+						message: (error.ajaxError.response && error.ajaxError.response.error) || 'Power Action Failed',
+						isSelected: !this.state.isSelected
+					})
+					setTimeout(() => this.setState({
+						showSuccess: false,
+						isSelected: !this.state.isSelected
+					}), 4000);
 				})
 			}
-			setTimeout(() => this.setState({
-				showSuccess: false,
-				isSelected: !this.state.isSelected
-			}), 4000);
 		}
 
 	};
@@ -204,36 +230,36 @@ export class Sol extends React.Component<SOLProps, SOLStates>{
 
 	updatePowerStatus = () => {
 		this.setState({
-		  isPowerStateLoaded: true
+			isPowerStateLoaded: true
 		})
-	  }
-	
+	}
+
 	getSOLState = () => this.state.SOLstate === 3 ? 2 : 0;
 
 	render() {
 		const { SOLstate, showSuccess, message, type, deviceOnSleep, solNotEnabled, isPowerStateLoaded } = this.state;
 		return (
 			<React.Fragment>
-				{ solNotEnabled === 'failed' && deviceOnSleep === 'poweron' ? <SnackBar message={translateText('amtFeatures.messages.failedSolFetch')} type='error'/>: ''}
-				{ solNotEnabled === 'failed' && deviceOnSleep === 'sleep' ? <SnackBar message={translateText('amtFeatures.messages.failedSolFetchAndNotPoweredUp')} type='warning' />: ''}
-				{ solNotEnabled === 'failed' && deviceOnSleep === 'failed' ? <SnackBar message={translateText('amtFeatures.messages.failedSolFetchAndFailedPowerFetch')} type='error' />: ''}
-				{ solNotEnabled === 'notEnabled' && deviceOnSleep === 'sleep' ? <SnackBar message={translateText('amtFeatures.messages.solNotEnabledAndNotPoweredUp')} type={`warning`}/>: ''}
-				{ solNotEnabled === 'notEnabled' && deviceOnSleep === 'failed' ? <SnackBar message={translateText('amtFeatures.messages.solNotEnabledAndFailedPowerFetch')} type={`warning`}/>: ''}
-				{ solNotEnabled === 'enabled' && deviceOnSleep === 'sleep' ? <SnackBar message={translateText('amtFeatures.messages.notPoweredUp')} type={'warning'} /> : ''}
-				{ solNotEnabled === 'enabled' && deviceOnSleep === 'failed' ? <SnackBar message={translateText('amtFeatures.messages.failedPowerFetch')} type={'error'} /> : ''}
-				{ solNotEnabled === 'notEnabled' && deviceOnSleep === 'poweron' ? <SnackBar message={translateText('amtFeatures.messages.solNotEnabled')} type={`warning`}/>: ''}
+				{solNotEnabled === 'failed' && deviceOnSleep === 'poweron' ? <SnackBar message={translateText('amtFeatures.messages.failedSolFetch')} type='error' /> : ''}
+				{solNotEnabled === 'failed' && deviceOnSleep === 'sleep' ? <SnackBar message={translateText('amtFeatures.messages.failedSolFetchAndNotPoweredUp')} type='warning' /> : ''}
+				{solNotEnabled === 'failed' && deviceOnSleep === 'failed' ? <SnackBar message={translateText('amtFeatures.messages.failedSolFetchAndFailedPowerFetch')} type='error' /> : ''}
+				{solNotEnabled === 'notEnabled' && deviceOnSleep === 'sleep' ? <SnackBar message={translateText('amtFeatures.messages.solNotEnabledAndNotPoweredUp')} type={`warning`} /> : ''}
+				{solNotEnabled === 'notEnabled' && deviceOnSleep === 'failed' ? <SnackBar message={translateText('amtFeatures.messages.solNotEnabledAndFailedPowerFetch')} type={`warning`} /> : ''}
+				{solNotEnabled === 'enabled' && deviceOnSleep === 'sleep' ? <SnackBar message={translateText('amtFeatures.messages.notPoweredUp')} type={'warning'} /> : ''}
+				{solNotEnabled === 'enabled' && deviceOnSleep === 'failed' ? <SnackBar message={translateText('amtFeatures.messages.failedPowerFetch')} type={'error'} /> : ''}
+				{solNotEnabled === 'notEnabled' && deviceOnSleep === 'poweron' ? <SnackBar message={translateText('amtFeatures.messages.solNotEnabled')} type={`warning`} /> : ''}
 				{showSuccess && <SnackBar message={message} type={type} />}
 				<HeaderStrip>
 					<StyledDiv>
 						<button onClick={this.handleSOLConnect}>{SOLstate === 3 ? 'Disconnect' : 'Connect'}</button>
 					</StyledDiv>
 					<StyledDiv>
-						<StyledLabel>Power Status :</StyledLabel> 
-						<PowerState 
-						deviceId= {this.props.deviceId}
-						server={this.props.mpsServer}
-						handlePowerStatus= {this.handlePowerStatus}
-						updateParent={this.updatePowerStatus}
+						<StyledLabel>Power Status :</StyledLabel>
+						<PowerState
+							deviceId={this.props.deviceId}
+							server={this.props.mpsServer}
+							handlePowerStatus={this.handlePowerStatus}
+							updateParent={this.updatePowerStatus}
 						/>
 					</StyledDiv>
 					<StyledDiv>
@@ -242,12 +268,12 @@ export class Sol extends React.Component<SOLProps, SOLStates>{
 					</StyledDiv>
 					<StyledDiv>
 						<StyledLabel>
-							{ isPowerStateLoaded && <AmtFeatures
-							deviceId={this.props.deviceId}
-							server={this.props.mpsServer}
-							feature={'SOL'}
-							handleFeatureStatus= {this.handleFeatureStatus}
-							getConnectState={this.getSOLState}
+							{isPowerStateLoaded && <AmtFeatures
+								deviceId={this.props.deviceId}
+								server={this.props.mpsServer}
+								feature={'SOL'}
+								handleFeatureStatus={this.handleFeatureStatus}
+								getConnectState={this.getSOLState}
 							/>}
 						</StyledLabel>
 					</StyledDiv>

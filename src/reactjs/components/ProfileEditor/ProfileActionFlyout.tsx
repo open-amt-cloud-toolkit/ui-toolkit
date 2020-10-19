@@ -293,7 +293,7 @@ export class ProfileActionFlyout extends React.Component<
                 </select>
               </div>
               <div className="p5">
-                <button type="submit" className="cursor" disabled={!isDisabled}>
+                <button type="submit" className="cursor profile-submit" disabled={!isDisabled}>
                   {translateText("profiles.create")}
                 </button>
               </div>

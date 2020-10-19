@@ -12,16 +12,10 @@ On loading the Domain control in the web console, one will see the list of Domai
 	<img src="assets/images/domainHome.png"  width="600" height="auto"/> 
 </div>
 
-In the Domain grid, the password details are masked and can be un-masked by clicking on the *eye* icon as shown below.
-
-<div align="center">
-	<img src="assets/images/domainPasswordMasking.png"  width="600" height="auto"/> 
-</div>
-
 
 ### Create Domains
 
-A button 'new' is provided to add a new Domain to the database.
+A button 'New' is provided to add a new Domain to the database.
 
 
 <div align="center">
@@ -29,7 +23,7 @@ A button 'new' is provided to add a new Domain to the database.
 </div>
 
 
-On click of 'new' button a flyout with a form to enter the Domain details will open and one can enter the details and click the create button to save the Domain in database.
+On click of 'New' button a flyout with a form to enter the Domain details will open and one can enter the details and click the create button to save the Domain in database.
 
 <div align="center">
 	<img src="assets/images/domainCreateFlyout.png"  width="600" height="auto"/> 
@@ -59,14 +53,14 @@ In case if a user tries to add an Domain script which already exists in the data
 
 ### Delete Domain
 
-Upon selecting any Domain by clicking on the checkbox against the Domain details row, a 'delete' button is shown on the header of Domain control.
+Upon selecting any Domain by clicking on the checkbox against the Domain details row, a 'Delete' button is shown on the header of Domain control.
 
 <div align="center">
 	<img src="assets/images/domainDelete.png"  width="600" height="auto"/> 
 </div>
 
 
-On click of delete button a popup will be shown asking for confirmation to delete the Domain as shown below.
+On click of 'Delete' button a popup will be shown asking for confirmation to delete the Domain as shown below.
 
 <div align="center">
 	<img src="assets/images/domainDeleteConfirm.png"  width="600" height="auto"/> 

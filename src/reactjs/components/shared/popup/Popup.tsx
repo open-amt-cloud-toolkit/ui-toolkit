@@ -4,7 +4,7 @@
  **********************************************************************/
 
 import React from "react";
-import "./popup.scss";
+import "./Popup.scss";
 import { Button } from "../btn/Btn";
 import { joinClasses } from "../Utilities";
 

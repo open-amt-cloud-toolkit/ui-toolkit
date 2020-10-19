@@ -7,7 +7,7 @@ import * as React from "react";
 import { ConnectButton } from "./Connectbutton";
 import { DesktopSettings } from "./Desktopsettings";
 import { powerActions } from "../services/PowerActionServices";
-import { availablePowerActions } from "../shared/PowerActions";
+import { availablePowerActions, getActionById } from "../shared/PowerActions";
 import { PowerOptions } from "../shared/PowerOptions";
 import { AmtFeatures } from "../shared/AmtFeatures";
 import SnackBar from "../shared/SnackBar";
@@ -63,60 +63,57 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
 
   /**send power actions to AMT device */
   handlePowerOptions = async (e) => {
-     if (e.detail === 0) {
+    if (e.detail === 0) {
       const { mpsKey } = this.context.data;
+      let powerAction = getActionById(parseInt(e.target.value));
       if (this.props.kvmstate === 2 && (e.target.value === "8" || e.target.value === "5")) {
         this.setState({
           showSuccess: true,
           type: "warning",
-          message:
-            "Power down and power cycle are not allowed while kvm is connected",
+          message:`${powerAction} not allowed while kvm is connected`,
           isSelected: !this.state.isSelected,
         });
       } else {
-        const response = await powerActions(
+        powerActions(
           this.props.deviceId,
           e.target.value,
           this.props.server.substr(0, this.props.server.indexOf("/")),
           mpsKey
-        );
-        if (
-          response.Body !== undefined &&
-          response.Body.ReturnValueStr === "SUCCESS"
-        ) {
-          this.setState({
-            showSuccess: true,
-            type: "success",
-            message:
-              "Power action was success.please wait till system boots up",
-            isSelected: !this.state.isSelected,
-          });
-        } else {
-          this.setState({
-            showSuccess: true,
-            type: "error",
-            message: "Sorry! there was some technical difficulties",
-            isSelected: !this.state.isSelected,
-          });
-        }
-        setTimeout(
-          () =>
+        ).then(response => {
+          if (
+            response.Body !== undefined &&
+            response.Body.ReturnValueStr === "SUCCESS"
+          ) {
             this.setState({
-              showSuccess: false,
+              showSuccess: true,
+              type: "success",
+              message: `${powerAction} success`,
               isSelected: !this.state.isSelected,
-            }),
-          4000
-        );
+            });
+          } else {
+            this.setState({
+              showSuccess: true,
+              type: "error",
+              message: (response.Body !== undefined && response.Body.ReturnValue !== 0) ? `${powerAction} ${response.Body.ReturnValueStr}` : response.errorDescription || 'Sorry! there was some technical difficulties',
+              isSelected: !this.state.isSelected,
+            });
+          }
+        }).catch(error => this.setState({
+          showSuccess: true,
+          type: "error",
+          message: (error.ajaxError.response && error.ajaxError.response.error) || 'Power Action Failed',
+          isSelected: !this.state.isSelected,
+        }));
       }
-      setTimeout(
-        () =>
-          this.setState({
-            showSuccess: false,
-            isSelected: !this.state.isSelected,
-          }),
-        4000
-      );
     }
+    setTimeout(
+      () =>
+        this.setState({
+          showSuccess: false,
+          isSelected: !this.state.isSelected,
+        }),
+      4000
+    );
   };
 
   /** callback functions from child components to update the state values */
@@ -147,16 +144,16 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
       deviceOnSleep,
     } = this.state;
     const { deviceId, server } = this.props;
-    console.log(this.props.kvmstate,"kvmstate")
+    console.log(this.props.kvmstate, "kvmstate")
     return (
       <React.Fragment>
-        {kvmNotEnabled === 'failed' && deviceOnSleep=== 'poweron' ? <SnackBar message={translateText('amtFeatures.messages.failedKvmFetch')} type='error' />: ''}
-        {kvmNotEnabled === 'failed' && deviceOnSleep==='sleep' ? <SnackBar message={translateText('amtFeatures.messages.failedKvmFetchAndNotPoweredUp')} type='warning'/>: ''}
-        {kvmNotEnabled === 'failed' && deviceOnSleep==='failed' ? <SnackBar message={translateText('amtFeatures.messages.failedKvmFetchAndFailedPowerFetch')} type='error'/>: ''}
-        {kvmNotEnabled === 'notEnabled' && deviceOnSleep==='sleep' ? <SnackBar message={translateText('amtFeatures.messages.kvmNotEnabledAndNotPoweredUp')} type={`warning`} /> : ''}
-        {kvmNotEnabled === 'notEnabled' && deviceOnSleep==='failed' ? <SnackBar message={translateText('amtFeatures.messages.kvmNotEnabledAndFailedPowerFetch')} type={`warning`} /> : ''}
-        {kvmNotEnabled === 'enabled' && deviceOnSleep==='sleep' ? <SnackBar message={translateText('amtFeatures.messages.notPoweredUp')} type={'warning'} /> : ''}
-        {kvmNotEnabled === 'enabled' && deviceOnSleep==='failed' ? <SnackBar message={translateText('amtFeatures.messages.failedPowerFetch')} type={'error'} /> : ''}
+        {kvmNotEnabled === 'failed' && deviceOnSleep === 'poweron' ? <SnackBar message={translateText('amtFeatures.messages.failedKvmFetch')} type='error' /> : ''}
+        {kvmNotEnabled === 'failed' && deviceOnSleep === 'sleep' ? <SnackBar message={translateText('amtFeatures.messages.failedKvmFetchAndNotPoweredUp')} type='warning' /> : ''}
+        {kvmNotEnabled === 'failed' && deviceOnSleep === 'failed' ? <SnackBar message={translateText('amtFeatures.messages.failedKvmFetchAndFailedPowerFetch')} type='error' /> : ''}
+        {kvmNotEnabled === 'notEnabled' && deviceOnSleep === 'sleep' ? <SnackBar message={translateText('amtFeatures.messages.kvmNotEnabledAndNotPoweredUp')} type={`warning`} /> : ''}
+        {kvmNotEnabled === 'notEnabled' && deviceOnSleep === 'failed' ? <SnackBar message={translateText('amtFeatures.messages.kvmNotEnabledAndFailedPowerFetch')} type={`warning`} /> : ''}
+        {kvmNotEnabled === 'enabled' && deviceOnSleep === 'sleep' ? <SnackBar message={translateText('amtFeatures.messages.notPoweredUp')} type={'warning'} /> : ''}
+        {kvmNotEnabled === 'enabled' && deviceOnSleep === 'failed' ? <SnackBar message={translateText('amtFeatures.messages.failedPowerFetch')} type={'error'} /> : ''}
         {kvmNotEnabled === 'notEnabled' && deviceOnSleep === 'poweron' ? <SnackBar message={translateText('amtFeatures.messages.kvmNotEnabled')} type={`warning`} /> : ''}
 
 

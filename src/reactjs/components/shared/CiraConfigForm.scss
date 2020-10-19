@@ -4,6 +4,11 @@
  **********************************************************************/
 .load-mps-button {
     display: block;
+    padding: 3px;
+    text-align: center;
+    border-radius: 5px;
+    min-width: 60px;
+    border: 1px;
 }
 
 .cira-success {
@@ -25,4 +30,12 @@ input[type="radio"] {
 
 .radio-btn{
     padding-left: 3px;
+}
+
+.cira-submit {
+    padding: 3px;
+    text-align: center;
+    border-radius: 5px;
+    min-width: 60px;
+    border: 1px;
 }

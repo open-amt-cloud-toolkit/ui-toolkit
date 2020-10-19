@@ -43,15 +43,6 @@ export const ciraColumnDefs = {
         filterParams: { applyButton: true, clearButton: true },
         sortable: true
     },
-    Password: {
-        headerName: 'cira.grid.password',
-        field: 'Password',
-        filter: "agTextColumnFilter",
-        filterParams: { applyButton: true, clearButton: true },
-        sortable: true,
-        cellRendererFramework: PasswordRenderer,
-        minWidth:250
-    },
     CommonName: {
         headerName: 'cira.grid.commonName',
         field: 'CommonName',

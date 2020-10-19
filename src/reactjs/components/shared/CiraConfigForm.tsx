@@ -419,7 +419,7 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                 </label>
               )}
               <button
-                className="cursor"
+                className="cursor cira-submit"
                 type="submit"
                 disabled={!(isDisabled && isValid)}
               >

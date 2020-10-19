@@ -165,10 +165,9 @@ describe('Test Sol class', () => {
 			"1.2.3.4:9876" + '/relay');
 
         //call the function and check the expected output
-        document.location.reload = jest.fn()
         myInstance.startSOL();
         myInstance.stopSOL();
-        expect(myInstance.redirector.stopvariable).toBe(7);
+        expect(myInstance.state.SOLstate).toBe(0);
     });
 
     it('Test onTerminalStateChange', () => {
@@ -238,9 +237,9 @@ describe('Test Sol class', () => {
 
         //call the function and check the expected output
         myInstance.onTerminalStateChange(null, 1);
-        myInstance.handleSOLConnect(e);        
-        expect(myInstance.redirector.startvariable).toBe(0);
-        expect(myInstance.redirector.stopvariable).toBe(7);
+        myInstance.handleSOLConnect(e);
+        expect(myInstance.state.isConnected).toBe(false);
+        expect(myInstance.state.SOLstate).toBe(1);
     });
     
     it('Test handleWriteToXterm', () => {

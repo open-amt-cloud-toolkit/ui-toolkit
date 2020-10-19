@@ -70,12 +70,18 @@
 }
 
 .cert-file-name {
- width : 167px;
- margin: 5px 0;
- border: 1px solid #ccc;
- overflow: hidden;
- text-overflow: ellipsis;
- text-align: center;
+    width : 165px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    padding-left: 3px;
+    font-family: Arial;
+    font-weight: 300;
+    font-size: 14px;
+    color: #666;
+    background-color: #fff;
 }
 .cert-file-label {
     border: 1px solid #ccc;
@@ -86,4 +92,12 @@
     background-color: white;
     color: #302e2e;
     text-align: center;
+}
+
+.domain-submit {
+    padding: 3px;
+    text-align: center;
+    border-radius: 5px;
+    min-width: 60px;
+    border: 1px;
 }

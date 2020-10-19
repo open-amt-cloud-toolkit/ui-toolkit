@@ -34,6 +34,7 @@ export interface AmtFeatureState {
     useKVM: boolean,
     useSOL: boolean,
     useIDER: boolean,
+    redirection: boolean,
     showMessage: boolean,
     message: string,
     type: string
@@ -51,6 +52,7 @@ export class AmtFeatures extends React.Component<AmtFeatureProps, AmtFeatureStat
             useKVM: false,
             useSOL: false,
             useIDER: false,
+            redirection: false,
             showMessage: false,
             message: '',
             type: ''
@@ -71,7 +73,8 @@ export class AmtFeatures extends React.Component<AmtFeatureProps, AmtFeatureStat
                         userConsent: data.payload.userConsent,
                         useKVM: data.payload.KVM,
                         useSOL: data.payload.SOL,
-                        useIDER: data.payload.IDER
+                        useIDER: data.payload.IDER,
+                        redirection: data.payload.redirection
                     }, () => this.updateCheckboxStatus());            
                 } else {
                     this.props.handleFeatureStatus('failed')
@@ -86,8 +89,8 @@ export class AmtFeatures extends React.Component<AmtFeatureProps, AmtFeatureStat
      */
     updateCheckboxStatus = () => {
         const { feature } = this.props;
-        const { useKVM, useSOL, useIDER } = this.state;
-        if ((feature === translateText('amtFeatures.features.kvm') && useKVM) || (feature === translateText('amtFeatures.features.sol')  && useSOL) || (feature === 'IDER' && useIDER)) {
+        const { useKVM, useSOL, useIDER, redirection } = this.state;
+        if (redirection && ((feature === translateText('amtFeatures.features.kvm') && useKVM) || (feature === translateText('amtFeatures.features.sol')  && useSOL) || (feature === 'IDER' && useIDER))) {
             this.setState({
                 checked: true
             })

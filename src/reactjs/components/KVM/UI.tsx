@@ -87,12 +87,12 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
   //   console.log("firing")
   //   if (this.props.autoConnect) {
   //     // this.startKVM();
-    
+
   //     this.handleConnectClick(window)
   //   }
   // }
 
- 
+
 
 
   componentWillUnmount() {
@@ -124,9 +124,10 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
   }
 
   startKVM() {
-    if (typeof this.redirector !== "undefined")
-    console.log("startKVM")
+    if (typeof this.redirector !== "undefined") {
+      // console.log("startKVM")
       this.redirector.start(WebSocket);
+    }
     if (typeof this.keyboard !== "undefined") this.keyboard.GrabKeyInput();
   }
 
@@ -140,7 +141,7 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
     return this.module.state; // used to check if canvas is in the middle of rendering a complete frame. 
   }
   handleConnectClick(e) {
-     e.persist();
+    e.persist();
     if (this.state.kvmstate == 0) {
       this.startKVM();
     }

@@ -41,13 +41,11 @@ describe('Profile grid component', ()=> {
 
         const response = [{
             ProfileName: 'profile1',
-            AMTPassword: 'P@ssword',
             GenerateRandomPassword: true,
             RandomPasswordLength: 8,
             Activation: 'ccmactivate'
         },{
             ProfileName: 'profile2',
-            AMTPassword: 'P@ssword2',
             GenerateRandomPassword: true,
             RandomPasswordLength: 8,
             Activation: 'ccmactivate'

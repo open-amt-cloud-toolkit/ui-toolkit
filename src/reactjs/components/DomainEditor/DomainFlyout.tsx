@@ -178,7 +178,7 @@ export class DomainFlyout extends React.Component<
               <label className="domain-label">
                 {translateText("domain.provisioningCert")} *
               </label>
-              <p className="cert-file-name">{this.state.fileName ? this.state.fileName : 'Choose File'}</p>
+              <p className="cert-file-name">{this.state.fileName ? this.state.fileName : 'Provisioning cert'}</p>
               <input
                 id="cert-file"
                 type="file"
@@ -191,12 +191,6 @@ export class DomainFlyout extends React.Component<
                 className="cert-file-input"
               />
               <label htmlFor="cert-file" onClick={this.handleClick} className="cert-file-label">Browse</label>
-
-              {provisioningCert_blur && !provisioningCert && !invalidFile && (
-                <label className="domain-error">
-                  * {translateText("domain.error.provisioningCertValidation")}
-                </label>
-              )}
               {provisioningCert_blur && invalidFile && (
                 <label className="domain-error">
                   * {translateText("domain.error.invalidFileType")}
@@ -229,7 +223,7 @@ export class DomainFlyout extends React.Component<
             </div>
             <div className="p5">
               <button
-                className="cursor"
+                className="cursor domain-submit"
                 type="submit"
                 disabled={!(isDisabled && isValid)}
               >

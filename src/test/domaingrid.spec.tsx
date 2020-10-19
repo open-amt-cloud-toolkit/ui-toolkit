@@ -43,24 +43,15 @@ describe("Domain grid component", () => {
     const response = [
       {
         Name: "domain5",
-        DomainSuffix: "d5.com",
-        ProvisioningCert: "private/d5.pfx",
-        ProvisioningCertStorageFormat: "file",
-        ProvisioningCertPassword: "<StrongPassword>",
+        DomainSuffix: "d5.com"
       },
       {
         Name: "domain6",
-        DomainSuffix: "d6.com",
-        ProvisioningCert: "private/d6.pfx",
-        ProvisioningCertStorageFormat: "file",
-        ProvisioningCertPassword: "<StrongPassword>",
+        DomainSuffix: "d6.com"
       },
       {
         Name: "domain7",
-        DomainSuffix: "d7.com",
-        ProvisioningCert: "private/d7.pfx",
-        ProvisioningCertStorageFormat: "file",
-        ProvisioningCertPassword: "<StrongPassword>",
+        DomainSuffix: "d7.com"
       },
     ];
 

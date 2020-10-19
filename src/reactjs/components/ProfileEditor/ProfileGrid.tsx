@@ -44,7 +44,6 @@ export class ProfileGrid extends React.Component<
       columnDefs: [
         checkboxColumn,
         profileColumnDefs.name,
-        profileColumnDefs.password,
         profileColumnDefs.generateRandomPassword,
         profileColumnDefs.RandomPasswordLength,
         profileColumnDefs.CiraConfigName,

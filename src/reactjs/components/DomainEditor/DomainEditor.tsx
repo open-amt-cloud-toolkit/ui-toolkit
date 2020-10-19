@@ -132,12 +132,12 @@ export class DomainEditor extends React.Component<domainProps, domainState> {
         {showMessage && <SnackBar message={message} type={type} />}
         <div className="domain-toolbar">
         {selectedDomain.length > 0 && (
-            <Button className="btn-delete" cta={this.togglePopup}>
+            <Button className="domain-button btn-delete" cta={this.togglePopup}>
               <FontAwesomeIcon icon="trash" size="xs" />
               &nbsp;&nbsp;{translateText("domain.delete")}
             </Button>
           )}
-          <Button className="btn-create" cta={this.handleChange}>
+          <Button className="domain-button btn-create" cta={this.handleChange}>
             <FontAwesomeIcon icon="plus-circle" size="xs" />
             &nbsp;&nbsp;{translateText("domain.new")}
           </Button>

@@ -18,8 +18,7 @@ export const domainColumnDefs = {
         sort: 'asc',
         filter: "agTextColumnFilter",
         filterParams: { applyButton: true, clearButton: true },
-        sortable: true,
-        maxWidth: 200
+        sortable: true
     },
     DomainSuffix: {
         headerName: 'domain.grid.domainSuffix',
@@ -27,23 +26,6 @@ export const domainColumnDefs = {
         filter: "agTextColumnFilter",
         filterParams: { applyButton: true, clearButton: true },
         sortable: true
-
-    },
-    ProvisioningCert: {
-        headerName: 'domain.grid.provisioningCert',
-        field: 'ProvisioningCert',
-        filter: "agTextColumnFilter",
-        filterParams: { applyButton: true, clearButton: true },
-        sortable: true
-    },
-    ProvisioningCertPassword : {
-        headerName: 'domain.grid.provisioningCertPassword',
-        field: 'ProvisioningCertPassword',
-        filter: "agTextColumnFilter",
-        filterParams: { applyButton: true, clearButton: true },
-        sortable: true,
-        cellRendererFramework: PasswordRenderer,
-        minWidth:250
     }
 }
 

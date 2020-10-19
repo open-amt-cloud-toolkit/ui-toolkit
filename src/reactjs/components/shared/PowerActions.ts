@@ -16,3 +16,5 @@ export const availablePowerActions = [
 	{ "value": "400", "label": "Reset To PXE" },
 	{ "value": "401", "label": "Power Up To PXE" }
 ]
+
+export const getActionById = (action) => action === 2 ? 'Power Up' : action === 8 ? 'Power Off' : action === 5 ? 'Power Cycle' : action === 10 ? "Reset" : action === 12 ? "Soft Off" : action === 14 ? "Soft Reset" : action === 4 ? "Sleep" : action === 7 ? "Hibernate" : action === 100 ? "Power Up To BIOS" : action === 101 ? "Reset To BIOS" : null

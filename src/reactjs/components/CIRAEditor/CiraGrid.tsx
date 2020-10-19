@@ -43,7 +43,6 @@ export class CiraGrid extends React.Component<CiraGridProps, CiraGridStates> {
         ciraColumnDefs.MpsServer,
         ciraColumnDefs.Port,
         ciraColumnDefs.Username,
-        ciraColumnDefs.Password,
         ciraColumnDefs.CommonName,
         ciraColumnDefs.RootCertificate,
       ],

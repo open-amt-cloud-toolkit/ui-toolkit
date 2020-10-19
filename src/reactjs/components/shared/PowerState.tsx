@@ -28,7 +28,7 @@ export class PowerState extends React.Component<PowerStateProps, { powerState: n
 
     componentDidMount() {
         this.getAmtPowerState();
-        this.timeInterval = setInterval(() => this.getAmtPowerState(), 60000);
+        this.timeInterval = setInterval(() => this.getAmtPowerState(), 30000);
 
     }
 

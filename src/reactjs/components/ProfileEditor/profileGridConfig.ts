@@ -18,16 +18,6 @@ export const profileColumnDefs = {
         sortable: true,
         maxWidth: 200
     },
-    password: {
-        headerName: 'profiles.grid.password',
-        field: 'AMTPassword',
-        filter: "agTextColumnFilter",
-        filterParams: { applyButton: true, clearButton: true },
-        sortable: true,
-        cellRendererFramework: PasswordRenderer,
-        minWidth: 250
-
-    },
     generateRandomPassword: {
         headerName: 'profiles.grid.generateRandom',
         field: 'GenerateRandomPassword',

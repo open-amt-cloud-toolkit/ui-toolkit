@@ -40,9 +40,7 @@ export class DomainGrid extends React.Component<
       columnDefs: [
         checkboxColumn,
         domainColumnDefs.Name,
-        domainColumnDefs.DomainSuffix,
-        domainColumnDefs.ProvisioningCert,
-        domainColumnDefs.ProvisioningCertPassword,
+        domainColumnDefs.DomainSuffix
       ],
       rowData: null,
       rowSelection: "single",
