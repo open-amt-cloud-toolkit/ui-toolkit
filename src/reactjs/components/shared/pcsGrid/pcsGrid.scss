@@ -13,10 +13,10 @@
 $selectedRowBorderWidth: 4px;
 $rowHeight: 48px;
 $headerResizeHeight: 18px;
-$cell-horizontal-padding:10px;
+$ag-cell-horizontal-padding:10px;
 $icons-path: "~ag-grid-community/src/styles/icons/";
-$row-height: $rowHeight;
-$header-height: $rowHeight;
+$ag-row-height: $rowHeight;
+$ag-header-height: $rowHeight;
 $background-color: transparent;
 $tab-background-color: transparent;
 $odd-row-background-color: transparent;
@@ -116,7 +116,7 @@ $doublePadding: $baseContentPadding * 2;
 
       &.first-child-column {
         // Correct alignment of the padding since the border will add width
-        padding-left: $cell-horizontal-padding - 1px - $selectedRowBorderWidth;
+        padding-left: $ag-cell-horizontal-padding - 1px - $selectedRowBorderWidth;
         border-left: $selectedRowBorderWidth solid transparent;
       }
     }
@@ -156,7 +156,7 @@ $doublePadding: $baseContentPadding * 2;
 
       .ag-header-cell-resize::after {
         height: $headerResizeHeight;
-        margin-top: ($header-height - $headerResizeHeight)/2;
+        margin-top: ($ag-header-height - $headerResizeHeight)/2;
         visibility: visible;
         // opacity: 0;
         // transition: visibility 0s, opacity 0.1s linear;
