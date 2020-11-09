@@ -14,31 +14,37 @@ node {
         }
 
         // if we are on the master branch run static code scans
-        if(env.GIT_BRANCH =~ /.*master/) {
+        // if(env.GIT_BRANCH =~ /.*master/) {
             stage('Static Code Scan') {
                 staticCodeScan {
                     // generic
-                    scanners             = ['checkmarx', 'protex']
+                    scanners             = ['checkmarx', 'protex', 'snyk']
                     scannerType          = 'javascript'
 
-                    protexProjectName    = 'IoTG RBHE MPS UI Toolkit'
+                    protexProjectName    = 'IoTG RBHE Open AMT UI Toolkit - 3Q 2020'
                     // internal, do not change
                     protexBuildName      = 'rrs-generic-protex-build'
 
                     checkmarxProjectName = "RSD-Danger-Bay-MPS-UI-ToolKit"
+
+                    //snyk details
+                    snykUrl                 = 'https://snyk.devtools.intel.com/api'
+                    snykManifestFile        = ['package-lock.json']
+                    snykProjectName         = ['danger-bay-ui_toolkit']
+                    snykScanApiToken        = 'snyk_apitoken_sys_rsdcodescan'
                 }
             }
-        }
+        // }
 
         stage('Tests') {
-            docker.image('node:10.1-slim').inside {
+            docker.image('node:latest').inside {
                 sh 'npm install'
                 sh 'npm run test'
             }
         }
 
         stage('Build') {
-            docker.image('node:10.1-slim').inside {
+            docker.image('node:latest').inside {
                 sh 'npm install'
                 sh 'npm build'
             }

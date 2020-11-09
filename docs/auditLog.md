@@ -37,7 +37,7 @@ After making  the changes, open a command prompt and navigate to the root of ui-
 npm start
 ```
 
-- Open the browser and navigate to http://localhost:8080/auditLog.htm?server=<MPS server>
+- Open the browser and navigate to http://localhost:8080/auditLog.htm?deviceId=<Device uuid>&server=<MPS server:port>
 
 **Note:** By default webpack dev server runs on port 8080. If port 8080 is already in use, webpack automatically runs on  the next immediate available port
 

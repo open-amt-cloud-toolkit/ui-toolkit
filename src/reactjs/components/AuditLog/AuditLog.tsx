@@ -359,7 +359,7 @@ export class AuditLog extends React.Component<AuditLogProps, { rowData: any, err
                             <button type="button" onClick={this.onBtLast} disabled={this.disableNext}><FontAwesomeIcon icon='angle-double-right' /></button>
                         </div>
                         <div className="ag-grid-footer-cell align-right go-to-page-section">
-                            <a onClick={this.goToPage} href="#" className='go-to-page'>{translateText('auditLog.grid.footer.gotopage.title')}</a>
+                            <button onClick={this.goToPage} className='go-to-page'>{translateText('auditLog.grid.footer.gotopage.title')}</button>
                             <input id="pagination-page" className="pagination-input" placeholder='page #' value={this.state.value} onChange={this.handleChange} type="text" name="page__num" disabled={this.disableGoToPage} />
                         </div>
                     </div>
