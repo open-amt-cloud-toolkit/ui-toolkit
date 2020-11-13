@@ -38,14 +38,14 @@ node {
 
         stage('Tests') {
             docker.image('node:latest').inside {
-                sh 'npm install'
+                sh 'npm ci'
                 sh 'npm run test'
             }
         }
 
         stage('Build') {
             docker.image('node:latest').inside {
-                sh 'npm install'
+                sh 'npm ci'
                 sh 'npm build'
             }
         }
