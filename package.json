@@ -30,7 +30,7 @@
     "export-to-csv": "^0.2.1",
     "filereader": "^0.10.3",
     "md5": "^2.2.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.1",
     "react": "16.8.4",
     "react-dom": "^16.10.2",
     "recompose": "^0.30.0",
