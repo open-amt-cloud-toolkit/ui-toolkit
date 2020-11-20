@@ -36,7 +36,7 @@
     "recompose": "^0.30.0",
     "rxjs": "^6.5.3",
     "winston": "^3.0.0",
-    "ws": "^7.1.2"
+    "ws": "^7.3.1"
   },
   "devDependencies": {
     "enzyme": "^3.10.0",
