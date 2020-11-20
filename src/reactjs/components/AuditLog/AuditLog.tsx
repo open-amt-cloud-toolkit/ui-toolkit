@@ -15,12 +15,14 @@ import { camelCaseReshape } from '../shared/Utilities';
 import { ExportToCsv } from 'export-to-csv';
 import SnackBar from "../shared/SnackBar";
 
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham-dark.css';
+
 import './AuditLog.scss';
 
 // Below 3 imports to support Localization
-import { translateColumnDefs } from "../shared/Methods";
-import { Trans } from 'react-i18next';
-import '../../../../i18n';
+import { translateColumnDefs, translateText } from "../shared/Methods";
+import { DomainContext } from "../shared/context/BasicContextProvider";
 
 const options = {
     filename: 'AuditLog'
@@ -78,6 +80,7 @@ export class AuditLog extends React.Component<AuditLogProps, { rowData: any, err
     //Fetch audit logs using device id and start index.
     fetchAuditLog = async (index) => {
         try {
+            const {mpsKey} = this.context.data;
             let body = JSON.stringify({
                 apikey: "xxxxx",
                 method: "AuditLog",
@@ -86,7 +89,7 @@ export class AuditLog extends React.Component<AuditLogProps, { rowData: any, err
                     startIndex: index
                 }
             });
-            const data = await HttpClient.post(`https://${this.props.mpsServer}/amt`, body);
+            const data = await HttpClient.post(`https://${this.props.mpsServer}/amt`, body, mpsKey, true);
             return data;
         } catch {
             console.log('An error occured');
@@ -96,7 +99,7 @@ export class AuditLog extends React.Component<AuditLogProps, { rowData: any, err
     onGridReady = params => {
         let rowtotalCnt: number = 0;
         let rowtotalCntFetched: number = 0;
-        let errorMessage = "Sorry! Something went wrong. try agian later";
+        let errorMessage = "Sorry! Something went wrong. try again later";
 
         this.gridApi = params.api;
         this.gridColumnApi = params.columnApi;
@@ -319,7 +322,6 @@ export class AuditLog extends React.Component<AuditLogProps, { rowData: any, err
         let frameworkComponent = { agColumnHeader: CustomHeader, customTooltip: CustomTooltip };
         return (
             <React.Fragment>
-                <div style={{ textAlign: 'center', fontSize: "40px" }}><Trans i18nKey='auditLog.header.heading'></Trans></div>
                 {!this.state.isExporting ? <div>
                     <div id="grid-wrapper" style={{ width: "100%", height: "375px" }}>
                         <div className="ag-theme-balham-dark" style={{ height: "100%", width: "100%" }}>
@@ -346,17 +348,18 @@ export class AuditLog extends React.Component<AuditLogProps, { rowData: any, err
                     <div className="agGrid-footer">
                         <div className="ag-grid-footer-cell align-left">
                             {this.state.showTooltip && <Tooltip message='Exports only cached entries' styles={tooltipStyle} />}
-                            <a href="#" className='export-to-csv' onClick={this.onBtExport} ><Trans i18nKey='auditLog.grid.footer.exporttocsv.title'></Trans></a>
+                            <button  className='export-to-csv' onClick={this.onBtExport} ><FontAwesomeIcon icon='file-export'/>{translateText('auditLog.grid.footer.exporttocsv.title')}
+                            </button>
                         </div>
                         <div className="ag-grid-footer-cell agGrid-Paginition align-center">
                             <button type="button" onClick={this.onBtFirst} disabled={this.disablePrev}><FontAwesomeIcon icon='angle-double-left' /></button>
                             <button type="button" onClick={this.onBtPrevious} disabled={this.disablePrev}><FontAwesomeIcon icon='angle-left' /></button>
-                            <span><Trans i18nKey='auditLog.grid.footer.pagination.text1'></Trans> {this.state.currentPage} <Trans i18nKey='auditLog.grid.footer.pagination.text2'></Trans> {this.state.totalPages}</span>
+                            <span>{translateText('auditLog.grid.footer.pagination.text1')} {this.state.currentPage} {translateText('auditLog.grid.footer.pagination.text2')} {this.state.totalPages}</span>
                             <button type="button" onClick={this.onBtNext} disabled={this.disableNext}><FontAwesomeIcon icon='angle-right' /></button>
                             <button type="button" onClick={this.onBtLast} disabled={this.disableNext}><FontAwesomeIcon icon='angle-double-right' /></button>
                         </div>
                         <div className="ag-grid-footer-cell align-right go-to-page-section">
-                            <a onClick={this.goToPage} href="#" className='go-to-page'><Trans i18nKey='auditLog.grid.footer.gotopage.title'></Trans></a>
+                            <button onClick={this.goToPage} className='go-to-page'>{translateText('auditLog.grid.footer.gotopage.title')}</button>
                             <input id="pagination-page" className="pagination-input" placeholder='page #' value={this.state.value} onChange={this.handleChange} type="text" name="page__num" disabled={this.disableGoToPage} />
                         </div>
                     </div>
@@ -366,9 +369,11 @@ export class AuditLog extends React.Component<AuditLogProps, { rowData: any, err
                             <span className="loader"></span>
                         </div>
                     </div>}
-                {this.state.hasExportFailed && <SnackBar message={this.state.snackBarMessage} />}
+                {this.state.hasExportFailed && <SnackBar message={this.state.snackBarMessage} type='' />}
             </React.Fragment>
         );
     }
 
 }
+
+AuditLog.contextType = DomainContext;

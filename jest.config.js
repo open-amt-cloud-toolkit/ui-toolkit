@@ -1,3 +1,8 @@
+/*********************************************************************
+* Copyright (c) Intel Corporation 2020
+* SPDX-License-Identifier: Apache-2.0
+**********************************************************************/
+
 module.exports = {
   globals: {
     'ts-jest': {
@@ -16,8 +21,12 @@ module.exports = {
   testMatch: [
     '**/test/**/*.test.ts',
     '**/test/**/*.spec.ts',
-    '**/test/**/*.spec.tsx'
+    '**/test/**/*.spec.tsx',
+    '**/test/**/*.test.tsx'
   ],
-  testEnvironment: 'node',
-  setupFiles: ['<rootDir>/jest.setup.ts']
+  testEnvironment: 'jsdom',
+  setupFiles: ['<rootDir>/jest.setup.ts'],
+  moduleNameMapper: {
+   "^.+\\.(css|scss)$": "identity-obj-proxy"
+ }
 }

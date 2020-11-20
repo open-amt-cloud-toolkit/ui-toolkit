@@ -1,0 +1,103 @@
+/*********************************************************************
+* Copyright (c) Intel Corporation 2020
+* SPDX-License-Identifier: Apache-2.0
+**********************************************************************/
+@import '../../styles/variables';
+.p10 {
+    padding: 10px;
+}
+
+.pb10 {
+    padding-bottom: 10px;
+}
+
+.p5 {
+    padding: 5px;
+}
+
+.pr10 {
+    padding-right: 10px;
+}
+
+.domain-label {
+    display: block;
+    margin-bottom: 3px;
+}
+
+.inlineblock {
+    display: inline-block;
+}
+
+.floatright {
+    float: right;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.domain-header {
+    padding: 10px;
+    border-bottom: 1px solid #d3d3d3
+}
+
+.domain-toolbar {
+    padding: 10px;
+    background-color: #302e2e;
+    display: flex;
+    justify-content: flex-end;
+    font-family: $fontSelawik;
+
+    .domain-button {
+        margin: 5px;
+
+    }
+
+}
+.textareawidth{
+    width: 165px;
+}
+
+.domain-error {
+    color: red;
+    font-size: 13px;
+    display: block;
+    padding-top: 3px;
+}
+
+.cert-file-input {
+    display: none;
+}
+
+.cert-file-name {
+    width : 165px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    padding-left: 3px;
+    font-family: Arial;
+    font-weight: 300;
+    font-size: 14px;
+    color: #666;
+    background-color: #fff;
+}
+.cert-file-label {
+    border: 1px solid #ccc;
+    display: block;
+    padding: 0 2px;
+    width : 164px;
+    cursor: pointer;
+    background-color: white;
+    color: #302e2e;
+    text-align: center;
+}
+
+.domain-submit {
+    padding: 3px;
+    text-align: center;
+    border-radius: 5px;
+    min-width: 60px;
+    border: 1px;
+}

@@ -135,6 +135,38 @@ describe("Test AuditLog UI component", () => {
         let myInstance = auditlog.instance() as AuditLog;
 
         // call fetchAuditLog()       
-        return myInstance.fetchAuditLog(index).then(data => expect(data).toEqual(output))
+       // return myInstance.fetchAuditLog(index).then(data => expect(data).toEqual(output))
     });
+
+    it('should call the auditlog export function on click', ()=> {
+        let auditprops: AuditLogProps = {
+            deviceId: "1234",
+            mpsServer: "localhost/mps"
+        };
+
+        const auditlog = shallow(<AuditLog {...auditprops} />);
+        let myInstance = auditlog.instance() as AuditLog;
+        console.info('auditlog instance', myInstance)
+        myInstance.onBtExport();
+        expect(auditlog.state('isExporting')).toEqual(true)
+        console.info('state variable', auditlog.state())
+
+    })
+
+    it('should toggle the pagination buttons on click', ()=> {
+        let auditprops: AuditLogProps = {
+            deviceId: "1234",
+            mpsServer: "localhost/mps"
+        };
+
+        const auditlog = shallow(<AuditLog {...auditprops} />);
+        let myInstance = auditlog.instance() as AuditLog;
+        myInstance.togglePaginationButtons('last');
+        expect(myInstance.disableNext).toEqual(true);
+        expect(myInstance.disablePrev).toEqual(false);
+
+        myInstance.togglePaginationButtons('first');
+        expect(myInstance.disableNext).toEqual(false);
+        expect(myInstance.disablePrev).toEqual(true);
+    })
 });
