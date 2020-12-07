@@ -2,7 +2,7 @@
 
 The UI Toolkit provides prebuilt, React-based components for integrating remote management features such as a keyboard, video, mouse (KVM) control into a web-based management console UI. The controls have a reference UI and layout that can be customized further to seamlessly integrate with existing management console solutions.
 
-**For detailed documentation** about [Getting Started with the UI Toolkit](https://open-amt-cloud-toolkit.github.io/mps/Tutorials/uitoolkit) or other features of the Open AMT Cloud Toolkit, see the [docs](https://open-amt-cloud-toolkit.github.io/mps/).
+**For detailed documentation** about [Getting Started with the UI Toolkit](https://open-amt-cloud-toolkit.github.io/docs/1.0/Tutorials/uitoolkit) or other features of the Open AMT Cloud Toolkit, see the [docs](https://open-amt-cloud-toolkit.github.io/docs/).
 
 ## Prerequisites
 
@@ -53,10 +53,10 @@ The React app can be created in any preferred development directory. The MPS can
     ```
 
 
-Learn how to add the KVM control to your new React app [here](https://open-amt-cloud-toolkit.github.io/mps/Tutorials/uitoolkit/#add-a-sample-control)
+Learn how to add the KVM control to your new React app [here](https://open-amt-cloud-toolkit.github.io/docs/1.0/Tutorials/uitoolkit/#add-a-sample-control)
 
 
-For detailed documentation about the UI Toolkit, see the [docs](https://open-amt-cloud-toolkit.github.io/mps/)
+For detailed documentation about the UI Toolkit, see the [docs](https://open-amt-cloud-toolkit.github.io/docs/)
 
 
 ## License Note
