@@ -11,6 +11,8 @@ export interface CiraCongigProps {
   close?: any;
   rpsServer?: any;
   createNotification?: any;
+  isEdit?:boolean;
+  selectedCiraConfigs?:any
 }
 
 /**
@@ -24,6 +26,8 @@ export class CiraConfigFlyout extends React.Component<CiraCongigProps> {
           notificationCallback={this.props.createNotification}
           close={this.props.close}
           rpsServer={this.props.rpsServer}
+          isEdit={this.props.isEdit}
+          selectedCiraConfigs={this.props.selectedCiraConfigs}
           
         />
       </Flyout>

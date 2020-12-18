@@ -23,7 +23,7 @@ export const camelCaseKeys = (data) => {
 
 /** Takes an object and converts it to another structure using dot-notation */
 export const reshape = (response, model) => {
-  return Object.keys(model).reduce(
+   return Object.keys(model).reduce(
     (acc, key) => dot.copy(key, model[key], response, acc),
     {}
   );

@@ -37,6 +37,7 @@ export interface domainState {
   showMessage?: boolean;
   message?: string;
   type?: string;
+  isEdit?: boolean;
 }
 
 export class DomainEditor extends React.Component<domainProps, domainState> {
@@ -50,6 +51,7 @@ export class DomainEditor extends React.Component<domainProps, domainState> {
       showMessage: false,
       message: "",
       type: "",
+      isEdit: false
     };
   }
 
@@ -60,11 +62,13 @@ export class DomainEditor extends React.Component<domainProps, domainState> {
 
   togglePopup = () => this.setState({ showPopup: !this.state.showPopup });
 
-  handleChange = () => this.setState({ openFlyout: !this.state.openFlyout });
+  handleChange = () => this.setState({ openFlyout: !this.state.openFlyout, isEdit: false });
+
+  handleEdit = () => this.setState({openFlyout: !this.state.openFlyout, isEdit: true})
 
   confirmDelete = async () => {
     const { rpsKey } = this.context.data;
-    let domainName = encodeSpecialCharacters(this.state.selectedDomain[0].Name);
+    let domainName = encodeSpecialCharacters(this.state.selectedDomain[0].name);
     const response = await HttpClient.delete(`${this.props.rpsServer}/api/v1/admin/domains/${domainName}`, rpsKey);
 
     if (response === `Domain ${domainName} successfully deleted`) {
@@ -132,12 +136,18 @@ export class DomainEditor extends React.Component<domainProps, domainState> {
         {showMessage && <SnackBar message={message} type={type} />}
         <div className="domain-toolbar">
         {selectedDomain.length > 0 && (
-            <Button className="domain-button btn-delete" cta={this.togglePopup}>
+            <Button className="domain-button btn-delete" onClick={this.togglePopup}>
               <FontAwesomeIcon icon="trash" size="xs" />
               &nbsp;&nbsp;{translateText("domain.delete")}
             </Button>
           )}
-          <Button className="domain-button btn-create" cta={this.handleChange}>
+        {selectedDomain.length > 0 && (
+            <Button className="domain-button btn-edit" onClick={this.handleEdit}>
+              <FontAwesomeIcon icon="edit" size="xs" />
+              &nbsp;&nbsp;{translateText("domain.edit")}
+            </Button>
+          )}
+          <Button className="domain-button btn-create" onClick={this.handleChange}>
             <FontAwesomeIcon icon="plus-circle" size="xs" />
             &nbsp;&nbsp;{translateText("domain.new")}
           </Button>
@@ -155,11 +165,13 @@ export class DomainEditor extends React.Component<domainProps, domainState> {
             close={this.handleChange}
             rpsServer={this.props.rpsServer}
             notificationCallback={this.notificationCallback}
+            selectedDomain={this.state.selectedDomain}
+            isEdit={this.state.isEdit}
           />
         )}
         {showPopup && (
           <Popup
-            text={`Do you want to delete ${selectedDomain[0].Name} domain?`}
+            text={`Do you want to delete ${selectedDomain[0].name} domain?`}
             closePopup={this.togglePopup}
             confirm={this.confirmDelete}
             className="profile-popup"

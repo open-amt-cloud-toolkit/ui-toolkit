@@ -38,6 +38,7 @@ export interface CiraEditorState {
   type?: string;
   updateCiraGrid?: boolean;
   selectedCiraConfigs: any;
+  isEdit: boolean
 }
 
 /**
@@ -46,7 +47,7 @@ export interface CiraEditorState {
 export class CiraEditor extends React.Component<
   CiraEditorProps,
   CiraEditorState
-> {
+  > {
   constructor(props: CiraEditorProps) {
     super(props);
     this.state = {
@@ -57,6 +58,7 @@ export class CiraEditor extends React.Component<
       type: "",
       updateCiraGrid: false,
       selectedCiraConfigs: "",
+      isEdit:false
     };
   }
 
@@ -67,42 +69,44 @@ export class CiraEditor extends React.Component<
   };
 
   confirmDelete = async () => {
-    const {rpsKey} = this.context.data;
+    const { rpsKey } = this.context.data;
     this.togglePopup();
-    let configName = encodeSpecialCharacters(this.state.selectedCiraConfigs[0].ConfigName);
+    let configName = encodeSpecialCharacters(this.state.selectedCiraConfigs[0].configName);
     let response = await HttpClient.delete(`${this.props.rpsServer}/api/v1/admin/ciraconfigs/${configName}`, rpsKey)
-        if (response === `CIRA Config ${this.state.selectedCiraConfigs[0].ConfigName} successfully deleted`) {
-          this.setState({
-            showMessage: true,
-            message: response,
-            type: `success`,
-            updateCiraGrid: !this.state.updateCiraGrid,
-            selectedCiraConfigs: "",
-          });
-        } else {
-          this.setState({
-            showMessage: true,
-            message: response,
-            type: `error`,
-          });
-        }
-        this.showNotification();
-      }
+    if (response === `CIRA Config ${this.state.selectedCiraConfigs[0].configName} successfully deleted`) {
+      this.setState({
+        showMessage: true,
+        message: response,
+        type: `success`,
+        updateCiraGrid: !this.state.updateCiraGrid,
+        selectedCiraConfigs: "",
+      });
+    } else {
+      this.setState({
+        showMessage: true,
+        message: response,
+        type: `error`,
+      });
+    }
+    this.showNotification();
+  }
 
-      showNotification = () =>  setTimeout(() => {
-        this.setState({
-          showMessage: false,
-        });
-      }, 4000);
+  showNotification = () => setTimeout(() => {
+    this.setState({
+      showMessage: false,
+    });
+  }, 4000);
 
   getSelectedCiraConfigs = (ciraConfigs) => {
     //set the cira configs in a state and use for delete
-    this.setState({
+     this.setState({
       selectedCiraConfigs: ciraConfigs,
     });
   };
   // open/close create CIRA config flyout
-  handleChange = () => this.setState({ openFlyout: !this.state.openFlyout });
+  handleChange = () => this.setState({ openFlyout: !this.state.openFlyout, isEdit: false });
+
+  handleEdit = () => this.setState({openFlyout: !this.state.openFlyout, isEdit:true})
 
   //callback function for handling CIRA config creation message display
   createNotification = (success, message) => {
@@ -136,24 +140,31 @@ export class CiraEditor extends React.Component<
       message,
       type,
       updateCiraGrid,
+      isEdit
     } = this.state;
     return (
       <React.Fragment>
         {showMessage && <SnackBar message={message} type={type} />}
         <div className="cira-toolbar">
           {selectedCiraConfigs.length > 0 && (
-            <Button className="cira-button btn-delete" cta={this.togglePopup}>
+            <Button className="cira-button btn-delete" onClick={this.togglePopup}>
               <FontAwesomeIcon icon="trash" size="xs" />
               &nbsp;&nbsp;{translateText("cira.delete")}
             </Button>
           )}
-          <Button className='cira-button btn-create' cta={this.handleChange}>
+          {selectedCiraConfigs.length > 0 && (
+            <Button className="cira-button btn-edit" onClick={this.handleEdit}>
+              <FontAwesomeIcon icon="edit" size="xs" />
+              &nbsp;&nbsp;{translateText("cira.edit")}
+            </Button>
+          )}
+          <Button className='cira-button btn-create' onClick={this.handleChange}>
             <FontAwesomeIcon icon="plus-circle" size="xs" />
             &nbsp;&nbsp;{translateText("cira.new")}
           </Button>
         </div>
         <Consumer>
-          {({data})=> <CiraGrid
+          {({ data }) => <CiraGrid
             rpsServer={this.props.rpsServer}
             updateCiraGrid={updateCiraGrid}
             getSelectedCiraConfigs={this.getSelectedCiraConfigs}
@@ -165,11 +176,13 @@ export class CiraEditor extends React.Component<
             close={this.handleChange}
             rpsServer={this.props.rpsServer}
             createNotification={this.createNotification}
+            isEdit={isEdit}
+            selectedCiraConfigs ={selectedCiraConfigs}
           />
         )}
         {showPopup && (
           <Popup
-            text={`Do you want to delete ${selectedCiraConfigs[0].ConfigName} CIRA Config?`}
+            text={`Do you want to delete ${selectedCiraConfigs[0].configName} CIRA Config?`}
             closePopup={this.togglePopup}
             confirm={this.confirmDelete}
             className="profile-popup"

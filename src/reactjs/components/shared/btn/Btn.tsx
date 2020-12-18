@@ -18,7 +18,7 @@ export interface ButtonProps {
   isDisplay?: boolean;
   label?: string;
   btnProps?: any;
-  cta: any;
+  onClick: any;
 }
 
 /** Reusable display component for button UI throughout the app */
@@ -42,7 +42,7 @@ export class Button extends React.Component<ButtonProps> {
             key={label}
             type="button"
             className={joinClasses("icon-btn", className)}
-            onClick={this.props.cta}
+            onClick={this.props.onClick}
           >
             <FontAwesomeIcon
               title={label}
@@ -57,7 +57,7 @@ export class Button extends React.Component<ButtonProps> {
             type="button"
             {...btnProps}
             className={joinClasses("btn", "btn-primary", className)}
-            onClick={this.props.cta}
+            onClick={this.props.onClick}
           >
             <div className="btn-text">{children}</div>
           </button>

@@ -17,6 +17,7 @@ module.exports = {
     profile:'./src/reactjs/components/ProfileEditor/ProfileEditor.tsx',
     cira: './src/reactjs/components/CIRAEditor/CiraEditor.tsx',
     domain: './src/reactjs/components/DomainEditor/DomainEditor.tsx',
+    network:'./src/reactjs/components/NetworkEditor/NetworkEditor.tsx',
     mps: "./src/reactjs/components/mps.tsx",
     rps:"./src/reactjs/components/rps.tsx"
   },

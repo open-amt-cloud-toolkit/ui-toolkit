@@ -21,7 +21,7 @@ export const Popup = ({ text, confirm, closePopup, className }) => (
           iconName={"check"}
           iconColor={"green"}
           iconSize={"lg"}
-          cta={() => confirm()}
+          onClick={() => confirm()}
         />
         <Button
           className="popup-button btn-cancel"
@@ -30,7 +30,7 @@ export const Popup = ({ text, confirm, closePopup, className }) => (
           iconName={"times"}
           iconColor={"red"}
           iconSize={"lg"}
-          cta={() => closePopup()}
+          onClick={() => closePopup()}
         />
       </div>
     </div>

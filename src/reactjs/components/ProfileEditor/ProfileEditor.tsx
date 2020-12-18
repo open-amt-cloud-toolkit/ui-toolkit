@@ -30,13 +30,14 @@ export interface ProfileProps {
 }
 
 export interface ProfileStates {
-  selectedDevices: any;
+  selectedProfile: any;
   openFlyout: boolean;
   showPopup: boolean;
   showMessage: boolean;
   message: any;
   type: string;
   updateProfileGrid: boolean;
+  isEdit: boolean; 
 }
 
 /**
@@ -46,18 +47,19 @@ export class Profile extends React.Component<ProfileProps, ProfileStates> {
   constructor(props: ProfileProps) {
     super(props);
     this.state = {
-      selectedDevices: "",
+      selectedProfile: "",
       openFlyout: false,
       showPopup: false,
       showMessage: false,
       message: "",
       type: "",
       updateProfileGrid: false,
+      isEdit: false, 
     };
   }
 
-  getSelectedDevices = (selectedDevices) => {
-    this.setState({ selectedDevices: selectedDevices });
+  getselectedProfile = (selectedProfile) => {
+    this.setState({ selectedProfile: selectedProfile });
   };
 
   //Toggle the display of popup
@@ -75,7 +77,7 @@ export class Profile extends React.Component<ProfileProps, ProfileStates> {
         message: response,
         type: `success`,
         updateProfileGrid: !this.state.updateProfileGrid,
-        selectedDevices: "",
+        selectedProfile: "",
         openFlyout: false,
       });
     } else {
@@ -99,36 +101,22 @@ export class Profile extends React.Component<ProfileProps, ProfileStates> {
   //call delete profile rest api and display notifications using snackbar
   confirmDelete = async () => {
     let {rpsKey} = this.context.data;
-    console.info('context', rpsKey);
     this.togglePopup();
     let profileName = encodeSpecialCharacters(
-      this.state.selectedDevices[0].ProfileName
+      this.state.selectedProfile[0].profileName
     );
     const response = await HttpClient.delete(`${this.props.rpsServer}/api/v1/admin/profiles/${profileName}`, rpsKey)
-    // const response = await fetch(
-    //   `${this.props.rpsServer}/api/v1/admin/profiles/${profileName}`,
-    //   {
-    //     method: "DELETE",
-    //     headers: {
-    //       Accept: "application/json",
-    //       "Content-Type": "application/json",
-    //       "X-RPS-API-KEY": "APIKEYFORRPS123!",
-    //     },
-    //   }
-    // )
-      // .then((data) => data.text())
-      // .catch((error) => console.info("error", error));
 
     if (
       response ===
-      `Profile ${this.state.selectedDevices[0].ProfileName} successfully deleted`
+      `Profile ${this.state.selectedProfile[0].profileName} successfully deleted`
     ) {
       this.setState({
         showMessage: true,
         message: response,
         type: `success`,
         updateProfileGrid: !this.state.updateProfileGrid,
-        selectedDevices: "",
+        selectedProfile: "",
       });
     } else {
       this.setState({
@@ -140,12 +128,20 @@ export class Profile extends React.Component<ProfileProps, ProfileStates> {
     this.showNotification();
   };
 
-  // open/close create profile flyout
-  handleChange = () => this.setState({ openFlyout: !this.state.openFlyout });
+  handleEdit = () => {
+    this.setState({
+      openFlyout: !this.state.openFlyout,
+      isEdit: true
+    })
+  }
 
+  // open/close create profile flyout
+  handleChange = () => this.setState({ openFlyout: !this.state.openFlyout, isEdit: false});
+
+ 
   render() {
     let {
-      selectedDevices,
+      selectedProfile,
       openFlyout,
       showMessage,
       showPopup,
@@ -156,16 +152,25 @@ export class Profile extends React.Component<ProfileProps, ProfileStates> {
       <React.Fragment>
         {showMessage && <SnackBar message={message} type={type} />}
         <div className="profile-toolbar">
-          {selectedDevices.length > 0 && (
+          {selectedProfile.length > 0 && (
             <Button
               className="profile-button btn-delete"
-              cta={this.togglePopup}
+              onClick={this.togglePopup}
             >
               <FontAwesomeIcon icon="trash" size="xs" />
               &nbsp;&nbsp;{translateText("profiles.delete")}
             </Button>
           )}
-          <Button className="profile-button btn-create" cta={this.handleChange}>
+          {selectedProfile.length > 0 && (
+            <Button
+              className="profile-button btn-edit"
+              onClick={this.handleEdit}
+            >
+              <FontAwesomeIcon icon="edit" size="xs" />
+              &nbsp;&nbsp;{translateText("profiles.edit")}
+            </Button>
+          )}
+          <Button className="profile-button btn-create" onClick={this.handleChange}>
             {" "}
             <FontAwesomeIcon icon="plus-circle" size="xs" />
             &nbsp;&nbsp; {translateText("profiles.new")}{" "}
@@ -175,7 +180,7 @@ export class Profile extends React.Component<ProfileProps, ProfileStates> {
           {
             ({data}) =><ProfileGrid
             rpsServer={this.props.rpsServer}
-            getSelectedDevices={(items) => this.getSelectedDevices(items)}
+            getselectedProfile={(items) => this.getselectedProfile(items)}
             updateProfileGrid={this.state.updateProfileGrid}
             rpsKey={data.rpsKey}
           />}
@@ -187,12 +192,14 @@ export class Profile extends React.Component<ProfileProps, ProfileStates> {
             rpsServer={this.props.rpsServer}
             createProfileNotification={this.createProfile}
             rpsKey={data.rpsKey}
+            slectedProfiles={this.state.selectedProfile}
+            isEdit={this.state.isEdit}
           />}
           </Consumer>
         )}
         {showPopup && (
           <Popup
-            text={`Do you want to delete ${selectedDevices[0].ProfileName} profile?`}
+            text={`Do you want to delete ${selectedProfile[0].profileName} profile?`}
             closePopup={this.togglePopup}
             confirm={this.confirmDelete}
             className="profile-popup"

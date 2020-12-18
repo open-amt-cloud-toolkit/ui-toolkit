@@ -7,7 +7,7 @@ import { prepareHeaders } from "../shared/Utilities";
 
 export class HttpClient {
 
-  static get(url,apiKey, options = {}) {
+  static get(url, apiKey, options = {}) {
     const jsonHeaders = prepareHeaders(apiKey)
     return HttpClient.fetch(url, {
       ...options,
@@ -16,32 +16,43 @@ export class HttpClient {
     });
   }
 
-  static post(url, body = {},apiKey?, isMps?,  options = {}) {
+  static post(url, body = {}, apiKey?, isMps?, options = {}) {
     const jsonHeaders = prepareHeaders(apiKey, isMps)
-    if(isMps) {
+    if (isMps) {
       return HttpClient.fetch(url, {
-      ...options,
-      method: "POST",
-      body: body,
-      headers: jsonHeaders
+        ...options,
+        method: "POST",
+        body: body,
+        headers: jsonHeaders
       });
-    }else {
+    } else {
       return HttpClient.fetchRPS(url, {
         ...options,
         method: "POST",
         body: body,
         headers: jsonHeaders
-        });
+      });
     }
   }
 
-  static delete(url,apiKey?, options = {}) {
+  static delete(url, apiKey?, options = {}) {
     const jsonHeaders = prepareHeaders(apiKey)
-    return HttpClient.fetchRPS( url, {
+    return HttpClient.fetchRPS(url, {
       ...options,
       method: 'DELETE',
       headers: jsonHeaders
     })
+  }
+
+  static patch(url, body = {}, apiKey?, options = {}) {
+    const jsonHeaders = prepareHeaders(apiKey)
+    return HttpClient.fetchRPS(url, {
+      ...options,
+      method: "PATCH",
+      body: body,
+      headers: jsonHeaders
+    });
+
   }
 
   static fetch(url, options = {}) {

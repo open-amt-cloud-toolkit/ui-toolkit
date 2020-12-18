@@ -8,15 +8,16 @@ import {
   profileColumnDefs,
   checkboxColumn,
   defaultDeviceGridProps,
+  profileModel,
 } from "./profileGridConfig";
 import { PcsGrid } from "../shared/pcsGrid/PcsGrid";
-import { isFunc } from "../shared/Utilities";
+import { isFunc, camelCaseReshape } from "../shared/Utilities";
 import { translateColumnDefs } from "../shared/Methods";
 import { HttpClient } from "../services/HttpClient";
 
 export interface ProfileGridProps {
   rpsServer: string;
-  getSelectedDevices?: any;
+  getselectedProfile?: any;
   updateProfileGrid: boolean;
   rpsKey: string;
 }
@@ -43,9 +44,12 @@ export class ProfileGrid extends React.Component<
     this.state = {
       columnDefs: [
         checkboxColumn,
-        profileColumnDefs.name,
-        profileColumnDefs.generateRandomPassword,
+        profileColumnDefs.Name,
+        profileColumnDefs.GenerateRandomPassword,
         profileColumnDefs.RandomPasswordLength,
+        profileColumnDefs.GenerateRandomMEBXPassword,
+        profileColumnDefs.RandomMEBXPasswordLength,
+        profileColumnDefs.NetworkConfigName,
         profileColumnDefs.CiraConfigName,
         profileColumnDefs.Activation,
       ],
@@ -69,8 +73,11 @@ export class ProfileGrid extends React.Component<
   componentDidUpdate(prevProps) {
     if (this.props.updateProfileGrid != prevProps.updateProfileGrid) {
       this.fetchProfiles().then((data) => {
-        this.setState({
-          rowData: data,
+        let reshapedData = data.map((profile) =>
+          camelCaseReshape(profile, profileModel)
+        );
+         this.setState({
+          rowData: reshapedData,
         });
       });
     }
@@ -78,14 +85,17 @@ export class ProfileGrid extends React.Component<
 
   //update the parent component with selected profile details
   onSelectionChanged = () => {
-    if (isFunc(this.props.getSelectedDevices)) {
-      this.props.getSelectedDevices(this.gridApi.getSelectedRows());
+    if (isFunc(this.props.getselectedProfile)) {
+      this.props.getselectedProfile(this.gridApi.getSelectedRows());
     }
   };
 
   //Rest api call to fetch the profiles list through HTTP client
   fetchProfiles = async () =>
-    await HttpClient.get(`${this.props.rpsServer}/api/v1/admin/profiles`, this.props.rpsKey)
+    await HttpClient.get(
+      `${this.props.rpsServer}/api/v1/admin/profiles`,
+      this.props.rpsKey
+    )
       .then((data) => data)
       .catch((error) =>
         this.setState({
@@ -97,8 +107,10 @@ export class ProfileGrid extends React.Component<
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.fetchProfiles().then((data) => {
-      this.setState({
-        rowData: data,
+      let reshapedData = data.map((profile) =>camelCaseReshape(profile, profileModel)
+      );
+       this.setState({
+        rowData: reshapedData,
       });
     });
   };

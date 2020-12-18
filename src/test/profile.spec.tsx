@@ -12,7 +12,6 @@ import { Profile, ProfileProps, ProfileStates } from '../reactjs/components/Prof
 import { mocked } from 'ts-jest/utils';
 import { HttpClient } from '../reactjs/components/services/HttpClient';
 
-jest.mock('../reactjs/components/services/HttpClient');
 describe('Test profile component', () => {
 
     it('loads the component without crashing ', () => {
@@ -24,13 +23,13 @@ describe('Test profile component', () => {
         expect(wrapper.find('Button')).toHaveLength(1)
     })
 
-    it('should show the delete button on selecting a profile from the grid', ()=> {
+    it('should show the delete and edit button on selecting a profile from the grid', ()=> {
         const profileProps: ProfileProps =  {
             rpsServer: 'localhost:8081'
         }
 
         const profileStates = {
-            selectedDevices: [{
+            selectedProfile: [{
                 ProfileName: 'profile1',
                 AMTPassword: 'Password@123',
                 GenerateRandomPassword: false,
@@ -42,7 +41,7 @@ describe('Test profile component', () => {
         const wrapper = shallow(<Profile {...profileProps} />)
         wrapper.setState(profileStates);
         wrapper.instance().forceUpdate();
-        expect(wrapper.find('Button')).toHaveLength(2)
+        expect(wrapper.find('Button')).toHaveLength(3)
     })
 
     it('should load the confirmation popup on clicking delete button', () => {
@@ -51,7 +50,7 @@ describe('Test profile component', () => {
         }
 
         const profileStates = {
-            selectedDevices: [{
+            selectedProfile: [{
                 ProfileName: 'profile1',
                 AMTPassword: 'Password@123',
                 GenerateRandomPassword: false,
@@ -76,25 +75,31 @@ describe('Test profile component', () => {
         }
 
         const profileStates = {
-            selectedDevices: [{
-                ProfileName: 'profile1',
-                AMTPassword: 'Password@123',
-                GenerateRandomPassword: false,
-                RandomPasswordLength: 8,
-                Activation: 'ccmactivation'
+            selectedProfile: [{
+                profileName: 'profile1',
+                amtPassword: 'Password@123',
+                fenerateRandomPassword: false,
+                randomPasswordLength: 8,
+                ciraConfigName: 'config1',
+                activation: 'ccmactivation'
             }],
             showPopup: true
         }
-        mocked(HttpClient.delete).mockImplementation(() => Promise.resolve('Profile deleted'));
-
+        HttpClient.delete = jest.fn(()=> Promise.resolve('Profile profile1 successfully deleted'))
         const wrapper = shallow(<Profile {...profileProps} />)
 
         wrapper.setState(profileStates);
         wrapper.instance().forceUpdate();
         const instance = wrapper.instance() as Profile;
+        instance.context = {
+            data: {
+                rpsKey: 'APIKEYFORRPS123!'
+            }
+        }
         expect(wrapper.state('showPopup')).toEqual(true);
-        console.info(instance)
+       
         instance.confirmDelete()
+        expect(wrapper.state('showPopup')).toEqual(false)
     })
 
     it('should open the flyout on click of create profile', () => {
@@ -135,5 +140,26 @@ describe('Test profile component', () => {
         expect(wrapper.state('updateProfileGrid')).toEqual(false);
         expect(wrapper.state('showMessage')).toEqual(true);
         expect(wrapper.state('type')).toEqual('error')
+    })
+
+    it('should show the edit button on selecting the profile on the grid', ()=> {
+        const profileProps: ProfileProps =  {
+            rpsServer: 'localhost:8081'
+        }
+
+        const profileStates = {
+            selectedProfile: [{
+                ProfileName: 'profile1',
+                AMTPassword: 'Password@123',
+                GenerateRandomPassword: false,
+                RandomPasswordLength: 8,
+                Activation: 'ccmactivation'
+            }]
+        }
+
+        const wrapper = shallow(<Profile {...profileProps} />)
+        wrapper.setState(profileStates);
+        wrapper.instance().forceUpdate();
+        expect(wrapper.find('Button')).toHaveLength(3)
     })
 })

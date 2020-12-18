@@ -19,6 +19,17 @@
 
 .cursor {
     cursor: pointer;
+    padding: 3px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.profile-submit {
+    padding: 3px;
+    text-align: center;
+    border-radius: 5px;
+    min-width: 60px;
+    border: 1px;
 }
 
 .profile-submit {
@@ -89,4 +100,8 @@
     width: 170px;
     height: 21.33px;
     text-overflow: ellipsis;
+}
+
+.checkbox-input {
+    margin: 0;
 }

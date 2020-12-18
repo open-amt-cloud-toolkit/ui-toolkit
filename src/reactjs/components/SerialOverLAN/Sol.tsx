@@ -83,12 +83,6 @@ export class Sol extends React.Component<SOLProps, SOLStates>{
 			deviceOnSleep: '',
 			isPowerStateLoaded: false
 		};
-		this.term = new Terminal({
-			cursorStyle: 'block',
-			fontWeight: 'bold',
-			rows: 30,
-			cols: 100
-		});
 	}
 	init = () => {
 		this.terminal = new AmtTerminal();
@@ -111,12 +105,19 @@ export class Sol extends React.Component<SOLProps, SOLStates>{
 		this.redirector.onProcessData = this.dataProcessor.processData.bind(this.dataProcessor);
 		this.dataProcessor.processDataToXterm = this.handleWriteToXterm.bind(this);
 		this.dataProcessor.clearTerminal = this.handleClearTerminal.bind(this);
+		this.term = new Terminal({
+			cursorStyle: 'block',
+			fontWeight: 'bold',
+			rows: 30,
+			cols: 100
+		});
 	}
 
 	cleanUp = () => {
 		this.terminal = null;
 		this.redirector = null;
 		this.dataProcessor = null;
+		this.term=null;
 	}
 
 	componentDidMount() {
@@ -149,7 +150,6 @@ export class Sol extends React.Component<SOLProps, SOLStates>{
 		this.handleClearTerminal();
 		this.cleanUp();
 		this.init();
-		// document.location.reload()
 	};
 
 	handleSOLConnect = (e) => {
@@ -251,6 +251,17 @@ export class Sol extends React.Component<SOLProps, SOLStates>{
 				{showSuccess && <SnackBar message={message} type={type} />}
 				<HeaderStrip>
 					<StyledDiv>
+						<StyledLabel>
+							{isPowerStateLoaded && <AmtFeatures
+								deviceId={this.props.deviceId}
+								server={this.props.mpsServer}
+								feature={'SOL'}
+								handleFeatureStatus={this.handleFeatureStatus}
+								getConnectState={this.getSOLState}
+							/>}
+						</StyledLabel>
+					</StyledDiv>
+					<StyledDiv>
 						<button onClick={this.handleSOLConnect}>{SOLstate === 3 ? 'Disconnect' : 'Connect'}</button>
 					</StyledDiv>
 					<StyledDiv>
@@ -266,19 +277,8 @@ export class Sol extends React.Component<SOLProps, SOLStates>{
 						<StyledLabel>Power Actions:{' '}</StyledLabel>
 						<PowerOptions availableOptions={availablePowerActions} onChange={this.handlePowerOptions} isSelected={this.state.isSelected} />
 					</StyledDiv>
-					<StyledDiv>
-						<StyledLabel>
-							{isPowerStateLoaded && <AmtFeatures
-								deviceId={this.props.deviceId}
-								server={this.props.mpsServer}
-								feature={'SOL'}
-								handleFeatureStatus={this.handleFeatureStatus}
-								getConnectState={this.getSOLState}
-							/>}
-						</StyledLabel>
-					</StyledDiv>
 				</HeaderStrip>
-				{SOLstate === 3 && <Term handleKeyPress={this.handleKeyPress} handleKeyDownPress={this.handleKeyDownPress} xterm={this.term} />}
+				{SOLstate === 3 && this.term  && <Term handleKeyPress={this.handleKeyPress} handleKeyDownPress={this.handleKeyDownPress} xterm={this.term} />}
 			</React.Fragment>
 		);
 	}

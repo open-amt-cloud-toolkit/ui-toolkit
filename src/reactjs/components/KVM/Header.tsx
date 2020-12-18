@@ -70,7 +70,7 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
         this.setState({
           showSuccess: true,
           type: "warning",
-          message:`${powerAction} not allowed while kvm is connected`,
+          message: `${powerAction} not allowed while kvm is connected`,
           isSelected: !this.state.isSelected,
         });
       } else {
@@ -144,7 +144,6 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
       deviceOnSleep,
     } = this.state;
     const { deviceId, server } = this.props;
-    console.log(this.props.kvmstate, "kvmstate")
     return (
       <React.Fragment>
         {kvmNotEnabled === 'failed' && deviceOnSleep === 'poweron' ? <SnackBar message={translateText('amtFeatures.messages.failedKvmFetch')} type='error' /> : ''}
@@ -159,6 +158,22 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
 
         {showSuccess && <SnackBar message={message} type={type} />}
         <div className="header">
+          <StyledDiv>
+            <StyledLabel>
+              {this.state.isPowerStateLoaded && (
+                <AmtFeatures
+                  deviceId={deviceId}
+                  server={this.props.server.substr(
+                    0,
+                    this.props.server.indexOf("/")
+                  )}
+                  feature={"KVM"}
+                  handleFeatureStatus={this.handleFeatureStatus}
+                  getConnectState={this.props.getConnectState}
+                />
+              )}
+            </StyledLabel>
+          </StyledDiv>
           <ConnectButton
             handleConnectClick={this.props.handleConnectClick}
             kvmstate={this.props.kvmstate}
@@ -182,22 +197,6 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
             handlePowerStatus={this.handlePowerStatus}
             updateParent={this.updatePowerStatus}
           />
-          <StyledDiv>
-            <StyledLabel>
-              {this.state.isPowerStateLoaded && (
-                <AmtFeatures
-                  deviceId={deviceId}
-                  server={this.props.server.substr(
-                    0,
-                    this.props.server.indexOf("/")
-                  )}
-                  feature={"KVM"}
-                  handleFeatureStatus={this.handleFeatureStatus}
-                  getConnectState={this.props.getConnectState}
-                />
-              )}
-            </StyledLabel>
-          </StyledDiv>
         </div>
       </React.Fragment>
     );
