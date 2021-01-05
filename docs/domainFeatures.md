@@ -73,6 +73,26 @@ On clicking confirm[green tick] popup will disappear and success message to indi
 	<img src="assets/images/domainDeleteSuccess.png"  width="600" height="auto"/> 
 </div>
 
+### Edit Domain
+ 
+Upon selecting any domain by clicking on the checkbox against the domain details row, an 'Edit' button is shown on the header of domain control.
+
+<div align="center">
+	<img src="assets/images/domainEdit.png"  width="600" height="auto"/> 
+</div>
+
+On click of 'Edit' button selected domain details will be populated on the form as shown.
+
+<div align="center">
+	<img src="assets/images/domainEditFlyout.png"  width="600" height="auto"/> 
+</div>
+
+After editing the details, on clicking the Save button the domain details will get updated on the grid and success message will be shown.
+
+<div align="center">
+	<img src="assets/images/domainEditSuccess.png"  width="600" height="auto"/> 
+</div>
+
  
 
 

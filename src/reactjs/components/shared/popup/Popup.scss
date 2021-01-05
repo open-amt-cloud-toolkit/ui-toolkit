@@ -18,7 +18,7 @@
 }
 .popup-inner {
   width: 300px;
-  height: 100px;
+  height: 120px;
   color: black;
   padding: 20px;
   text-align: center;
@@ -64,14 +64,14 @@
 
 @media only screen and (max-width: 992px) {
   .popup-inner {
-    width: 250px;
-    height:110px
+    width: 275px;
+    height: 125px;
   }
 }
 
 @media only screen and (max-width: 600px) {
   .popup-inner {
-    width: 200px;
-    height: 120px;
+    width: 230px;
+    height: 135px;
   }
 }

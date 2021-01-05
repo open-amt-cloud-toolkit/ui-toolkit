@@ -14,6 +14,14 @@ import { PcsGrid } from '../shared/pcsGrid/PcsGrid';
 import { HttpClient } from '../services/HttpClient';
 import { DomainContext } from '../shared/context/BasicContextProvider';
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import * as Icons from "@fortawesome/free-solid-svg-icons";
+
+const iconList = Object.keys(Icons)
+  .filter((key) => key !== "fas" && key !== "prefix")
+  .map((icon) => Icons[icon]);
+library.add(...iconList);
+
 
 interface gridStates {
     columnDefs: any,

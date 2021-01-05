@@ -31,7 +31,6 @@
       "updateFailed": "Failed to update the {{translate.feature}} status!"
     }
   },
-
   "companyName": "Contoso",
   "header": {
     "appName": "Lynx DAM WEB UI",
@@ -185,34 +184,52 @@
     "grid": {
       "name": "Name",
       "password": "password",
-      "generateRandom": "Generate Random Password",
-      "randomPasswordLength": "Random password length",
+      "generateRandom": "Generate Random AMT Password",
+      "randomPasswordLength": "Random AMT password length",
       "activation": "Activation",
-      "ciraConfigName": "CIRA Config Name"
+      "ciraConfigName": "CIRA Config",
+      "networkConfigName":"Network Config",
+      "generateMEBXRandom":"Generate Random MEBX Password",
+      "randomMEBXPasswordLength":"Random MEBX Password length"
     },
     "new": "New",
     "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
     "newProfileDetails": "New Profile Details",
+    "editProfile": "Edit profile details",
     "close": "Close",
     "profileName": "Profile Name",
-    "generateRandomPassword": "Generate Random Password",
+    "generateRandomPassword": "Generate Random AMT Password",
+    "generateRandomMEBxPassword":"Generate Random MEBX Password",
     "amtPassword": "AMT Password",
+    "mebxPassword":"MEBX Password",
     "randomPasswordLength": "Random Password Length",
-    "ciraConfiguration": "CIRA Configuration",
+    "randomMEBXPasswordLength":"Random MEBXPassword length",
+    "ciraConfiguration": "CIRA Config",
+    "newCira":"New CIRA Config",
+    "newNetwork":"New Network Config",
+    "dhcpEnabled":"DHCP Enabled",
+    "networkProile":"Network Config",
     "activation": "Activation",
     "create": "Create",
     "errors": {
       "profileNameValidation": "Profile name contains letters, numbers and special characters.",
-      "amtPassword": "Generate Random Password (or) AMT Password is required.",
+      "amtPassword": "Generate Random AMT Password (or) AMT Password is required.",
+      "mebxPassword": "Generate Random MEBX Password (or) MEBX Password is required.",
       "amtPasswordValidation": "Amt password should contains lowercase letter, one uppercase letter, one numeric digit, and one special character and password length should be in between 8 to 32.",
-      "randomPasswordValidation": "Random password length should be in between 8 to 32."
+      "mebxPasswordValidation": "MEBX password should contains lowercase letter, one uppercase letter, one numeric digit, and one special character and password length should be in between 8 to 32.",
+      "randomPasswordValidation": "Random password length should be in between 8 to 32.",
+      "randomMEBXPasswordValidation":"Random MEBXPassword length should be in between 8 to 32."
     }
   },
   "cira": {
     "new": "New",
     "delete": "Delete",
+    "edit": "Edit",
     "close": "Close",
     "newCIRAConfig": "New CIRA Configuration",
+    "editCIRAConfig": "Edit CIRA Configuration",
     "configName": "Config Name",
     "addressFormat": "MPS Server Address Format",
     "ipv4": "IPV4",
@@ -222,16 +239,17 @@
     "port": "Port",
     "userName": "User Name",
     "password": "Password",
-    "commonName": "Common Name",
+    "commonName": "Cert. Hostname(CN)",
     "mpsRootCetificate": "MPS Root Certificate",
     "create": "Create",
+    "save":"Save",
     "mpsRootCertFormat": "Mps root certificate format",
     "autoLoad": "Auto load",
     "manual": "Manual",
     "load": "Load",
     "mpsLoaded": "MPS root certificate successfully loaded",
     "errors": {
-      "commonNameValidation": "Common name is required field and contains letters,numbers and ._- characters.",
+      "commonNameValidation": "Cert. Hostname(CN) is required field and contains letters,numbers and ._- characters.",
       "passwordValidation": "Password is required field should contains atleast one lowercase letter, one uppercase letter, one numeric digit,and one special character and password length should be in between 8 to 32.",
       "userNameValidation": "User name is required field and contains letters, numbers and special characters.",
       "portValidation": "Port is required and should be a numeric value between 1024 and 49151",
@@ -249,15 +267,17 @@
       "port": "Port",
       "username": "Username",
       "password": "Password",
-      "commonName": "Common Name",
+      "commonName": "Cert. Hostname(CN)",
       "rootCert": "MPS root Certificate"
     }
   },
   "domain": {
     "delete": "Delete",
     "new": "New",
+    "edit": "Edit",
     "close": "Close",
     "newDomain": "Create Domain",
+    "editDomain": "Edit domain details",
     "grid": {
       "name": "Name",
       "domainSuffix": "Domain Suffix",
@@ -272,12 +292,16 @@
     "provisioningCertPassword": "Provisioning Cert Password",
     "create": "Create",
     "file": "File",
+    "browse": "Browse",
+    "browseNew": "Browse new file",
+    "save": "Save",
     "namePlaceHolder": "Enter domain name",
     "domainSuffixPlaceHolder": "Enter Domain suffix",
     "provisioningCertTextAreaPlaceHolder": "Enter provisioning Cert ",
     "provisioningCertPasswordPlaceHolder": "Enter password",
     "provisioningCertTextPlaceHolder": "Enter file path",
     "text": "Text",
+    "certExists": "If you would like to add a new Provisioning certificate browse and select.",
     "error": {
       "nameValidation": "Name is a required field and contains letters, numbers and special characters.",
       "domainSuffixValidation": "Domain suffix is a required field",
@@ -285,6 +309,24 @@
       "provisioningCertValidation": "Provisioning cert is a required field",
       "provisioningCertPasswordValidation": "Provisioning Cert Password is required field should contains atleast one lowercase letter,  one uppercase letter, one numeric digit,and one special character and password length should be in between 8 to 32.",
       "invalidFileType": "Invalid provisioning certificate type"
+    }
+  },
+  "network":{
+    "new":"New",
+    "newNetwork": "New Network configuration",
+    "editNetwork": "Edit Network configuration",
+    "create": "Create",
+    "delete":"Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "grid":{
+      "name":"Name",
+      "dhcpEnabled":"DHCP Enabled"
+    },
+    "networkName": "Network Name",
+    "dhcpEnabled": "DHCP Enabled",
+    "errors": {
+      "networkNameValidation": "Network name is a required field and contains letters, numbers and special characters."
     }
   }
 }

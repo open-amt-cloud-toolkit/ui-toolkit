@@ -25,7 +25,6 @@ describe("Test Domain Editor Component", () => {
     };
     const wrapper = shallow(<DomainEditor {...domainEditorProps} />);
 
-    //expect(wrapper.find("DomainGrid")).toHaveLength(1);
     expect(wrapper.find("Button")).toHaveLength(1);
   });
   it("should show the delete button on selecting a domain from the grid", () => {
@@ -36,11 +35,10 @@ describe("Test Domain Editor Component", () => {
     const domainEditorStates: domainState = {
       selectedDomain: [
         {
-          Name: "domain9",
-          DomainSuffix: "d9.com",
-          ProvisioningCert: "private/d9.pfx",
-          ProvisioningCertStorageFormat: "file",
-          ProvisioningCertPassword: "<StrongPassword>",
+          name: "domain9",
+          domainSuffix: "d9.com",
+          provisioningCert: "private/d9.pfx",
+          provisioningCertPassword: "<StrongPassword>",
         },
       ],
     };
@@ -48,7 +46,7 @@ describe("Test Domain Editor Component", () => {
     const wrapper = shallow(<DomainEditor {...domainEditorProps} />);
     wrapper.setState(domainEditorStates);
     wrapper.instance().forceUpdate();
-    expect(wrapper.find("Button")).toHaveLength(2);
+    expect(wrapper.find("Button")).toHaveLength(3);
   });
 
   it("should load the confirmation popup on clicking delete button", () => {
@@ -59,11 +57,10 @@ describe("Test Domain Editor Component", () => {
     const domainEditorStates: domainState = {
       selectedDomain: [
         {
-          Name: "domain9",
-          DomainSuffix: "d9.com",
-          ProvisioningCert: "private/d9.pfx",
-          ProvisioningCertStorageFormat: "file",
-          ProvisioningCertPassword: "<StrongPassword>",
+          name: "domain9",
+          domainSuffix: "d9.com",
+          provisioningCert: "private/d9.pfx",
+          provisioningCertPassword: "<StrongPassword>",
         },
       ],
       showPopup: true,
@@ -75,7 +72,9 @@ describe("Test Domain Editor Component", () => {
     wrapper.instance().forceUpdate();
     const deleteButton = wrapper.find(".btn-delete");
     deleteButton.simulate("click");
+    expect(typeof wrapper.state('selectedDomain')).toBe('object');
   });
+
   it("should open the flyout on click of new", () => {
     const domainEditorProps: domainProps = {
       rpsServer: "localhost:8081",
@@ -87,7 +86,9 @@ describe("Test Domain Editor Component", () => {
     wrapper.setState({ openFlyout: true });
     wrapper.instance().forceUpdate();
     expect(wrapper.state("openFlyout")).toEqual(true);
+    expect(wrapper.state('isEdit')).toEqual(false);
   });
+
   it("should show the create domain success notification", () => {
     const domainEditorProps: domainProps = {
       rpsServer: "localhost:8081",
@@ -114,12 +115,29 @@ describe("Test Domain Editor Component", () => {
     expect(wrapper.state("type")).toEqual("error");
   });
 
-  it("should call the delete domain rest API on confirming delete operation", () => {
+  it("should call the delete domain rest API on confirming delete operation", async () => {
+    mocked(HttpClient.delete).mockImplementation(() => Promise.resolve('Domain domain9 successfully deleted'));
     const domainEditorProps: domainProps = {
       rpsServer: "localhost:8081",
     };
+
+    const domainState: domainState = {
+      selectedDomain: [{
+        name: "domain9",
+        domainSuffix: "d9.com",
+        provisioningCert: "private/d9.pfx",
+        provisioningCertPassword: "<StrongPassword>",
+      }]
+    }
     const wrapper = shallow(<DomainEditor {...domainEditorProps} />);
+    wrapper.setState(domainState);
     const instance = wrapper.instance() as DomainEditor;
+    instance.context = {
+      data: {
+        rpsKey: 'APIKEYFORRPS123!'
+      }
+    }
     instance.confirmDelete();
+    expect(wrapper.state('showPopup')).toEqual(false)
   });
 });

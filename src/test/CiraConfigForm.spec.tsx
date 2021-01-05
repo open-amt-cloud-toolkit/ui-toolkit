@@ -11,17 +11,38 @@ import {
   CiraConfigForm,
   formProps,
 } from "../reactjs/components/shared/CiraConfigForm";
+import { mocked } from "ts-jest/utils";
+import { HttpClient } from "../reactjs/components/services/HttpClient";
 
 const CiraConfigProps: formProps = {
   handleSubmit: jest.fn(),
   close: jest.fn(),
+  isEdit: true,
+  selectedCiraConfigs: [{
+    configName: 'ciraconfig1',
+    mpsServerAddress: '13.67.36.192',
+    mpsPort: 4433,
+    username: 'admin',
+    password: 'Intel@123',
+    commonName: '13.67.36.192',
+    mpsRootCertificate: 'rootCert',
+    serverAddressFormat: 3,
+    authMethod: 2,
+    proxyDetails: ''
+  }],
+  rpsServer: 'APIKEYFORRPS123!',
+  notificationCallback: jest.fn()
 };
 
 describe("Test Cira Config Form Component", () => {
+
+  beforeEach(() => {
+    HttpClient.get = jest.fn(() => Promise.resolve([{ ConfigName: "ciraconfig1", MPSServerAddress: "localhost", MPSPort: 4433, Username: "admin", Password: "P@ssw0rd", CommonName: "localhost", ServerAddressFormat: 201, AuthMethod: 2, MPSRootCertificate: "rootcert", ProxyDetails: "", }]))
+  })
   it("load cira config form component with crashing", () => {
     const wrapper = shallow(<CiraConfigForm {...CiraConfigProps} />);
     expect(wrapper.find("form")).toHaveLength(1);
-    expect(wrapper.find("button")).toHaveLength(2);
+    expect(wrapper.find("button")).toHaveLength(1);
   });
 
   it("Test configName Validations", () => {
@@ -87,4 +108,117 @@ describe("Test Cira Config Form Component", () => {
     expect(typeof myInstance.handleBlur).toBe("function");
     expect(typeof myInstance.handleSubmit).toBe("function");
   });
+  it('should load the profile details on edit', () => {
+
+
+    let wrapper = shallow(<CiraConfigForm {...CiraConfigProps} />)
+    let formDetails = wrapper.state('ciraConfig');
+    console.log(formDetails)
+    expect(formDetails).toEqual({
+      configName: 'ciraconfig1',
+      mpsServerAddress: '13.67.36.192',
+      mpsPort: 4433,
+      username: 'admin',
+      password: 'Intel@123',
+      commonName: '13.67.36.192',
+      mpsRootCertificate: 'rootCert',
+      serverAddressFormat: 3,
+      authMethod: 2,
+      proxyDetails: ''
+    })
+  })
+  it('should call create REST api on form submit', async () => {
+    // mocked(HttpClient.post).mockImplementation(() => Promise.resolve('CIRA Config ciraconfig1 successfully inserted'));
+    HttpClient.post = jest.fn(() => Promise.resolve('CIRA Config ciraconfig1 successfully inserted'));
+    const CiraConfigProps: formProps = {
+      handleSubmit: jest.fn(),
+      close: jest.fn(),
+      isEdit: false,
+      rpsServer: 'localhost:8081',
+      notificationCallback: jest.fn()
+    };
+    let wrapper = shallow(<CiraConfigForm {...CiraConfigProps} />)
+
+    let formDetails = {
+      ciraConfig: {
+        configName: 'ciraconfig1',
+        mpsServerAddress: '13.67.36.192',
+        mpsPort: 4433,
+        username: 'admin',
+        password: 'Intel@123',
+        commonName: '13.67.36.192',
+        mpsRootCertificate: 'rootCert',
+        serverAddressFormat: 3
+      }
+    }
+    wrapper.setState(formDetails);
+    let myInstance = wrapper.instance() as CiraConfigForm;
+    myInstance.context = {
+      data: {
+        rpsKey: 'APIKEYFORRPS123!'
+      }
+    }
+
+    let submitEvent = {
+      preventDefault: () => { }
+    }
+    myInstance.handleSubmit(submitEvent)
+    expect(HttpClient.post).toHaveBeenCalled()
+  })
+
+  it('should call the Edit REST api on form submit', async () => {
+    HttpClient.patch = jest.fn(() => Promise.resolve('UPDATE Successful for CIRA Config: ciraconfig1'));
+    const CiraConfigProps: formProps = {
+      handleSubmit: jest.fn(),
+      close: jest.fn(),
+      isEdit: true,
+      rpsServer: 'localhost:8081',
+      notificationCallback: jest.fn(),
+      selectedCiraConfigs: [{
+        configName: 'ciraconfig1',
+        mpsServerAddress: '13.67.36.192',
+        mpsPort: 4433,
+        username: 'admin',
+        password: 'Intel@123',
+        commonName: '13.67.36.192',
+        mpsRootCertificate: 'rootCert',
+        serverAddressFormat: 3,
+        authMethod: 2,
+        proxyDetails: ''
+      }]
+    };
+    let wrapper = shallow(<CiraConfigForm {...CiraConfigProps} />)
+    // console.log(wrapper)
+
+    
+    let formDetails = {
+      ciraConfig: {
+        configName: 'ciraconfig1',
+        mpsServerAddress: '13.67.36.192',
+        mpsPort: 4433,
+        username: 'admin',
+        password: 'Intel@123',
+        commonName: '13.67.36.192',
+        mpsRootCertificate: 'rootCert',
+        serverAddressFormat: 3,
+        authMethod: 2,
+        proxyDetails: ''
+      }
+    }
+
+    wrapper.setState(formDetails);
+    let myInstance = wrapper.instance() as CiraConfigForm;
+    myInstance.context = {
+      data: {
+        rpsKey: 'APIKEYFORRPS123!'
+      }
+    }
+
+    let submitEvent = {
+      preventDefault: () => { }
+    }
+    myInstance.handleSubmit(submitEvent)
+    console.info('state here', wrapper.instance())
+    expect(HttpClient.patch).toHaveBeenCalled()
+  })
 });

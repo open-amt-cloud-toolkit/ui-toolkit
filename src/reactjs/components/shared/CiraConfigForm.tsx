@@ -17,7 +17,7 @@ import "../CIRAEditor/CiraEditor.scss";
 import { DomainContext } from "./context/BasicContextProvider";
 import { HttpClient } from "../services/HttpClient";
 import { ToggleBtn } from "./btn/ToggleBtn";
-
+import isMatch from 'lodash/isMatch'
 import './CiraConfigForm.scss';
 
 export interface formProps {
@@ -26,22 +26,20 @@ export interface formProps {
   rpsServer?: any;
   notificationCallback?: any;
   showProfileError?: any;
+  isEdit?: boolean;
+  selectedCiraConfigs?: any
 }
 
 export interface formState {
+  ciraConfig?: any;
   configName?: any;
-  mpsServer?: any;
-  port?: any;
-  userName?: any;
-  password?: any;
-  commonName?: any;
-  mpsServerType?: any;
+  mpsServerAddress?: any;
   configName_blur?: boolean;
-  port_blur?: boolean;
-  userName_blur?: boolean;
+  mpsPort_blur?: boolean;
+  username_blur?: boolean;
   password_blur?: boolean;
   commonName_blur?: boolean;
-  mpsServer_blur?: boolean;
+  mpsServerAddress_blur?: boolean;
   profileConfigError?: any;
   mpsRootCertificate?: any;
   isAutoLoad?: boolean;
@@ -49,7 +47,8 @@ export interface formState {
   isCertLoaded?: boolean;
   isError?: boolean;
   mpsCertErrorMsg?: string;
-  showPassword?: boolean
+  showPassword?: boolean;
+  oldCiraConfig?: any
 }
 
 /**
@@ -59,35 +58,56 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
   constructor(props: formProps) {
     super(props);
     this.state = {
-      configName: "",
-      mpsServer: "",
-      port: "",
-      userName: "",
-      password: "",
-      commonName: "",
-      mpsRootCertificate: "",
-      isAutoLoad: true,
+      oldCiraConfig: props.isEdit ? { ...props.selectedCiraConfigs[0] } : {},
+      ciraConfig: props.isEdit ? { ...props.selectedCiraConfigs[0] } : {},
+      isAutoLoad: props.isEdit ? false : true,
       isCertLoaded: false,
       isError: false,
       showPassword: false
     };
   }
 
-  handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps !== this.props && this.props.isEdit) {
+      if (this.props.selectedCiraConfigs.length === 1) {
+        this.setState(prevState => ({
+          ...prevState,
+          oldCiraConfig: {
+            ...this.props.selectedCiraConfigs[0]
+          },
+          ciraConfig: {
+            ...this.props.selectedCiraConfigs[0]
+          }
+        }))
+      } else {
+        this.props.close()
+      }
+    }
+  }
+
+  trimRootCert = (cert) => cert.replace("-----BEGIN CERTIFICATE-----", "")
+    .replace("-----END CERTIFICATE-----", "")
+    .replace(/\s/g, "")
+
+  handleChange = (e) => {
+    e.persist()
+    const value = e.target.name === 'serverAddressFormat' || e.target.name === 'mpsPort' ? JSON.parse(e.target.value) : e.target.name === 'mpsRootCertificate' ? this.trimRootCert(e.target.value) : e.target.value;
+    this.setState(prevState => ({
+      ciraConfig: {
+        ...prevState.ciraConfig,
+        [e.target.name]: value
+      }
+    }));
+  }
 
   handleBlur = (e) => this.setState({ [`${e.target.name}_blur`]: true });
 
-  mpsCertValidation = cert => {
-    return cert ? true : false;
-  }
-
   loadMpsCertificate = async () => {
-    const { mpsServer } = this.state;
-    const { hostname, host } = window.location;
+    const { mpsServerAddress } = this.state.ciraConfig;
+     const { hostname, host } = window.location;
     const { mpsKey } = this.context.data;
     const mpsPort = host.split(':')[1];
-    console.info(mpsPort)
-    if (mpsServer === hostname) {
+     if (mpsServerAddress === hostname) {
       const serverUrl = `https://${hostname}:${mpsPort}/admin`;
       const resp = await fetch(serverUrl, {
         method: 'POST',
@@ -106,7 +126,10 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
 
       if (resp) {
         this.setState({
-          mpsRootCertificate: resp,
+          ciraConfig: {
+            ...this.state.ciraConfig,
+            mpsRootCertificate: this.trimRootCert(resp),
+          },
           isCertLoaded: true
         })
       } else {
@@ -128,37 +151,43 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
     e.preventDefault();
     const { rpsKey } = this.context.data;
     let payload = {
-      configName: this.state.configName,
-      mpsServerAddress: this.state.mpsServer,
-      mpsPort: JSON.parse(this.state.port),
-      username: this.state.userName,
-      password: this.state.password,
-      commonName: this.state.commonName,
-      serverAddressFormat: JSON.parse(this.state.mpsServerType),
-      mpsRootCertificate: this.state.mpsRootCertificate
-        .replace("-----BEGIN CERTIFICATE-----", "")
-        .replace("-----END CERTIFICATE-----", "")
-        .replace(/\s/g, ""),
+      ...this.state.ciraConfig,
+      commonName: this.state.ciraConfig.serverAddressFormat === 201 ? '' : this.state.ciraConfig.commonName,
       proxyDetails: "",
       authMethod: 2,
     };
-
-    const response = await HttpClient.post(
-      `${this.props.rpsServer}/api/v1/admin/ciraconfigs/create`,
-      JSON.stringify({ payload: payload }),
-      rpsKey,
-      false
-    );
-    if (
-      response === `CIRA Config ${payload.configName} successfully inserted`
-    ) {
-      this.props.notificationCallback(true, response, payload);
-    } else if (this.props.showProfileError) {
-      this.setState({
-        profileConfigError: response,
+    if (!this.props.isEdit) {
+      HttpClient.post(
+        `${this.props.rpsServer}/api/v1/admin/ciraconfigs/create`,
+        JSON.stringify({ payload: payload }),
+        rpsKey,
+        false
+      ).then(response => {
+        if (
+          response === `CIRA Config ${payload.configName} successfully inserted`
+        ) {
+          this.props.notificationCallback(true, response, payload);
+        } else if (this.props.showProfileError) {
+          this.setState({
+            profileConfigError: response,
+          });
+        } else {
+          this.props.notificationCallback(false, response);
+        }
       });
-    } else {
-      this.props.notificationCallback(false, response);
+    }
+    else {
+      HttpClient.patch(
+        `${this.props.rpsServer}/api/v1/admin/ciraconfigs/edit`,
+        JSON.stringify({ payload: payload }),
+        rpsKey
+      ).then(response => {
+        if (response === `UPDATE Successful for CIRA Config: ${payload.configName}`) {
+          this.props.notificationCallback(true, response, payload);
+        } else {
+          this.props.notificationCallback(false, response);
+        }
+      });
     }
   };
 
@@ -166,55 +195,44 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
     isAutoLoad: status,
     isError: false,
     isCertLoaded: false,
-    mpsRootCertificate_blur: false
   });
 
   handleShowPassword = () => this.setState({ showPassword: !this.state.showPassword })
 
   render() {
     let { close } = this.props;
-    let {
-      commonName,
-      configName,
-      mpsServer,
-      password,
-      port,
-      userName,
-      mpsServerType,
-      mpsRootCertificate,
-      isCertLoaded,
-      isAutoLoad
-    } = this.state;
+    let { ciraConfig: { commonName, configName, mpsServerAddress, password, mpsPort, username, serverAddressFormat, mpsRootCertificate }, isCertLoaded, isAutoLoad } = this.state;
     let isDisabled =
-      mpsServerType === "3"
+      serverAddressFormat === 3
         ? commonName
         : (true &&
           configName &&
-          mpsServerType &&
-          mpsServer &&
+          serverAddressFormat &&
+          mpsServerAddress &&
           password &&
-          port &&
-          userName &&
+          mpsPort &&
+          username &&
           mpsRootCertificate);
     let isValid =
       nameValidation(configName) &&
-      ipAddressValidation(mpsServerType, mpsServer) &&
-      portValidation(port) &&
-      nameValidation(userName) &&
-      this.mpsCertValidation(mpsRootCertificate) &&
+      ipAddressValidation(serverAddressFormat, mpsServerAddress) &&
+      portValidation(mpsPort) &&
+      nameValidation(username) &&
+      mpsRootCertificate &&
       passwordValidation(password) &&
-      (mpsServerType === "3"
+      (serverAddressFormat === 3
         ? !commonNameValidation(commonName)
         : true);
     let styles = this.props.showProfileError
-      ? "inlineblock pr10"
+      ? "inlineblock pr10 labelWidth"
       : "cira-label";
+    let lineHeight = this.props.showProfileError ? "p5 lineheight" : "p5"
     return (
       <>
         <form onSubmit={this.handleSubmit}>
           <div className="cira-header">
             <div className="inlineblock">
-              {translateText("cira.newCIRAConfig")}
+              {this.props.isEdit ? translateText("cira.editCIRAConfig") : translateText("cira.newCIRAConfig")}
             </div>
             <div className="inlineblock floatright cursor" onClick={close}>
               <FontAwesomeIcon icon="window-close" size="xs" />
@@ -222,7 +240,7 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
             </div>
           </div>
           <div className="p10">
-            <div className="p5">
+            <div className={lineHeight}>
               <label className={styles}>
                 {translateText("cira.configName")} *
               </label>
@@ -231,6 +249,8 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                 name="configName"
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
+                value={configName}
+                disabled={this.props.isEdit}
               />
               {this.state.configName_blur && !nameValidation(configName) && (
                 <label className="cira-error">
@@ -239,7 +259,7 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                 </label>
               )}
             </div>
-            <div className="p5">
+            <div className={lineHeight}>
               <label className={styles}>
                 {translateText("cira.addressFormat")} *
               </label>
@@ -247,8 +267,9 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                 <input
                   type="radio"
                   value={3}
-                  name="mpsServerType"
+                  name="serverAddressFormat"
                   onClick={this.handleChange}
+                  checked={serverAddressFormat === 3 ? true : false}
                 />
                 {translateText("cira.ipv4")}
               </label>
@@ -256,7 +277,7 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                 <input
                   type="radio"
                   value={6}
-                  name="mpsServerType"
+                  name="serverAddressFormat"
                   onClick={this.handleChange}
                 />
                 {translateText("cira.ipv6")}
@@ -265,32 +286,34 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                 <input
                   type="radio"
                   value={201}
-                  name="mpsServerType"
+                  name="serverAddressFormat"
                   onClick={this.handleChange}
+                  checked={serverAddressFormat === 201 ? true : false}
                 />
                 {translateText("cira.fqdn")}
               </label>
             </div>
-            {this.state.mpsServerType && (
-              <div className="p5">
+            {serverAddressFormat && (
+              <div className={lineHeight}>
                 <label className={styles}>
                   {translateText("cira.mpsServerAddress")} *
                 </label>
                 <input
                   type="text"
-                  name="mpsServer"
+                  name="mpsServerAddress"
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
+                  value={mpsServerAddress}
                 />
-                {this.state.mpsServer_blur &&
-                  !ipAddressValidation(mpsServerType, mpsServer) && (
+                {this.state.mpsServerAddress_blur &&
+                  !ipAddressValidation(serverAddressFormat, mpsServerAddress) && (
                     <label className="cira-error">
                       *{" "}
-                      {mpsServerType === "3"
+                      {serverAddressFormat === 3
                         ? translateText("cira.errors.ipv4AddressValidation")
-                        : mpsServerType === "6"
+                        : serverAddressFormat === 6
                           ? translateText("cira.errors.ipv6AddressValidation")
-                          : mpsServerType === "201"
+                          : serverAddressFormat === 201
                             ? translateText("cira.errors.fqdnAddressValidation")
                             : ""}
                     </label>
@@ -298,37 +321,39 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
               </div>
             )}
 
-            <div className="p5">
+            <div className={lineHeight}>
               <label className={styles}>{translateText("cira.port")} *</label>
               <input
                 type="text"
-                name="port"
+                name="mpsPort"
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
+                value={mpsPort}
               />
-              {this.state.port_blur && !portValidation(port) && (
+              {this.state.mpsPort_blur && !portValidation(mpsPort) && (
                 <label className="cira-error">
                   *{translateText("cira.errors.portValidation")}
                 </label>
               )}
             </div>
-            <div className="p5">
+            <div className={lineHeight}>
               <label className={styles}>
                 {translateText("cira.userName")} *
               </label>
               <input
                 type="text"
-                name="userName"
+                name="username"
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
+                value={username}
               />
-              {this.state.userName_blur && !nameValidation(userName) && (
+              {this.state.username_blur && !nameValidation(username) && (
                 <label className="cira-error">
                   * {translateText("cira.errors.userNameValidation")}
                 </label>
               )}
             </div>
-            <div className="p5">
+            <div className={lineHeight}>
               <label className={styles}>
                 {translateText("cira.password")} *
               </label>
@@ -337,6 +362,7 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                 name="password"
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
+                value={password}
               />&nbsp;&nbsp;
               {this.state.showPassword ? <FontAwesomeIcon icon="eye-slash" size="xs" onClick={this.handleShowPassword} /> : <FontAwesomeIcon icon="eye" size="xs" onClick={this.handleShowPassword} />}
               {this.state.password_blur && !passwordValidation(password) && (
@@ -345,8 +371,8 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                 </label>
               )}
             </div>
-            {mpsServerType === "3" && (
-              <div className="p5">
+            {serverAddressFormat === 3 && (
+              <div className={lineHeight}>
                 <label className={styles}>
                   {translateText("cira.commonName")} *
                 </label>
@@ -355,6 +381,7 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                   name="commonName"
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
+                  value={commonName}
                 />
                 {this.state.commonName_blur &&
                   commonNameValidation(commonName) && (
@@ -364,17 +391,17 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                   )}
               </div>
             )}
-            <div className="p5">
+            <div className={lineHeight}>
               <label className={styles}>
                 {translateText("cira.mpsRootCertFormat")} *
               </label>
-              <div>
+              <div className={this.props.showProfileError ? "inlineblock" : ""}>
                 <ToggleBtn
                   switchStatus={this.toggleFormat}
                   isChecked={isAutoLoad}
                 />
                 &nbsp;&nbsp;&nbsp;
-                <span className="vasuper">
+                <span className={this.props.showProfileError ? "position" : "vasuper"}>
                   {" "}
                   <label>
                     {isAutoLoad
@@ -385,20 +412,21 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                 </span>
               </div>
             </div>
-            <div className="p5">
+            <div className={lineHeight}>
               <label className={styles}>
                 {translateText("cira.mpsRootCetificate")} *
               </label>
               {isAutoLoad ?
-                <button className='load-mps-button' disabled={!mpsServer || this.state.isError} type="button" onClick={this.loadMpsCertificate}>
+                <button className={this.props.showProfileError ? "" : 'load-mps-button'} disabled={!mpsServerAddress || this.state.isError} type="button" onClick={this.loadMpsCertificate}>
                   <FontAwesomeIcon icon="file-upload" size="lg" /> &nbsp;
                   {translateText("cira.load")}</button> : <textarea
                   className="textareawidth"
                   name="mpsRootCertificate"
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
+                  value={mpsRootCertificate}
                 />}
-              {this.state.mpsRootCertificate_blur && !this.mpsCertValidation(this.state.mpsRootCertificate) && (
+              {!mpsRootCertificate && this.state.mpsRootCertificate_blur && (
                 <label className="cira-error">
                   * {translateText("cira.errors.loadMpsError")}
                 </label>
@@ -408,11 +436,9 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
               )}
               {this.state.isError && (
                 <label className='cira-error'> * {this.state.mpsCertErrorMsg}</label>
-              )
-
-              }
+              )}
             </div>
-            <div className="p5">
+            <div className={lineHeight}>
               {this.state.profileConfigError && (
                 <label className="cira-error">
                   * {this.state.profileConfigError}
@@ -421,9 +447,9 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
               <button
                 className="cursor cira-submit"
                 type="submit"
-                disabled={!(isDisabled && isValid)}
+                disabled={this.props.isEdit ? !(isDisabled && isValid && !isMatch(this.state.ciraConfig, this.state.oldCiraConfig)) : !(isDisabled && isValid)}
               >
-                {translateText("cira.create")}
+                {this.props.isEdit ? translateText("cira.save") : translateText("cira.create")}
               </button>
             </div>
           </div>

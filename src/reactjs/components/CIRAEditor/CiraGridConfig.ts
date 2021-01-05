@@ -14,7 +14,7 @@ export const CHECKBOX_COLUMN_CLASS = 'checkbox-column';
 export const ciraColumnDefs = {
     ConfigName: {
         headerName: 'cira.grid.configName',
-        field: 'ConfigName',
+        field: 'configName',
         sort: 'asc',
         filter: "agTextColumnFilter",
         filterParams: { applyButton: true, clearButton: true },
@@ -23,7 +23,7 @@ export const ciraColumnDefs = {
     },
     MpsServer: {
         headerName: 'cira.grid.mpsServer',
-        field: 'MPSServerAddress',
+        field: 'mpsServerAddress',
         filter: "agTextColumnFilter",
         filterParams: { applyButton: true, clearButton: true },
         sortable: true
@@ -31,28 +31,28 @@ export const ciraColumnDefs = {
     },
     Port: {
         headerName: 'cira.grid.port',
-        field: 'MPSPort',
+        field: 'mpsPort',
         filter: "agTextColumnFilter",
         filterParams: { applyButton: true, clearButton: true },
         sortable: true
     },
     Username: {
         headerName: 'cira.grid.username',
-        field: 'Username',
+        field: 'username',
         filter: "agTextColumnFilter",
         filterParams: { applyButton: true, clearButton: true },
         sortable: true
     },
     CommonName: {
         headerName: 'cira.grid.commonName',
-        field: 'CommonName',
+        field: 'commonName',
         filter: "agTextColumnFilter",
         filterParams: { applyButton: true, clearButton: true },
         sortable: true
     },
     RootCertificate: {
         headerName: 'cira.grid.rootCert',
-        field: 'MPSRootCertificate',
+        field: 'mpsRootCertificate',
         filter: "agTextColumnFilter",
         filterParams: { applyButton: true, clearButton: true },
         sortable: true
@@ -75,3 +75,16 @@ export const defaultCiraGridProps = {
     rowSelection: 'single',
     resizable: true
 };
+
+export const ciraDataModal = {
+    configName: 'configName',
+    mpsServerAddress: 'mpsServerAddress',
+    mpsPort: 'mpsPort',
+    username: 'username',
+    password: 'password',
+    commonName: 'commonName',
+    mpsRootCertificate: 'mpsRootCertificate',
+    serverAddressFormat: 'serverAddressFormat',
+    authMethod: 'authMethod',
+    proxyDetails: 'proxyDetails'
+}

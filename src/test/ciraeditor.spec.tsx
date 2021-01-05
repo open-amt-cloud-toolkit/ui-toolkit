@@ -36,6 +36,7 @@ describe("Test cira editor component", () => {
     };
 
     const ciraEditorStates: CiraEditorState = {
+      isEdit: false,
       selectedCiraConfigs: [
         {
           ConfigName: "ciraconfig1",
@@ -55,7 +56,7 @@ describe("Test cira editor component", () => {
     const wrapper = shallow(<CiraEditor {...ciraEditorProps} />);
     wrapper.setState(ciraEditorStates);
     wrapper.instance().forceUpdate();
-    expect(wrapper.find("Button")).toHaveLength(2);
+    expect(wrapper.find("Button")).toHaveLength(3);
   });
 
   it("should load the confirmation popup on clicking delete button", () => {
@@ -64,6 +65,7 @@ describe("Test cira editor component", () => {
     };
 
     const ciraEditorStates: CiraEditorState = {
+      isEdit: false,
       selectedCiraConfigs: [
         {
           ConfigName: "ciraconfig1",
@@ -136,4 +138,29 @@ describe("Test cira editor component", () => {
     const instance = wrapper.instance() as CiraEditor;
     instance.confirmDelete();
   });
+  it('should show the edit button on selecting the profile on the grid', () => {
+    const ciraEditorProps: CiraEditorProps = {
+      rpsServer: 'localhost:8081'
+    }
+
+    const ciraStates = {
+      selectedCiraConfigs: [{
+        configName: 'ciraconfig1',
+        mpsServerAddress: '13.67.36.192',
+        mpsPort: 4433,
+        username: 'admin',
+        password: 'Intel@123',
+        commonName: '13.67.36.192',
+        mpsRootCertificate: 'rootCert',
+        serverAddressFormat: 3,
+        authMethod: 2,
+        proxyDetails: ''
+      }]
+    }
+
+    const wrapper = shallow(<CiraEditor {...ciraEditorProps} />)
+    wrapper.setState(ciraStates);
+    wrapper.instance().forceUpdate();
+    expect(wrapper.find('Button')).toHaveLength(3)
+  })
 });

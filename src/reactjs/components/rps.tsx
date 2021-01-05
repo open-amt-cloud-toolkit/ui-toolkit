@@ -6,6 +6,7 @@
 import { Profile } from "./ProfileEditor/ProfileEditor";
 import { CiraEditor } from "./CIRAEditor/CiraEditor";
 import { DomainEditor } from "./DomainEditor/DomainEditor";
-import {Provider as RpsProvider} from './shared/context/BasicContextProvider'
+import { NetworkEditor } from './NetworkEditor/NetworkEditor'
+import { Provider as RpsProvider } from './shared/context/BasicContextProvider'
 
-export { Profile, CiraEditor, DomainEditor, RpsProvider };
+export { Profile, CiraEditor, DomainEditor, RpsProvider, NetworkEditor };

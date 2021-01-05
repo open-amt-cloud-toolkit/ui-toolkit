@@ -10,5 +10,6 @@ exports.AuditLog = require('./dist/mps.bundle').AuditLog
 exports.Profile = require('./dist/rps.bundle').Profile
 exports.CiraEditor = require('./dist/rps.bundle').CiraEditor;
 exports.DomainEditor = require('./dist/rps.bundle').DomainEditor;
+exports.NetworkEditor = require('./dist/rps.bundle').NetworkEditor;
 exports.MpsProvider = require('./dist/mps.bundle').MpsProvider;
 exports.RpsProvider = require('./dist/rps.bundle').RpsProvider;

@@ -10,7 +10,7 @@ import {Button, ButtonProps} from '../reactjs/components/shared/btn/Btn';
 describe('Btn tests', ()=> {
     it('should load the button without crashing', () => {
         const btnProps: ButtonProps = {
-            cta: () => {}
+            onClick: () => {}
         }
 
         const wrapper = shallow(<Button {...btnProps}>Click</Button>)
@@ -26,7 +26,7 @@ describe('Btn tests', ()=> {
             iconColor:'red',
             iconSize: 'lg',
             label: 'Power Off',
-            cta: () => {}
+            onClick: () => {}
         }
 
         const wrapper = shallow(<Button {...btnProps}/>)

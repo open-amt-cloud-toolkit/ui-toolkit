@@ -16,6 +16,7 @@ module.exports = {
     profile: "./src/reactjs/components/ProfileEditor/index.tsx",
     cira: "./src/reactjs/components/CIRAEditor/index.tsx",
     domain: "./src/reactjs/components/DomainEditor/index.tsx",
+    network:"./src/reactjs/components/NetworkEditor/index.tsx"
   },
   //sourceMap in tsconfig which holds information about your original files when the code is minified
   //devtool deal with existing source maps
@@ -80,6 +81,11 @@ module.exports = {
       template: "./src/sample/sampleDomain.htm",
       inject: true,
       chunks: ["domain"],
+    }),new HtmlWebpackPlugin({
+      filename: "network.htm",
+      template: "./src/sample/sampleNetworkConfig.htm",
+      inject: true,
+      chunks: ["network"],
     }), new webpack.DefinePlugin({
       'process.env': {
         'API_KEY_RPS': JSON.stringify('APIKEYFORRPS123!'),

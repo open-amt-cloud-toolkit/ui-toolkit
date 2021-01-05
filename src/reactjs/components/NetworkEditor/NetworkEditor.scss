@@ -1,0 +1,70 @@
+/*********************************************************************
+* Copyright (c) Intel Corporation 2020
+* SPDX-License-Identifier: Apache-2.0
+**********************************************************************/
+@import '../../styles/variables';
+
+.network-toolbar {
+    padding: 10px;
+    background-color: #302e2e;
+    display: flex;
+    justify-content: flex-end;
+    font-family: $fontSelawik;
+
+    .network-button {
+        margin: 5px;
+
+    }
+}
+
+.network-header {
+    padding: 10px;
+    border-bottom: 1px solid #d3d3d3
+}
+
+.inlineblock {
+    display: inline-block;
+}
+
+.floatright {
+    float: right;
+}
+
+.cursor {
+    cursor: pointer;
+    padding: 3px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.p10 {
+    padding: 10px
+}
+
+.p5 {
+    padding: 5px;
+}
+
+.network-label {
+    display: block;
+    margin-bottom: 3px;
+}
+
+.network-error {
+    color: red;
+    font-size: 13px;
+    display: block;
+    padding-top: 3px;
+}
+
+.network-submit {
+    padding: 3px;
+    text-align: center;
+    border-radius: 5px;
+    min-width: 60px;
+    border: 1px;
+}
+
+.checkbox-input {
+    margin: 0;
+}

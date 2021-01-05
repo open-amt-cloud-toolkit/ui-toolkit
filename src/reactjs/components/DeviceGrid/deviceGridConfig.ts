@@ -3,6 +3,8 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
+import { IdRenderer } from "../shared/IdRenderer";
+
 
 export const FIRST_COLUMN_CLASS = 'first-child-column';
 export const CHECKBOX_COLUMN_CLASS = 'checkbox-column';
@@ -12,7 +14,6 @@ export const deviceColumnDefs = {
         headerName: 'devices.grid.Name',
         field: 'name',
         sort: 'asc',
-        // cellRendererFramework: SoftSelectLinkRenderer,
         filter: "agTextColumnFilter",
         filterParams: { applyButton: true, clearButton: true },
         sortable: true,
@@ -21,16 +22,15 @@ export const deviceColumnDefs = {
     uuids: {
         headerName: 'devices.grid.uuids',
         field: 'host',
-        // valueFormatter: ({ value }) => checkForEmpty(value),
         filter: "agTextColumnFilter",
         filterParams: { applyButton: true, clearButton: true },
-        sortable: true
+        sortable: true,
+        cellRendererFramework: IdRenderer
 
     },
     status: {
         headerName: 'devices.grid.status',
         field: 'mpsuser',
-        // cellRendererFramework: ConnectionStatusRenderer,
         valueGetter: (params) => params.data.conn ? 'Connected' : 'Disconnected',
         filter: "agTextColumnFilter",
         filterParams: { applyButton: true, clearButton : true },
@@ -53,11 +53,7 @@ export const checkboxColumn = {
     cellStyle: (params) => {
      let data =  params.data.conn ? params.node.selectable = true : params.node.selectable = false
         return !data ? {opacity:0.4} : ''
-    },
-    // cellRendererFramework : (params) => {
-    //     console.log(params,"++++checkbox cellRender")
-    //   return params.api.selectAll()
-    // }
+    }
 }
 
 

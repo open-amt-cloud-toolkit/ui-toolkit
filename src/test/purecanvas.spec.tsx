@@ -14,8 +14,8 @@ let testprops:PureCanvasProps= {
   mouseUp: (event: React.MouseEvent) => {},
   mouseMove: (event: React.MouseEvent) => {},
   mouseWheel: (event: React.MouseEvent) => {},
-  canvasHeight: ("600"),
-  canvasWidth: ("400")
+  canvasHeight: ("1366"),
+  canvasWidth: ("768")
 }
 
 describe('Testing purecanvas component rendering',()=>{
@@ -37,7 +37,7 @@ describe('Testing purecanvas component update',()=>{
 
     it('render() width testing',()=>{
       const wrapper=shallow(<PureCanvas {...testprops}  />);
-      expect(wrapper.prop('width')).toBe('400');
+      expect(wrapper.prop('width')).toBe('1366');
     });
   });
 
@@ -45,7 +45,7 @@ describe('Testing purecanvas component update',()=>{
 
     it('render() height testing',()=>{
       const wrapper=shallow(<PureCanvas {...testprops}  />);
-      expect(wrapper.prop('height')).toBe('600');
+      expect(wrapper.prop('height')).toBe('768');
     });
   });
 
@@ -77,8 +77,8 @@ describe('Test PureCanvas',()=>{
     expect(pc.prop('onMouseUp')).toBe(purecanvasprops.mouseUp);
     expect(pc.prop('onMouseMove')).toBe(purecanvasprops.mouseMove);
     expect(pc.prop('onWheel')).toBe(purecanvasprops.mouseWheel);
-    expect(pc.prop('width')).toBe('400');
-    expect(pc.prop('height')).toBe('600');
+    expect(pc.prop('width')).toBe('1366');
+    expect(pc.prop('height')).toBe('768');
     expect(myValue).toBe(1);
     expect(pc).toMatchSnapshot();
     console.log(pc.debug());

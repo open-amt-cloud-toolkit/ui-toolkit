@@ -30,8 +30,8 @@ export class PureCanvas extends React.Component<PureCanvasProps, {}> {
   render() {
     
     let canvasAttributes : React.CanvasHTMLAttributes<HTMLCanvasElement> = {
-      width:"400",
-      height:"600",
+      width:"1366",
+      height:"768",
       onContextMenu: (e) => {e.preventDefault(); return false;},
       onMouseDown: this.props.mouseDown,
       onMouseUp: this.props.mouseUp,

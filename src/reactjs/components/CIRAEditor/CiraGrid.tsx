@@ -7,8 +7,9 @@ import {
   ciraColumnDefs,
   defaultCiraGridProps,
   checkboxColumn,
+  ciraDataModal,
 } from "./CiraGridConfig";
-import { isFunc } from "../shared/Utilities";
+import { isFunc, camelCaseReshape } from "../shared/Utilities";
 import { translateColumnDefs } from "../shared/Methods";
 import { PcsGrid } from "../shared/pcsGrid/PcsGrid";
 import { HttpClient } from "../services/HttpClient";
@@ -67,7 +68,7 @@ export class CiraGrid extends React.Component<CiraGridProps, CiraGridStates> {
     if (this.props.updateCiraGrid != prevProps.updateCiraGrid) {
       this.fetchCiraConfigs().then((data) => {
         this.setState({
-          rowData: data,
+          rowData: data.map(config => camelCaseReshape(config, ciraDataModal)),
         });
       });
     }
@@ -94,8 +95,8 @@ export class CiraGrid extends React.Component<CiraGridProps, CiraGridStates> {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.fetchCiraConfigs().then((data) => {
-      this.setState({
-        rowData: data,
+       this.setState({
+        rowData: data.map(config => camelCaseReshape(config, ciraDataModal)),
       });
     });
   };

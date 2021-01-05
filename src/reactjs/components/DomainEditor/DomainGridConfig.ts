@@ -14,7 +14,7 @@ export const CHECKBOX_COLUMN_CLASS = 'checkbox-column';
 export const domainColumnDefs = {
     Name: {
         headerName: 'domain.grid.name',
-        field: 'Name',
+        field: 'name',
         sort: 'asc',
         filter: "agTextColumnFilter",
         filterParams: { applyButton: true, clearButton: true },
@@ -22,7 +22,7 @@ export const domainColumnDefs = {
     },
     DomainSuffix: {
         headerName: 'domain.grid.domainSuffix',
-        field: 'DomainSuffix',
+        field: 'domainSuffix',
         filter: "agTextColumnFilter",
         filterParams: { applyButton: true, clearButton: true },
         sortable: true
@@ -45,3 +45,10 @@ export const defaultCiraGridProps = {
     rowSelection: 'single',
     resizable: true
 };
+
+export const domainDataModel = {
+    name: 'name',
+    domainSuffix: 'domainSuffix',
+    provisioningCert: 'provisioningCert',
+    provisioningCertPassword: 'provisioningCertPassword'
+}

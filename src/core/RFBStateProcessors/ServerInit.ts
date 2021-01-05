@@ -37,6 +37,8 @@ class ServerInit implements IStateProcessor {
       
       if(this.parent.updateScreenDimensions != null)
         this.parent.updateScreenDimensions(TypeConverter.ReadShort(acc, 0), TypeConverter.ReadShort(acc, 2))
+        this.parent.canvasCtx.canvas.width = this.parent.ScreenWidth = this.parent.rwidth = this.parent.width = TypeConverter.ReadShort(acc, 0);
+        this.parent.canvasCtx.canvas.height = this.parent.ScreenHeight = this.parent.rheight = this.parent.height = TypeConverter.ReadShort(acc, 2);
       // obj.canvas.canvas.width = obj.rwidth = obj.width = obj.ScreenWidth = ReadShort(obj.acc, 0);
       // obj.canvas.canvas.height = obj.rheight = obj.height = obj.ScreenHeight = ReadShort(obj.acc, 2);
 

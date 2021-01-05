@@ -8,9 +8,10 @@ import {
   defaultCiraGridProps,
   domainColumnDefs,
   checkboxColumn,
+  domainDataModel
 } from "./DomainGridConfig";
 import { translateColumnDefs } from "../shared/Methods";
-import { isFunc } from "../shared/Utilities";
+import { isFunc, camelCaseReshape } from "../shared/Utilities";
 import { HttpClient } from "../services/HttpClient";
 
 export interface domainGridProps {
@@ -63,8 +64,9 @@ export class DomainGrid extends React.Component<
   componentDidUpdate(prevProps) {
     if (this.props.updateDomainGrid != prevProps.updateDomainGrid) {
       this.fetchDomains().then((data) => {
+        let reshapedData = data.map(domain => camelCaseReshape(domain, domainDataModel));
         this.setState({
-          rowData: data,
+          rowData: reshapedData,
         });
       });
     }
@@ -89,8 +91,9 @@ export class DomainGrid extends React.Component<
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.fetchDomains().then((data) => {
+      let reshapedData = data.map(domain => camelCaseReshape(domain, domainDataModel));
       this.setState({
-        rowData: data,
+        rowData: reshapedData,
       });
     });
   };

@@ -92,6 +92,26 @@ In case user tries to delete a CIRA config which is associated with a Profile, a
 	<img src="assets/images/CIRADeleteFailure.png"  width="600" height="auto"/> 
 </div>
 
+### Edit CIRA Config
+ 
+Upon selecting any CIRA config by clicking on the checkbox against the Cira config details row, an 'Edit' button is shown on the header of CIRA COnfig control.
+
+<div align="center">
+	<img src="assets/images/CIRAEdit.png"  width="600" height="auto"/> 
+</div>
+
+On click of 'Edit' button selected CIRA Config details will be populated on the form as shown.
+
+<div align="center">
+	<img src="assets/images/CIRAEditFlyout.png"  width="600" height="auto"/> 
+</div>
+
+After editing the details, on clicking the Save button the CIRA Config details will get updated on the grid and success message will be shown.
+
+<div align="center">
+	<img src="assets/images/CIRAEditSuccess.png"  width="600" height="auto"/> 
+</div>
+
  
 
 
