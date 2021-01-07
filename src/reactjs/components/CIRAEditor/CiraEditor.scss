@@ -1,0 +1,63 @@
+/*********************************************************************
+* Copyright (c) Intel Corporation 2020
+* SPDX-License-Identifier: Apache-2.0
+**********************************************************************/
+@import '../../styles/variables';
+
+.p10 {
+    padding: 10px;
+}
+.pb10{
+    padding-bottom: 10px;
+}
+.p5{
+    padding: 5px;
+}
+
+.pr10{
+    padding-right: 10px;
+}
+
+.cira-label {
+    display: block;
+    margin-bottom: 3px;
+}
+
+.inlineblock {
+    display: inline-block;
+}
+
+.floatright{
+    float: right;
+}
+
+.cursor{
+    cursor: pointer;
+}
+
+.cira-header {
+    padding: 10px;
+    border-bottom: 1px solid #d3d3d3
+}
+
+.cira-error {
+    color: red;
+    font-size: 13px;
+    display: block;
+    padding-top: 3px;
+}
+.cira-toolbar {
+    padding: 10px;
+    background-color: #302e2e;
+    display: flex;
+    justify-content: flex-end;
+    font-family: $fontSelawik;
+
+    .cira-button {
+        margin: 5px;
+
+    }
+}
+.textareawidth{
+    width: 165px;
+}

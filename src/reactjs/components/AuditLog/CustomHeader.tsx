@@ -39,11 +39,13 @@ export class CustomHeader extends React.Component<HeaderParams, { isMouseOver: b
      * dynamically get the icon position and adjust tooltip styles
      */
     prepareTooltipStyle = event => {
+        let gridPosition = document.getElementById('grid-wrapper');
+        let gridLeftPosition = gridPosition.getBoundingClientRect().left;
         let rect: any = event.target.getBoundingClientRect();
         let tooltipWidth: number = 200;
         this.tooltipStyles = {};
         this.tooltipStyles.position = 'fixed';
-        this.tooltipStyles.left = rect.left - (tooltipWidth/2 + rect.width/2);
+        this.tooltipStyles.left = rect.left - (tooltipWidth/2 + rect.width/2)-gridLeftPosition;
         this.props.description.length < 34 ? this.tooltipStyles.top = '-30px' : ((this.props.description.length<68) ? this.tooltipStyles.top = '-48px' : this.tooltipStyles.top = '-60px');
         if(this.tooltipStyles.left < 0) {
             this.adjustTooltipStyle();

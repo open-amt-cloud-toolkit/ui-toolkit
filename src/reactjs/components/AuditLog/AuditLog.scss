@@ -79,6 +79,8 @@ $footerHeight: 50px;
   font-size: $fsize;
   font-weight: $fontweight;
   font-family: $family;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .data-export-info-icon {
@@ -125,10 +127,13 @@ $footerHeight: 50px;
   align-content: right;
   color: $whitecolor;
   background: $backgroundcolor;
-  border: transparent;
+  border: none !important;
   font-size: $fsize;
   font-weight: $fontweight;
+  cursor: pointer;
   font-family: $family;
+  outline: none;
+  text-decoration: underline;
 }
 
 .pagination-input {

@@ -1,0 +1,107 @@
+/*********************************************************************
+* Copyright (c) Intel Corporation 2020
+* SPDX-License-Identifier: Apache-2.0
+**********************************************************************/
+@import '../../styles/variables';
+
+.profile-header {
+    padding: 10px;
+    border-bottom: 1px solid #d3d3d3
+}
+
+.inlineblock {
+    display: inline-block;
+}
+
+.floatright {
+    float: right;
+}
+
+.cursor {
+    cursor: pointer;
+    padding: 3px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.profile-submit {
+    padding: 3px;
+    text-align: center;
+    border-radius: 5px;
+    min-width: 60px;
+    border: 1px;
+}
+
+.profile-submit {
+    padding: 3px;
+    text-align: center;
+    border-radius: 5px;
+    min-width: 60px;
+    border: 1px;
+}
+
+.p10 {
+    padding: 10px
+}
+
+.p-r10 {
+    padding-right: 10px;
+}
+
+.profile-label {
+    display: block;
+    margin-bottom: 3px;
+}
+
+.profile-config-script {
+    margin-bottom: 3px;
+    margin-right: 5px;
+    ;
+}
+
+.profile-random-password {
+    // display: inline-block;
+    margin-bottom: 3px;
+    padding-right: 10px;
+}
+
+.profile-generate-password {
+    margin-bottom: 3px;
+    margin-right: 5px;
+}
+
+.profile-error {
+    color: red;
+    font-size: 13px;
+    display: block;
+    padding-top: 3px;
+}
+
+.newConfig {
+    color: #0075FF;
+    text-decoration:underline;
+    padding: 3px 20px 0px 0px;
+}
+
+.profile-toolbar {
+    padding: 10px;
+    background-color: #302e2e;
+    display: flex;
+    justify-content: flex-end;
+    font-family: $fontSelawik;
+
+    .profile-button {
+        margin: 5px;
+    }
+}
+.profile-select{
+    display: block;
+    margin: 5px 0px;
+    width: 170px;
+    height: 21.33px;
+    text-overflow: ellipsis;
+}
+
+.checkbox-input {
+    margin: 0;
+}

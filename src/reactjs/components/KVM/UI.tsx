@@ -5,6 +5,7 @@
  **********************************************************************/
 
 import * as React from "react";
+import * as ReactDOM from 'react-dom'
 import { IDataProcessor } from "../../../core/IDataProcessor";
 import { DataProcessor } from "../../../core/ImageData/DataProcessor";
 import { Desktop } from "../../../core/Desktop";
@@ -28,6 +29,7 @@ export interface KVMProps {
   mouseDebounceTime: number;
   canvasHeight: string;
   canvasWidth: string;
+  autoConnect?: boolean;
 }
 
 export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number }> {
@@ -59,9 +61,9 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
   }
   init() {
     this.module = new AMTDesktop(this.logger, this.ctx);
-    this.redirector = new AMTKvmDataRedirector(this.logger, Protocol.KVM, new FileReader(), this.props.deviceId, 16994, "", "", 0,0, this.props.mpsServer);
+    this.redirector = new AMTKvmDataRedirector(this.logger, Protocol.KVM, new FileReader(), this.props.deviceId, 16994, "", "", 0, 0, this.props.mpsServer);
     this.dataProcessor = new DataProcessor(this.logger, this.redirector, this.module);
-    this.mouseHelper = new MouseHelper(this.module,this.redirector, this.props.mouseDebounceTime < 200 ? 200 : this.props.mouseDebounceTime); // anything less than 200 ms causes timeout
+    this.mouseHelper = new MouseHelper(this.module, this.redirector, this.props.mouseDebounceTime < 200 ? 200 : this.props.mouseDebounceTime); // anything less than 200 ms causes timeout
     this.keyboard = new KeyBoardHelper(this.module, this.redirector);
 
     this.redirector.onProcessData = this.module.processData.bind(this.module);
@@ -69,7 +71,7 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
     this.redirector.onNewState = this.module.onStateChange.bind(this.module);
     this.redirector.onSendKvmData = this.module.onSendKvmData.bind(this.module);
     this.redirector.onStateChanged = this.OnConnectionStateChange.bind(this);
-    this.redirector.onError = this.onRedirectorError.bind(this); 
+    this.redirector.onError = this.onRedirectorError.bind(this);
     this.module.onSend = this.redirector.send.bind(this.redirector);
     this.module.onProcessData = this.dataProcessor.processData.bind(this.dataProcessor);
   }
@@ -79,11 +81,19 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
     this.dataProcessor = null;
     this.mouseHelper = null;
     this.keyboard = null;
-    this.ctx.clearRect(0,0,this.ctx.canvas.height, this.ctx.canvas.width);
+    this.ctx.clearRect(0, 0, this.ctx.canvas.height, this.ctx.canvas.width);
   }
-  componentDidMount() {
-    //this.startKVM();
-  }
+  // componentDidMount() {
+  //   console.log("firing")
+  //   if (this.props.autoConnect) {
+  //     // this.startKVM();
+
+  //     this.handleConnectClick(window)
+  //   }
+  // }
+
+
+
 
   componentWillUnmount() {
     this.stopKVM();
@@ -114,8 +124,10 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
   }
 
   startKVM() {
-    if (typeof this.redirector !== "undefined")
+    if (typeof this.redirector !== "undefined") {
+      // console.log("startKVM")
       this.redirector.start(WebSocket);
+    }
     if (typeof this.keyboard !== "undefined") this.keyboard.GrabKeyInput();
   }
 
@@ -146,15 +158,15 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
   render() {
     return (
       <div className="canvas-container">
-        <Header key="kvm_header" handleConnectClick={this.handleConnectClick} getConnectState={() => this.state.kvmstate}
-          kvmstate={this.state.kvmstate} changeDesktopSettings={this.changeDesktopSettings} deviceId={this.props.deviceId} server={this.props.mpsServer}
-        />
+        {!this.props.autoConnect ? <Header key="kvm_header" handleConnectClick={this.handleConnectClick} getConnectState={() => this.state.kvmstate} kvmstate={this.state.kvmstate} changeDesktopSettings={this.changeDesktopSettings} deviceId={this.props.deviceId} server={this.props.mpsServer}
+        /> : ''}
         <KVM key="kvm_comp" saveContext={ctx => this.saveContext(ctx)} height={this.props.canvasHeight} width={this.props.canvasWidth}
-          mousemove={event => {if (typeof this.mouseHelper !== "undefined") this.mouseHelper.mousemove(event);}}
-          mousedown={event => {if (typeof this.mouseHelper !== "undefined") this.mouseHelper.mousedown(event);}}
-          mouseup={event => {if (typeof this.mouseHelper !== "undefined") this.mouseHelper.mouseup(event);}}
+          mousemove={event => { if (typeof this.mouseHelper !== "undefined") this.mouseHelper.mousemove(event); }}
+          mousedown={event => { if (typeof this.mouseHelper !== "undefined") this.mouseHelper.mousedown(event); }}
+          mouseup={event => { if (typeof this.mouseHelper !== "undefined") this.mouseHelper.mouseup(event); }}
         />
-        </div>
-      );
+      </div>
+    );
   }
 }
+
