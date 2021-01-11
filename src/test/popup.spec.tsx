@@ -6,7 +6,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import {Popup} from '../reactjs/components/shared/popup/Popup'
+import {Popup, RenderChildPopup} from '../reactjs/components/shared/popup/Popup'
 
 describe('popup test', ()=> {
 
@@ -16,5 +16,10 @@ describe('popup test', ()=> {
         expect(wrapper.find('.popup')).toHaveLength(1)
         expect(wrapper.find('h4')).toHaveLength(1)
         expect(wrapper.find('Button')).toHaveLength(2)
+    })
+
+    it('should load the child popup component without crashing', () => {
+        const wrapper = shallow(<RenderChildPopup children={`<div></div`} className='child-prop' />)
+        expect(wrapper.find('.popup')).toHaveLength(1)
     })
 })

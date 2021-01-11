@@ -113,4 +113,25 @@ describe("Test MouseHelper", () => {
         expect(TestMouseEvent.stopPropagationvar).toBe(1);
 
     });
+
+    it('test mousedown event', () => {
+        var comm = new Communicator();
+        var desktop = new AmtDesktop();
+        var mousehelper = new MouseHelper(desktop, comm, 0);
+        var e: any = {
+            button: 1
+        }
+        desktop.state = 4;
+        desktop.canvasControl = {
+            height: 100,
+            offsetHeight: 20,
+            width: 200,
+            offsetWidth: 20
+        };
+        desktop.setDeskFocus = jest.fn();
+        mousehelper.mousedown(e);
+
+       expect(mousehelper.parent.state).toEqual(4)
+
+    })
 });
