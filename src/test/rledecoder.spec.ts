@@ -8,12 +8,11 @@
 **********************************************************************/
 
 import { RLEDecoder } from '../core/ImageData/RLEDecoder'
-const { createCanvas, loadImage, ImageData } = require('canvas');
-import { string } from 'prop-types';
+import { createCanvas, ImageData } from 'canvas';
 
 // classes defined for Unit testing
 import { AmtDesktop } from '../test/helper/testdesktop';
-import { RleVariables } from '../test/helper/rledecodervariables'
+import  RleVariables  from '../test/helper/rledecodervariables'
 
 describe("Test Decode function in RLEDecoder", () => {
 
