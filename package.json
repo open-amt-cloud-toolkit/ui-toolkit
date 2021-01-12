@@ -6,7 +6,7 @@
     "start": "webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
     "build-ext": "webpack --config webpack.config.externals.js",
-    "test": "jest --coverage --detectOpenHandles",
+    "test": "jest  --detectOpenHandles --logHeapUsage",
     "test-kvm": "tsc && node ./dist/test/kvmui.test.ws.js"
   },
   "author": "",
@@ -40,7 +40,7 @@
   "devDependencies": {
     "@types/enzyme": "^3.10.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
-    "@types/jest": "^24.0.18",
+    "@types/jest": "^26.0.20",
     "@types/md5": "^2.1.33",
     "@types/node": "^11.13.20",
     "@types/react": "^16.9.2",
