@@ -3,10 +3,11 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 export class mockeventpersist {
-    constructor(){
+  constructor () {
 
-    }
-    persist(){
+  }
 
-    }
+  persist () {
+
+  }
 }

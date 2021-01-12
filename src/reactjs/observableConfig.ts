@@ -4,8 +4,8 @@
  * Author : Ramu Bachala
  **********************************************************************/
 import { from } from 'rxjs'
-import { setObservableConfig } from 'recompose';
+import { setObservableConfig } from 'recompose'
 
 setObservableConfig({
   fromESObservable: from
-});
+})
