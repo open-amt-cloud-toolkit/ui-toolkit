@@ -71,11 +71,11 @@ export class NetworkGrid extends React.Component<
   componentDidUpdate(prevProps) {
     if (this.props.updateNetworkGrid != prevProps.updateNetworkGrid) {
       this.fetchNetworkSettings().then((data) => {
-        this.setState({
-          rowData: data.map((config) =>
-            camelCaseReshape(config, networkDataModal)
-          ),
-        });
+          this.setState({
+            rowData: data ? data.map((config) =>
+              camelCaseReshape(config, networkDataModal)
+            ) : [],
+          });   
       });
     }
   }

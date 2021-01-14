@@ -73,9 +73,9 @@ export class ProfileGrid extends React.Component<
   componentDidUpdate(prevProps) {
     if (this.props.updateProfileGrid != prevProps.updateProfileGrid) {
       this.fetchProfiles().then((data) => {
-        let reshapedData = data.map((profile) =>
+        let reshapedData =  data ? data.map((profile) =>
           camelCaseReshape(profile, profileModel)
-        );
+        ) : [];
          this.setState({
           rowData: reshapedData,
         });
