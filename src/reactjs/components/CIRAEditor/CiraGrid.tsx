@@ -68,7 +68,7 @@ export class CiraGrid extends React.Component<CiraGridProps, CiraGridStates> {
     if (this.props.updateCiraGrid != prevProps.updateCiraGrid) {
       this.fetchCiraConfigs().then((data) => {
         this.setState({
-          rowData: data.map(config => camelCaseReshape(config, ciraDataModal)),
+          rowData: data ? data.map(config => camelCaseReshape(config, ciraDataModal)) : [],
         });
       });
     }
@@ -96,7 +96,7 @@ export class CiraGrid extends React.Component<CiraGridProps, CiraGridStates> {
     this.gridColumnApi = params.columnApi;
     this.fetchCiraConfigs().then((data) => {
        this.setState({
-        rowData: data.map(config => camelCaseReshape(config, ciraDataModal)),
+        rowData: data ? data.map(config => camelCaseReshape(config, ciraDataModal)) : [],
       });
     });
   };
