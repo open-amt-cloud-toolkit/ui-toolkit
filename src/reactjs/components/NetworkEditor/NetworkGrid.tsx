@@ -95,9 +95,7 @@ export class NetworkGrid extends React.Component<
     this.fetchNetworkSettings()
       .then((data) => {
          this.setState({
-          rowData: data.map((network) =>
-            camelCaseReshape(network, networkDataModal)
-          ),
+          rowData: data ? data.map((network) => camelCaseReshape(network, networkDataModal)) : [],
         });
       })
       .catch((error) => console.log(error, "++++Networkerror"));

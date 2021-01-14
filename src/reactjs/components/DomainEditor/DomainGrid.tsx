@@ -91,7 +91,7 @@ export class DomainGrid extends React.Component<
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.fetchDomains().then((data) => {
-      let reshapedData = data.map(domain => camelCaseReshape(domain, domainDataModel));
+      let reshapedData = data ? data.map(domain => camelCaseReshape(domain, domainDataModel)) : [];
       this.setState({
         rowData: reshapedData,
       });
