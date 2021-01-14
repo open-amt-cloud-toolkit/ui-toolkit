@@ -48,8 +48,8 @@ describe('Test Decode function in RLEDecoder', () => {
     rledecoder.Decode(input, ptr, x, y, width, height, s, datalen)
 
     // get Image data - Get the image on canvas and compare with the drawn image
-    const output = parent.canvasCtx.getImageData(x, y, width, height)
-    expect(output).toEqual(parent.spare)
+    const output: ImageData = parent.canvasCtx.getImageData(x, y, width, height)
+    expect(output.toString()).toEqual(parent.spare.toString())
   })
 
   it('RLEDecoder.Decode: Test Decode with subencoding == 1', () => {
@@ -87,7 +87,7 @@ describe('Test Decode function in RLEDecoder', () => {
 
     // get Image data - Get the image on canvas and compare with the drawn image
     const output = parent.canvasCtx.getImageData(x, y, width, height)
-    expect(output).toEqual(parent.spare)
+    expect(output.toString()).toEqual(parent.spare.toString())
   })
 
   it('RLEDecoder.Decode: Test Decode with subencoding > 1 && subencoding < 17', () => {
@@ -123,8 +123,8 @@ describe('Test Decode function in RLEDecoder', () => {
     rledecoder.Decode(input, ptr, x, y, width, height, s, datalen)
 
     // get Image data - Get the image on canvas and compare with the drawn image
-    const output = parent.canvasCtx.getImageData(x, y, width, height)
-    expect(output).toEqual(parent.spare)
+    const output: ImageData = parent.canvasCtx.getImageData(x, y, width, height)
+    expect(output.toString()).toEqual(parent.spare.toString())
   })
 
   it('RLEDecoder.Decode: Test Decode with subencoding == 128', () => {
@@ -160,8 +160,8 @@ describe('Test Decode function in RLEDecoder', () => {
     rledecoder.Decode(input, ptr, x, y, width, height, s, datalen)
 
     // get Image data - Get the image on canvas and compare with the drawn image
-    const output = parent.canvasCtx.getImageData(x, y, width, height)
-    expect(output).toEqual(parent.spare)
+    const output: ImageData = parent.canvasCtx.getImageData(x, y, width, height)
+    expect(output.toString()).toEqual(parent.spare.toString())
   })
 
   it('RLEDecoder.Decode: Test Decode with subencoding > 129', () => {
@@ -197,7 +197,7 @@ describe('Test Decode function in RLEDecoder', () => {
     rledecoder.Decode(input, ptr, x, y, width, height, s, datalen)
 
     // get Image data - Get the image on canvas and compare with the drawn image
-    const output = parent.canvasCtx.getImageData(x, y, width, height)
-    expect(output).toEqual(parent.spare)
+    const output: ImageData = parent.canvasCtx.getImageData(x, y, width, height)
+    expect(output.toString()).toEqual(parent.spare.toString())
   })
 })
