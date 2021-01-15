@@ -5,6 +5,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { translateText } from "./Methods";
+
 import {
   nameValidation,
   ipAddressValidation,
@@ -24,6 +25,7 @@ export interface formProps {
   handleSubmit?: any;
   close?: any;
   rpsServer?: any;
+  mpsServer?: any;
   notificationCallback?: any;
   showProfileError?: any;
   isEdit?: boolean;
@@ -103,48 +105,37 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
   handleBlur = (e) => this.setState({ [`${e.target.name}_blur`]: true });
 
   loadMpsCertificate = async () => {
-    const { mpsServerAddress } = this.state.ciraConfig;
-     const { hostname, host } = window.location;
     const { mpsKey } = this.context.data;
-    const mpsPort = host.split(':')[1];
-     if (mpsServerAddress === hostname) {
-      const serverUrl = `https://${hostname}:${mpsPort}/admin`;
-      const resp = await fetch(serverUrl, {
-        method: 'POST',
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "X-MPS-API-Key": mpsKey
-        },
-        body: JSON.stringify({
-          apikey: 'xxxxx',
-          method: "MPSRootCertificate",
-          payload: {}
-        })
-      }).then(response => response.text())
-        .catch(error => console.info(error))
+    const serverUrl = `${this.props.mpsServer}/admin`;
+    const resp = await fetch(serverUrl, {
+      method: 'POST',
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "X-MPS-API-Key": mpsKey
+      },
+      body: JSON.stringify({
+        apikey: 'xxxxx',
+        method: "MPSRootCertificate",
+        payload: {}
+      })
+    }).then(response => response.text())
+      .catch(error => console.info(error))
 
-      if (resp) {
-        this.setState({
-          ciraConfig: {
-            ...this.state.ciraConfig,
-            mpsRootCertificate: this.trimRootCert(resp),
-          },
-          isCertLoaded: true
-        })
-      } else {
-        this.setState({
-          isError: true,
-          mpsCertErrorMsg: translateText("cira.errors.mpsCertFetchError")
-        })
-      }
+    if (resp) {
+      this.setState({
+        ciraConfig: {
+          ...this.state.ciraConfig,
+          mpsRootCertificate: this.trimRootCert(resp),
+        },
+        isCertLoaded: true
+      })
     } else {
       this.setState({
         isError: true,
-        mpsCertErrorMsg: translateText("cira.errors.mpsServerMismatchError")
+        mpsCertErrorMsg: translateText("cira.errors.mpsCertFetchError")
       })
     }
-
   }
 
   handleSubmit = async (e) => {

@@ -28,6 +28,7 @@ library.add(...iconList);
 
 export interface CiraEditorProps {
   rpsServer: string;
+  mpsServer: string;
 }
 
 export interface CiraEditorState {
@@ -58,7 +59,7 @@ export class CiraEditor extends React.Component<
       type: "",
       updateCiraGrid: false,
       selectedCiraConfigs: "",
-      isEdit:false
+      isEdit: false
     };
   }
 
@@ -99,14 +100,14 @@ export class CiraEditor extends React.Component<
 
   getSelectedCiraConfigs = (ciraConfigs) => {
     //set the cira configs in a state and use for delete
-     this.setState({
+    this.setState({
       selectedCiraConfigs: ciraConfigs,
     });
   };
   // open/close create CIRA config flyout
   handleChange = () => this.setState({ openFlyout: !this.state.openFlyout, isEdit: false });
 
-  handleEdit = () => this.setState({openFlyout: !this.state.openFlyout, isEdit:true})
+  handleEdit = () => this.setState({ openFlyout: !this.state.openFlyout, isEdit: true })
 
   //callback function for handling CIRA config creation message display
   createNotification = (success, message) => {
@@ -175,9 +176,10 @@ export class CiraEditor extends React.Component<
           <CiraConfigFlyout
             close={this.handleChange}
             rpsServer={this.props.rpsServer}
+            mpsServer={this.props.mpsServer}
             createNotification={this.createNotification}
             isEdit={isEdit}
-            selectedCiraConfigs ={selectedCiraConfigs}
+            selectedCiraConfigs={selectedCiraConfigs}
           />
         )}
         {showPopup && (
