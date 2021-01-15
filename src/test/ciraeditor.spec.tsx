@@ -22,6 +22,7 @@ describe("Test cira editor component", () => {
   it("loads the component without crashing ", () => {
     const ciraEditorProps: CiraEditorProps = {
       rpsServer: "localhost:8081",
+      mpsServer: "localhost:3000",
     };
 
     const wrapper = shallow(<CiraEditor {...ciraEditorProps} />);
@@ -33,6 +34,7 @@ describe("Test cira editor component", () => {
   it("should show the delete button on selecting a cira config from the grid", () => {
     const ciraEditorProps: CiraEditorProps = {
       rpsServer: "localhost:8081",
+      mpsServer: "localhost:3000",
     };
 
     const ciraEditorStates: CiraEditorState = {
@@ -62,6 +64,7 @@ describe("Test cira editor component", () => {
   it("should load the confirmation popup on clicking delete button", () => {
     const ciraEditorProps: CiraEditorProps = {
       rpsServer: "localhost:8081",
+      mpsServer: "localhost:3000",
     };
 
     const ciraEditorStates: CiraEditorState = {
@@ -94,6 +97,7 @@ describe("Test cira editor component", () => {
   it("should open the flyout on click of new", () => {
     const ciraEditorProps: CiraEditorProps = {
       rpsServer: "localhost:8081",
+      mpsServer: "localhost:3000",
     };
     const wrapper = shallow(<CiraEditor {...ciraEditorProps} />);
 
@@ -107,6 +111,7 @@ describe("Test cira editor component", () => {
   it("should show the create cira success notification", () => {
     const ciraEditorProps: CiraEditorProps = {
       rpsServer: "localhost:8081",
+      mpsServer: "localhost:3000",
     };
     const wrapper = shallow(<CiraEditor {...ciraEditorProps} />);
     const instance = wrapper.instance() as CiraEditor;
@@ -120,6 +125,7 @@ describe("Test cira editor component", () => {
   it("should show the create cira config error notification", () => {
     const ciraEditorProps: CiraEditorProps = {
       rpsServer: "localhost:8081",
+      mpsServer: "localhost:3000",
     };
     const wrapper = shallow(<CiraEditor {...ciraEditorProps} />);
     const instance = wrapper.instance() as CiraEditor;
@@ -133,6 +139,7 @@ describe("Test cira editor component", () => {
   it("should call the delete CIRA config rest API on confirming delete operation", () => {
     const ciraEditorProps: CiraEditorProps = {
       rpsServer: "localhost:8081",
+      mpsServer: "localhost:3000",
     };
     const wrapper = shallow(<CiraEditor {...ciraEditorProps} />);
     const instance = wrapper.instance() as CiraEditor;
@@ -140,7 +147,8 @@ describe("Test cira editor component", () => {
   });
   it('should show the edit button on selecting the profile on the grid', () => {
     const ciraEditorProps: CiraEditorProps = {
-      rpsServer: 'localhost:8081'
+      rpsServer: 'localhost:8081',
+      mpsServer: "localhost:3000",
     }
 
     const ciraStates = {
