@@ -70,9 +70,9 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
       generateRandomPassword && randomPasswordValidation
         ? true
         : amtPassword && amtPasswordValidation
-          ? true
-          : false;
-    const isValidMEBXPassword = generateRandomMEBxPassword && randomMEBXPasswordValidation ? true : mebxPassword && mebxPasswordValidation ? true : false;
+        ? true
+        : false;
+    const isValidMEBXPassword = activation==='ccmactivate'? true : (generateRandomMEBxPassword && randomMEBXPasswordValidation ? true : mebxPassword && mebxPasswordValidation ? true : false);
 
     const isValidProfileName = profileName && profilenameValidation;
 
@@ -111,6 +111,27 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
                   * {translateText("profiles.errors.profileNameValidation")}
                 </label>
               )}
+            </div>
+            <div className="p5">
+              <label className="profile-label">
+                {translateText("profiles.activation")} *
+              </label>
+              <select
+                name="activation"
+                className="profile-select"
+                value={activation}
+                onChange={this.props.handleChange}
+              >
+                <option value="" key="select">
+                  select activation mode
+                </option>
+                <option value="acmactivate" key="acmactivate">
+                  Admin Control Mode
+                </option>
+                <option value="ccmactivate" key="ccmactivate">
+                  Client Control Mode
+                </option>
+              </select>
             </div>
             <div className="p5">
               <label className="profile-generate-password profile-label">
@@ -193,7 +214,7 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
                   )}
               </div>
             )}
-            <div className="p5">
+            { activation !== 'ccmactivate' && <div className="p5">
               <label className="profile-generate-password profile-label">
                 {translateText("profiles.generateRandomMEBxPassword")}
               </label>
@@ -206,8 +227,8 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
                 disabled={mebxPassword}
                 value={generateRandomMEBxPassword}
               />
-            </div>
-            {!generateRandomMEBxPassword && (
+            </div>}
+            {activation !== 'ccmactivate' && !generateRandomMEBxPassword && (
               <div className="p5">
                 <label className="profile-label">
                   {translateText("profiles.mebxPassword")}
@@ -247,7 +268,7 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
               </div>
             )}
 
-            {generateRandomMEBxPassword && (
+            {generateRandomMEBxPassword && activation !== 'ccmactivate' && (
               <div className="p5">
                 <label className="profile-random-password profile-label">
                   {translateText("profiles.randomMEBXPasswordLength")}{" "}
@@ -350,27 +371,6 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
                 </label>
               </div>
             )}
-            <div className="p5">
-              <label className="profile-label">
-                {translateText("profiles.activation")} *
-              </label>
-              <select
-                name="activation"
-                className="profile-select"
-                value={activation}
-                onChange={this.props.handleChange}
-              >
-                <option value="" key="select">
-                  select activation mode
-                </option>
-                <option value="acmactivate" key="acmactivate">
-                  Admin Control Mode
-                </option>
-                <option value="ccmactivate" key="ccmactivate">
-                  Client Control Mode
-                </option>
-              </select>
-            </div>
             <div className="p5">
               <button
                 type="submit"

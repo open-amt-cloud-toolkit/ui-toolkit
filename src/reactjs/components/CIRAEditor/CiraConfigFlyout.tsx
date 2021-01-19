@@ -10,6 +10,7 @@ import { CiraConfigForm } from "../shared/CiraConfigForm";
 export interface CiraCongigProps {
   close?: any;
   rpsServer?: any;
+  mpsServer?: any;
   createNotification?: any;
   isEdit?:boolean;
   selectedCiraConfigs?:any
@@ -26,6 +27,7 @@ export class CiraConfigFlyout extends React.Component<CiraCongigProps> {
           notificationCallback={this.props.createNotification}
           close={this.props.close}
           rpsServer={this.props.rpsServer}
+          mpsServer={this.props.mpsServer}
           isEdit={this.props.isEdit}
           selectedCiraConfigs={this.props.selectedCiraConfigs}
           

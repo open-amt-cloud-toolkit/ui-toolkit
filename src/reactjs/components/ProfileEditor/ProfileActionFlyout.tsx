@@ -14,6 +14,7 @@ import { networkDataModal } from "../NetworkEditor/NetworkGridConfig";
 import { ProfileConfigForm } from "./ProfileConfigForm";
 import { NetworkProfileForm } from "../shared/NetworkProfileForm";
 import isFilter from "lodash/filter";
+import omit from "lodash/omit";
 require("./Profile.scss");
 
 export interface profileFlyoutProps {
@@ -254,6 +255,11 @@ export class ProfileActionFlyout extends React.Component<
     return newObj;
   };
 
+  //Omits MEBx related fields from the request payload for client control mode of activation
+  removeMEBxFieldsforCCM = obj => {
+    return obj.activation === 'ccmactivate' ? omit(obj, 'generateRandomMEBxPassword', 'randomMEBXPasswordLength', 'mebxPasswordLength', 'mebxPassword') : obj;
+}
+
   handleSubmit = async (e) => {
     e.preventDefault();
     let response;
@@ -273,7 +279,7 @@ export class ProfileActionFlyout extends React.Component<
         ? this.state.profileFormDetails.ciraConfigName
         : ""
     };
-    const payload = this.removeUnAssignedProperties(obj);
+    const payload = this.removeUnAssignedProperties(this.removeMEBxFieldsforCCM(obj));
     if (this.props.isEdit) {
       //Rest api to update the profile
       response = await HttpClient.patch(
