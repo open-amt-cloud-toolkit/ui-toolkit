@@ -17,10 +17,10 @@ import { MouseHelper } from "../../../core/Utilities/MouseHelper";
 import { ILogger, LogLevel } from "../../../core/ILogger";
 import { ConsoleLogger } from "../../../core/ConsoleLogger";
 import { KeyBoardHelper } from "../../../core/Utilities/KeyboardHelper";
-import { KVM } from "./KVM";
-import { Header } from "./Header";
 
-import "../../observableConfig";
+import { Header } from "./Header";
+import { PureCanvas } from "./Purecanvas";
+
 require("./UI.scss");
 
 export interface KVMProps {
@@ -83,18 +83,6 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
     this.keyboard = null;
     this.ctx.clearRect(0, 0, this.ctx.canvas.height, this.ctx.canvas.width);
   }
-  // componentDidMount() {
-  //   console.log("firing")
-  //   if (this.props.autoConnect) {
-  //     // this.startKVM();
-
-  //     this.handleConnectClick(window)
-  //   }
-  // }
-
-
-
-
   componentWillUnmount() {
     this.stopKVM();
   }
@@ -160,10 +148,11 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
       <div className="canvas-container">
         {!this.props.autoConnect ? <Header key="kvm_header" handleConnectClick={this.handleConnectClick} getConnectState={() => this.state.kvmstate} kvmstate={this.state.kvmstate} changeDesktopSettings={this.changeDesktopSettings} deviceId={this.props.deviceId} server={this.props.mpsServer}
         /> : ''}
-        <KVM key="kvm_comp" saveContext={ctx => this.saveContext(ctx)} height={this.props.canvasHeight} width={this.props.canvasWidth}
-          mousemove={event => { if (typeof this.mouseHelper !== "undefined") this.mouseHelper.mousemove(event); }}
-          mousedown={event => { if (typeof this.mouseHelper !== "undefined") this.mouseHelper.mousedown(event); }}
-          mouseup={event => { if (typeof this.mouseHelper !== "undefined") this.mouseHelper.mouseup(event); }}
+        <PureCanvas key="kvm_comp" contextRef={ctx => this.saveContext(ctx)} canvasHeight={this.props.canvasHeight} canvasWidth={this.props.canvasWidth}
+          mouseMove={event => { if (typeof this.mouseHelper !== "undefined") this.mouseHelper.mousemove(event); }}
+          mouseDown={event => { if (typeof this.mouseHelper !== "undefined") this.mouseHelper.mousedown(event); }}
+          mouseUp={event => { if (typeof this.mouseHelper !== "undefined") this.mouseHelper.mouseup(event);  
+         }}
         />
       </div>
     );
