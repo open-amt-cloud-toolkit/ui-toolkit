@@ -6,7 +6,7 @@
     "start": "webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
     "build-ext": "webpack --config webpack.config.externals.js",
-    "test": "jest  --detectOpenHandles --logHeapUsage",
+    "test": "jest --detectOpenHandles --logHeapUsage",
     "test-kvm": "tsc && node ./dist/test/kvmui.test.ws.js"
   },
   "author": "",
