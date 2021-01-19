@@ -44,21 +44,14 @@ export interface profileFlyoutState {
   profileFormDetails?: any;
   networkProfileName?: any;
   networkProfiles?: any;
-  staticIP?: boolean;
   showNetworkPopup?: boolean;
   showMEBXPassword?: boolean;
 }
-/*returning dhacp value based on networkConfigName*/
-const getStaticIP = (list, networkConfigName) => {
-  const networkConfig =
-    isFilter(list, { profileName: networkConfigName }) || [];
-  return (networkConfig.length && networkConfig[0].dhcpEnabled) || false;
-};
 
 export class ProfileActionFlyout extends React.Component<
   profileFlyoutProps,
   profileFlyoutState
-> {
+  > {
   constructor(props: profileFlyoutProps) {
     super(props);
     this.state = {
@@ -69,50 +62,51 @@ export class ProfileActionFlyout extends React.Component<
       showMEBXPassword: false,
       oldProfileFormDetails: props.isEdit
         ? {
-            ...props.slectedProfiles[0],
-            amtPassword: "",
-            mebxPassword: "",
-            generateRandomPassword:
-              props.slectedProfiles[0].generateRandomPassword || "",
-            randomPasswordLength:
-              (props.slectedProfiles[0].randomPasswordLength &&
-                JSON.stringify(
-                  props.slectedProfiles[0].randomPasswordLength
-                )) ||
-              "",
-            randomMEBXPasswordLength:
-              (props.slectedProfiles[0].randomMeBxPasswordLength &&
-                JSON.stringify(
-                  props.slectedProfiles[0].randomMeBxPasswordLength
-                )) ||
-              "",
-            generateRandomMEBxPassword:
-              props.slectedProfiles[0].generateRandomMeBxPassword || "",
-          }
-        : { staticIP: true },
+          ...props.slectedProfiles[0],
+          amtPassword: "",
+          mebxPassword: "",
+          generateRandomPassword:
+            props.slectedProfiles[0].generateRandomPassword || "",
+          randomPasswordLength:
+            (props.slectedProfiles[0].randomPasswordLength &&
+              JSON.stringify(
+                props.slectedProfiles[0].randomPasswordLength
+              )) ||
+            "",
+          randomMEBXPasswordLength:
+            (props.slectedProfiles[0].randomMeBxPasswordLength &&
+              JSON.stringify(
+                props.slectedProfiles[0].randomMeBxPasswordLength
+              )) ||
+            "",
+          generateRandomMEBxPassword:
+            props.slectedProfiles[0].generateRandomMeBxPassword || "",
+          networkConfigName: props.slectedProfiles[0].networkConfigName
+        }
+        : {},
       profileFormDetails: props.isEdit
         ? {
-            ...props.slectedProfiles[0],
-            amtPassword: "",
-            mebxPassword: "",
-            generateRandomPassword:
-              props.slectedProfiles[0].generateRandomPassword || "",
-            randomPasswordLength:
-              (props.slectedProfiles[0].randomPasswordLength &&
-                JSON.stringify(
-                  props.slectedProfiles[0].randomPasswordLength
-                )) ||
-              "",
-            randomMEBXPasswordLength:
-              (props.slectedProfiles[0].randomMeBxPasswordLength &&
-                JSON.stringify(
-                  props.slectedProfiles[0].randomMeBxPasswordLength
-                )) ||
-              "",
-            generateRandomMEBxPassword:
-              props.slectedProfiles[0].generateRandomMeBxPassword || "",
-          }
-        : { staticIP: true },
+          ...props.slectedProfiles[0],
+          amtPassword: "",
+          mebxPassword: "",
+          generateRandomPassword:
+            props.slectedProfiles[0].generateRandomPassword || "",
+          randomPasswordLength:
+            (props.slectedProfiles[0].randomPasswordLength &&
+              JSON.stringify(
+                props.slectedProfiles[0].randomPasswordLength
+              )) ||
+            "",
+          randomMEBXPasswordLength:
+            (props.slectedProfiles[0].randomMeBxPasswordLength &&
+              JSON.stringify(
+                props.slectedProfiles[0].randomMeBxPasswordLength
+              )) ||
+            "",
+          generateRandomMEBxPassword:
+            props.slectedProfiles[0].generateRandomMeBxPassword || "",
+        }
+        : {},
       showNetworkPopup: false,
     };
   }
@@ -141,7 +135,6 @@ export class ProfileActionFlyout extends React.Component<
             networkConfigName: networkConfigName || "",
             amtPassword: "",
             mebxPassword: "",
-            staticIP: getStaticIP(networkProfiles, networkConfigName),
             generateRandomPassword: generateRandomPassword || "",
             randomPasswordLength:
               (randomPasswordLength && JSON.stringify(randomPasswordLength)) ||
@@ -158,7 +151,6 @@ export class ProfileActionFlyout extends React.Component<
             networkConfigName: networkConfigName || "",
             amtPassword: "",
             mebxPassword: "",
-            staticIP: getStaticIP(networkProfiles, networkConfigName),
             generateRandomPassword: generateRandomPassword || "",
             randomPasswordLength:
               (randomPasswordLength && JSON.stringify(randomPasswordLength)) ||
@@ -211,17 +203,9 @@ export class ProfileActionFlyout extends React.Component<
             this.setState({
               profileFormDetails: {
                 ...profileFormDetails,
-                staticIP: getStaticIP(
-                  networkProfiles,
-                  profileFormDetails.networkConfigName
-                ),
               },
               oldProfileFormDetails: {
                 ...oldProfileFormDetails,
-                staticIP: getStaticIP(
-                  networkProfiles,
-                  oldProfileFormDetails.networkConfigName
-                ),
               },
             });
           }
@@ -241,30 +225,12 @@ export class ProfileActionFlyout extends React.Component<
 
   handleClick = (e) => {
     e.persist();
-    /*staticIP value is false clearing ciraConfigName Value  */
-    if (e.target.name === "staticIP") {
-      this.setState((prevState) => ({
-        profileFormDetails: {
-          ...prevState.profileFormDetails,
-          [e.target.name]: e.target.checked,
-          ciraConfigName:
-            e.target.checked === false
-              ? ""
-              : this.state.profileFormDetails.ciraConfigName,
-          networkConfigName:
-            e.target.checked === false
-              ? ""
-              : this.state.profileFormDetails.networkConfigName,
-        },
-      }));
-    } else {
-      this.setState((prevState) => ({
-        profileFormDetails: {
-          ...prevState.profileFormDetails,
-          [e.target.name]: e.target.checked,
-        },
-      }));
-    }
+    this.setState((prevState) => ({
+      profileFormDetails: {
+        ...prevState.profileFormDetails,
+        [e.target.name]: e.target.checked,
+      },
+    }));
   };
 
   handleOnBlur = (e) => this.setState({ [`${e.target.name}_blur`]: true });
@@ -295,15 +261,15 @@ export class ProfileActionFlyout extends React.Component<
       ...this.state.profileFormDetails,
       passwordLength:
         this.state.profileFormDetails.amtPassword &&
-        !this.state.profileFormDetails.generateRandomPassword
+          !this.state.profileFormDetails.generateRandomPassword
           ? null
           : parseInt(this.state.profileFormDetails.randomPasswordLength),
       mebxPasswordLength:
         this.state.profileFormDetails.mebxPassword &&
-        !this.state.profileFormDetails.generateRandomMEBxPassword
+          !this.state.profileFormDetails.generateRandomMEBxPassword
           ? null
           : parseInt(this.state.profileFormDetails.randomMEBXPasswordLength),
-      ciraConfigName: this.state.profileFormDetails.staticIP
+      ciraConfigName: this.state.profileFormDetails.networkConfigName !== "dhcp_disabled"
         ? this.state.profileFormDetails.ciraConfigName
         : ""
     };
@@ -325,9 +291,9 @@ export class ProfileActionFlyout extends React.Component<
     }
     if (
       response ===
-        `Profile ${this.state.profileFormDetails.profileName} successfully inserted` ||
+      `Profile ${this.state.profileFormDetails.profileName} successfully inserted` ||
       response ===
-        `Profile ${this.state.profileFormDetails.profileName} successfully updated`
+      `Profile ${this.state.profileFormDetails.profileName} successfully updated`
     ) {
       this.props.createProfileNotification(true, response);
     } else {
@@ -360,8 +326,7 @@ export class ProfileActionFlyout extends React.Component<
             ...this.state.profileFormDetails,
             networkConfigName: payload.profileName,
           },
-        },
-        () => this.getNetworkProfiles()
+        }
       );
     }
   };
