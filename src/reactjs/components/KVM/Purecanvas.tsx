@@ -12,7 +12,6 @@ export interface PureCanvasProps {
   mouseDown: (event: React.MouseEvent) => void
   mouseUp: (event: React.MouseEvent) => void
   mouseMove: (event: React.MouseEvent) => void
-  mouseWheel: (event: React.MouseEvent) => void
   canvasHeight: string
   canvasWidth: string
 }
@@ -36,7 +35,6 @@ export class PureCanvas extends React.Component<PureCanvasProps, {}> {
       onMouseDown: this.props.mouseDown,
       onMouseUp: this.props.mouseUp,
       onMouseMove: this.props.mouseMove,
-      onWheel: this.props.mouseWheel
     }
     return (
         <canvas {...canvasAttributes} className="canvas" ref={c => c ? this.props.contextRef(c.getContext('2d')) : null}/> 
