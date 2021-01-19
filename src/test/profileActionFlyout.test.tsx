@@ -189,7 +189,7 @@ describe('profile action flyout', () => {
         }
 
         myInstance.handleClick(clickEvent);
-        expect(wrapper.state('profileFormDetails')).toEqual({generateRandomPassword: true,staticIP:true})
+        expect(wrapper.state('profileFormDetails')).toEqual({generateRandomPassword: true})
 
     })
 
