@@ -30,7 +30,6 @@ describe("CIRA grid component", () => {
 
     const wrapper = shallow(<CiraGrid {...ciraGridProps} />);
 
-    console.info("wrapper ", wrapper.debug());
     expect(wrapper.find("PcsGrid")).toHaveLength(1);
   });
 
@@ -90,5 +89,23 @@ describe("CIRA grid component", () => {
     wrapper.instance().forceUpdate();
 
     expect(wrapper.state("rowData")).toHaveLength(3);
+
+    wrapper.setProps({
+      updateCiraGrid: true
+    })
   });
+
+  it('should return the soft selcted id ', () => {
+    const ciraGridProps: CiraGridProps = {
+      rpsServer: "localhost:8081",
+      updateCiraGrid: false,
+      rpsKey: 'APIKEYFORRPS123!'
+    };
+
+    const wrapper = shallow(<CiraGrid {...ciraGridProps} />);
+    const instance = wrapper.instance() as CiraGrid;
+
+    const result = instance.getSoftSelectId('10');
+    expect(result).toEqual('10')
+  })
 });

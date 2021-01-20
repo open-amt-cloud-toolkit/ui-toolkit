@@ -128,7 +128,6 @@ describe("Test Cira Config Form Component", () => {
     })
   })
   it('should call create REST api on form submit', async () => {
-    // mocked(HttpClient.post).mockImplementation(() => Promise.resolve('CIRA Config ciraconfig1 successfully inserted'));
     HttpClient.post = jest.fn(() => Promise.resolve('CIRA Config ciraconfig1 successfully inserted'));
     const CiraConfigProps: formProps = {
       handleSubmit: jest.fn(),
@@ -188,9 +187,7 @@ describe("Test Cira Config Form Component", () => {
       }]
     };
     let wrapper = shallow(<CiraConfigForm {...CiraConfigProps} />)
-    // console.log(wrapper)
 
-    
     let formDetails = {
       ciraConfig: {
         configName: 'ciraconfig1',
@@ -218,7 +215,96 @@ describe("Test Cira Config Form Component", () => {
       preventDefault: () => { }
     }
     myInstance.handleSubmit(submitEvent)
-    console.info('state here', wrapper.instance())
     expect(HttpClient.patch).toHaveBeenCalled()
+  })
+
+  it('should set the blur flag in component state on input blur', () => {
+    const wrapper = shallow(<CiraConfigForm {...CiraConfigProps} />);
+    const instance = wrapper.instance() as CiraConfigForm;
+
+    const event = {
+      target: {
+        name: 'configName'
+      }
+    };
+    instance.handleBlur(event);
+    expect(wrapper.state('configName_blur')).toEqual(true)
+  })
+
+  it('should toggle the mps certificate loading method between auto and manual on click', () => {
+    const wrapper = shallow(<CiraConfigForm {...CiraConfigProps} />);
+    const instance = wrapper.instance() as CiraConfigForm;
+
+    instance.toggleFormat(true);
+    expect(wrapper.state('isAutoLoad')).toEqual(true);
+    expect(wrapper.state('isError')).toEqual(false);
+  })
+
+  it('should handle the hide/show password field on click of icon', () => {
+    const wrapper = shallow(<CiraConfigForm {...CiraConfigProps} />);
+    const instance = wrapper.instance() as CiraConfigForm;
+
+    instance.handleShowPassword();
+    expect(wrapper.state('showPassword')).toEqual(true);
+  })
+
+  it('should trim the additional strings from root certificate', () => {
+    const wrapper = shallow(<CiraConfigForm {...CiraConfigProps} />);
+    const instance = wrapper.instance() as CiraConfigForm;
+
+    const cert = `-----BEGIN CERTIFICATE-----mpsrootcert-----END CERTIFICATE-----`;
+    const changeEvent = {
+      persist: jest.fn(),
+      target: {
+        name: 'mpsRootCertificate',
+        value: cert
+      }
+    }
+
+    instance.handleChange(changeEvent);
+    const { mpsRootCertificate } = wrapper.state('ciraConfig');
+    expect(mpsRootCertificate).toEqual('mpsrootcert');
+
+  })
+
+  it('should load the mps root certificate from the server on click of load button', async () => {
+
+    window.fetch = jest.fn();
+    const wrapper = shallow(<CiraConfigForm {...CiraConfigProps} />);
+    const instance = wrapper.instance() as CiraConfigForm;
+    wrapper.setState({
+      ciraConfig: {
+        mpsServerAddress: 'localhost'
+      }
+    });
+    instance.context = {
+      data: {
+        mpsKey: 'APIKEYFORMPS123!'
+      }
+    }
+    instance.loadMpsCertificate()
+  })
+
+  it('should update the state variables when props get updated', () => {
+    const wrapper = shallow(<CiraConfigForm {...CiraConfigProps} />);
+    const instance = wrapper.instance() as CiraConfigForm;
+
+    wrapper.setProps({
+      isEdit: true,
+      selectedCiraConfigs: [{
+        configName: 'ciraconfig2',
+        mpsServerAddress: '13.67.36.192',
+        mpsPort: 4433,
+        username: 'admin',
+        password: 'Intel@123',
+        commonName: '13.67.36.192',
+        mpsRootCertificate: 'rootCert2',
+        serverAddressFormat: 3,
+        authMethod: 2,
+        proxyDetails: ''
+      }]
+    });
+    const { configName } = wrapper.state('ciraConfig');
+    expect(configName).toEqual('ciraconfig2');
   })
 });

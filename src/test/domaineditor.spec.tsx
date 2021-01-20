@@ -140,4 +140,28 @@ describe("Test Domain Editor Component", () => {
     instance.confirmDelete();
     expect(wrapper.state('showPopup')).toEqual(false)
   });
+
+  it('should set the edit flag in component state when edit button is clicked', () => {
+    const domainEditorProps: domainProps = {
+      rpsServer: "localhost:8081",
+    };
+    const wrapper = shallow(<DomainEditor {...domainEditorProps} />);
+    const instance = wrapper.instance() as DomainEditor;
+    instance.handleEdit();
+    expect(wrapper.state('isEdit')).toBe(true)
+
+  });
+
+  it('should set the selected domain in component state on grid checkbox click', () => {
+    const domainEditorProps: domainProps = {
+      rpsServer: "localhost:8081",
+    };
+    const wrapper = shallow(<DomainEditor {...domainEditorProps} />);
+    const instance = wrapper.instance() as DomainEditor;
+
+    const domain = [{name: 'Domain1', domainSuffix: 'd2.com'}];
+
+    instance.getSelectedDomain(domain);
+    expect(wrapper.state('selectedDomain')).toEqual([{name: 'Domain1', domainSuffix: 'd2.com'}])
+  })
 });
