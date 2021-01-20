@@ -28,15 +28,8 @@ export interface ProfileConigFormProps {
   toggleNetworkPopup: any;
   handleShowMEBXPassword: any;
 }
-
-export interface ProfileConfigFormState {
-  staticIP: boolean;
-}
 /*to do */
-export class ProfileConfigForm extends React.Component<
-  ProfileConigFormProps,
-  ProfileConfigFormState
-> {
+export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
   render() {
     const { isEdit, onClose } = this.props.propValiables;
     const {
@@ -62,12 +55,8 @@ export class ProfileConfigForm extends React.Component<
       networkConfigName,
       ciraConfigName,
       activation,
-      staticIP,
       mebxPassword,
     } = profileFormDetails;
-    const networkOptions = staticIP
-      ? isFilter(networkProfiles, { dhcpEnabled: true })
-      : isFilter(networkProfiles, { dhcpEnabled: false });
     const profilenameValidation = nameValidation(profileName);
     const amtPasswordValidation = passwordValidation(amtPassword);
     const mebxPasswordValidation = passwordValidation(mebxPassword);
@@ -83,7 +72,7 @@ export class ProfileConfigForm extends React.Component<
         : amtPassword && amtPasswordValidation
         ? true
         : false;
-    const isValidMEBXPassword = generateRandomMEBxPassword && randomMEBXPasswordValidation ? true : mebxPassword && mebxPasswordValidation ? true : false;
+    const isValidMEBXPassword = activation==='ccmactivate'? true : (generateRandomMEBxPassword && randomMEBXPasswordValidation ? true : mebxPassword && mebxPasswordValidation ? true : false);
 
     const isValidProfileName = profileName && profilenameValidation;
 
@@ -124,6 +113,27 @@ export class ProfileConfigForm extends React.Component<
               )}
             </div>
             <div className="p5">
+              <label className="profile-label">
+                {translateText("profiles.activation")} *
+              </label>
+              <select
+                name="activation"
+                className="profile-select"
+                value={activation}
+                onChange={this.props.handleChange}
+              >
+                <option value="" key="select">
+                  select activation mode
+                </option>
+                <option value="acmactivate" key="acmactivate">
+                  Admin Control Mode
+                </option>
+                <option value="ccmactivate" key="ccmactivate">
+                  Client Control Mode
+                </option>
+              </select>
+            </div>
+            <div className="p5">
               <label className="profile-generate-password profile-label">
                 {translateText("profiles.generateRandomPassword")}
               </label>
@@ -156,12 +166,12 @@ export class ProfileConfigForm extends React.Component<
                     onClick={this.props.handleShowPassword}
                   />
                 ) : (
-                  <FontAwesomeIcon
-                    icon="eye"
-                    size="xs"
-                    onClick={this.props.handleShowPassword}
-                  />
-                )}
+                    <FontAwesomeIcon
+                      icon="eye"
+                      size="xs"
+                      onClick={this.props.handleShowPassword}
+                    />
+                  )}
                 {amtPassword_blur && !amtPassword && (
                   <label className="profile-error">
                     {" "}
@@ -204,7 +214,7 @@ export class ProfileConfigForm extends React.Component<
                   )}
               </div>
             )}
-            <div className="p5">
+            { activation !== 'ccmactivate' && <div className="p5">
               <label className="profile-generate-password profile-label">
                 {translateText("profiles.generateRandomMEBxPassword")}
               </label>
@@ -217,8 +227,8 @@ export class ProfileConfigForm extends React.Component<
                 disabled={mebxPassword}
                 value={generateRandomMEBxPassword}
               />
-            </div>
-            {!generateRandomMEBxPassword && (
+            </div>}
+            {activation !== 'ccmactivate' && !generateRandomMEBxPassword && (
               <div className="p5">
                 <label className="profile-label">
                   {translateText("profiles.mebxPassword")}
@@ -237,12 +247,12 @@ export class ProfileConfigForm extends React.Component<
                     onClick={this.props.handleShowMEBXPassword}
                   />
                 ) : (
-                  <FontAwesomeIcon
-                    icon="eye"
-                    size="xs"
-                    onClick={this.props.handleShowMEBXPassword}
-                  />
-                )}
+                    <FontAwesomeIcon
+                      icon="eye"
+                      size="xs"
+                      onClick={this.props.handleShowMEBXPassword}
+                    />
+                  )}
                 {mebxPassword_blur && !mebxPassword && (
                   <label className="profile-error">
                     {" "}
@@ -258,7 +268,7 @@ export class ProfileConfigForm extends React.Component<
               </div>
             )}
 
-            {generateRandomMEBxPassword && (
+            {generateRandomMEBxPassword && activation !== 'ccmactivate' && (
               <div className="p5">
                 <label className="profile-random-password profile-label">
                   {translateText("profiles.randomMEBXPasswordLength")}{" "}
@@ -286,20 +296,27 @@ export class ProfileConfigForm extends React.Component<
                   )}
               </div>
             )}
-            <div className="p5">
+            <div className="p5" onChange={this.props.handleChange}>
               <label className="profile-generate-password profile-label">
-                {translateText("profiles.dhcpEnabled")}
+                {/* {translateText("profiles.dhcpEnabled")} */}
+                Network Configuration
               </label>
               <input
-                className="checkbox-input"
-                type="checkbox"
-                name="staticIP"
-                onChange={this.props.handleClick}
-                checked={staticIP}
-                value={staticIP}
-              />
+                type="radio"
+                value="dhcp_enabled"
+                name="networkConfigName"
+                onClick={this.props.handleChange}
+                checked={networkConfigName === "dhcp_enabled" ? true : false}
+              />DHCP
+              <input
+                type="radio"
+                value="dhcp_disabled"
+                name="networkConfigName"
+                onClick={this.props.handleChange}
+                checked={networkConfigName === "dhcp_disabled" ? true : false}
+              />Static
             </div>
-            <div className="p5">
+            {/* <div className="p5">
               <label className="profile-config-script">
                 {translateText("profiles.networkProile")}
               </label>
@@ -324,9 +341,9 @@ export class ProfileConfigForm extends React.Component<
                 <FontAwesomeIcon icon="plus-circle" size="xs" />{" "}
                 {translateText("profiles.newNetwork")}
               </label>
-            </div>
+            </div> */}
 
-            {staticIP && (
+            {networkConfigName !== "dhcp_disabled"  && (
               <div className="p5">
                 <label className="profile-config-script">
                   {translateText("profiles.ciraConfiguration")}
@@ -355,36 +372,15 @@ export class ProfileConfigForm extends React.Component<
               </div>
             )}
             <div className="p5">
-              <label className="profile-label">
-                {translateText("profiles.activation")} *
-              </label>
-              <select
-                name="activation"
-                className="profile-select"
-                value={activation}
-                onChange={this.props.handleChange}
-              >
-                <option value="" key="select">
-                  select activation mode
-                </option>
-                <option value="acmactivate" key="acmactivate">
-                  Admin Control Mode
-                </option>
-                <option value="ccmactivate" key="ccmactivate">
-                  Client Control Mode
-                </option>
-              </select>
-            </div>
-            <div className="p5">
               <button
                 type="submit"
                 className="cursor profile-submit"
                 disabled={
                   isEdit
                     ? !(
-                        isValid &&
-                        !isMatch(profileFormDetails, oldProfileFormDetails)
-                      )
+                      isValid &&
+                      !isMatch(profileFormDetails, oldProfileFormDetails)
+                    )
                     : !isValid
                 }
               >

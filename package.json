@@ -6,18 +6,19 @@
     "start": "webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
     "build-ext": "webpack --config webpack.config.externals.js",
-    "test": "jest --coverage --detectOpenHandles",
+    "test": "jest --detectOpenHandles --logHeapUsage",
     "test-kvm": "tsc && node ./dist/test/kvmui.test.ws.js"
   },
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
-    "@fortawesome/react-fontawesome": "^0.1.7",
+    "@fortawesome/react-fontawesome": "^0.1.13",
     "ag-grid-community": "^22.0.0",
     "ag-grid-react": "^22.0.0",
     "camelcase": "^5.3.1",
+    "change-emitter": "^0.1.6",
     "dot-object": "^2.1.3",
     "export-to-csv": "^0.2.1",
     "i18next": "^19.8.3",
@@ -29,10 +30,11 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-i18next": "^11.2.2",
-    "recompose": "^0.30.0",
     "rxjs": "^6.5.3",
     "sass": "^1.27.1",
     "styled-components": "^5.0.1",
+    "symbol-observable": "^1.0.4",
+    "whatwg-fetch": "^3.5.0",
     "winston": "^3.0.0",
     "ws": "^7.3.1",
     "xterm": "^4.4.0"
@@ -40,7 +42,7 @@
   "devDependencies": {
     "@types/enzyme": "^3.10.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
-    "@types/jest": "^24.0.18",
+    "@types/jest": "^26.0.20",
     "@types/md5": "^2.1.33",
     "@types/node": "^11.13.20",
     "@types/react": "^16.9.2",
@@ -64,7 +66,7 @@
     "typescript": "^3.6.4",
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0",
+    "webpack-dev-server": "^3.11.2",
     "webpack-node-externals": "^1.7.2"
   }
 }

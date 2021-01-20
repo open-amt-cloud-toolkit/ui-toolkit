@@ -189,7 +189,7 @@ describe('profile action flyout', () => {
         }
 
         myInstance.handleClick(clickEvent);
-        expect(wrapper.state('profileFormDetails')).toEqual({ generateRandomPassword: true, staticIP: true })
+        expect(wrapper.state('profileFormDetails')).toEqual({generateRandomPassword: true})
 
     })
 
@@ -284,7 +284,7 @@ describe('profile action flyout', () => {
             }]
         })
         const profileDetails = wrapper.state('profileFormDetails');
-        expect(profileDetails).toEqual({profileName: 'profile2',generateRandomPassword: '',ciraConfigName: 'config1',activation: 'acmactivate',networkConfigName: '',amtPassword: '',mebxPassword: '',staticIP: false,randomPasswordLength: '',generateRandomMEBxPassword: '',randomMEBXPasswordLength: ''});
+        expect(profileDetails).toEqual({profileName: 'profile2',generateRandomPassword: '',ciraConfigName: 'config1',activation: 'acmactivate',networkConfigName: '',amtPassword: '',mebxPassword: '',randomPasswordLength: '',generateRandomMEBxPassword: '',randomMEBXPasswordLength: ''});
     })
 
     it('should update the static ip value on click of the checkbox', () => {
@@ -300,7 +300,7 @@ describe('profile action flyout', () => {
         }
 
         myInstance.handleClick(clickEvent);
-        expect(wrapper.state('profileFormDetails')).toEqual({ staticIP: false, ciraConfigName: '', networkConfigName: '' })
+        expect(wrapper.state('profileFormDetails')).toEqual({staticIP: false})
     })
 
     it('should toggle the MEBx password field visibility on click', () => {
@@ -332,6 +332,6 @@ describe('profile action flyout', () => {
         }
         myInstance.createNotification(status, response, payload);
         expect(wrapper.state('showNetworkPopup')).toBe(false);
-        expect(wrapper.state('profileFormDetails')).toEqual({ staticIP: true, networkConfigName: 'profile1' })
+        expect(wrapper.state('profileFormDetails')).toEqual({networkConfigName: 'profile1' })
     })
 })
