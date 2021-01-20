@@ -14,7 +14,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
-    "@fortawesome/react-fontawesome": "^0.1.7",
+    "@fortawesome/react-fontawesome": "^0.1.13",
     "ag-grid-community": "^22.0.0",
     "ag-grid-react": "^22.0.0",
     "camelcase": "^5.3.1",
