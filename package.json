@@ -6,7 +6,8 @@
     "start": "webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
     "build-ext": "webpack --config webpack.config.externals.js",
-    "test": "jest --detectOpenHandles --logHeapUsage",
+    "test": "jest --detectOpenHandles --logHeapUsage --ci --no-cache --runInBand ",
+    "coverage": "jest --coverage  --detectOpenHandles --logHeapUsage --ci --no-cache --runInBand --testPathIgnorePatterns='imagehelper.spec.ts' --testPathIgnorePatterns='rledecoder.spec.ts'",
     "test-kvm": "tsc && node ./dist/test/kvmui.test.ws.js"
   },
   "author": "",
@@ -49,7 +50,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/ws": "^6.0.1",
     "awesome-typescript-loader": "^5.2.1",
-    "canvas": "^2.6.0",
+    "canvas": "^2.6.1",
     "css-loader": "^3.4.2",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
