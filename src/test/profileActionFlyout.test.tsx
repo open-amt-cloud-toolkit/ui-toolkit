@@ -15,8 +15,8 @@ import { HttpClient } from "../reactjs/components/services/HttpClient";
 //jest.mock("../reactjs/components/services/HttpClient");
 describe('profile action flyout', () => {
 
-    beforeEach(()=> {
-        HttpClient.get = jest.fn(()=> Promise.resolve([{ConfigName: "ciraconfig1",MPSServerAddress: "localhost",MPSPort: 4433,Username: "admin",Password: "P@ssw0rd",CommonName: "localhost",ServerAddressFormat: 201,AuthMethod: 2,MPSRootCertificate: "rootcert",ProxyDetails: "",}]))
+    beforeEach(() => {
+        HttpClient.get = jest.fn(() => Promise.resolve([{ ConfigName: "ciraconfig1", MPSServerAddress: "localhost", MPSPort: 4433, Username: "admin", Password: "P@ssw0rd", CommonName: "localhost", ServerAddressFormat: 201, AuthMethod: 2, MPSRootCertificate: "rootcert", ProxyDetails: "", }]))
     })
     let profileActionFlyoutProps: profileFlyoutProps = {
         onClose: jest.fn(),
@@ -166,22 +166,22 @@ describe('profile action flyout', () => {
                 ciraConfigName: 'config1',
                 activation: 'ccmactivate',
                 generateRandomMEBxPassword: "",
-                mebxPassword:"",
-                randomMEBXPasswordLength:""
+                mebxPassword: "",
+                randomMEBXPasswordLength: ""
             }]
         }
 
-        let wrapper = shallow(<ProfileActionFlyout {...profileProps}/>)
+        let wrapper = shallow(<ProfileActionFlyout {...profileProps} />)
         let formDetails = wrapper.state('profileFormDetails');
-        expect(formDetails).toEqual( {profileName: 'profile1',generateRandomPassword: true,randomPasswordLength: '10',ciraConfigName: 'config1',activation: 'ccmactivate',amtPassword: '',generateRandomMEBxPassword:'',mebxPassword:'',randomMEBXPasswordLength:''})
+        expect(formDetails).toEqual({ profileName: 'profile1', generateRandomPassword: true, randomPasswordLength: '10', ciraConfigName: 'config1', activation: 'ccmactivate', amtPassword: '', generateRandomMEBxPassword: '', mebxPassword: '', randomMEBXPasswordLength: '' })
     })
 
-    it('should toggle the generate random password checkbox on click', ()=> {
+    it('should toggle the generate random password checkbox on click', () => {
         let wrapper = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />);
         let myInstance = wrapper.instance() as ProfileActionFlyout;
 
         const clickEvent = {
-            persist: ()=> {},
+            persist: () => { },
             target: {
                 name: 'generateRandomPassword',
                 checked: true
@@ -189,12 +189,12 @@ describe('profile action flyout', () => {
         }
 
         myInstance.handleClick(clickEvent);
-        expect(wrapper.state('profileFormDetails')).toEqual({generateRandomPassword: true,staticIP:true})
+        expect(wrapper.state('profileFormDetails')).toEqual({generateRandomPassword: true})
 
     })
 
-    it('should call the create REST api on form submit', async ()=> {
-        HttpClient.post = jest.fn(()=> Promise.resolve('Profile profile1 successfully inserted'));
+    it('should call the create REST api on form submit', async () => {
+        HttpClient.post = jest.fn(() => Promise.resolve('Profile profile1 successfully inserted'));
         let wrapper = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />);
         let myInstance = wrapper.instance() as ProfileActionFlyout;
 
@@ -210,27 +210,27 @@ describe('profile action flyout', () => {
         };
         wrapper.setState(formDetails);
         let submitEvent = {
-            preventDefault: ()=> {}
+            preventDefault: () => { }
         }
         myInstance.handleSubmit(submitEvent)
         expect(HttpClient.post).toHaveBeenCalled()
     })
 
-    it('should call the Edit REST api on form submit', async ()=> {
-        HttpClient.patch = jest.fn(()=> Promise.resolve('Profile profile1 successfully updated'));
-        let profileProps:profileFlyoutProps = {
+    it('should call the Edit REST api on form submit', async () => {
+        HttpClient.patch = jest.fn(() => Promise.resolve('Profile profile1 successfully updated'));
+        let profileProps: profileFlyoutProps = {
             onClose: jest.fn(),
-        rpsServer: "localhost:8081",
-        createProfileNotification: jest.fn(),
-        rpsKey: 'APIKEYFORRPS123!',
-        isEdit: true,
-        slectedProfiles: [{
-            profileName: 'profile1',
-            generateRandomPassword: true,
-            randomPasswordLength: 10,
-            ciraConfigName: 'config1',
-            activation: 'ccmactivate'
-        }]
+            rpsServer: "localhost:8081",
+            createProfileNotification: jest.fn(),
+            rpsKey: 'APIKEYFORRPS123!',
+            isEdit: true,
+            slectedProfiles: [{
+                profileName: 'profile1',
+                generateRandomPassword: true,
+                randomPasswordLength: 10,
+                ciraConfigName: 'config1',
+                activation: 'ccmactivate'
+            }]
         }
         let wrapper = shallow(<ProfileActionFlyout {...profileProps} />);
         let myInstance = wrapper.instance() as ProfileActionFlyout;
@@ -247,13 +247,13 @@ describe('profile action flyout', () => {
         };
         wrapper.setState(formDetails);
         let submitEvent = {
-            preventDefault: ()=> {}
+            preventDefault: () => { }
         }
         myInstance.handleSubmit(submitEvent)
         expect(HttpClient.patch).toHaveBeenCalled()
     })
 
-    it('should toggle the password field visibility on icon click', ()=> {
+    it('should toggle the password field visibility on icon click', () => {
         let wrapper = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />);
         let myInstance = wrapper.instance() as ProfileActionFlyout;
 
@@ -267,6 +267,71 @@ describe('profile action flyout', () => {
         myInstance.handleShowPassword();
         wrapper.instance().forceUpdate();
         expect(wrapper.state('showPassword')).toEqual(true)
-    
-      })
+
+    })
+
+    it('should update the profile details on changing the profile row selection', () => {
+        let wrapper = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />);
+        let myInstance = wrapper.instance() as ProfileActionFlyout;
+
+        wrapper.setProps({
+            isEdit: true,
+            slectedProfiles: [{
+                profileName: 'profile2',
+                generateRandomPassword: false,
+                ciraConfigName: 'config1',
+                activation: 'acmactivate'
+            }]
+        })
+        const profileDetails = wrapper.state('profileFormDetails');
+        expect(profileDetails).toEqual({profileName: 'profile2',generateRandomPassword: '',ciraConfigName: 'config1',activation: 'acmactivate',networkConfigName: '',amtPassword: '',mebxPassword: '',randomPasswordLength: '',generateRandomMEBxPassword: '',randomMEBXPasswordLength: ''});
+    })
+
+    it('should update the static ip value on click of the checkbox', () => {
+        let wrapper = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />);
+        let myInstance = wrapper.instance() as ProfileActionFlyout;
+
+        const clickEvent = {
+            persist: () => { },
+            target: {
+                name: 'staticIP',
+                checked: false
+            }
+        }
+
+        myInstance.handleClick(clickEvent);
+        expect(wrapper.state('profileFormDetails')).toEqual({staticIP: false})
+    })
+
+    it('should toggle the MEBx password field visibility on click', () => {
+        let wrapper = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />);
+        let myInstance = wrapper.instance() as ProfileActionFlyout;
+
+        myInstance.handleShowMEBXPassword();
+        expect(wrapper.state('showMEBXPassword')).toBe(true)
+    })
+
+    it('should toggle the network popup on click', () => {
+        let wrapper = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />);
+        let myInstance = wrapper.instance() as ProfileActionFlyout;
+
+        myInstance.toggleNetworkPopup();
+        expect(wrapper.state('showNetworkPopup')).toBe(true)
+    })
+
+    it('should update the network config name on component state', () => {
+        let wrapper = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />);
+        let myInstance = wrapper.instance() as ProfileActionFlyout;
+        wrapper.setState({
+            showNetworkPopup: true
+        })
+        const status = true;
+        const response = [];
+        const payload = {
+            profileName: 'profile1'
+        }
+        myInstance.createNotification(status, response, payload);
+        expect(wrapper.state('showNetworkPopup')).toBe(false);
+        expect(wrapper.state('profileFormDetails')).toEqual({networkConfigName: 'profile1' })
+    })
 })

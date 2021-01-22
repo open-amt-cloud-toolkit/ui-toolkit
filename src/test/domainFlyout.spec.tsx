@@ -244,36 +244,6 @@ describe("Test domain Flyout", () => {
     expect(HttpClient.patch).toHaveBeenCalled()
   });
 
-  it('should read the domain certificate file contents on file selection', async ()=> {
-    let domainFlyoutProps: domainFlyoutProps = {
-      close: jest.fn(),
-      rpsServer: "localhost:8081",
-      notificationCallback: jest.fn(),
-    };
-
-    const wrapper = shallow(<DomainFlyout {...domainFlyoutProps} />);
-    const myInstance = wrapper.instance() as DomainFlyout;
-
-    const fileInputEvent = {
-      preventDefault: ()=> {},
-      target: {
-        files: [{
-          name: 'vprodemo.pfx',
-          size: 7249,
-type: "application/x-pkcs12",
-webkitRelativePath: ""
-        }],
-        result: 'lengthyStringForCert',
-        value: 'vprodemo.pfx'
-      }
-    }
-    // const readAsArrayBuffer = jest.fn();
-    // const dummyFileReader = {readAsArrayBuffer};
-    // window.FileReader = jest.fn(()=> dummyFileReader)
-   // myInstance.readCertFile(fileInputEvent);
-   // console.info('wrapper state', wrapper.state())
-  })
-
   it('should call the handleblur method on removing focus from input ', ()=> {
     let domainFlyoutProps: domainFlyoutProps = {
       close: jest.fn(),
@@ -293,7 +263,20 @@ webkitRelativePath: ""
       }
     }
     myInstance.handleBlur(blurEvent);
-    console.info('state', wrapper.state())
     expect(wrapper.state('name_blur')).toEqual(true)
+  })
+
+  it('should set the provisioning cert blur flag on clicking outside cert field input', () => {
+    let domainFlyoutProps: domainFlyoutProps = {
+      close: jest.fn(),
+      rpsServer: "localhost:8081",
+      notificationCallback: jest.fn(),
+    };
+    const wrapper = shallow(<DomainFlyout {...domainFlyoutProps} />);
+    const myInstance = wrapper.instance() as DomainFlyout;
+    const event = {}
+    myInstance.handleClick(event);
+
+    expect(wrapper.state('provisioningCert_blur')).toBe(true)
   })
 });

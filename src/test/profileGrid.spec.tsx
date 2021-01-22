@@ -61,6 +61,9 @@ describe('Profile grid component', ()=> {
         wrapper.instance().forceUpdate();
         
         expect(wrapper.state('rowData')).toHaveLength(2)
+        wrapper.setProps({
+            updateProfileGrid: true
+        })
     })
 
     

@@ -9,7 +9,6 @@ import * as React from 'react';
 import { shallow } from 'enzyme'
 
 import { Profile, ProfileProps, ProfileStates } from '../reactjs/components/ProfileEditor/ProfileEditor'
-import { mocked } from 'ts-jest/utils';
 import { HttpClient } from '../reactjs/components/services/HttpClient';
 
 describe('Test profile component', () => {

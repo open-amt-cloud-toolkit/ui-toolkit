@@ -29,7 +29,6 @@ describe("Domain grid component", () => {
 
     const wrapper = shallow(<DomainGrid {...domainGridProps} />);
 
-    console.info("wrapper ", wrapper.debug());
     expect(wrapper.find("PcsGrid")).toHaveLength(1);
   });
 
@@ -65,5 +64,25 @@ describe("Domain grid component", () => {
     wrapper.instance().forceUpdate();
 
     expect(wrapper.state("rowData")).toHaveLength(3);
+
+    wrapper.setProps({
+      updateDomainGrid: true
+    })
   });
+
+  it('should update its parent component when row selection changed', () => {
+    const domainGridProps: domainGridProps = {
+      rpsServer: "localhost:8081",
+      updateDomainGrid: false,
+      rpsKey: 'APIKEYFORRPS123!',
+      getSelectedDomain: jest.fn()
+    };
+
+    const wrapper = shallow(<DomainGrid {...domainGridProps} />);
+    const wrapperInstance = wrapper.instance() as DomainGrid;
+    wrapperInstance.gridApi = {
+      getSelectedRows: ()=> ([{name: 'domain1', domainSuffix: 'd1.com'}])
+    }
+    wrapperInstance.onSelectionChanged();
+  })
 });

@@ -37,4 +37,30 @@ describe('Test HttpClient class', () => {
     // call HttpClient.get function
     HttpClient.post('99.2.3.4:1234', body)
   })
+
+  it('should test the post function for MPS server', () => {
+    HttpClient.fetch = jest.fn(async () => await Promise.resolve())
+
+    const body = JSON.stringify({
+      apikey: 'xxxxx',
+      method: 'PowerActionX',
+      payload: { guid: 'abcd-1234-efgh-5678', action: '20' }
+    })
+
+    HttpClient.post('localhost/actions', body, 'APIKEYFORMPS', true)
+  })
+
+  it('should test the delete function', () => {
+    HttpClient.fetch = jest.fn(async () => await Promise.resolve())
+    HttpClient.delete('localhost/actions')
+  })
+
+  it('should test the patch function', () => {
+    HttpClient.fetch = jest.fn(async () => await Promise.resolve())
+
+    const body = JSON.stringify({
+      payload: { profileName: 'profile1', amtPassword: 'P@ssw0rd' }
+    })
+    HttpClient.patch('localhost/actions', body)
+  })
 })
