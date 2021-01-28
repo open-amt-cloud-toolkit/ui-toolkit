@@ -19,4 +19,4 @@ const data = {
     mpsKey: process.env.API_KEY_MPS
 }
 
-ReactDom.render(<Provider data={data}><NetworkEditor rpsServer={params.get('server')}/></Provider>, document.getElementById('networkroot'))
+ReactDom.render(<Provider data={data}><NetworkEditor rpsServer={params.get('rpsServer')}/></Provider>, document.getElementById('networkroot'))

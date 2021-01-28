@@ -21,6 +21,7 @@ describe('profile action flyout', () => {
     let profileActionFlyoutProps: profileFlyoutProps = {
         onClose: jest.fn(),
         rpsServer: "localhost:8081",
+        mpsServer:'localhost:3000',
         createProfileNotification: jest.fn(),
         rpsKey: 'APIKEYFORRPS123!',
         isEdit: false,
@@ -156,6 +157,7 @@ describe('profile action flyout', () => {
         const profileProps: profileFlyoutProps = {
             onClose: jest.fn(),
             rpsServer: "localhost:8081",
+            mpsServer:'localhost:3000',
             rpsKey: 'APIKEYFORRPS123!',
             createProfileNotification: jest.fn(),
             isEdit: true,
@@ -221,6 +223,7 @@ describe('profile action flyout', () => {
         let profileProps: profileFlyoutProps = {
             onClose: jest.fn(),
             rpsServer: "localhost:8081",
+            mpsServer:'localhost:3000',
             createProfileNotification: jest.fn(),
             rpsKey: 'APIKEYFORRPS123!',
             isEdit: true,
