@@ -51,6 +51,7 @@ export interface formState {
   mpsCertErrorMsg?: string;
   showPassword?: boolean;
   oldCiraConfig?: any
+  mpsServerAddresserror?: boolean
 }
 
 /**
@@ -65,7 +66,8 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
       isAutoLoad: props.isEdit ? false : true,
       isCertLoaded: false,
       isError: false,
-      showPassword: false
+      showPassword: false,
+      mpsServerAddresserror: false
     };
   }
 
@@ -105,35 +107,50 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
   handleBlur = (e) => this.setState({ [`${e.target.name}_blur`]: true });
 
   loadMpsCertificate = async () => {
-    const { mpsKey } = this.context.data;
-    const serverUrl = `${this.props.mpsServer}/admin`;
-    const resp = await fetch(serverUrl, {
-      method: 'POST',
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "X-MPS-API-Key": mpsKey
-      },
-      body: JSON.stringify({
-        apikey: 'xxxxx',
-        method: "MPSRootCertificate",
-        payload: {}
-      })
-    }).then(response => response.text())
-      .catch(error => console.info(error))
+    const mpsServerIP = this.props.mpsServer.split("//")[1].split(":")[0];
+    if (this.state.ciraConfig.mpsServerAddress === mpsServerIP) {
+      const { mpsKey } = this.context.data;
+      const serverUrl = `${this.props.mpsServer}/admin`;
+      const resp = await fetch(serverUrl, {
+        method: 'POST',
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "X-MPS-API-Key": mpsKey
+        },
+        body: JSON.stringify({
+          apikey: 'xxxxx',
+          method: "MPSRootCertificate",
+          payload: {}
+        })
+      }).then(response => response.text())
+        .catch(error => console.info(error))
 
-    if (resp) {
+      if (resp) {
+        this.setState({
+          ciraConfig: {
+            ...this.state.ciraConfig,
+            mpsRootCertificate: this.trimRootCert(resp),
+          },
+          isCertLoaded: true,
+          mpsServerAddresserror: false
+        })
+      } else {
+        this.setState({
+          isError: true,
+          mpsCertErrorMsg: translateText("cira.errors.mpsCertFetchError"),
+          mpsServerAddresserror: false
+        })
+      }
+    }
+    else {
       this.setState({
         ciraConfig: {
           ...this.state.ciraConfig,
-          mpsRootCertificate: this.trimRootCert(resp),
+          mpsRootCertificate: "",
         },
-        isCertLoaded: true
-      })
-    } else {
-      this.setState({
-        isError: true,
-        mpsCertErrorMsg: translateText("cira.errors.mpsCertFetchError")
+        mpsServerAddresserror: true,
+        isCertLoaded:false
       })
     }
   }
@@ -428,6 +445,9 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
               {this.state.isError && (
                 <label className='cira-error'> * {this.state.mpsCertErrorMsg}</label>
               )}
+              {this.state.mpsServerAddresserror && <label className='cira-error'> * {translateText("cira.errors.mpsServerMismatchError")}</label>
+
+              }
             </div>
             <div className={lineHeight}>
               {this.state.profileConfigError && (
