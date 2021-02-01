@@ -6,193 +6,169 @@
 import * as React from 'react'
 import { deviceColumnDefs, checkboxColumn, defaultDeviceGridProps } from './deviceGridConfig'
 
-import { isFunc } from '../shared/Utilities'
+import { isFalsy, isFunc } from '../shared/Utilities'
 
 // Below 3 imports to support Localization
-import { translateColumnDefs } from "../shared/Methods";
-import { PcsGrid } from '../shared/pcsGrid/PcsGrid';
-import { HttpClient } from '../services/HttpClient';
-import { DomainContext } from '../shared/context/BasicContextProvider';
+import { translateColumnDefs } from '../shared/Methods'
+import { PcsGrid } from '../shared/pcsGrid/PcsGrid'
+import { HttpClient } from '../services/HttpClient'
+import { DomainContext } from '../shared/context/BasicContextProvider'
 
-import { library } from "@fortawesome/fontawesome-svg-core";
-import * as Icons from "@fortawesome/free-solid-svg-icons";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import * as Icons from '@fortawesome/free-solid-svg-icons'
 
 const iconList = Object.keys(Icons)
-  .filter((key) => key !== "fas" && key !== "prefix")
-  .map((icon) => Icons[icon]);
-library.add(...iconList);
-
+  .filter((key) => key !== 'fas' && key !== 'prefix')
+  .map((icon) => Icons[icon])
+library.add(...iconList)
 
 interface gridStates {
-    columnDefs: any,
-    rowData: any,
-    rowSelection: any,
-    autoGroupColumnDef: any,
-    softSelectedDevice: any
+  columnDefs: any
+  rowData: any
+  rowSelection: any
+  autoGroupColumnDef: any
+  softSelectedDevice: any
 }
 
 export interface gridProps {
-    deviceId: string;
-    mpsServer: string;
-    getSelectedDevices?: any;
-    selectedDevices?: any;
-    filter?: string;
+  deviceId: any
+  mpsServer: any
+  getSelectedDevices?: any
+  selectedDevices?: any
+  filter?: string
 }
 
-export class DeviceGrid extends React.Component<gridProps, gridStates>{
-    gridApi: any;
-    gridColumnApi: any;
-    retry_timer: any;
-    constructor(props: gridProps) {
-        super(props);
+export class DeviceGrid extends React.Component<gridProps, gridStates> {
+  gridApi: any
+  gridColumnApi: any
+  retry_timer: any
+  constructor (props: gridProps) {
+    super(props)
 
-        this.state = {
-            columnDefs: [
-                checkboxColumn,
-                deviceColumnDefs.name,
-                deviceColumnDefs.uuids,
-                deviceColumnDefs.status
-            ],
-            rowData: null,
-            rowSelection: "multiple",
-            autoGroupColumnDef: {
-                headerName: "Checkbox",
-                field: "checkbox",
-                cellRenderer: "agGroupCellRenderer",
-                cellRendererParams: {
-                    checkbox: (params) => {
-                        return params.node.group === false;
-                    }
-                }
-            },
-            softSelectedDevice: undefined
-        };
+    this.state = {
+      columnDefs: [
+        checkboxColumn,
+        deviceColumnDefs.name,
+        deviceColumnDefs.uuids,
+        deviceColumnDefs.status
+      ],
+      rowData: null,
+      rowSelection: 'multiple',
+      autoGroupColumnDef: {
+        headerName: 'Checkbox',
+        field: 'checkbox',
+        cellRenderer: 'agGroupCellRenderer',
+        cellRendererParams: {
+          checkbox: (params) => {
+            return params.node.group === false
+          }
+        }
+      },
+      softSelectedDevice: undefined
+    }
+  }
+
+  componentDidMount (): void {
+    this.connectionStatusControl()
+  }
+
+  connectionStatusControl = (): any => {
+    const protocol = window.location.protocol === 'https:' ? 'https' : 'http'
+    const updateConnectionSocket = new WebSocket(`${window.location.protocol.replace(protocol, 'wss')}//${String(this.props.mpsServer)}/notifications/control.ashx`)
+    updateConnectionSocket.onopen = () => {
+      if (this.retry_timer !== 0) {
+        clearInterval(this.retry_timer)
+        this.retry_timer = 0
+      }
     }
 
-    componentDidMount() {
+    updateConnectionSocket.onclose = () => {
+      this.retry_timer = setInterval(() => {
         this.connectionStatusControl()
+      }, 5000)
     }
 
-    connectionStatusControl = () => {
-        let protocol = window.location.protocol === "https:" ? "https" : "http";
-        const updateConnectionSocket = new WebSocket(window.location.protocol.replace(protocol, "wss") + "//" + this.props.mpsServer + "/notifications/control.ashx")
-        updateConnectionSocket.onopen = () => {
-            if (this.retry_timer != 0) {
-                clearInterval(this.retry_timer);
-                this.retry_timer = 0;
-            }
-        }
-
-        updateConnectionSocket.onclose = () => {
-            this.retry_timer = setInterval(() => {
-                this.connectionStatusControl();
-            }, 5000);
-        }
-
-        updateConnectionSocket.onmessage = () => {
-            setTimeout(() => {
-                this.fetchDevices().then(response => this.setState({
-                    rowData: response
-                }))
-            }, 200);
-
-        }
-
+    updateConnectionSocket.onmessage = () => {
+      setTimeout(() => {
+        this.fetchDevices().then(response => this.setState({
+          rowData: response
+        })).catch(() => console.info('error occured'))
+      }, 200)
     }
+  }
 
-    fetchDevices = async () => await HttpClient.post(`https://${this.props.mpsServer}/admin`, JSON.stringify({
-        "apikey": "xxxxx",
-        "method": "AllDevices",
-        "payload": {}
-    }), this.context.data.mpsKey, true);
+  fetchDevices = async (): Promise<any> => await HttpClient.post(`https://${String(this.props.mpsServer)}/admin`, JSON.stringify({
+    apikey: 'xxxxx',
+    method: 'AllDevices',
+    payload: {}
+  }), this.context.data.mpsKey, true)
 
-    filterDeviceList = devices => {
-        return (this.props.filter === 'connected') ? devices.filter(device => device.conn === 1) : (this.props.filter === 'disconnected') ? devices.filter(device => device.conn === 0) : devices;
-    }
+  filterDeviceList = (devices): any => {
+    return (this.props.filter === 'connected') ? devices.filter(device => device.conn === 1) : (this.props.filter === 'disconnected') ? devices.filter(device => device.conn === 0) : devices
+  }
 
-    onGridReady = params => {
-        this.gridApi = params.api;
-        this.gridColumnApi = params.columnApi;
+  onGridReady = (params): any => {
+    this.gridApi = params.api
+    this.gridColumnApi = params.columnApi
 
-        this.fetchDevices().then(res => {
-            const filteredDeviceList = this.filterDeviceList(res);
-            if (filteredDeviceList.length === 0) {
-                this.gridApi.showNoRowsOverlay()
-            }
-            this.setState({
-                rowData: filteredDeviceList
-            }, () => {
-                if (this.props.selectedDevices && this.props.selectedDevices.length) {
-                    this.props.selectedDevices.forEach(device => {
-                        this.gridApi.forEachNode((node, index) => {
-                            if (node.data.host === device.host) {
-                                node.setSelected(node.data.host === device.host);
-                            }
-                        });
-                    })
-
-                    // let filteredList = this.props.selectedDevices.filter(device => this.sta)
-
-                }
+    this.fetchDevices().then(res => {
+      const filteredDeviceList = this.filterDeviceList(res)
+      if (filteredDeviceList.length === 0) {
+        this.gridApi.showNoRowsOverlay()
+      }
+      this.setState({
+        rowData: filteredDeviceList
+      }, () => {
+        if (isFalsy(this.props.selectedDevices) && isFalsy(this.props.selectedDevices.length)) {
+          this.props.selectedDevices.forEach(device => {
+            this.gridApi.forEachNode((node, index) => {
+              if (node.data.host === device.host) {
+                node.setSelected(node.data.host === device.host)
+              }
             })
-        })
-            .catch(error => { this.gridApi.showNoRowsOverlay() })
-    };
+          })
 
-    onSelectionChanged = () => {
-        if (isFunc(this.props.getSelectedDevices)) {
-            this.props.getSelectedDevices(this.gridApi.getSelectedRows())
+          // let filteredList = this.props.selectedDevices.filter(device => this.sta)
         }
+      })
+    })
+      .catch(() => { this.gridApi.showNoRowsOverlay() })
+  }
+
+  onSelectionChanged = (): void => {
+    if (isFalsy(isFunc(this.props.getSelectedDevices))) {
+      this.props.getSelectedDevices(this.gridApi.getSelectedRows())
     }
+  }
 
-    getSoftSelectId = (id = {}) => id;
+  getSoftSelectId = (id = {}): any => id
 
-    /**
-    * Handles soft select props method
-    *
-    * @param device The currently soft selected device
-    * @param rowEvent The rowEvent to pass on to the underlying grid
-    */
-    onSoftSelectChange = (deviceRowId, rowEvent) => {
-        // const { onSoftSelectChange } = this.props;
-        // const device = (this.deviceGridApi.getRowNode(deviceRowId) || {}).data;
-        // if (device) {
-        //     this.setState({
-        //         softSelectedDevice: device
-        //     });
-        // } 
-        // if (isFunc(onSoftSelectChange)) {
-        //     onSoftSelectChange(device, rowEvent);
-        // }
+  render (): React.ReactNode {
+    const gridProps = {
+      ...defaultDeviceGridProps,
+      columnDefs: translateColumnDefs(this.state.columnDefs),
+      rowData: this.state.rowData,
+      onGridReady: this.onGridReady,
+      rowSelection: this.state.rowSelection,
+      groupSelectsChildren: true,
+      suppressRowClickSelection: true,
+      suppressAggFuncInHeader: true,
+      autoGroupColumnDef: this.state.autoGroupColumnDef,
+      rowMultiSelectWithClick: true,
+      onSelectionChanged: this.onSelectionChanged,
+      sizeColumnsToFit: true,
+      getSoftSelectId: this.getSoftSelectId,
+      softSelectId: (this.state.softSelectedDevice || {}).id,
+      /* Grid Events */
+      onRowClicked: ({ node }) => node.setSelected(!isFalsy(node.isSelected())),
+      getRowClass: ({ data }) => !isFalsy(data.conn) ? { opacity: 0.5 } : '',
+      suppressNoRowsOverlay: false
+
     }
-
-    render() {
-        const gridProps = {
-            ...defaultDeviceGridProps,
-            columnDefs: translateColumnDefs(this.state.columnDefs),
-            rowData: this.state.rowData,
-            onGridReady: this.onGridReady,
-            rowSelection: this.state.rowSelection,
-            groupSelectsChildren: true,
-            suppressRowClickSelection: true,
-            suppressAggFuncInHeader: true,
-            autoGroupColumnDef: this.state.autoGroupColumnDef,
-            rowMultiSelectWithClick: true,
-            onSelectionChanged: this.onSelectionChanged,
-            sizeColumnsToFit: true,
-            getSoftSelectId: this.getSoftSelectId,
-            softSelectId: (this.state.softSelectedDevice || {}).id,
-            onSoftSelectChange: this.onSoftSelectChange,
-            /* Grid Events */
-            onRowClicked: ({ node }) => node.setSelected(!node.isSelected()),
-            getRowClass: ({ data }) => !data.conn ? { opacity: 0.5 } : '',
-            suppressNoRowsOverlay: false
-
-        }
-        return (
-            [<PcsGrid key="device-grid-key" {...gridProps} />]
-        )
-    }
+    return (
+      [<PcsGrid key="device-grid-key" {...gridProps} />]
+    )
+  }
 }
 
-DeviceGrid.contextType = DomainContext;
+DeviceGrid.contextType = DomainContext

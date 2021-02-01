@@ -3,39 +3,40 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import React from "react";
-import "./ToggleBtn.scss";
+import React from 'react'
+import { isFalsy } from '../Utilities'
+import './ToggleBtn.scss'
 
 export interface toggleBtnProps {
-  isChecked?: boolean;
-  switchStatus?: any;
+  isChecked?: boolean
+  switchStatus?: any
 }
 
 export interface toggleBtnState {
-  isChecked?: boolean;
+  isChecked?: boolean
 }
 
 export class ToggleBtn extends React.Component<toggleBtnProps, toggleBtnState> {
-  certRef: any;
-  constructor(props: toggleBtnProps) {
-    super(props);
+  certRef: any
+  constructor (props: toggleBtnProps) {
+    super(props)
     this.state = {
-      isChecked: null,
-    };
-    this.certRef = React.createRef();
+      isChecked: false
+    }
+    this.certRef = React.createRef()
   }
 
-  componentWillMount() {
-    this.setState({ isChecked: this.props.isChecked });
+  componentWillMount (): void {
+    this.setState({ isChecked: this.props.isChecked })
   }
 
-  _handleChange = () => {
-    this.setState({ isChecked: !this.state.isChecked }, () => {
-      this.props.switchStatus(this.state.isChecked);
-    });
-  };
+  _handleChange = (): any => {
+    this.setState({ isChecked: !isFalsy(this.state.isChecked) }, () => {
+      this.props.switchStatus(this.state.isChecked)
+    })
+  }
 
-  render() {
+  render (): React.ReactNode {
     return (
       <label className="inline-block">
         <input
@@ -49,6 +50,6 @@ export class ToggleBtn extends React.Component<toggleBtnProps, toggleBtnState> {
           <div></div>
         </div>
       </label>
-    );
+    )
   }
 }

@@ -1,11 +1,6 @@
 /*********************************************************************
- * Copyright (c) Intel Corporation 2019
+ * Copyright (c) Intel Corporation 2021
  * SPDX-License-Identifier: Apache-2.0
- * Author : Ramu Bachala
  **********************************************************************/
 
-interface IServerCutTextHandler {
-  handleServerCutText: (acc: string) => number
-}
-
-export { IServerCutTextHandler }
+export const isTruthy = (value: any): boolean => value !== null && value !== undefined && value !== '' && value !== false && value !== 0

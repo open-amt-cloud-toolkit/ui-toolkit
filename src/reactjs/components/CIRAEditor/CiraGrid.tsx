@@ -2,41 +2,41 @@
  * Copyright (c) Intel Corporation 2020
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
-import React from "react";
+import React from 'react'
 import {
   ciraColumnDefs,
   defaultCiraGridProps,
   checkboxColumn,
-  ciraDataModal,
-} from "./CiraGridConfig";
-import { isFunc, camelCaseReshape } from "../shared/Utilities";
-import { translateColumnDefs } from "../shared/Methods";
-import { PcsGrid } from "../shared/pcsGrid/PcsGrid";
-import { HttpClient } from "../services/HttpClient";
+  ciraDataModal
+} from './CiraGridConfig'
+import { isFunc, camelCaseReshape, isFalsy } from '../shared/Utilities'
+import { translateColumnDefs } from '../shared/Methods'
+import { PcsGrid } from '../shared/pcsGrid/PcsGrid'
+import { HttpClient } from '../services/HttpClient'
 
 export interface CiraGridProps {
-  rpsServer: string;
-  getSelectedCiraConfigs?: any;
-  updateCiraGrid: boolean;
+  rpsServer: string | null
+  getSelectedCiraConfigs?: any
+  updateCiraGrid: boolean
   rpsKey: string
 }
 
 export interface CiraGridStates {
-  columnDefs: any;
-  rowData: any;
-  rowSelection: any;
-  autoGroupColumnDef: any;
-  softSelectedDevice: any;
+  columnDefs: any
+  rowData: any
+  rowSelection: any
+  autoGroupColumnDef: any
+  softSelectedDevice: any
 }
 
 /**
  * Presentational component for CIRA config scripts
  */
 export class CiraGrid extends React.Component<CiraGridProps, CiraGridStates> {
-  gridApi: any;
-  gridColumnApi: any;
-  constructor(props) {
-    super(props);
+  gridApi: any
+  gridColumnApi: any
+  constructor (props) {
+    super(props)
     this.state = {
       columnDefs: [
         checkboxColumn,
@@ -45,65 +45,65 @@ export class CiraGrid extends React.Component<CiraGridProps, CiraGridStates> {
         ciraColumnDefs.Port,
         ciraColumnDefs.Username,
         ciraColumnDefs.CommonName,
-        ciraColumnDefs.RootCertificate,
+        ciraColumnDefs.RootCertificate
       ],
       rowData: null,
-      rowSelection: "single",
+      rowSelection: 'single',
       autoGroupColumnDef: {
-        headerName: "Checkbox",
-        field: "checkbox",
-        cellRenderer: "agGroupCellRenderer",
+        headerName: 'Checkbox',
+        field: 'checkbox',
+        cellRenderer: 'agGroupCellRenderer',
         cellRendererParams: {
           checkbox: (params) => {
-            return params.node.group === false;
-          },
-        },
+            return params.node.group === false
+          }
+        }
       },
-      softSelectedDevice: undefined,
-    };
+      softSelectedDevice: undefined
+    }
   }
 
-  //listen to parent components chages to re-render the profile grid
-  componentDidUpdate(prevProps) {
-    if (this.props.updateCiraGrid != prevProps.updateCiraGrid) {
+  // listen to parent components chages to re-render the profile grid
+  componentDidUpdate (prevProps): void {
+    if (this.props.updateCiraGrid !== prevProps.updateCiraGrid) {
       this.fetchCiraConfigs().then((data) => {
         this.setState({
-          rowData: data ? data.map(config => camelCaseReshape(config, ciraDataModal)) : [],
-        });
-      });
+          rowData: isFalsy(data) ? data.map(config => camelCaseReshape(config, ciraDataModal)) : []
+        })
+      }).catch(() => console.info('error occured'))
     }
   }
 
-  onSelectionChanged = () => {
-    if (isFunc(this.props.getSelectedCiraConfigs)) {
-      this.props.getSelectedCiraConfigs(this.gridApi.getSelectedRows());
+  onSelectionChanged = (): void => {
+    if (isFalsy(isFunc(this.props.getSelectedCiraConfigs))) {
+      this.props.getSelectedCiraConfigs(this.gridApi.getSelectedRows())
     }
-  };
+  }
 
-  //Fetch the CIRA config scripts to be displayed on the grid
-  fetchCiraConfigs = async () =>
+  // Fetch the CIRA config scripts to be displayed on the grid
+  fetchCiraConfigs = async (): Promise<any> =>
     await HttpClient.get(
-      `${this.props.rpsServer}/api/v1/admin/ciraconfigs`, this.props.rpsKey
+      `${String(this.props.rpsServer)}/api/v1/admin/ciraconfigs`, this.props.rpsKey
     )
       .then((data) => data)
-      .catch((error) => this.setState({ rowData: [] }));
+      .catch(() => this.setState({ rowData: [] }))
 
   /**
    * Grid ready event gets called on load of ag-grid
    */
-  onGridReady = (params) => {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
+  onGridReady = (params): any => {
+    this.gridApi = params.api
+    this.gridColumnApi = params.columnApi
     this.fetchCiraConfigs().then((data) => {
-       this.setState({
-        rowData: data ? data.map(config => camelCaseReshape(config, ciraDataModal)) : [],
-      });
-    });
-  };
+      this.setState({
+        rowData: isFalsy(data) ? data.map(config => camelCaseReshape(config, ciraDataModal)) : []
+      })
+    }).catch(() => console.info('error occured'))
+  }
 
-  getSoftSelectId = (id = {}) => id;
+  getSoftSelectId = (id = {}): any => id
 
-  render() {
+  render (): React.ReactNode {
     const gridProps = {
       ...defaultCiraGridProps,
       columnDefs: translateColumnDefs(this.state.columnDefs),
@@ -120,8 +120,8 @@ export class CiraGrid extends React.Component<CiraGridProps, CiraGridStates> {
       getSoftSelectId: this.getSoftSelectId,
       softSelectId: (this.state.softSelectedDevice || {}).id,
       /* Grid Events */
-      onRowClicked: ({ node }) => node.setSelected(!node.isSelected()),
-    };
-    return [<PcsGrid key="device-grid-key" {...gridProps} />];
+      onRowClicked: ({ node }) => node.setSelected(!isFalsy(node.isSelected()))
+    }
+    return [<PcsGrid key="device-grid-key" {...gridProps} />]
   }
 }

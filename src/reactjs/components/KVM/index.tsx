@@ -2,18 +2,17 @@
 * Copyright (c) Intel Corporation 2019
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { RemoteDesktop } from "./UI";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { RemoteDesktop } from './UI'
 import { Provider } from '../shared/context/BasicContextProvider'
-import i18n from '../../../../i18n';
+import i18n from '../../../../i18n'
 // Get browser language
-i18n.changeLanguage(navigator.language)
+i18n.changeLanguage(navigator.language).catch(() => console.info('error occured'))
 
-
-let url = new URL(window.location.href);
-let params = new URLSearchParams(url.search);
+const url = new URL(window.location.href)
+const params = new URLSearchParams(url.search)
 const data = {
-    mpsKey: process.env.API_KEY_MPS
+  mpsKey: process.env.API_KEY_MPS
 }
-ReactDOM.render(<Provider data={data}><RemoteDesktop autoConnect={false} deviceId= {params.get('deviceId')}  mpsServer={ params.get('server')+'/relay'} mouseDebounceTime={ 200} canvasHeight = {"100%"} canvasWidth = {"100%"}/></Provider>,document.querySelector('#kvm'))
+ReactDOM.render(<Provider data={data}><RemoteDesktop autoConnect={false} deviceId= {params.get('deviceId')} mpsServer={ `${String(params.get('server'))}/relay`} mouseDebounceTime={ 200} canvasHeight = {'100%'} canvasWidth = {'100%'}/></Provider>, document.querySelector('#kvm'))

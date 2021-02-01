@@ -3,48 +3,47 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { translateText } from "../shared/Methods";
-import isFilter from "lodash/filter";
-import isMatch from "lodash/isMatch";
+import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { translateText } from '../shared/Methods'
+import isMatch from 'lodash/isMatch'
 import {
+  isFalsy,
   nameValidation,
   passwordLengthValidation,
-  passwordValidation,
-} from "../shared/Utilities";
+  passwordValidation
+} from '../shared/Utilities'
 
 export interface ProfileConigFormProps {
-  stateVariables: any;
-  propValiables: any;
-  isActivationSelected: any;
-  handleShowPassword: any;
-  notificationCallback: any;
-  handleSubmit: any;
-  toggleCiraPopup: any;
-  handleOnBlur: any;
-  handleClick: any;
-  handleChange: any;
-  toggleNetworkPopup: any;
-  handleShowMEBXPassword: any;
+  stateVariables: any
+  propValiables: any
+  isActivationSelected: any
+  handleShowPassword: any
+  notificationCallback: any
+  handleSubmit: any
+  toggleCiraPopup: any
+  handleOnBlur: any
+  handleClick: any
+  handleChange: any
+  toggleNetworkPopup: any
+  handleShowMEBXPassword: any
 }
-/*to do */
+/* to do */
 export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
-  render() {
-    const { isEdit, onClose } = this.props.propValiables;
+  render (): React.ReactNode {
+    const { isEdit, onClose } = this.props.propValiables
     const {
       ciraConfigs,
-      networkProfiles,
       profileFormDetails,
       showMEBXPassword,
       showPassword,
-      profileName_blur,
-      amtPassword_blur,
-      randomPasswordLength_blur,
-      randomMEBXPasswordLength_blur,
-      mebxPassword_blur,
-      oldProfileFormDetails,
-    } = this.props.stateVariables;
+      profileNameBlur,
+      amtPasswordBlur,
+      randomPasswordLengthBlur,
+      randomMEBXPasswordLengthBlur,
+      mebxPasswordBlur,
+      oldProfileFormDetails
+    } = this.props.stateVariables
     const {
       profileName,
       generateRandomPassword,
@@ -55,47 +54,45 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
       networkConfigName,
       ciraConfigName,
       activation,
-      mebxPassword,
-    } = profileFormDetails;
-    const profilenameValidation = nameValidation(profileName);
-    const amtPasswordValidation = passwordValidation(amtPassword);
-    const mebxPasswordValidation = passwordValidation(mebxPassword);
+      mebxPassword
+    } = profileFormDetails
+    const profilenameValidation = nameValidation(profileName)
+    const amtPasswordValidation = passwordValidation(amtPassword)
+    const mebxPasswordValidation = passwordValidation(mebxPassword)
     const randomPasswordValidation = passwordLengthValidation(
       randomPasswordLength
-    );
+    )
     const randomMEBXPasswordValidation = passwordLengthValidation(
       randomMEBXPasswordLength
-    );
+    )
     const isValidAMTPassword =
-      generateRandomPassword && randomPasswordValidation
+      isFalsy(generateRandomPassword) && isFalsy(randomPasswordValidation)
         ? true
-        : amtPassword && amtPasswordValidation
-        ? true
-        : false;
-    const isValidMEBXPassword = activation==='ccmactivate'? true : (generateRandomMEBxPassword && randomMEBXPasswordValidation ? true : mebxPassword && mebxPasswordValidation ? true : false);
+        : !!(amtPassword && amtPasswordValidation)
+    const isValidMEBXPassword: boolean = activation === 'ccmactivate' ? true : (isFalsy(generateRandomMEBxPassword) && isFalsy(randomMEBXPasswordValidation) ? true : !!(mebxPassword && mebxPasswordValidation))
 
-    const isValidProfileName = profileName && profilenameValidation;
+    const isValidProfileName: boolean = isFalsy(profileName) && profilenameValidation
 
-    const isValid = isValidProfileName && isValidAMTPassword && isValidMEBXPassword && activation;
+    const isValid = isValidProfileName && isValidAMTPassword && isValidMEBXPassword && activation
     return (
       <React.Fragment>
         <form onSubmit={this.props.handleSubmit}>
           <div className="profile-header">
             <div className="inlineblock">
-              {isEdit
-                ? translateText("profiles.editProfile")
-                : translateText("profiles.newProfileDetails")}
+              {isFalsy(isEdit)
+                ? translateText('profiles.editProfile')
+                : translateText('profiles.newProfileDetails')}
             </div>
             <div className="inlineblock floatright cursor" onClick={onClose}>
-              {" "}
+              {' '}
               <FontAwesomeIcon icon="window-close" size="xs" />
-              &nbsp;&nbsp; {translateText("profiles.close")}
+              &nbsp;&nbsp; {translateText('profiles.close')}
             </div>
           </div>
           <div className="p10">
             <div className="p5">
               <label className="profile-label">
-                {translateText("profiles.profileName")} *
+                {translateText('profiles.profileName')} *
               </label>
               <input
                 type="text"
@@ -105,16 +102,16 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
                 value={profileName}
                 disabled={isEdit}
               />
-              {profileName_blur && !profilenameValidation && (
+              {isFalsy(profileNameBlur) && !isFalsy(profilenameValidation) && (
                 <label className="profile-error">
-                  {" "}
-                  * {translateText("profiles.errors.profileNameValidation")}
+                  {' '}
+                  * {translateText('profiles.errors.profileNameValidation')}
                 </label>
               )}
             </div>
             <div className="p5">
               <label className="profile-label">
-                {translateText("profiles.activation")} *
+                {translateText('profiles.activation')} *
               </label>
               <select
                 name="activation"
@@ -135,7 +132,7 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
             </div>
             <div className="p5">
               <label className="profile-generate-password profile-label">
-                {translateText("profiles.generateRandomPassword")}
+                {translateText('profiles.generateRandomPassword')}
               </label>
               <input
                 className="checkbox-input"
@@ -147,76 +144,76 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
                 value={generateRandomPassword}
               />
             </div>
-            {!generateRandomPassword && (
+            {!isFalsy(generateRandomPassword) && (
               <div className="p5">
                 <label className="profile-label">
-                  {translateText("profiles.amtPassword")}
+                  {translateText('profiles.amtPassword')}
                 </label>
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={isFalsy(showPassword) ? 'text' : 'password'}
                   name="amtPassword"
                   onChange={this.props.handleChange}
                   onBlur={this.props.handleOnBlur}
-                />{" "}
+                />{' '}
                 &nbsp;&nbsp;
-                {showPassword ? (
+                {isFalsy(showPassword) ? (
                   <FontAwesomeIcon
                     icon="eye-slash"
                     size="xs"
                     onClick={this.props.handleShowPassword}
                   />
                 ) : (
-                    <FontAwesomeIcon
-                      icon="eye"
-                      size="xs"
-                      onClick={this.props.handleShowPassword}
-                    />
-                  )}
-                {amtPassword_blur && !amtPassword && (
+                  <FontAwesomeIcon
+                    icon="eye"
+                    size="xs"
+                    onClick={this.props.handleShowPassword}
+                  />
+                )}
+                {isFalsy(amtPasswordBlur) && !isFalsy(amtPassword) && (
                   <label className="profile-error">
-                    {" "}
-                    * {translateText("profiles.errors.amtPassword")}
+                    {' '}
+                    * {translateText('profiles.errors.amtPassword')}
                   </label>
                 )}
-                {amtPassword_blur && !amtPasswordValidation && (
+                {isFalsy(amtPasswordBlur) && !isFalsy(amtPasswordValidation) && (
                   <label className="profile-error">
-                    {" "}
-                    * {translateText("profiles.errors.amtPasswordValidation")}
+                    {' '}
+                    * {translateText('profiles.errors.amtPasswordValidation')}
                   </label>
                 )}
               </div>
             )}
-            {generateRandomPassword && (
+            {isFalsy(generateRandomPassword) && (
               <div className="p5">
                 <label className="profile-random-password profile-label">
-                  {translateText("profiles.randomPasswordLength")}{" "}
-                  {generateRandomPassword ? "*" : ""}
+                  {translateText('profiles.randomPasswordLength')}{' '}
+                  {isFalsy(generateRandomPassword) ? '*' : ''}
                 </label>
                 <input
                   type="text"
-                  style={{ width: "50px" }}
+                  style={{ width: '50px' }}
                   name="randomPasswordLength"
-                  value={amtPassword ? "" : randomPasswordLength}
+                  value={isFalsy(amtPassword) ? '' : randomPasswordLength}
                   onChange={this.props.handleChange}
                   disabled={amtPassword}
                   onBlur={this.props.handleOnBlur}
                 />
-                {randomPasswordLength_blur &&
-                  !amtPassword &&
-                  !randomPasswordValidation && (
-                    <label className="profile-error">
-                      {" "}
-                      *{" "}
-                      {translateText(
-                        "profiles.errors.randomPasswordValidation"
-                      )}{" "}
-                    </label>
-                  )}
+                {isFalsy(randomPasswordLengthBlur) &&
+                  !isFalsy(amtPassword) &&
+                  !isFalsy(randomPasswordValidation) && (
+                  <label className="profile-error">
+                    {' '}
+                      *{' '}
+                    {translateText(
+                      'profiles.errors.randomPasswordValidation'
+                    )}{' '}
+                  </label>
+                )}
               </div>
             )}
             { activation !== 'ccmactivate' && <div className="p5">
               <label className="profile-generate-password profile-label">
-                {translateText("profiles.generateRandomMEBxPassword")}
+                {translateText('profiles.generateRandomMEBxPassword')}
               </label>
               <input
                 className="checkbox-input"
@@ -228,72 +225,72 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
                 value={generateRandomMEBxPassword}
               />
             </div>}
-            {activation !== 'ccmactivate' && !generateRandomMEBxPassword && (
+            {activation !== 'ccmactivate' && !isFalsy(generateRandomMEBxPassword) && (
               <div className="p5">
                 <label className="profile-label">
-                  {translateText("profiles.mebxPassword")}
+                  {translateText('profiles.mebxPassword')}
                 </label>
                 <input
-                  type={showMEBXPassword ? "text" : "password"}
+                  type={isFalsy(showMEBXPassword) ? 'text' : 'password'}
                   name="mebxPassword"
                   onChange={this.props.handleChange}
                   onBlur={this.props.handleOnBlur}
-                />{" "}
+                />{' '}
                 &nbsp;&nbsp;
-                {showMEBXPassword ? (
+                {isFalsy(showMEBXPassword) ? (
                   <FontAwesomeIcon
                     icon="eye-slash"
                     size="xs"
                     onClick={this.props.handleShowMEBXPassword}
                   />
                 ) : (
-                    <FontAwesomeIcon
-                      icon="eye"
-                      size="xs"
-                      onClick={this.props.handleShowMEBXPassword}
-                    />
-                  )}
-                {mebxPassword_blur && !mebxPassword && (
+                  <FontAwesomeIcon
+                    icon="eye"
+                    size="xs"
+                    onClick={this.props.handleShowMEBXPassword}
+                  />
+                )}
+                {isFalsy(mebxPasswordBlur) && !isFalsy(mebxPassword) && (
                   <label className="profile-error">
-                    {" "}
-                    * {translateText("profiles.errors.mebxPassword")}
+                    {' '}
+                    * {translateText('profiles.errors.mebxPassword')}
                   </label>
                 )}
-                {mebxPassword_blur && !mebxPasswordValidation && (
+                {isFalsy(mebxPasswordBlur) && !isFalsy(mebxPasswordValidation) && (
                   <label className="profile-error">
-                    {" "}
-                    * {translateText("profiles.errors.mebxPasswordValidation")}
+                    {' '}
+                    * {translateText('profiles.errors.mebxPasswordValidation')}
                   </label>
                 )}
               </div>
             )}
 
-            {generateRandomMEBxPassword && activation !== 'ccmactivate' && (
+            {isFalsy(generateRandomMEBxPassword) && activation !== 'ccmactivate' && (
               <div className="p5">
                 <label className="profile-random-password profile-label">
-                  {translateText("profiles.randomMEBXPasswordLength")}{" "}
-                  {generateRandomPassword ? "*" : ""}
+                  {translateText('profiles.randomMEBXPasswordLength')}{' '}
+                  {isFalsy(generateRandomPassword) ? '*' : ''}
                 </label>
                 <input
                   type="text"
-                  style={{ width: "50px" }}
+                  style={{ width: '50px' }}
                   name="randomMEBXPasswordLength"
-                  value={mebxPassword ? "" : randomMEBXPasswordLength}
+                  value={isFalsy(mebxPassword) ? '' : randomMEBXPasswordLength}
                   onChange={this.props.handleChange}
                   disabled={mebxPassword}
                   onBlur={this.props.handleOnBlur}
                 />
-                {randomMEBXPasswordLength_blur &&
-                  !mebxPassword &&
-                  !randomMEBXPasswordValidation && (
-                    <label className="profile-error">
-                      {" "}
-                      *{" "}
-                      {translateText(
-                        "profiles.errors.randomMEBXPasswordValidation"
-                      )}{" "}
-                    </label>
-                  )}
+                {isFalsy(randomMEBXPasswordLengthBlur) &&
+                  !isFalsy(mebxPassword) &&
+                  !isFalsy(randomMEBXPasswordValidation) && (
+                  <label className="profile-error">
+                    {' '}
+                      *{' '}
+                    {translateText(
+                      'profiles.errors.randomMEBXPasswordValidation'
+                    )}{' '}
+                  </label>
+                )}
               </div>
             )}
             <div className="p5" onChange={this.props.handleChange}>
@@ -306,14 +303,14 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
                 value="dhcp_enabled"
                 name="networkConfigName"
                 onClick={this.props.handleChange}
-                checked={networkConfigName === "dhcp_enabled" ? true : false}
+                checked={networkConfigName === 'dhcp_enabled'}
               />DHCP
               <input
                 type="radio"
                 value="dhcp_disabled"
                 name="networkConfigName"
                 onClick={this.props.handleChange}
-                checked={networkConfigName === "dhcp_disabled" ? true : false}
+                checked={networkConfigName === 'dhcp_disabled'}
               />Static
             </div>
             {/* <div className="p5">
@@ -343,10 +340,10 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
               </label>
             </div> */}
 
-            {networkConfigName !== "dhcp_disabled"  && (
+            {networkConfigName !== 'dhcp_disabled' && (
               <div className="p5">
                 <label className="profile-config-script">
-                  {translateText("profiles.ciraConfiguration")}
+                  {translateText('profiles.ciraConfiguration')}
                 </label>
                 <select
                   className="profile-select"
@@ -355,19 +352,18 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
                   value={ciraConfigName}
                 >
                   <option value="">Choose</option>
-                  {ciraConfigs &&
-                    ciraConfigs.map(({ configName }) => (
-                      <option value={configName} key={configName}>
-                        {configName}
-                      </option>
-                    ))}
+                  {ciraConfigs?.map(({ configName }) => (
+                    <option value={configName} key={configName}>
+                      {configName}
+                    </option>
+                  ))}
                 </select>
                 <label
                   className="newConfig cursor"
                   onClick={this.props.toggleCiraPopup}
                 >
-                  <FontAwesomeIcon icon="plus-circle" size="xs" />{" "}
-                  {translateText("profiles.newCira")}
+                  <FontAwesomeIcon icon="plus-circle" size="xs" />{' '}
+                  {translateText('profiles.newCira')}
                 </label>
               </div>
             )}
@@ -376,22 +372,22 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
                 type="submit"
                 className="cursor profile-submit"
                 disabled={
-                  isEdit
+                  isFalsy(isEdit)
                     ? !(
-                      isValid &&
-                      !isMatch(profileFormDetails, oldProfileFormDetails)
+                      isFalsy(isValid) &&
+                      !isFalsy(isMatch(profileFormDetails, oldProfileFormDetails))
                     )
-                    : !isValid
+                    : !isFalsy(isValid)
                 }
               >
-                {isEdit
-                  ? translateText("profiles.save")
-                  : translateText("profiles.create")}
+                {isFalsy(isEdit)
+                  ? translateText('profiles.save')
+                  : translateText('profiles.create')}
               </button>
             </div>
           </div>
         </form>
       </React.Fragment>
-    );
+    )
   }
 }

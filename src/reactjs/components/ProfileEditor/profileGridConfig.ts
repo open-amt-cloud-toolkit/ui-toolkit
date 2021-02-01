@@ -3,74 +3,73 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import { PasswordRenderer } from "../shared/PasswordRenderer";
-export const FIRST_COLUMN_CLASS = "first-child-column";
-export const CHECKBOX_COLUMN_CLASS = "checkbox-column";
+export const FIRST_COLUMN_CLASS = 'first-child-column'
+export const CHECKBOX_COLUMN_CLASS = 'checkbox-column'
 
 export const profileColumnDefs = {
   Name: {
-    headerName: "profiles.grid.name",
-    field: "profileName",
-    sort: "asc",
-    filter: "agTextColumnFilter",
+    headerName: 'profiles.grid.name',
+    field: 'profileName',
+    sort: 'asc',
+    filter: 'agTextColumnFilter',
     filterParams: { applyButton: true, clearButton: true },
     sortable: true,
-    maxWidth: 200,
+    maxWidth: 200
   },
   GenerateRandomPassword: {
-    headerName: "profiles.grid.generateRandom",
-    field: "generateRandomPassword",
-    filter: "agTextColumnFilter",
+    headerName: 'profiles.grid.generateRandom',
+    field: 'generateRandomPassword',
+    filter: 'agTextColumnFilter',
     filterParams: { applyButton: true, clearButton: true },
-    sortable: true,
+    sortable: true
   },
   RandomPasswordLength: {
-    headerName: "profiles.grid.randomPasswordLength",
-    field: "randomPasswordLength",
-    filter: "agTextColumnFilter",
+    headerName: 'profiles.grid.randomPasswordLength',
+    field: 'randomPasswordLength',
+    filter: 'agTextColumnFilter',
     filterParams: { applyButton: true, clearButton: true },
-    sortable: true,
+    sortable: true
   },
   GenerateRandomMEBXPassword: {
-    headerName: "profiles.grid.generateMEBXRandom",
-    field: "generateRandomMeBxPassword",
-    filter: "agTextColumnFilter",
+    headerName: 'profiles.grid.generateMEBXRandom',
+    field: 'generateRandomMeBxPassword',
+    filter: 'agTextColumnFilter',
     filterParams: { applyButton: true, clearButton: true },
-    sortable: true,
+    sortable: true
   },
   RandomMEBXPasswordLength: {
-    headerName: "profiles.grid.randomMEBXPasswordLength",
-    field: "randomMeBxPasswordLength",
-    filter: "agTextColumnFilter",
+    headerName: 'profiles.grid.randomMEBXPasswordLength',
+    field: 'randomMeBxPasswordLength',
+    filter: 'agTextColumnFilter',
     filterParams: { applyButton: true, clearButton: true },
-    sortable: true,
+    sortable: true
   },
   CiraConfigName: {
-    headerName: "profiles.grid.ciraConfigName",
-    field: "ciraConfigName",
-    filter: "agTextColumnFilter",
+    headerName: 'profiles.grid.ciraConfigName',
+    field: 'ciraConfigName',
+    filter: 'agTextColumnFilter',
     filterParams: { applyButton: true, clearButton: true },
-    sortable: true,
+    sortable: true
   },
   NetworkConfigName: {
-    headerName: "profiles.grid.networkConfigName",
-    field: "networkConfigName",
-    filter: "agTextColumnFilter",
+    headerName: 'profiles.grid.networkConfigName',
+    field: 'networkConfigName',
+    filter: 'agTextColumnFilter',
     filterParams: { applyButton: true, clearButton: true },
-    sortable: true,
+    sortable: true
   },
   Activation: {
-    headerName: "profiles.grid.activation",
-    field: "activation",
-    filter: "agTextColumnFilter",
+    headerName: 'profiles.grid.activation',
+    field: 'activation',
+    filter: 'agTextColumnFilter',
     filterParams: { applyButton: true, clearButton: true },
     sortable: true,
     valueGetter: (params) =>
-      params.data.activation === "ccmactivate"
-        ? "Client Control Mode"
-        : "Admin Control Mode",
-  },
-};
+      params.data.activation === 'ccmactivate'
+        ? 'Client Control Mode'
+        : 'Admin Control Mode'
+  }
+}
 export const checkboxColumn = {
   lockPosition: true,
   cellClass: FIRST_COLUMN_CLASS,
@@ -78,23 +77,23 @@ export const checkboxColumn = {
   suppressMenu: true,
   checkboxSelection: true,
   suppressMovable: true,
-  width: 50,
-};
+  width: 50
+}
 
 export const defaultDeviceGridProps = {
   pagination: true,
   paginationPageSize: 8,
-  rowSelection: "single",
-};
+  rowSelection: 'single'
+}
 
 export const profileModel = {
-  profileName: "profileName",
-  amtPassword: "amtPassword",
-  generateRandomPassword: "generateRandomPassword",
-  randomPasswordLength: "randomPasswordLength",
-  ciraConfigName: "ciraConfigName",
-  activation: "activation",
-  networkConfigName: "networkConfigName",
-  generateRandomMeBxPassword:"generateRandomMeBxPassword",
-  randomMeBxPasswordLength:"randomMeBxPasswordLength"
-};
+  profileName: 'profileName',
+  amtPassword: 'amtPassword',
+  generateRandomPassword: 'generateRandomPassword',
+  randomPasswordLength: 'randomPasswordLength',
+  ciraConfigName: 'ciraConfigName',
+  activation: 'activation',
+  networkConfigName: 'networkConfigName',
+  generateRandomMeBxPassword: 'generateRandomMeBxPassword',
+  randomMeBxPasswordLength: 'randomMeBxPasswordLength'
+}
