@@ -41,7 +41,7 @@
     "xterm": "^4.4.0"
   },
   "devDependencies": {
-    "@types/enzyme": "^3.10.3",
+    "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/jest": "^26.0.20",
     "@types/md5": "^2.1.33",
@@ -51,7 +51,7 @@
     "@types/ws": "^6.0.1",
     "awesome-typescript-loader": "^5.2.1",
     "canvas": "^2.6.1",
-    "css-loader": "^3.4.2",
+    "css-loader": "^5.0.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "filereader": "^0.10.3",
