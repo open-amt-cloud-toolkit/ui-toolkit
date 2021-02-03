@@ -26,7 +26,7 @@ export interface formProps {
   handleSubmit?: any
   close?: any
   rpsServer?: string | null
-  mpsServer?: any
+  mpsServer?: string | null
   notificationCallback?: any
   showProfileError?: boolean
   isEdit?: boolean
@@ -107,7 +107,8 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
 
   loadMpsCertificate = async (): Promise<any> => {
     const { mpsKey } = this.context.data
-    const serverUrl = `${String(this.props.mpsServer)}/admin`
+    const server: string = this.props.mpsServer != null ? this.props.mpsServer : ''
+    const serverUrl = `${server}/admin`
     const resp = await fetch(serverUrl, {
       method: 'POST',
       headers: {
@@ -148,9 +149,10 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
       proxyDetails: '',
       authMethod: 2
     }
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
     if (!isFalsy(this.props.isEdit)) {
       HttpClient.post(
-        `${String(this.props.rpsServer)}/api/v1/admin/ciraconfigs/create`,
+        `${server}/api/v1/admin/ciraconfigs/create`,
         JSON.stringify({ payload: payload }),
         rpsKey,
         false
@@ -169,7 +171,7 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
       }).catch(() => console.info('error occured'))
     } else {
       HttpClient.patch(
-        `${String(this.props.rpsServer)}/api/v1/admin/ciraconfigs/edit`,
+        `${server}/api/v1/admin/ciraconfigs/edit`,
         JSON.stringify({ payload: payload }),
         rpsKey
       ).then(response => {

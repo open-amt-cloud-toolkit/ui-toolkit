@@ -168,9 +168,10 @@ profileFlyoutState
   }
 
   // fetches all the CIRA config scripts from the server
-  getCIRAConfigs = async (): Promise<any> =>
-    await HttpClient.get(
-      `${String(this.props.rpsServer)}/api/v1/admin/ciraconfigs`,
+  getCIRAConfigs = async (): Promise<any> => {
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
+    return await HttpClient.get(
+      `${server}/api/v1/admin/ciraconfigs`,
       this.props.rpsKey
     ).then((data) => {
       this.setState({
@@ -179,11 +180,13 @@ profileFlyoutState
         )
       })
     })
+  }
 
   // fetches all the Network profiles from the serevr
-  getNetworkProfiles = async (): Promise<any> =>
-    await HttpClient.get(
-      `${String(this.props.rpsServer)}/api/v1/admin/networkconfigs`,
+  getNetworkProfiles = async (): Promise<any> => {
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
+    return await HttpClient.get(
+      `${server}/api/v1/admin/networkconfigs`,
       this.props.rpsKey
     ).then((data) =>
       this.setState(
@@ -210,6 +213,7 @@ profileFlyoutState
         }
       )
     )
+  }
 
   handleChange = (e): void => {
     e.persist()
@@ -278,16 +282,17 @@ profileFlyoutState
         : ''
     }
     const payload = this.removeUnAssignedProperties(this.removeMEBxFieldsforCCM(obj))
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
     if (this.props.isEdit) {
       // Rest api to update the profile
       response = await HttpClient.patch(
-        `${String(this.props.rpsServer)}/api/v1/admin/profiles/edit`,
+        `${server}/api/v1/admin/profiles/edit`,
         JSON.stringify({ payload: payload }),
         this.props.rpsKey
       )
     } else {
       response = await HttpClient.post(
-        `${String(this.props.rpsServer)}/api/v1/admin/profiles/create`,
+        `${server}/api/v1/admin/profiles/create`,
         JSON.stringify({ payload: payload }),
         this.props.rpsKey,
         false

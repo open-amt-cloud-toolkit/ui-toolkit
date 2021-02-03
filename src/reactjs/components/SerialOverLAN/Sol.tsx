@@ -42,8 +42,8 @@ margin-left: 30px;
 `
 
 export interface SOLProps {
-  deviceId: any
-  mpsServer: any
+  deviceId: string | null
+  mpsServer: string | null
   autoConnect?: boolean
 }
 
@@ -87,18 +87,20 @@ export class Sol extends React.Component<SOLProps, SOLStates> {
   }
 
   init = (): void => {
+    const server: string = this.props.mpsServer != null ? this.props.mpsServer : ''
+    const deviceUuid: string = this.props.deviceId != null ? this.props.deviceId : ''
     this.terminal = new AmtTerminal()
     this.redirector = new AMTRedirector(
       this.logger,
       Protocol.SOL,
       new FileReader(),
-      this.props.deviceId,
+      deviceUuid,
       16994,
       '',
       '',
       0,
       0,
-      `${String(this.props.mpsServer)}/relay`
+      `${server}/relay`
     )
     this.dataProcessor = new TerminalDataProcessor(this.terminal)
     this.terminal.onSend = this.redirector.send.bind(this.redirector)

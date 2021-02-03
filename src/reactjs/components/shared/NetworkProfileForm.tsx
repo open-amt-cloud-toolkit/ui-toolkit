@@ -65,15 +65,16 @@ NetworkProfileFormStates
       profileName: this.state.networkDetails.networkName,
       dhcpEnabled: this.state.networkDetails.dhcpEnabled
     }
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
     if (isFalsy(this.props.isEdit)) {
       response = await HttpClient.patch(
-        `${String(this.props.rpsServer)}/api/v1/admin/networkconfigs/edit`,
+        `${server}/api/v1/admin/networkconfigs/edit`,
         JSON.stringify({ payload: payload }),
         rpsKey
       )
     } else {
       response = await HttpClient.post(
-        `${String(this.props.rpsServer)}/api/v1/admin/networkconfigs/create`,
+        `${server}/api/v1/admin/networkconfigs/create`,
         JSON.stringify({ payload: payload }),
         rpsKey,
         false

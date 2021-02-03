@@ -29,11 +29,6 @@ export class MouseHelper {
 
   GrabMouseInput (): any {
     if (this.MouseInputGrab) return
-    // const c = this.parent.canvasCtx.canvas
-    // c.onmouseup = this.mouseup;
-    // c.onmousedown = this.mousedown;
-    // c.onmousemove = this.mousemove;
-    // if (navigator.userAgent.match(/mozilla/i)) c.DOMMouseScroll = obj.xxDOMMouseScroll; else c.onmousewheel = obj.xxMouseWheel;
     this.MouseInputGrab = true
   }
 
@@ -57,7 +52,7 @@ export class MouseHelper {
     return this.mousemove(e)
   }
 
-  mousemove (e: React.MouseEvent): any {
+  mousemove (e: React.MouseEvent): boolean {
     if (this.parent.state !== 4) return true
     const pos = this.getPositionOfControl(this.parent.canvasControl)
     this.parent.lastMouseX = (e.pageX - pos[0]) * (this.parent.canvasControl.height / this.parent.canvasControl.offsetHeight)

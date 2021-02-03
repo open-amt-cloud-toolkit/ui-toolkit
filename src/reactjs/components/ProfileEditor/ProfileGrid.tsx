@@ -91,9 +91,10 @@ ProfileGridStates
   }
 
   // Rest api call to fetch the profiles list through HTTP client
-  fetchProfiles = async (): Promise<any> =>
-    await HttpClient.get(
-      `${String(this.props.rpsServer)}/api/v1/admin/profiles`,
+  fetchProfiles = async (): Promise<any> => {
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
+    return await HttpClient.get(
+      `${server}/api/v1/admin/profiles`,
       this.props.rpsKey
     )
       .then((data) => data)
@@ -102,6 +103,7 @@ ProfileGridStates
           rowData: []
         })
       )
+  }
 
   onGridReady = (params): any => {
     this.gridApi = params.api

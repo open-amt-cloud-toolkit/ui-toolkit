@@ -31,8 +31,8 @@ interface gridStates {
 }
 
 export interface gridProps {
-  deviceId: any
-  mpsServer: any
+  deviceId: string | null
+  mpsServer: string | null
   getSelectedDevices?: any
   selectedDevices?: any
   filter?: string
@@ -97,11 +97,14 @@ export class DeviceGrid extends React.Component<gridProps, gridStates> {
     }
   }
 
-  fetchDevices = async (): Promise<any> => await HttpClient.post(`https://${String(this.props.mpsServer)}/admin`, JSON.stringify({
-    apikey: 'xxxxx',
-    method: 'AllDevices',
-    payload: {}
-  }), this.context.data.mpsKey, true)
+  fetchDevices = async (): Promise<any> => {
+    const server: string = this.props.mpsServer != null ? this.props.mpsServer : ''
+    return await HttpClient.post(`https://${server}/admin`, JSON.stringify({
+      apikey: 'xxxxx',
+      method: 'AllDevices',
+      payload: {}
+    }), this.context.data.mpsKey, true)
+  }
 
   filterDeviceList = (devices): any => {
     return (this.props.filter === 'connected') ? devices.filter(device => device.conn === 1) : (this.props.filter === 'disconnected') ? devices.filter(device => device.conn === 0) : devices
@@ -127,8 +130,6 @@ export class DeviceGrid extends React.Component<gridProps, gridStates> {
               }
             })
           })
-
-          // let filteredList = this.props.selectedDevices.filter(device => this.sta)
         }
       })
     })

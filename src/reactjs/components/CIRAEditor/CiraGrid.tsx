@@ -81,12 +81,14 @@ export class CiraGrid extends React.Component<CiraGridProps, CiraGridStates> {
   }
 
   // Fetch the CIRA config scripts to be displayed on the grid
-  fetchCiraConfigs = async (): Promise<any> =>
-    await HttpClient.get(
-      `${String(this.props.rpsServer)}/api/v1/admin/ciraconfigs`, this.props.rpsKey
+  fetchCiraConfigs = async (): Promise<any> => {
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
+    return await HttpClient.get(
+      `${server}/api/v1/admin/ciraconfigs`, this.props.rpsKey
     )
       .then((data) => data)
       .catch(() => this.setState({ rowData: [] }))
+  }
 
   /**
    * Grid ready event gets called on load of ag-grid

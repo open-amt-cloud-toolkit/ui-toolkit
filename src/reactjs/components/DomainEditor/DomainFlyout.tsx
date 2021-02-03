@@ -14,7 +14,7 @@ import { HttpClient } from '../services/HttpClient'
 
 export interface domainFlyoutProps {
   close?: any
-  rpsServer?: any
+  rpsServer?: string | null
   notificationCallback?: any
   selectedDomain?: any
   isEdit?: boolean
@@ -85,11 +85,12 @@ domainFlyoutState
       ProvisioningCert: this.state.domainFormDetails.provisioningCert,
       ProvisioningCertPassword: this.state.domainFormDetails.provisioningCertPassword
     }
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
     if (isFalsy(this.props.isEdit)) {
       // Rest api for Save
-      response = await HttpClient.patch(`${String(this.props.rpsServer)}/api/v1/admin/domains/edit`, JSON.stringify({ payload: payload }), rpsKey)
+      response = await HttpClient.patch(`${server}/api/v1/admin/domains/edit`, JSON.stringify({ payload: payload }), rpsKey)
     } else {
-      response = await HttpClient.post(`${String(this.props.rpsServer)}/api/v1/admin/domains/create`, JSON.stringify({ payload: payload }), rpsKey, false)
+      response = await HttpClient.post(`${server}/api/v1/admin/domains/create`, JSON.stringify({ payload: payload }), rpsKey, false)
     }
     if (response === `Domain ${String(payload.Name)} successfully inserted` || response === `Domain ${String(payload.Name)} successfully updated`) {
       this.props.notificationCallback(true, response)

@@ -5,20 +5,22 @@
 import { isFalsy } from '../shared/Utilities'
 import { HttpClient } from './HttpClient'
 
-export const powerActions = async (guid, action, mpsServer: any, apiKey, useSOL?: boolean): Promise<any> => {
+export const powerActions = async (guid, action, mpsServer: string | null, apiKey, useSOL?: boolean): Promise<any> => {
   const body = JSON.stringify({
     apikey: 'xxxxx',
     method: 'PowerAction',
     payload: isFalsy(useSOL) ? { guid, action, useSOL } : { guid, action }
   })
-  return await HttpClient.post(`https://${String(mpsServer)}/amt`, body, apiKey, true)
+  const server: string = mpsServer != null ? mpsServer : ''
+  return await HttpClient.post(`https://${server}/amt`, body, apiKey, true)
 }
 
-export const getPowerState = async (guid, mpsServer: any, apiKey): Promise<any> => {
+export const getPowerState = async (guid, mpsServer: string | null, apiKey): Promise<any> => {
   const body = JSON.stringify({
     apikey: 'xxxxx',
     method: 'PowerState',
     payload: { guid }
   })
-  return await HttpClient.post(`https://${String(mpsServer)}/amt`, body, apiKey, true)
+  const server: string = mpsServer != null ? mpsServer : ''
+  return await HttpClient.post(`https://${server}/amt`, body, apiKey, true)
 }

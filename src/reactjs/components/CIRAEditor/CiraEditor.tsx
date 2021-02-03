@@ -72,7 +72,8 @@ CiraEditorState
     const { rpsKey } = this.context.data
     this.togglePopup()
     const configName = encodeSpecialCharacters(this.state.selectedCiraConfigs[0].configName)
-    const response = await HttpClient.delete(`${String(this.props.rpsServer)}/api/v1/admin/ciraconfigs/${configName}`, rpsKey)
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
+    const response = await HttpClient.delete(`${server}/api/v1/admin/ciraconfigs/${configName}`, rpsKey)
     if (response === `CIRA Config ${String(this.state.selectedCiraConfigs[0].configName)} successfully deleted`) {
       this.setState({
         showMessage: true,
@@ -91,7 +92,7 @@ CiraEditorState
     this.showNotification()
   }
 
-  showNotification = (): any => setTimeout(() => {
+  showNotification = (): ReturnType<typeof setTimeout> => setTimeout(() => {
     this.setState({
       showMessage: false
     })

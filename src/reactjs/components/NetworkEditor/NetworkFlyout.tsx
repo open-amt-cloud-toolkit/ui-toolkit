@@ -8,7 +8,7 @@ import { NetworkProfileForm } from '../shared/NetworkProfileForm'
 
 export interface NetworkFlyoutProps {
   close?: any
-  rpsServer?: any
+  rpsServer?: string | null
   createNotification?: any
   selectedNetwork?: any
   isEdit?: boolean

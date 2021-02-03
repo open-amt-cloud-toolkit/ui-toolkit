@@ -12,8 +12,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export interface HeaderParams {
   displayName: string
-  description: any
-  enableSorting: any
+  description: string
+  enableSorting: boolean
 }
 export class CustomHeader extends React.Component<HeaderParams, { isMouseOver: boolean, message: string }> {
   tooltipStyles: any = {}

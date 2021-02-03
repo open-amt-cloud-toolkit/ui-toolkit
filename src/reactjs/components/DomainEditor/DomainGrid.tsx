@@ -15,7 +15,7 @@ import { isFunc, camelCaseReshape, isFalsy } from '../shared/Utilities'
 import { HttpClient } from '../services/HttpClient'
 
 export interface domainGridProps {
-  rpsServer: string
+  rpsServer: string | null
   getSelectedDomain?: any
   updateDomainGrid?: boolean
   rpsKey: string
@@ -78,10 +78,12 @@ domainGridState
   }
 
   // Fetch the CIRA config scripts to be displayed on the grid
-  fetchDomains = async (): Promise<any> =>
-    await HttpClient.get(`${this.props.rpsServer}/api/v1/admin/domains`, this.props.rpsKey)
+  fetchDomains = async (): Promise<any> => {
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
+    return await HttpClient.get(`${server}/api/v1/admin/domains`, this.props.rpsKey)
       .then((data) => data)
       .catch(() => this.setState({ rowData: [] }))
+  }
 
   /**
    * Grid ready event gets called on load of ag-grid

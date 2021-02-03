@@ -21,8 +21,8 @@ import { DomainContext } from './context/BasicContextProvider'
  * getConnectState -- callback function to get the KVM or SOL connection state
  */
 export interface AmtFeatureProps {
-  deviceId: any
-  server: any
+  deviceId: string | null
+  server: string | null
   feature: string
   handleFeatureStatus: (value: string) => void
   getConnectState: () => number
@@ -65,7 +65,8 @@ export class AmtFeatures extends React.Component<AmtFeatureProps, AmtFeatureStat
 
   /** Get the AMT Device features  */
   fetchAmtFeatures = (): any => {
-    getAmtFeatures(this.props.deviceId, this.props.server, this.context.data.mpsKey)
+    const mpsServer: string = this.props.server != null ? this.props.server : ''
+    getAmtFeatures(this.props.deviceId, mpsServer, this.context.data.mpsKey)
       .then(data => {
         if (data.statuscode === 200) {
           this.setState({
@@ -104,12 +105,13 @@ export class AmtFeatures extends React.Component<AmtFeatureProps, AmtFeatureStat
     const { deviceId, feature, server, handleFeatureStatus } = this.props
     const { useKVM, useIDER, useSOL, checked } = this.state
     const featureStatusText = checked ? translateText('amtFeatures.enabled') : translateText('amtFeatures.disabled')
+    const mpsServer: string = server != null ? server : ''
     handleFeatureStatus('enabled')
     const translate = {
       feature: feature,
       featureText: featureStatusText
     }
-    setAmtFeatures(deviceId, 'none', useKVM, useSOL, useIDER, server, this.context.data.mpsKey)
+    setAmtFeatures(deviceId, 'none', useKVM, useSOL, useIDER, mpsServer, this.context.data.mpsKey)
       .then(data => {
         if (data.statuscode === 200) {
           this.setState({

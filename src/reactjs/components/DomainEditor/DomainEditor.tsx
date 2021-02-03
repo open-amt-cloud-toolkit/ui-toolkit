@@ -25,7 +25,7 @@ const iconList = Object.keys(Icons)
 library.add(...iconList)
 
 export interface domainProps {
-  rpsServer: any
+  rpsServer: string | null
 }
 
 export interface domainState {
@@ -68,7 +68,8 @@ export class DomainEditor extends React.Component<domainProps, domainState> {
   confirmDelete = async (): Promise<any> => {
     const { rpsKey } = this.context.data
     const domainName = encodeSpecialCharacters(this.state.selectedDomain[0].name)
-    const response = await HttpClient.delete(`${String(this.props.rpsServer)}/api/v1/admin/domains/${domainName}`, rpsKey)
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
+    const response = await HttpClient.delete(`${server}/api/v1/admin/domains/${domainName}`, rpsKey)
 
     if (response === `Domain ${domainName} successfully deleted`) {
       this.setState({
@@ -90,7 +91,7 @@ export class DomainEditor extends React.Component<domainProps, domainState> {
     this.showNotification()
   }
 
-  showNotification = (): any =>
+  showNotification = (): ReturnType<typeof setTimeout> =>
     setTimeout(() => {
       this.setState({
         showMessage: false

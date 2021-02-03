@@ -15,7 +15,7 @@ import { PcsGrid } from '../shared/pcsGrid/PcsGrid'
 import { HttpClient } from '../services/HttpClient'
 
 export interface NetworkGridProps {
-  rpsServer: string
+  rpsServer: string | null
   getSelectedNetwork?: any
   rpsKey: string
   updateNetworkGrid?: boolean
@@ -80,11 +80,13 @@ NetworkGridStates
     }
   }
 
-  fetchNetworkSettings = async (): Promise<any> =>
-    await HttpClient.get(
-      `${this.props.rpsServer}/api/v1/admin/networkconfigs`,
+  fetchNetworkSettings = async (): Promise<any> => {
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
+    return await HttpClient.get(
+      `${server}/api/v1/admin/networkconfigs`,
       this.props.rpsKey
     )
+  }
 
   /**
    * Grid ready event gets called on load of ag-grid

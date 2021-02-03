@@ -91,7 +91,7 @@ export class Profile extends React.Component<ProfileProps, ProfileStates> {
     this.showNotification()
   }
 
-  showNotification = (): any =>
+  showNotification = (): ReturnType<typeof setTimeout> =>
     setTimeout(() => {
       this.setState({
         showMessage: false
@@ -105,7 +105,8 @@ export class Profile extends React.Component<ProfileProps, ProfileStates> {
     const profileName = encodeSpecialCharacters(
       this.state.selectedProfile[0].profileName
     )
-    const response = await HttpClient.delete(`${String(this.props.rpsServer)}/api/v1/admin/profiles/${profileName}`, rpsKey)
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
+    const response = await HttpClient.delete(`${server}/api/v1/admin/profiles/${profileName}`, rpsKey)
 
     if (
       response ===

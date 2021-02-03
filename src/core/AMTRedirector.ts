@@ -81,19 +81,9 @@ export class AMTRedirector implements ICommunicator {
       return `${window.location.protocol.replace('http', 'ws')}//
       ${window.location.host}
       ${window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'))}
-      /webrelay.ashx?p=2&host=${this.host}
-      &port=${this.port}
-      &tls=${this.tls}
-      ${((this.user === '*') ? '&serverauth=1' : '')}
-      ${((typeof this.pass === 'undefined') ? ('&serverauth=1&user=' + this.user) : '')}
-      &tls1only=${this.tlsv1only}`
+      /webrelay.ashx?p=2&host=${this.host}&port=${this.port}&tls=${this.tls}${((this.user === '*') ? '&serverauth=1' : '')}${((typeof this.pass === 'undefined') ? ('&serverauth=1&user=' + this.user) : '')}&tls1only=${this.tlsv1only}`
     } else {
-      return `wss://${String(this.server)}/webrelay.ashx?p=2&host=${this.host}
-        &port=${this.port}
-        &tls=${this.tls}
-        ${((this.user === '*') ? '&serverauth=1' : '')}
-        ${((typeof this.pass === 'undefined') ? ('&serverauth=1&user=' + this.user) : '')}
-        &tls1only=${this.tlsv1only}`
+      return `wss://${String(this.server)}/webrelay.ashx?p=2&host=${this.host}&port=${this.port}&tls=${this.tls}${((this.user === '*') ? '&serverauth=1' : '')}${((typeof this.pass === 'undefined') ? ('&serverauth=1&user=' + this.user) : '')}&tls1only=${this.tlsv1only}`
     }
   }
 

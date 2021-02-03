@@ -29,8 +29,8 @@ padding : 0px 5px;
 `
 export interface IHeaderProps {
   kvmstate: number
-  deviceId: any
-  server: any
+  deviceId: string | null
+  server: string | null
   handleConnectClick: (e: any) => void
   changeDesktopSettings: (settings: any) => void
   getConnectState: () => number
@@ -64,6 +64,7 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
 
   /** send power actions to AMT device */
   handlePowerOptions = async (e): Promise<any> => {
+    const server: string = this.props.server != null ? this.props.server : ''
     if (e.detail === 0) {
       const { mpsKey } = this.context.data
       const powerAction: string = getActionById(parseInt(e.target.value))
@@ -78,7 +79,7 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
         powerActions(
           this.props.deviceId,
           e.target.value,
-          this.props.server.substr(0, this.props.server.indexOf('/')),
+          server.substr(0, server.indexOf('/')),
           mpsKey
         ).then(response => {
           if (
@@ -144,7 +145,8 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
       kvmNotEnabled,
       deviceOnSleep
     } = this.state
-    const { deviceId } = this.props
+    const { deviceId, server } = this.props
+    const mpsServer: string = server != null ? server : ''
     return (
       <React.Fragment>
         {kvmNotEnabled === 'failed' && deviceOnSleep === 'poweron' ? <SnackBar message={translateText('amtFeatures.messages.failedKvmFetch')} type='error' /> : ''}
@@ -163,9 +165,9 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
               {this.state.isPowerStateLoaded && (
                 <AmtFeatures
                   deviceId={deviceId}
-                  server={this.props.server.substr(
+                  server={mpsServer.substr(
                     0,
-                    this.props.server.indexOf('/')
+                    mpsServer.indexOf('/')
                   )}
                   feature={'KVM'}
                   handleFeatureStatus={this.handleFeatureStatus}
@@ -193,7 +195,7 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
           <StyledLabel>Power Status :</StyledLabel>{' '}
           <PowerState
             deviceId={this.props.deviceId}
-            server={this.props.server.substr(0, this.props.server.indexOf('/'))}
+            server={mpsServer.substr(0, mpsServer.indexOf('/'))}
             handlePowerStatus={this.handlePowerStatus}
             updateParent={this.updatePowerStatus}
           />

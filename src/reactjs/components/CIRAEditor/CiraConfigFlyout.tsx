@@ -10,7 +10,7 @@ import { CiraConfigForm } from '../shared/CiraConfigForm'
 export interface CiraCongigProps {
   close?: any
   rpsServer?: string | null
-  mpsServer?: any
+  mpsServer?: string | null
   createNotification?: any
   isEdit?: boolean
   selectedCiraConfigs?: any

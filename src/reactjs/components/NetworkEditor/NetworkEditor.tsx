@@ -28,7 +28,7 @@ const iconList = Object.keys(Icons)
 library.add(...iconList)
 
 export interface NetworkEditorProps {
-  rpsServer: any
+  rpsServer: string | null
 }
 
 export interface NetworkEditorState {
@@ -100,7 +100,7 @@ NetworkEditorState
     this.showNotification()
   }
 
-  showNotification = (): any =>
+  showNotification = (): ReturnType<typeof setTimeout> =>
     setTimeout(() => {
       this.setState({
         showMessage: false
@@ -112,8 +112,9 @@ NetworkEditorState
     const networkName = encodeSpecialCharacters(
       this.state.selectedNetwork[0].profileName
     )
+    const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
     const response = await HttpClient.delete(
-      `${String(this.props.rpsServer)}/api/v1/admin/networkconfigs/${networkName}`,
+      `${server}/api/v1/admin/networkconfigs/${networkName}`,
       rpsKey
     )
     if (response === `NETWORK Config ${networkName} successfully deleted`) {

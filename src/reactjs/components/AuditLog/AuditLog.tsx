@@ -39,8 +39,8 @@ const iconList = Object.keys(Icons)
 library.add(...iconList)
 
 export interface AuditLogProps {
-  deviceId: any
-  mpsServer: any
+  deviceId: string | null
+  mpsServer: string | null
 
 }
 
@@ -96,7 +96,8 @@ export class AuditLog extends React.Component<AuditLogProps, { rowData: any, err
           startIndex: index
         }
       })
-      const data = await HttpClient.post(`https://${String(this.props.mpsServer)}/amt`, body, mpsKey, true)
+      const server: string = this.props.mpsServer != null ? this.props.mpsServer : ''
+      const data = await HttpClient.post(`https://${server}/amt`, body, mpsKey, true)
       return data
     } catch {
       console.log('An error occured')
