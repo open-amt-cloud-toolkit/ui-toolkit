@@ -2,9 +2,9 @@
  * Copyright (c) Intel Corporation 2020
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { translateText } from "./Methods";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { translateText } from './Methods';
 
 import {
   nameValidation,
@@ -12,12 +12,12 @@ import {
   portValidation,
   passwordValidation,
   commonNameValidation,
-} from "./Utilities";
+} from './Utilities';
 
-import "../CIRAEditor/CiraEditor.scss";
-import { DomainContext } from "./context/BasicContextProvider";
-import { HttpClient } from "../services/HttpClient";
-import { ToggleBtn } from "./btn/ToggleBtn";
+import '../CIRAEditor/CiraEditor.scss';
+import { DomainContext } from './context/BasicContextProvider';
+import { HttpClient } from '../services/HttpClient';
+import { ToggleBtn } from './btn/ToggleBtn';
 import isMatch from 'lodash/isMatch'
 import './CiraConfigForm.scss';
 
@@ -89,9 +89,9 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
     }
   }
 
-  trimRootCert = (cert) => cert.replace("-----BEGIN CERTIFICATE-----", "")
-    .replace("-----END CERTIFICATE-----", "")
-    .replace(/\s/g, "")
+  trimRootCert = (cert) => cert.replace('-----BEGIN CERTIFICATE-----', '')
+    .replace('-----END CERTIFICATE-----', '')
+    .replace(/\s/g, '')
 
   handleChange = (e) => {
     e.persist()
@@ -107,20 +107,20 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
   handleBlur = (e) => this.setState({ [`${e.target.name}_blur`]: true });
 
   loadMpsCertificate = async () => {
-    const mpsServerIP = this.props.mpsServer.split("//")[1].split(":")[0];
+    const mpsServerIP = this.props.mpsServer.split('//')[1].split(':')[0];
     if (this.state.ciraConfig.mpsServerAddress === mpsServerIP) {
       const { mpsKey } = this.context.data;
       const serverUrl = `${this.props.mpsServer}/admin`;
       const resp = await fetch(serverUrl, {
         method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "X-MPS-API-Key": mpsKey
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-MPS-API-Key': mpsKey
         },
         body: JSON.stringify({
           apikey: 'xxxxx',
-          method: "MPSRootCertificate",
+          method: 'MPSRootCertificate',
           payload: {}
         })
       }).then(response => response.text())
@@ -138,7 +138,7 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
       } else {
         this.setState({
           isError: true,
-          mpsCertErrorMsg: translateText("cira.errors.mpsCertFetchError"),
+          mpsCertErrorMsg: translateText('cira.errors.mpsCertFetchError'),
           mpsServerAddresserror: false
         })
       }
@@ -147,10 +147,10 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
       this.setState({
         ciraConfig: {
           ...this.state.ciraConfig,
-          mpsRootCertificate: "",
+          mpsRootCertificate: '',
         },
         mpsServerAddresserror: true,
-        isCertLoaded:false
+        isCertLoaded: false
       })
     }
   }
@@ -161,7 +161,7 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
     let payload = {
       ...this.state.ciraConfig,
       commonName: this.state.ciraConfig.serverAddressFormat === 201 ? '' : this.state.ciraConfig.commonName,
-      proxyDetails: "",
+      proxyDetails: '',
       authMethod: 2,
     };
     if (!this.props.isEdit) {
@@ -232,189 +232,189 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
         ? !commonNameValidation(commonName)
         : true);
     let styles = this.props.showProfileError
-      ? "inlineblock pr10 labelWidth"
-      : "cira-label";
-    let lineHeight = this.props.showProfileError ? "p5 lineheight" : "p5"
+      ? 'inlineblock pr10 labelWidth'
+      : 'cira-label';
+    let lineHeight = this.props.showProfileError ? 'p5 lineheight' : 'p5'
     return (
       <>
         <form onSubmit={this.handleSubmit}>
-          <div className="cira-header">
-            <div className="inlineblock">
-              {this.props.isEdit ? translateText("cira.editCIRAConfig") : translateText("cira.newCIRAConfig")}
+          <div className='cira-header'>
+            <div className='inlineblock'>
+              {this.props.isEdit ? translateText('cira.editCIRAConfig') : translateText('cira.newCIRAConfig')}
             </div>
-            <div className="inlineblock floatright cursor" onClick={close}>
-              <FontAwesomeIcon icon="window-close" size="xs" />
-              &nbsp;&nbsp; {translateText("cira.close")}
+            <div className='inlineblock floatright cursor' onClick={close}>
+              <FontAwesomeIcon icon='window-close' size='xs' />
+              &nbsp;&nbsp; {translateText('cira.close')}
             </div>
           </div>
-          <div className="p10">
+          <div className='p10'>
             <div className={lineHeight}>
               <label className={styles}>
-                {translateText("cira.configName")} *
+                {translateText('cira.configName')} *
               </label>
               <input
-                type="text"
-                name="configName"
+                type='text'
+                name='configName'
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
                 value={configName}
                 disabled={this.props.isEdit}
               />
               {this.state.configName_blur && !nameValidation(configName) && (
-                <label className="cira-error">
-                  {" "}
-                  * {translateText("cira.errors.configNameValidation")}
+                <label className='cira-error'>
+                  {' '}
+                  * {translateText('cira.errors.configNameValidation')}
                 </label>
               )}
             </div>
             <div className={lineHeight}>
               <label className={styles}>
-                {translateText("cira.addressFormat")} *
+                {translateText('cira.addressFormat')} *
               </label>
               <label>
                 <input
-                  type="radio"
+                  type='radio'
                   value={3}
-                  name="serverAddressFormat"
+                  name='serverAddressFormat'
                   onClick={this.handleChange}
                   checked={serverAddressFormat === 3 ? true : false}
                 />
-                {translateText("cira.ipv4")}
+                {translateText('cira.ipv4')}
               </label>
               {/* <label>
                 <input
-                  type="radio"
+                  type='radio'
                   value={6}
-                  name="serverAddressFormat"
+                  name='serverAddressFormat'
                   onClick={this.handleChange}
                 />
-                {translateText("cira.ipv6")}
+                {translateText('cira.ipv6')}
               </label> */}
-              <label className="radio-btn">
+              <label className='radio-btn'>
                 <input
-                  type="radio"
+                  type='radio'
                   value={201}
-                  name="serverAddressFormat"
+                  name='serverAddressFormat'
                   onClick={this.handleChange}
                   checked={serverAddressFormat === 201 ? true : false}
                 />
-                {translateText("cira.fqdn")}
+                {translateText('cira.fqdn')}
               </label>
             </div>
             {serverAddressFormat && (
               <div className={lineHeight}>
                 <label className={styles}>
-                  {translateText("cira.mpsServerAddress")} *
+                  {translateText('cira.mpsServerAddress')} *
                 </label>
                 <input
-                  type="text"
-                  name="mpsServerAddress"
+                  type='text'
+                  name='mpsServerAddress'
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
                   value={mpsServerAddress}
                 />
                 {this.state.mpsServerAddress_blur &&
                   !ipAddressValidation(serverAddressFormat, mpsServerAddress) && (
-                    <label className="cira-error">
-                      *{" "}
+                    <label className='cira-error'>
+                      *{' '}
                       {serverAddressFormat === 3
-                        ? translateText("cira.errors.ipv4AddressValidation")
+                        ? translateText('cira.errors.ipv4AddressValidation')
                         : serverAddressFormat === 6
-                          ? translateText("cira.errors.ipv6AddressValidation")
+                          ? translateText('cira.errors.ipv6AddressValidation')
                           : serverAddressFormat === 201
-                            ? translateText("cira.errors.fqdnAddressValidation")
-                            : ""}
+                            ? translateText('cira.errors.fqdnAddressValidation')
+                            : ''}
                     </label>
                   )}
               </div>
             )}
 
             <div className={lineHeight}>
-              <label className={styles}>{translateText("cira.port")} *</label>
+              <label className={styles}>{translateText('cira.port')} *</label>
               <input
-                type="text"
-                name="mpsPort"
+                type='text'
+                name='mpsPort'
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
                 value={mpsPort}
               />
               {this.state.mpsPort_blur && !portValidation(mpsPort) && (
-                <label className="cira-error">
-                  *{translateText("cira.errors.portValidation")}
+                <label className='cira-error'>
+                  *{translateText('cira.errors.portValidation')}
                 </label>
               )}
             </div>
             <div className={lineHeight}>
               <label className={styles}>
-                {translateText("cira.userName")} *
+                {translateText('cira.userName')} *
               </label>
               <input
-                type="text"
-                name="username"
+                type='text'
+                name='username'
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
                 value={username}
               />
               {this.state.username_blur && !nameValidation(username) && (
-                <label className="cira-error">
-                  * {translateText("cira.errors.userNameValidation")}
+                <label className='cira-error'>
+                  * {translateText('cira.errors.userNameValidation')}
                 </label>
               )}
             </div>
             <div className={lineHeight}>
               <label className={styles}>
-                {translateText("cira.password")} *
+                {translateText('cira.password')} *
               </label>
               <input
-                type={this.state.showPassword ? "text" : "password"}
-                name="password"
+                type={this.state.showPassword ? 'text' : 'password'}
+                name='password'
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
                 value={password}
               />&nbsp;&nbsp;
-              {this.state.showPassword ? <FontAwesomeIcon icon="eye-slash" size="xs" onClick={this.handleShowPassword} /> : <FontAwesomeIcon icon="eye" size="xs" onClick={this.handleShowPassword} />}
+              {this.state.showPassword ? <FontAwesomeIcon icon='eye-slash' size='xs' onClick={this.handleShowPassword} /> : <FontAwesomeIcon icon='eye' size='xs' onClick={this.handleShowPassword} />}
               {this.state.password_blur && !passwordValidation(password) && (
-                <label className="cira-error">
-                  *{translateText("cira.errors.passwordValidation")}
+                <label className='cira-error'>
+                  *{translateText('cira.errors.passwordValidation')}
                 </label>
               )}
             </div>
             {serverAddressFormat === 3 && (
               <div className={lineHeight}>
                 <label className={styles}>
-                  {translateText("cira.commonName")} *
+                  {translateText('cira.commonName')} *
                 </label>
                 <input
-                  type="text"
-                  name="commonName"
+                  type='text'
+                  name='commonName'
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
                   value={commonName}
                 />
                 {this.state.commonName_blur &&
                   commonNameValidation(commonName) && (
-                    <label className="cira-error">
-                      *{translateText("cira.errors.commonNameValidation")}
+                    <label className='cira-error'>
+                      *{translateText('cira.errors.commonNameValidation')}
                     </label>
                   )}
               </div>
             )}
             <div className={lineHeight}>
               <label className={styles}>
-                {translateText("cira.mpsRootCertFormat")} *
+                {translateText('cira.mpsRootCertFormat')} *
               </label>
-              <div className={this.props.showProfileError ? "inlineblock" : ""}>
+              <div className={this.props.showProfileError ? 'inlineblock' : ''}>
                 <ToggleBtn
                   switchStatus={this.toggleFormat}
                   isChecked={isAutoLoad}
                 />
                 &nbsp;&nbsp;&nbsp;
-                <span className={this.props.showProfileError ? "position" : "vasuper"}>
-                  {" "}
+                <span className={this.props.showProfileError ? 'position' : 'vasuper'}>
+                  {' '}
                   <label>
                     {isAutoLoad
-                      ? translateText("cira.autoLoad")
-                      : translateText("cira.manual")}
+                      ? translateText('cira.autoLoad')
+                      : translateText('cira.manual')}
 
                   </label>
                 </span>
@@ -422,45 +422,45 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
             </div>
             <div className={lineHeight}>
               <label className={styles}>
-                {translateText("cira.mpsRootCetificate")} *
+                {translateText('cira.mpsRootCetificate')} *
               </label>
               {isAutoLoad ?
-                <button className={this.props.showProfileError ? "" : 'load-mps-button'} disabled={!mpsServerAddress || this.state.isError} type="button" onClick={this.loadMpsCertificate}>
-                  <FontAwesomeIcon icon="file-upload" size="lg" /> &nbsp;
-                  {translateText("cira.load")}</button> : <textarea
-                  className="textareawidth"
-                  name="mpsRootCertificate"
+                <button className={this.props.showProfileError ? '' : 'load-mps-button'} disabled={!mpsServerAddress || this.state.isError} type='button' onClick={this.loadMpsCertificate}>
+                  <FontAwesomeIcon icon='file-upload' size='lg' /> &nbsp;
+                  {translateText('cira.load')}</button> : <textarea
+                  className='textareawidth'
+                  name='mpsRootCertificate'
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
                   value={mpsRootCertificate}
                 />}
               {!mpsRootCertificate && this.state.mpsRootCertificate_blur && (
-                <label className="cira-error">
-                  * {translateText("cira.errors.loadMpsError")}
+                <label className='cira-error'>
+                  * {translateText('cira.errors.loadMpsError')}
                 </label>
               )}
               {isCertLoaded && (
-                <label className='cira-success'>{translateText("cira.mpsLoaded")}</label>
+                <label className='cira-success'>{translateText('cira.mpsLoaded')}</label>
               )}
               {this.state.isError && (
                 <label className='cira-error'> * {this.state.mpsCertErrorMsg}</label>
               )}
-              {this.state.mpsServerAddresserror && <label className='cira-error'> * {translateText("cira.errors.mpsServerMismatchError")}</label>
+              {this.state.mpsServerAddresserror && <label className='cira-error'> * {translateText('cira.errors.mpsServerMismatchError')}</label>
 
               }
             </div>
             <div className={lineHeight}>
               {this.state.profileConfigError && (
-                <label className="cira-error">
+                <label className='cira-error'>
                   * {this.state.profileConfigError}
                 </label>
               )}
               <button
-                className="cursor cira-submit"
-                type="submit"
+                className='cursor cira-submit'
+                type='submit'
                 disabled={this.props.isEdit ? !(isDisabled && isValid && !isMatch(this.state.ciraConfig, this.state.oldCiraConfig)) : !(isDisabled && isValid)}
               >
-                {this.props.isEdit ? translateText("cira.save") : translateText("cira.create")}
+                {this.props.isEdit ? translateText('cira.save') : translateText('cira.create')}
               </button>
             </div>
           </div>
