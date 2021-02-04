@@ -27,6 +27,7 @@ library.add(...iconList);
 
 export interface ProfileProps {
   rpsServer: string;
+  mpsServer: string;
 }
 
 export interface ProfileStates {
@@ -190,6 +191,7 @@ export class Profile extends React.Component<ProfileProps, ProfileStates> {
           { ({data})=><ProfileActionFlyout
             onClose={this.handleChange}
             rpsServer={this.props.rpsServer}
+            mpsServer={this.props.mpsServer}
             createProfileNotification={this.createProfile}
             rpsKey={data.rpsKey}
             slectedProfiles={this.state.selectedProfile}

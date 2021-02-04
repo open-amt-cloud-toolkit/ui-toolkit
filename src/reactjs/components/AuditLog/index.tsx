@@ -12,8 +12,6 @@ import { Provider } from '../shared/context/BasicContextProvider'
 import i18n from '../../../../i18n';
 import { translateText } from '../shared/Methods';
 
-library.add(faInfoCircle, faAngleDoubleRight, faAngleDoubleLeft, faAngleRight, faAngleLeft, faFileExport);
-
 // Get browser language
 i18n.changeLanguage(navigator.language)
 
@@ -26,6 +24,6 @@ const data = {
 ReactDOM.render(<React.Fragment>
     <Provider data={data}>
         <div style={{ textAlign: 'center', fontSize: "40px" }}> {translateText('auditLog.header.heading')}</div>
-        <AuditLog deviceId={params.get('deviceId')} mpsServer={params.get('server')} />
+        <AuditLog deviceId={params.get('deviceId')} mpsServer={params.get('mpsServer')} />
     </Provider>
 </React.Fragment>, document.querySelector('#auditlog'))

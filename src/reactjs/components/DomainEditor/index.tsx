@@ -17,4 +17,4 @@ const data = {
     rpsKey: process.env.API_KEY_RPS
 }
 
-ReactDom.render(<Provider data={data}><DomainEditor rpsServer={params.get('server')}/></Provider>, document.getElementById("domainroot"));
+ReactDom.render(<Provider data={data}><DomainEditor rpsServer={params.get('rpsServer')}/></Provider>, document.getElementById("domainroot"));

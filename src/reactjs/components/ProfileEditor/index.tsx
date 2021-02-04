@@ -19,4 +19,4 @@ const data = {
     mpsKey: process.env.API_KEY_MPS
 }
 
-ReactDom.render(<Provider data={data}><Profile rpsServer={params.get('server')}/></Provider>, document.getElementById('profileroot'));
+ReactDom.render(<Provider data={data}><Profile  mpsServer={params.get('mpsServer')} rpsServer={params.get('rpsServer')}/></Provider>, document.getElementById('profileroot'));

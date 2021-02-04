@@ -17,4 +17,4 @@ const data = {
     mpsKey: process.env.API_KEY_MPS
 }
 
-ReactDom.render(<Provider data={data}><DeviceGrid deviceId={params.get('deviceId')} mpsServer={params.get('server')}/></Provider>, document.getElementById('dgroot'))
+ReactDom.render(<Provider data={data}><DeviceGrid deviceId={params.get('deviceId')} mpsServer={params.get('mpsServer')}/></Provider>, document.getElementById('dgroot'))

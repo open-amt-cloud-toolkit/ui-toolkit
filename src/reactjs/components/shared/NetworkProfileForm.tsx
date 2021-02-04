@@ -14,6 +14,7 @@ export interface NetworkProfileFormProps {
   selectedNetwork?: any;
   isEdit?: boolean;
   showProfileError?: boolean;
+  mpsServer?:string;
 }
 
 export interface NetworkProfileFormStates {

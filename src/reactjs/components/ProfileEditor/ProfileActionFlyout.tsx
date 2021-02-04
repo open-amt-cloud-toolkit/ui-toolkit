@@ -20,6 +20,7 @@ require("./Profile.scss");
 export interface profileFlyoutProps {
   onClose: any;
   rpsServer: any;
+  mpsServer: string;
   createProfileNotification: any;
   rpsKey: string;
   slectedProfiles?: any;
@@ -258,7 +259,7 @@ export class ProfileActionFlyout extends React.Component<
   //Omits MEBx related fields from the request payload for client control mode of activation
   removeMEBxFieldsforCCM = obj => {
     return obj.activation === 'ccmactivate' ? omit(obj, 'generateRandomMEBxPassword', 'randomMEBXPasswordLength', 'mebxPasswordLength', 'mebxPassword') : obj;
-}
+  }
 
   handleSubmit = async (e) => {
     e.preventDefault();
@@ -360,6 +361,7 @@ export class ProfileActionFlyout extends React.Component<
             <CiraConfigForm
               close={this.toggleCiraPopup}
               rpsServer={this.props.rpsServer}
+              mpsServer={this.props.mpsServer}
               notificationCallback={this.notificationCallback}
               showProfileError={true}
             />
@@ -370,6 +372,7 @@ export class ProfileActionFlyout extends React.Component<
             <NetworkProfileForm
               close={this.toggleNetworkPopup}
               rpsServer={this.props.rpsServer}
+              mpsServer={this.props.mpsServer}
               createNotification={this.createNotification}
               showProfileError={true}
             />
@@ -389,6 +392,8 @@ export class ProfileActionFlyout extends React.Component<
             handleChange={this.handleChange}
             toggleNetworkPopup={this.toggleNetworkPopup}
             handleShowMEBXPassword={this.handleShowMEBXPassword}
+            rpsServer={this.props.rpsServer}
+            mpsServer={this.props.mpsServer}
           />
         </Flyout>
       </React.Fragment>
