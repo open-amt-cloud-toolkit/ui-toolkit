@@ -24,8 +24,8 @@ import './CiraConfigForm.scss';
 export interface formProps {
   handleSubmit?: any;
   close?: any;
-  rpsServer?: any;
-  mpsServer?: any;
+  rpsServer: any;
+  mpsServer: any;
   notificationCallback?: any;
   showProfileError?: any;
   isEdit?: boolean;
