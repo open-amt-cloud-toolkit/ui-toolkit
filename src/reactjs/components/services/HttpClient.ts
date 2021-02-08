@@ -56,6 +56,9 @@ export class HttpClient {
   }
 
   static fetch(url, options = {}) {
+    (options as any).mode='cors';
+    (options as any).credentials='include';
+    (options as any).withCredentials = true
     return fetch(url, options).then(result => result.json());
   }
 

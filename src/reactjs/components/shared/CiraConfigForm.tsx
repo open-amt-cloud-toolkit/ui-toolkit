@@ -113,6 +113,7 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
       const serverUrl = `${this.props.mpsServer}/admin`;
       const resp = await fetch(serverUrl, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
