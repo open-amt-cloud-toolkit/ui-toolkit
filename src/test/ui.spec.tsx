@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 import {KVMProps, RemoteDesktop as UI} from '../reactjs/components/KVM/UI'
-import {shallow, mount} from 'enzyme'
+import {shallow} from 'enzyme'
 const { createCanvas } = require('canvas');
 
 describe('Testing UI',()=>{
