@@ -19,7 +19,8 @@ module.exports = {
     domain: './src/reactjs/components/DomainEditor/DomainEditor.tsx',
     network:'./src/reactjs/components/NetworkEditor/NetworkEditor.tsx',
     mps: "./src/reactjs/components/mps.tsx",
-    rps:"./src/reactjs/components/rps.tsx"
+    rps:"./src/reactjs/components/rps.tsx",
+    core: "./src/core/index.ts"
   },
   //sourceMap in tsconfig which holds information about your original files when the code is minified
   //devtool deal with existing source maps
