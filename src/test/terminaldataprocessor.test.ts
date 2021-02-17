@@ -3,59 +3,52 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import { TerminalDataProcessor } from "../core/TerminalDataProcessor";
-import { AmtTerminal } from "../core/AMTTerminal"
-import { AmtTerminal2 } from "./helper/amtTerminal2"
+import { TerminalDataProcessor } from '../core/TerminalDataProcessor'
+import { AmtTerminal } from '../core/AMTTerminal'
+import { AmtTerminal2 } from './helper/amtTerminal2'
 
-describe("Test TerminalDataProcessor class", () => {
+describe('Test TerminalDataProcessor class', () => {
+  let result: string = ''
+  it('Test TerminalDataProcessor for processData', () => {
+    // callback function for Unit testing
+    function callback (value: string): void {
+      result = value
+    }
 
-    it('Test TerminalDataProcessor for processData', () => {
+    // create object and set callback
+    const term = new AmtTerminal()
+    const tdataprocessor = new TerminalDataProcessor(term)
+    tdataprocessor.processDataToXterm = callback
 
-        // callback function for Unit testing
-        let result: string;
-        function callback(value: string) {
-            result = value;
-        }
+    // Test input
+    const s: string = 'abcD123?!=*“€'
 
-        // create object and set callback
-        let term = new AmtTerminal();
-        let tdataprocessor = new TerminalDataProcessor(term);
-        tdataprocessor.processDataToXterm = callback;
+    // call processdata
+    tdataprocessor.processData(s)
 
-        // Test input
-        let s: string = "abcD123?!=*“€";
+    // Test output
+    expect(result).toBe('abcD123?!=*“¼')
+  })
 
-        // call processdata
-        tdataprocessor.processData(s);
+  it('Test TerminalDataProcessor for processData', () => {
+    // callback function for Unit testing
+    function callback (value: string): void {
+      result = value
+    }
 
-        // Test output
-        expect(result).toBe("abcD123?!=*“¼");
-    });
+    // create object and set callback
+    const term = new AmtTerminal2(1)
+    const tdataprocessor = new TerminalDataProcessor(term)
+    tdataprocessor.processDataToXterm = callback
 
-    it('Test TerminalDataProcessor for processData', () => {
+    // Test input
+    const s: string = "123Z?“€'"
 
-        // callback function for Unit testing
-        let result: string;
-        function callback(value: string) {
-            result = value;
-        }
+    // call processdata
+    tdataprocessor.processData(s)
 
-        // create object and set callback
-        let term = new AmtTerminal2(1);
-        let tdataprocessor = new TerminalDataProcessor(term);
-        tdataprocessor.processDataToXterm = callback;
-
-        // Test input
-        let s: string = "123Z?“€'";
-
-        // call processdata
-        tdataprocessor.processData(s);
-
-        // Test output
-        expect(result).toBe("123Z?“¼'");
-        expect(term.capture).toBe("123Z?“€'");
-    });
-});
-
-
-
+    // Test output
+    expect(result).toBe("123Z?“¼'")
+    expect(term.capture).toBe("123Z?“€'")
+  })
+})

@@ -3,81 +3,79 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import * as React from 'react';
-import {IEncodingOptions, EncodingOptions} from '../reactjs/components/KVM/Encodingoptions'
-import {shallow} from 'enzyme'
+import * as React from 'react'
+import { IEncodingOptions, EncodingOptions } from '../reactjs/components/KVM/Encodingoptions'
+import { shallow } from 'enzyme'
 
-describe('Testing EncodingOptions',()=>{
-  it('Test onEncodingChange() in EncodingOptions',()=>{
-      // Initialization of IEncodingOptions
-      let encodingoptionsprops : IEncodingOptions= {
-        changeEncoding: (testFunc2),
-        getConnectState: (testFunc1)     
-      };
-
-      const eo = shallow(<EncodingOptions {...encodingoptionsprops}  />);
-      eo.instance().setState = jest.fn();
-      let myInstance = eo.instance() as EncodingOptions;
-
-      myInstance.onEncodingChange(new TesClass());
-      
-      // Output
-      expect(value1).toBe(1);
-      expect(myInstance.setState).toHaveBeenCalled();
-      console.log(eo.debug());
-      console.log(eo.props());
-    });
-
-  it('Test render() in EncodingOptions with getConnectState() === 1',()=>{
+describe('Testing EncodingOptions', () => {
+  it('Test onEncodingChange() in EncodingOptions', () => {
     // Initialization of IEncodingOptions
-    let encodingoptionsprops : IEncodingOptions= {
+    const encodingoptionsprops: IEncodingOptions = {
       changeEncoding: (testFunc2),
-      getConnectState: (testFunc1)    
-    };
+      getConnectState: (testFunc1)
+    }
 
-    const eo = shallow(<EncodingOptions {...encodingoptionsprops}  />);
-    
+    const eo = shallow(<EncodingOptions {...encodingoptionsprops} />)
+    eo.instance().setState = jest.fn()
+    const myInstance = eo.instance() as EncodingOptions
+
+    myInstance.onEncodingChange(new TesClass())
+
     // Output
-    var ret = expect(eo).toMatchSnapshot();
-    console.log(eo.debug());
-    console.log(eo.props());
-  });
+    expect(value1).toBe(1)
+    expect(myInstance.setState).toHaveBeenCalled()
+    console.log(eo.debug())
+    console.log(eo.props())
+  })
 
-  it('Test render() in EncodingOptions with getConnectState() === 2',()=>{
+  it('Test render() in EncodingOptions with getConnectState() === 1', () => {
     // Initialization of IEncodingOptions
-    let encodingoptionsprops : IEncodingOptions= {
+    const encodingoptionsprops: IEncodingOptions = {
       changeEncoding: (testFunc2),
-      getConnectState: (testFunc3)    
-    };
+      getConnectState: (testFunc1)
+    }
 
-    const eo = shallow(<EncodingOptions {...encodingoptionsprops}  />);
-    
+    const eo = shallow(<EncodingOptions {...encodingoptionsprops} />)
+
     // Output
-    var ret = expect(eo).toMatchSnapshot();
-    console.log(eo.debug());
-    console.log(eo.props());
-  });
-});
+    var ret = expect(eo).toMatchSnapshot()
+    console.info('ret', ret)
+    console.log(eo.debug())
+    console.log(eo.props())
+  })
 
-function testFunc1(): number{
-  return 1;
+  it('Test render() in EncodingOptions with getConnectState() === 2', () => {
+    // Initialization of IEncodingOptions
+    const encodingoptionsprops: IEncodingOptions = {
+      changeEncoding: (testFunc2),
+      getConnectState: (testFunc3)
+    }
+
+    const eo = shallow(<EncodingOptions {...encodingoptionsprops} />)
+
+    // Output
+    var ret = expect(eo).toMatchSnapshot()
+    console.info('ret', ret)
+    console.log(eo.debug())
+    console.log(eo.props())
+  })
+})
+
+function testFunc1 (): number {
+  return 1
 }
 
-function testFunc3(): number{
-  return 2;
+function testFunc3 (): number {
+  return 2
 }
 
-var value1 = 0;
-function testFunc2(v: number): void{
-    ++value1;
+var value1 = 0
+function testFunc2 (v: number): void {
+  ++value1
 }
 
-class TesClass{
+class TesClass {
   public target = new class {
-      value: number = 1;
-  }
+    value: number = 1
+  }()
 }
-
-  
-
-

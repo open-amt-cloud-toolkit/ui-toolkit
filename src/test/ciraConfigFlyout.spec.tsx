@@ -6,21 +6,21 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import * as React from "react";
+import * as React from 'react'
 import {
   CiraConfigFlyout,
-  CiraCongigProps,
-} from "../reactjs/components/CIRAEditor/CiraConfigFlyout";
-import { shallow } from "enzyme";
+  CiraCongigProps
+} from '../reactjs/components/CIRAEditor/CiraConfigFlyout'
+import { shallow } from 'enzyme'
 
-describe("Test Cira Config Flyout", () => {
-  it("Test Cira Config", () => {
-    let CiraConfigFlyoutProps: CiraCongigProps = {
+describe('Test Cira Config Flyout', () => {
+  it('Test Cira Config', () => {
+    const CiraConfigFlyoutProps: CiraCongigProps = {
       close: jest.fn(),
       createNotification: jest.fn(),
-      rpsServer: "localhost:8081",
-    };
-    let wrapper = shallow(<CiraConfigFlyout {...CiraConfigFlyoutProps} />);
-    expect(wrapper).toMatchSnapshot();
-  });
-});
+      rpsServer: 'localhost:8081'
+    }
+    const wrapper = shallow(<CiraConfigFlyout {...CiraConfigFlyoutProps} />)
+    expect(wrapper).toMatchSnapshot()
+  })
+})

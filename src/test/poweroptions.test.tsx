@@ -6,23 +6,19 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
+import { PowerOptions, PowerOptionProps } from '../reactjs/components/shared/PowerOptions'
+import { shallow } from 'enzyme'
+import React from 'react'
 
-import { PowerOptions, PowerOptionProps } from "../reactjs/components/shared/PowerOptions"
-import {availablePowerActions} from '../reactjs/components/shared/PowerActions'
-import { shallow } from "enzyme";
-import React from "react";
+describe('Test PowerOptions function component', () => {
+  it('Test PowerOptions map', () => {
+    const powerProps: PowerOptionProps = {
+      availableOptions: [{ label: 'reset to bios', value: '101' }],
+      isSelected: true,
+      onChange: jest.fn()
+    }
 
-
-describe("Test PowerOptions function component", () => {
-
-    it('Test PowerOptions map', () => {
-        const powerProps: PowerOptionProps = {
-            availableOptions: [{label: 'reset to bios', value: '101'}],
-            isSelected: true,
-            onChange: jest.fn()
-        };
-
-        const wrapper = shallow(<PowerOptions {...powerProps} />);
-        expect(typeof wrapper).toEqual('object');
-    });
-});
+    const wrapper = shallow(<PowerOptions {...powerProps} />)
+    expect(typeof wrapper).toEqual('object')
+  })
+})
