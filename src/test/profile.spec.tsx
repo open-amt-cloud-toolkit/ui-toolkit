@@ -14,7 +14,8 @@ import { HttpClient } from '../reactjs/components/services/HttpClient'
 describe('Test profile component', () => {
   it('loads the component without crashing ', () => {
     const profileProps: ProfileProps = {
-      rpsServer: 'localhost:8081'
+      rpsServer: 'localhost:8081',
+      mpsServer: 'localhost:3000'
     }
 
     const wrapper = shallow(<Profile {...profileProps} />)
@@ -23,7 +24,8 @@ describe('Test profile component', () => {
 
   it('should show the delete and edit button on selecting a profile from the grid', () => {
     const profileProps: ProfileProps = {
-      rpsServer: 'localhost:8081'
+      rpsServer: 'localhost:8081',
+      mpsServer: 'localhost:3000'
     }
 
     const profileStates = {
@@ -44,7 +46,8 @@ describe('Test profile component', () => {
 
   it('should load the confirmation popup on clicking delete button', () => {
     const profileProps: ProfileProps = {
-      rpsServer: 'localhost:8081'
+      rpsServer: 'localhost:8081',
+      mpsServer: 'localhost:3000'
     }
 
     const profileStates = {
@@ -68,7 +71,8 @@ describe('Test profile component', () => {
 
   it('should call the delete api on confirmation', async () => {
     const profileProps: ProfileProps = {
-      rpsServer: 'localhost:8081'
+      rpsServer: 'localhost:8081',
+      mpsServer: 'localhost:3000'
     }
 
     const profileStates = {
@@ -101,7 +105,8 @@ describe('Test profile component', () => {
 
   it('should open the flyout on click of create profile', () => {
     const profileProps: ProfileProps = {
-      rpsServer: 'localhost:8081'
+      rpsServer: 'localhost:8081',
+      mpsServer: 'localhost:3000'
     }
     const wrapper = shallow(<Profile {...profileProps} />)
 
@@ -114,7 +119,8 @@ describe('Test profile component', () => {
 
   it('should show the create profile success notification', () => {
     const profileProps: ProfileProps = {
-      rpsServer: 'localhost:8081'
+      rpsServer: 'localhost:8081',
+      mpsServer: 'localhost:3000'
     }
     const wrapper = shallow(<Profile {...profileProps} />)
     const instance = wrapper.instance() as Profile
@@ -127,7 +133,8 @@ describe('Test profile component', () => {
 
   it('should show the create profile error notification', () => {
     const profileProps: ProfileProps = {
-      rpsServer: 'localhost:8081'
+      rpsServer: 'localhost:8081',
+      mpsServer: 'localhost:3000'
     }
     const wrapper = shallow(<Profile {...profileProps} />)
     const instance = wrapper.instance() as Profile
@@ -140,7 +147,8 @@ describe('Test profile component', () => {
 
   it('should show the edit button on selecting the profile on the grid', () => {
     const profileProps: ProfileProps = {
-      rpsServer: 'localhost:8081'
+      rpsServer: 'localhost:8081',
+      mpsServer: 'localhost:3000'
     }
 
     const profileStates = {

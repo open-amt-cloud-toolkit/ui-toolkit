@@ -21,6 +21,6 @@ const data = {
 ReactDOM.render(<React.Fragment>
   <Provider data={data}>
     <div style={{ textAlign: 'center', fontSize: '40px' }}> {translateText('auditLog.header.heading')}</div>
-    <AuditLog deviceId={params.get('deviceId')} mpsServer={params.get('server')} />
+    <AuditLog deviceId={params.get('deviceId')} mpsServer={params.get('mpsServer')} />
   </Provider>
 </React.Fragment>, document.querySelector('#auditlog'))

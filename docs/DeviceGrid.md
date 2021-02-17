@@ -37,7 +37,7 @@ After making  the changes, open a command prompt and navigate to the root of ui-
 npm start
 ```
 
--Open the browser and navigate  http://localhost:8080/device.htm?deviceId=<device GUID>&server=<mps IPaddress>:<mps port>
+-Open the browser and navigate  http://localhost:8080/device.htm?deviceId=<device GUID>&mpsServer=<mps IPaddress>:<mps port>
 
 
 ## Create Bundle for devicegrid
@@ -74,7 +74,7 @@ npx serve
 ```
 Open Chrome browser, navigate to the following url
 ```
-http://<localhost>:5000/src/sample/sampleDG.htm?deviceId=<device GUID>&server=<mps IPaddress>:<mps port>
+http://<localhost>:5000/src/sample/sampleDG.htm?deviceId=<device GUID>&mpsServer=<mps IPaddress>:<mps port>
 ```
 You will see the errors in the following scenario's: 
  - compilation errors if  mps-ui-toolkit has not downloaded and installed to your react app.

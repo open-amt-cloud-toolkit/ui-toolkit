@@ -27,6 +27,8 @@ export interface ProfileConigFormProps {
   handleChange: any
   toggleNetworkPopup: any
   handleShowMEBXPassword: any
+  rpsServer?: string | null
+  mpsServer?: string | null
 }
 /* to do */
 export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {

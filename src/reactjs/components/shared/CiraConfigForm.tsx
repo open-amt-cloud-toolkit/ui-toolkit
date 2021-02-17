@@ -52,6 +52,7 @@ export interface formState {
   mpsCertErrorMsg?: string
   showPassword?: boolean
   oldCiraConfig?: any
+  mpsServerAddresserror?: boolean
 }
 
 /**
@@ -66,7 +67,8 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
       isAutoLoad: !isFalsy(props.isEdit),
       isCertLoaded: false,
       isError: false,
-      showPassword: false
+      showPassword: false,
+      mpsServerAddresserror: false
     }
   }
 
@@ -106,36 +108,51 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
   handleBlur = (e): void => this.setState({ [`${String(e.target.name)}_blur`]: true })
 
   loadMpsCertificate = async (): Promise<any> => {
-    const { mpsKey } = this.context.data
     const server: string = this.props.mpsServer != null ? this.props.mpsServer : ''
-    const serverUrl = `${server}/admin`
-    const resp = await fetch(serverUrl, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'X-MPS-API-Key': mpsKey
-      },
-      body: JSON.stringify({
-        apikey: 'xxxxx',
-        method: 'MPSRootCertificate',
-        payload: {}
-      })
-    }).then(async response => await response.text())
-      .catch(error => console.info(error))
+    const mpsServerIP = server.split('//')[1].split(':')[0]
+    if (this.state.ciraConfig.mpsServerAddress === mpsServerIP) {
+      const { mpsKey } = this.context.data
+      const serverUrl = `${server}/admin`
+      const resp = await fetch(serverUrl, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-MPS-API-Key': mpsKey
+        },
+        body: JSON.stringify({
+          apikey: 'xxxxx',
+          method: 'MPSRootCertificate',
+          payload: {}
+        })
+      }).then(async response => await response.text())
+        .catch(error => console.info(error))
 
-    if (isFalsy(resp)) {
+      if (isFalsy(resp)) {
+        this.setState({
+          ciraConfig: {
+            ...this.state.ciraConfig,
+            mpsRootCertificate: this.trimRootCert(resp)
+          },
+          isCertLoaded: true,
+          mpsServerAddresserror: false
+        })
+      } else {
+        this.setState({
+          isError: true,
+          mpsCertErrorMsg: translateText('cira.errors.mpsCertFetchError'),
+          mpsServerAddresserror: false
+        })
+      }
+    } else {
       this.setState({
         ciraConfig: {
           ...this.state.ciraConfig,
-          mpsRootCertificate: this.trimRootCert(resp)
+          mpsRootCertificate: ''
         },
-        isCertLoaded: true
-      })
-    } else {
-      this.setState({
-        isError: true,
-        mpsCertErrorMsg: translateText('cira.errors.mpsCertFetchError')
+        mpsServerAddresserror: true,
+        isCertLoaded: false
       })
     }
   }
@@ -232,14 +249,14 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
               &nbsp;&nbsp; {translateText('cira.close')}
             </div>
           </div>
-          <div className="p10">
+          <div className='p10'>
             <div className={lineHeight}>
               <label className={styles}>
                 {translateText('cira.configName')} *
               </label>
               <input
-                type="text"
-                name="configName"
+                type='text'
+                name='configName'
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
                 value={configName}
@@ -258,9 +275,9 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
               </label>
               <label>
                 <input
-                  type="radio"
+                  type='radio'
                   value={3}
-                  name="serverAddressFormat"
+                  name='serverAddressFormat'
                   onClick={this.handleChange}
                   checked={serverAddressFormat === 3}
                 />
@@ -268,18 +285,18 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
               </label>
               {/* <label>
                 <input
-                  type="radio"
+                  type='radio'
                   value={6}
-                  name="serverAddressFormat"
+                  name='serverAddressFormat'
                   onClick={this.handleChange}
                 />
-                {translateText("cira.ipv6")}
+                {translateText('cira.ipv6')}
               </label> */}
-              <label className="radio-btn">
+              <label className='radio-btn'>
                 <input
-                  type="radio"
+                  type='radio'
                   value={201}
-                  name="serverAddressFormat"
+                  name='serverAddressFormat'
                   onClick={this.handleChange}
                   checked={serverAddressFormat === 201}
                 />
@@ -292,8 +309,8 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                   {translateText('cira.mpsServerAddress')} *
                 </label>
                 <input
-                  type="text"
-                  name="mpsServerAddress"
+                  type='text'
+                  name='mpsServerAddress'
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
                   value={mpsServerAddress}
@@ -317,8 +334,8 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
             <div className={lineHeight}>
               <label className={styles}>{translateText('cira.port')} *</label>
               <input
-                type="text"
-                name="mpsPort"
+                type='text'
+                name='mpsPort'
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
                 value={mpsPort}
@@ -334,8 +351,8 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                 {translateText('cira.userName')} *
               </label>
               <input
-                type="text"
-                name="username"
+                type='text'
+                name='username'
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
                 value={username}
@@ -370,8 +387,8 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
                   {translateText('cira.commonName')} *
                 </label>
                 <input
-                  type="text"
-                  name="commonName"
+                  type='text'
+                  name='commonName'
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
                   value={commonName}
@@ -430,6 +447,9 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
               {isFalsy(this.state.isError) && (
                 <label className='cira-error'> * {this.state.mpsCertErrorMsg}</label>
               )}
+              {isFalsy(this.state.mpsServerAddresserror) && <label className='cira-error'> * {translateText('cira.errors.mpsServerMismatchError')}</label>
+
+              }
             </div>
             <div className={lineHeight}>
               {isFalsy(this.state.profileConfigError) && (

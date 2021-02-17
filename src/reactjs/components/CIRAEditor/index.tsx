@@ -19,4 +19,4 @@ const data = {
   mpsKey: process.env.API_KEY_MPS
 }
 
-ReactDom.render(<Provider data={data}><CiraEditor mpsServer={params.get('server')} rpsServer={params.get('server')}/></Provider>, document.getElementById('ciraroot'))
+ReactDom.render(<Provider data={data}><CiraEditor mpsServer={params.get('mpsServer')} rpsServer={params.get('rpsServer')}/></Provider>, document.getElementById('ciraroot'))

@@ -29,7 +29,8 @@ const CiraConfigProps: formProps = {
     authMethod: 2,
     proxyDetails: ''
   }],
-  rpsServer: 'APIKEYFORRPS123!',
+  rpsServer: 'localhost:8081',
+  mpsServer: 'localhost:3000',
   notificationCallback: jest.fn()
 }
 
@@ -130,6 +131,7 @@ describe('Test Cira Config Form Component', () => {
       close: jest.fn(),
       isEdit: false,
       rpsServer: 'localhost:8081',
+      mpsServer: 'localhost:8081',
       notificationCallback: jest.fn()
     }
     const wrapper = shallow(<CiraConfigForm {...CiraConfigProps} />)
@@ -168,6 +170,7 @@ describe('Test Cira Config Form Component', () => {
       close: jest.fn(),
       isEdit: true,
       rpsServer: 'localhost:8081',
+      mpsServer: 'localhost:3000',
       notificationCallback: jest.fn(),
       selectedCiraConfigs: [{
         configName: 'ciraconfig1',

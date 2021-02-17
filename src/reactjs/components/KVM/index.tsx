@@ -15,4 +15,4 @@ const params = new URLSearchParams(url.search)
 const data = {
   mpsKey: process.env.API_KEY_MPS
 }
-ReactDOM.render(<Provider data={data}><RemoteDesktop autoConnect={false} deviceId= {params.get('deviceId')} mpsServer={ `${String(params.get('server'))}/relay`} mouseDebounceTime={ 200} canvasHeight = {'100%'} canvasWidth = {'100%'}/></Provider>, document.querySelector('#kvm'))
+ReactDOM.render(<Provider data={data}><RemoteDesktop autoConnect={false} deviceId= {params.get('deviceId')} mpsServer={ params.get('mpsServer') + '/relay'} mouseDebounceTime={ 200} canvasHeight = {'100%'} canvasWidth = {'100%'}/></Provider>, document.querySelector('#kvm'))

@@ -54,6 +54,9 @@ export class HttpClient {
   }
 
   static async fetch (url, options = {}): Promise<any> {
+    (options as any).mode = 'cors';
+    (options as any).credentials = 'include';
+    (options as any).withCredentials = true
     return await fetch(url, options).then(async result => await result.json())
   }
 

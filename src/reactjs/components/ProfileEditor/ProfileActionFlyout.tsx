@@ -19,6 +19,7 @@ require('./Profile.scss')
 export interface profileFlyoutProps {
   onClose: any
   rpsServer: string | null
+  mpsServer: string | null
   createProfileNotification: any
   rpsKey: string
   slectedProfiles?: any
@@ -363,6 +364,7 @@ profileFlyoutState
             <CiraConfigForm
               close={this.toggleCiraPopup}
               rpsServer={this.props.rpsServer}
+              mpsServer={this.props.mpsServer}
               notificationCallback={this.notificationCallback}
               showProfileError={true}
             />
@@ -373,6 +375,7 @@ profileFlyoutState
             <NetworkProfileForm
               close={this.toggleNetworkPopup}
               rpsServer={this.props.rpsServer}
+              mpsServer={this.props.mpsServer}
               createNotification={this.createNotification}
               showProfileError={true}
             />
@@ -392,6 +395,8 @@ profileFlyoutState
             handleChange={this.handleChange}
             toggleNetworkPopup={this.toggleNetworkPopup}
             handleShowMEBXPassword={this.handleShowMEBXPassword}
+            rpsServer={this.props.rpsServer}
+            mpsServer={this.props.mpsServer}
           />
         </Flyout>
       </React.Fragment>

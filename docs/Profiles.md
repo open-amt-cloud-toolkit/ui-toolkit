@@ -41,7 +41,7 @@ npm start
 Open the browser and navigate to the following url
 
 ```
-http://localhost:8080/profile.htm?server=<protocol>://<rps IPaddress>:<rps port>
+http://localhost:8080/profile.htm?rpsServer=<protocol>://<rps IPaddress>:<rps port>&mpsServer=<mps IPaddress>:<mps port>
 ```
 
 **Note:** By default webpack dev server runs on port 8080. If port 8080 is already in use, webpack automatically runs on  the next immediate available port
@@ -80,7 +80,7 @@ npx serve
 ```
 Open Chrome browser, navigate to the following url
 ```
-http://<localhost>:5000/src/sample/sampleProfile.htm?server=<http>://<rps IPaddress>:<rps port>
+http://<localhost>:5000/src/sample/sampleProfile.htm?rpsServer=<protocol>://<rps IPaddress>:<rps port>&mpsServer=<mps IPaddress>:<mps port>
 ```
 
 ## Add a new Language for Internationalization

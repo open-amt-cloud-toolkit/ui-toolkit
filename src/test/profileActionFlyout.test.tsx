@@ -19,6 +19,7 @@ describe('profile action flyout', () => {
   const profileActionFlyoutProps: profileFlyoutProps = {
     onClose: jest.fn(),
     rpsServer: 'localhost:8081',
+    mpsServer: 'localhost:3000',
     createProfileNotification: jest.fn(),
     rpsKey: 'APIKEYFORRPS123!',
     isEdit: false,
@@ -47,72 +48,141 @@ describe('profile action flyout', () => {
     })
     expect(myInstance.state.amtPassword).toBe('Test!@1234')
   })
+
+  it('Test amt password', () => {
+    const profileActionFlyout = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />)
+    const myInstance = profileActionFlyout.instance() as ProfileActionFlyout
+    myInstance.setState({
+      amtPassword: 'Test!@1234'
+    })
+    expect(myInstance.state.amtPassword).toBe('Test!@1234')
+  })
+  it('should call the notification callback from the component instance', () => {
+    const profileActionFlyout = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />)
+    const myInstance = profileActionFlyout.instance() as ProfileActionFlyout
+
+    myInstance.notificationCallback(true, 'CIRA config created successfully', {})
+    expect(profileActionFlyout.state('showCiraPopup')).toEqual(false)
+  })
+
+  it('should call the handle blur on remving the focus from input fields', () => {
+    const profileActionFlyout = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />)
+    const myInstance = profileActionFlyout.instance() as ProfileActionFlyout
+
+    const blurEvent = {
+      target: {
+        name: 'profileName'
+      }
+    }
+    myInstance.handleOnBlur(blurEvent)
+    profileActionFlyout.instance().forceUpdate()
+    expect(profileActionFlyout.state('profileNameBlur')).toEqual(true)
+  })
+  it('should load the profile details on edit', () => {
+    const profileProps: profileFlyoutProps = {
+      onClose: jest.fn(),
+      rpsServer: 'localhost:8081',
+      mpsServer: 'localhost:3000',
+      rpsKey: 'APIKEYFORRPS123!',
+      createProfileNotification: jest.fn(),
+      isEdit: true,
+      slectedProfiles: [{
+        profileName: 'profile1',
+        generateRandomPassword: true,
+        randomPasswordLength: 10,
+        ciraConfigName: 'config1',
+        activation: 'ccmactivate',
+        generateRandomMEBxPassword: '',
+        mebxPassword: '',
+        randomMEBXPasswordLength: ''
+      }]
+    }
+
+    const wrapper = shallow(<ProfileActionFlyout {...profileProps} />)
+    const formDetails = wrapper.state('profileFormDetails')
+    expect(formDetails).toEqual({ profileName: 'profile1', generateRandomPassword: true, randomPasswordLength: '10', ciraConfigName: 'config1', activation: 'ccmactivate', amtPassword: '', generateRandomMEBxPassword: '', mebxPassword: '', randomMEBXPasswordLength: '' })
+  })
+
+  it('should toggle the generate random password checkbox on click', () => {
+    const wrapper = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />)
+    const myInstance = wrapper.instance() as ProfileActionFlyout
+
+    const clickEvent = {
+      persist: () => { },
+      target: {
+        name: 'generateRandomPassword',
+        checked: true
+      }
+    }
+
+    myInstance.handleClick(clickEvent)
+    expect(wrapper.state('profileFormDetails')).toEqual({ generateRandomPassword: true })
+  })
+  it('should call the create REST api on form submit', async () => {
+    HttpClient.post = jest.fn(async () => await Promise.resolve('Profile profile1 successfully inserted'))
+    const wrapper = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />)
+    const myInstance = wrapper.instance() as ProfileActionFlyout
+
+    const formDetails = {
+      profileFormDetails: {
+        profileName: 'profile1',
+        amtPassword: 'Amtpass@123',
+        generateRandomPassword: false,
+        activation: 'acmactivate',
+        randomPasswordLength: null,
+        ciraConfigName: 'config1'
+      }
+    }
+    wrapper.setState(formDetails)
+    const submitEvent = {
+      preventDefault: () => { }
+    }
+    myInstance.handleSubmit(submitEvent).catch(() => console.info('error occured'))
+    expect(HttpClient.post).toHaveBeenCalled()
+  })
+
+  it('should call the Edit REST api on form submit', async () => {
+    HttpClient.patch = jest.fn(async () => await Promise.resolve('Profile profile1 successfully updated'))
+    const profileProps: profileFlyoutProps = {
+      onClose: jest.fn(),
+      rpsServer: 'localhost:8081',
+      mpsServer: 'localhost:3000',
+      createProfileNotification: jest.fn(),
+      rpsKey: 'APIKEYFORRPS123!',
+      isEdit: true,
+      slectedProfiles: [{
+        profileName: 'profile1',
+        generateRandomPassword: true,
+        randomPasswordLength: 10,
+        ciraConfigName: 'config1',
+        activation: 'ccmactivate'
+      }]
+    }
+    const wrapper = shallow(<ProfileActionFlyout {...profileProps} />)
+    const myInstance = wrapper.instance() as ProfileActionFlyout
+
+    const formDetails = {
+      profileFormDetails: {
+        profileName: 'profile1',
+        amtPassword: 'Amtpass@123',
+        generateRandomPassword: false,
+        activation: 'acmactivate',
+        randomPasswordLength: null,
+        ciraConfigName: 'config1'
+      }
+    }
+    wrapper.setState(formDetails)
+    const submitEvent = {
+      preventDefault: () => { }
+    }
+    myInstance.handleSubmit(submitEvent).catch(() => console.info('error occured'))
+    expect(HttpClient.patch).toHaveBeenCalled()
+  })
   it('Test generate random password', () => {
     const profileActionFlyout = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />)
     const myInstance = profileActionFlyout.instance() as ProfileActionFlyout
     myInstance.setState({
       generateRandomPassword: true
-    })
-    expect(myInstance.state.generateRandomPassword).toBe(true)
-  })
-  it('Test password length', () => {
-    const profileActionFlyout = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />)
-    const myInstance = profileActionFlyout.instance() as ProfileActionFlyout
-    myInstance.setState({
-      randomPasswordLength: 9
-    })
-    expect(myInstance.state.randomPasswordLength).toBe(9)
-  })
-  it('Test methods inprofile actions flyout', () => {
-    const profileActionFlyout = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />)
-    const myInstance = profileActionFlyout.instance() as ProfileActionFlyout
-
-    expect(typeof myInstance.handleChange).toBe('function')
-    expect(typeof myInstance.handleClick).toBe('function')
-    expect(typeof myInstance.handleOnBlur).toBe('function')
-    expect(typeof myInstance.handleSubmit).toBe('function')
-  })
-
-  it('should open the CIRA config script popup on click of new config', () => {
-    const profileActionFlyout = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />)
-
-    const myInstance = profileActionFlyout.instance() as ProfileActionFlyout
-    const clickEvent = {
-      preventDefault: () => { }
-    }
-    myInstance.toggleCiraPopup(clickEvent)
-    expect(profileActionFlyout.find('CiraConfigForm')).toHaveLength(1)
-  })
-
-  it('should call the handle select method on dropdown change', () => {
-    const profileActionFlyout = shallow(<ProfileActionFlyout {...profileActionFlyoutProps} />)
-    const myInstance = profileActionFlyout.instance() as ProfileActionFlyout
-    const ciraConfigs = [{
-      ConfigName: 'ciraconfig1',
-      MPSServerAddress: 'localhost',
-      MPSPort: 4433,
-      Username: 'admin',
-      Password: 'P@ssw0rd',
-      CommonName: 'localhost',
-      ServerAddressFormat: 201,
-      AuthMethod: 2,
-      MPSRootCertificate: 'rootcert',
-      ProxyDetails: ''
-    },
-    {
-      ConfigName: 'Cira4321',
-      MPSServerAddress: '168.10.10.10',
-      MPSPort: '4433',
-      Username: 'admin',
-      Password: 'Amtpass@123',
-      CommonName: 'Common',
-      ServerAddressFormat: 3,
-      MPSRootCertificate: 'cert',
-      ProxyDetails: '',
-      AuthMethod: 2
-    }]
-    profileActionFlyout.setState({
-      ciraConfigs: ciraConfigs
     })
     const handleEvent = {
       persist: () => { },
@@ -154,6 +224,7 @@ describe('profile action flyout', () => {
       onClose: jest.fn(),
       rpsServer: 'localhost:8081',
       rpsKey: 'APIKEYFORRPS123!',
+      mpsServer: 'localhost:3000',
       createProfileNotification: jest.fn(),
       isEdit: true,
       slectedProfiles: [{
@@ -217,6 +288,7 @@ describe('profile action flyout', () => {
     const profileProps: profileFlyoutProps = {
       onClose: jest.fn(),
       rpsServer: 'localhost:8081',
+      mpsServer: 'localhost:3000',
       createProfileNotification: jest.fn(),
       rpsKey: 'APIKEYFORRPS123!',
       isEdit: true,
