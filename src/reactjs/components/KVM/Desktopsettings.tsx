@@ -14,19 +14,19 @@ export interface IDesktopSettings {
 export class DesktopSettings extends React.Component<IDesktopSettings> {
   desktopsettings = {
     encoding: 1
-  };
-
-  constructor(props: IDesktopSettings) {
-    super(props);
-    this.changeEncoding = this.changeEncoding.bind(this);
   }
 
-  changeEncoding(encoding: number) {
-    this.desktopsettings.encoding = encoding;
-    this.props.changeDesktopSettings(this.desktopsettings);
+  constructor (props: IDesktopSettings) {
+    super(props)
+    this.changeEncoding = this.changeEncoding.bind(this)
   }
 
-  render() {
+  changeEncoding (encoding: number): void {
+    this.desktopsettings.encoding = encoding
+    this.props.changeDesktopSettings(this.desktopsettings)
+  }
+
+  render (): React.ReactNode {
     return (
       <EncodingOptions changeEncoding={this.changeEncoding} getConnectState={this.props.getConnectState}/>
     )

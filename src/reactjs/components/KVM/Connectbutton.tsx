@@ -4,7 +4,7 @@
  **********************************************************************/
 
 import * as React from 'react'
-require("./Connectbutton.scss")
+require('./Connectbutton.scss')
 
 export interface ConnectProps {
   kvmstate: number
@@ -12,16 +12,10 @@ export interface ConnectProps {
 }
 
 export class ConnectButton extends React.Component<ConnectProps, {}> {
-
-  constructor(props: ConnectProps) {
-    super(props);
-  }
-
-
-  render() {
+  render (): React.ReactNode {
     return (
       <button className="button" onClick={this.props.handleConnectClick}>
-        {this.props.kvmstate == 1 ? 'Connecting KVM' : (this.props.kvmstate == 2 ? 'Disconnect KVM' : 'Connect KVM')}
+        {this.props.kvmstate === 1 ? 'Connecting KVM' : (this.props.kvmstate === 2 ? 'Disconnect KVM' : 'Connect KVM')}
       </button>
     )
   }

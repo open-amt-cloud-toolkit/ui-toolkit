@@ -5,6 +5,7 @@
 
 import React from 'react'
 import Style from 'styled-components'
+import { isFalsy } from './Utilities'
 
 const CheckboxContainer = Style.div`
   display: inline-block;
@@ -43,13 +44,13 @@ const StyledCheckbox = Style.div`
   }
 
   ${Icon} {
-    visibility: ${props => (props.checked ? 'visible' : 'hidden')}
+    visibility: ${props => (isFalsy(props.checked) ? 'visible' : 'hidden')}
   }
 `
 
-const getColor = disableCheckbox => disableCheckbox === true ? '#ccc' : 'white';
+const getColor = (disableCheckbox): string => disableCheckbox === true ? '#ccc' : 'white'
 /** Generic presentational function for Checkbox */
-export const Checkbox = ({ className, checked, disableCheckbox, ...props }) => (
+export const Checkbox = ({ className, checked, disableCheckbox, ...props }): JSX.Element => (
   <CheckboxContainer className={className}>
     <HiddenCheckbox checked={checked} {...props} disabled={disableCheckbox}/>
     <StyledCheckbox checked={checked} disableCheckbox={disableCheckbox}>

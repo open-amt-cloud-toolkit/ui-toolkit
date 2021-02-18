@@ -3,29 +3,26 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import React from 'react';
+import React from 'react'
 
 export const DomainContext = React.createContext({
-    data: {}
+  data: {}
 })
 export interface ProviderProps {
-    data: any;
+  data: any
 }
 export class Provider extends React.Component<ProviderProps, {}> {
-    constructor(props) {
-        super(props)
-    }
-    render() {
-        return (
-            <DomainContext.Provider value={{data: this.props.data}}>
-                {this.props.children}
-            </DomainContext.Provider>
-        )
-    }
+  render (): React.ReactNode {
+    return (
+      <DomainContext.Provider value={{ data: this.props.data }}>
+        {this.props.children}
+      </DomainContext.Provider>
+    )
+  }
 }
 
-export const Consumer  = ({children, ...props}) => {
-    return <DomainContext.Consumer >
-        {children}
-    </DomainContext.Consumer>
+export const Consumer = ({ children }): JSX.Element => {
+  return <DomainContext.Consumer >
+    {children}
+  </DomainContext.Consumer>
 }
