@@ -21,3 +21,7 @@ exports.MouseHelper = require('./dist/core.bundle').MouseHelper;
 exports.KeyboardHelper = require('./dist/core.bundle').KeyboardHelper;
 exports.IDataProcessor = require('./dist/core.bundle').IDataProcessor;
 exports.AMTKvmDataRedirector = require('./dist/core.bundle').AMTKvmDataRedirector;
+exports.AmtTerminal = require('./dist/core.bundle').AmtTerminal;
+exports.TerminalDataProcessor = require('./dist/core.bundle').TerminalDataProcessor;
+exports.ConsoleLogger = require('./dist/core.bundle').ConsoleLogger;
+exports.Protocol = require('./dist/core.bundle').Protocol; 
