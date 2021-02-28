@@ -1,4 +1,3 @@
-/// <reference types="react" />
 /*********************************************************************
  * Copyright (c) Intel Corporation 2019
  * SPDX-License-Identifier: Apache-2.0
@@ -19,9 +18,9 @@ export declare class MouseHelper {
     constructor(parent: Desktop, comm: ICommunicator, debounceTime: number);
     GrabMouseInput(): any;
     UnGrabMouseInput(): any;
-    mousedown(e: React.MouseEvent): any;
-    mouseup(e: React.MouseEvent): any;
-    mousemove(e: React.MouseEvent): boolean;
+    mousedown(e: MouseEvent): any;
+    mouseup(e: MouseEvent): any;
+    mousemove(e: MouseEvent): boolean;
     haltEvent(e: any): boolean;
     getPositionOfControl(c: HTMLElement): any;
 }
