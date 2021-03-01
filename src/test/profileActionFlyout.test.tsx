@@ -26,7 +26,7 @@ describe('profile action flyout', () => {
     slectedProfiles: [{
       profileName: 'profile1',
       generateRandomPassword: true,
-      randomPasswordLength: 10,
+      passwordLength: 10,
       ciraConfigName: 'config1',
       activation: 'ccmactivate'
     }]
@@ -89,18 +89,18 @@ describe('profile action flyout', () => {
       slectedProfiles: [{
         profileName: 'profile1',
         generateRandomPassword: true,
-        randomPasswordLength: 10,
+        passwordLength: 10,
         ciraConfigName: 'config1',
         activation: 'ccmactivate',
         generateRandomMEBxPassword: '',
         mebxPassword: '',
-        randomMEBXPasswordLength: ''
+        mebxPasswordLength: ''
       }]
     }
 
     const wrapper = shallow(<ProfileActionFlyout {...profileProps} />)
     const formDetails = wrapper.state('profileFormDetails')
-    expect(formDetails).toEqual({ profileName: 'profile1', generateRandomPassword: true, randomPasswordLength: '10', ciraConfigName: 'config1', activation: 'ccmactivate', amtPassword: '', generateRandomMEBxPassword: '', mebxPassword: '', randomMEBXPasswordLength: '' })
+    expect(formDetails).toEqual({ profileName: 'profile1', generateRandomPassword: true, passwordLength: '10', ciraConfigName: 'config1', activation: 'ccmactivate', amtPassword: '', generateRandomMEBxPassword: '', mebxPassword: '', mebxPasswordLength: '' })
   })
 
   it('should toggle the generate random password checkbox on click', () => {
@@ -129,7 +129,7 @@ describe('profile action flyout', () => {
         amtPassword: 'Amtpass@123',
         generateRandomPassword: false,
         activation: 'acmactivate',
-        randomPasswordLength: null,
+        passwordLength: null,
         ciraConfigName: 'config1'
       }
     }
@@ -153,7 +153,7 @@ describe('profile action flyout', () => {
       slectedProfiles: [{
         profileName: 'profile1',
         generateRandomPassword: true,
-        randomPasswordLength: 10,
+        passwordLength: 10,
         ciraConfigName: 'config1',
         activation: 'ccmactivate'
       }]
@@ -167,7 +167,7 @@ describe('profile action flyout', () => {
         amtPassword: 'Amtpass@123',
         generateRandomPassword: false,
         activation: 'acmactivate',
-        randomPasswordLength: null,
+        passwordLength: null,
         ciraConfigName: 'config1'
       }
     }
@@ -230,18 +230,18 @@ describe('profile action flyout', () => {
       slectedProfiles: [{
         profileName: 'profile1',
         generateRandomPassword: true,
-        randomPasswordLength: 10,
+        passwordLength: 10,
         ciraConfigName: 'config1',
         activation: 'ccmactivate',
         generateRandomMEBxPassword: '',
         mebxPassword: '',
-        randomMEBXPasswordLength: ''
+        mebxPasswordLength: ''
       }]
     }
 
     const wrapper = shallow(<ProfileActionFlyout {...profileProps} />)
     const formDetails = wrapper.state('profileFormDetails')
-    expect(formDetails).toEqual({ profileName: 'profile1', generateRandomPassword: true, randomPasswordLength: '10', ciraConfigName: 'config1', activation: 'ccmactivate', amtPassword: '', generateRandomMEBxPassword: '', mebxPassword: '', randomMEBXPasswordLength: '' })
+    expect(formDetails).toEqual({ profileName: 'profile1', generateRandomPassword: true, passwordLength: '10', ciraConfigName: 'config1', activation: 'ccmactivate', amtPassword: '', generateRandomMEBxPassword: '', mebxPassword: '', mebxPasswordLength: '' })
   })
 
   it('should toggle the generate random password checkbox on click', () => {
@@ -271,7 +271,7 @@ describe('profile action flyout', () => {
         amtPassword: 'Amtpass@123',
         generateRandomPassword: false,
         activation: 'acmactivate',
-        randomPasswordLength: null,
+        passwordLength: null,
         ciraConfigName: 'config1'
       }
     }
@@ -295,7 +295,7 @@ describe('profile action flyout', () => {
       slectedProfiles: [{
         profileName: 'profile1',
         generateRandomPassword: true,
-        randomPasswordLength: 10,
+        passwordLength: 10,
         ciraConfigName: 'config1',
         activation: 'ccmactivate'
       }]
@@ -309,7 +309,7 @@ describe('profile action flyout', () => {
         amtPassword: 'Amtpass@123',
         generateRandomPassword: false,
         activation: 'acmactivate',
-        randomPasswordLength: null,
+        passwordLength: null,
         ciraConfigName: 'config1'
       }
     }
@@ -350,7 +350,7 @@ describe('profile action flyout', () => {
       }]
     })
     const profileDetails = wrapper.state('profileFormDetails')
-    expect(profileDetails).toEqual({ profileName: 'profile2', generateRandomPassword: '', ciraConfigName: 'config1', activation: 'acmactivate', networkConfigName: '', amtPassword: '', mebxPassword: '', randomPasswordLength: '', generateRandomMEBxPassword: '', randomMEBXPasswordLength: '' })
+    expect(profileDetails).toEqual({ profileName: 'profile2', generateRandomPassword: '', ciraConfigName: 'config1', activation: 'acmactivate', networkConfigName: '', amtPassword: '', mebxPassword: '', passwordLength: '', generateRandomMEBxPassword: '', mebxPasswordLength: '' })
   })
 
   it('should update the static ip value on click of the checkbox', () => {

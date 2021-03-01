@@ -168,36 +168,28 @@ export class CiraConfigForm extends React.Component<formProps, formState> {
     }
     const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
     if (!isFalsy(this.props.isEdit)) {
-      HttpClient.post(
-        `${server}/api/v1/admin/ciraconfigs/create`,
-        JSON.stringify({ payload: payload }),
-        rpsKey,
-        false
-      ).then(response => {
-        if (
-          response === `CIRA Config ${String(payload.configName)} successfully inserted`
-        ) {
-          this.props.notificationCallback(true, response, payload)
-        } else if (isFalsy(this.props.showProfileError)) {
-          this.setState({
-            profileConfigError: response
-          })
-        } else {
-          this.props.notificationCallback(false, response)
-        }
-      }).catch(() => console.info('error occured'))
+      HttpClient.post(`${server}/api/v1/admin/ciraconfigs`, JSON.stringify(payload), rpsKey, false)
+        .then(response => {
+          if (response.status === 201) {
+            this.props.notificationCallback(true, `CIRA Config ${String(response.data.configName)} created`, payload)
+          } else if (isFalsy(this.props.showProfileError)) {
+            const message = response.data.message ?? response.data.error
+            this.setState({ profileConfigError: message })
+          } else {
+            const message = response.data.message ?? response.data.error
+            this.props.notificationCallback(false, message)
+          }
+        }).catch(() => console.info('error occured'))
     } else {
-      HttpClient.patch(
-        `${server}/api/v1/admin/ciraconfigs/edit`,
-        JSON.stringify({ payload: payload }),
-        rpsKey
-      ).then(response => {
-        if (response === `UPDATE Successful for CIRA Config: ${String(payload.configName)}`) {
-          this.props.notificationCallback(true, response, payload)
-        } else {
-          this.props.notificationCallback(false, response)
-        }
-      }).catch(() => console.info('error occured'))
+      HttpClient.patch(`${server}/api/v1/admin/ciraconfigs`, JSON.stringify(payload), rpsKey)
+        .then(response => {
+          if (response.status === 200) {
+            this.props.notificationCallback(true, `CIRA Config ${String(response.data.configName)} updated`, payload)
+          } else {
+            const message = response.data.message ?? response.data.error
+            this.props.notificationCallback(false, message)
+          }
+        }).catch(() => console.info('error occured'))
     }
   }
 

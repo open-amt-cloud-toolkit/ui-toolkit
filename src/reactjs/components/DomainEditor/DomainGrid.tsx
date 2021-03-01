@@ -115,7 +115,7 @@ domainGridState
       onSelectionChanged: this.onSelectionChanged,
       sizeColumnsToFit: true,
       getSoftSelectId: this.getSoftSelectId,
-      softSelectId: (this.state.softSelectedDevice || {}).id,
+      softSelectId: this.state.softSelectedDevice != null ? this.state.softSelectedDevice.id : {},
       /* Grid Events */
       onRowClicked: ({ node }) => node.setSelected(!isFalsy(node.isSelected()))
     }
