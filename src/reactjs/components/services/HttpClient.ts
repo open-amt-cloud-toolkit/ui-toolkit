@@ -62,6 +62,11 @@ export class HttpClient {
 
   // Handles the response from the server as text
   static async fetchRPS (url, options = {}): Promise<any> {
-    return await fetch(url, options).then(async result => await result.text())
+    return await fetch(url, options).then(async (result) => {
+      return {
+        status: result.status,
+        data: result.status === 204 ? null : await result.json()
+      }
+    })
   }
 }

@@ -43,7 +43,7 @@ domainFlyoutState
       fileName: '',
       showPassword: false,
       domainFormDetails: {
-        name: isFalsy(this.props.isEdit) ? this.props.selectedDomain[0].name : '',
+        name: isFalsy(this.props.isEdit) ? this.props.selectedDomain[0].profileName : '',
         domainSuffix: isFalsy(this.props.isEdit) ? this.props.selectedDomain[0].domainSuffix : '',
         provisioningCert: isFalsy(this.props.isEdit) ? this.props.selectedDomain[0].provisioningCert : '',
         provisioningCertPassword: ''
@@ -63,10 +63,10 @@ domainFlyoutState
   }
 
   populateFormFields = (): void => {
-    const { name, domainSuffix, provisioningCertPassword, provisioningCert } = this.props.selectedDomain[0]
+    const { profileName, domainSuffix, provisioningCertPassword, provisioningCert } = this.props.selectedDomain[0]
     this.setState({
       domainFormDetails: {
-        name: name,
+        profileName: profileName,
         domainSuffix: domainSuffix,
         provisioningCert: provisioningCert,
         provisioningCertPassword: provisioningCertPassword
@@ -79,23 +79,28 @@ domainFlyoutState
     const { rpsKey } = this.context.data
     let response
     const payload = {
-      Name: this.state.domainFormDetails.name,
-      DomainSuffix: this.state.domainFormDetails.domainSuffix,
-      ProvisioningCertStorageFormat: 'string',
-      ProvisioningCert: this.state.domainFormDetails.provisioningCert,
-      ProvisioningCertPassword: this.state.domainFormDetails.provisioningCertPassword
+      profileName: this.state.domainFormDetails.profileName,
+      domainSuffix: this.state.domainFormDetails.domainSuffix,
+      provisioningCertStorageFormat: 'string',
+      provisioningCert: this.state.domainFormDetails.provisioningCert,
+      provisioningCertPassword: this.state.domainFormDetails.provisioningCertPassword
     }
     const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
     if (isFalsy(this.props.isEdit)) {
       // Rest api for Save
-      response = await HttpClient.patch(`${server}/api/v1/admin/domains/edit`, JSON.stringify({ payload: payload }), rpsKey)
+      response = await HttpClient.patch(`${server}/api/v1/admin/domains`, JSON.stringify(payload), rpsKey)
+      if (response.status === 200) {
+        this.props.notificationCallback(true, `Domain ${String(payload.profileName)} updated`)
+      } else {
+        this.props.notificationCallback(false, response.data.message)
+      }
     } else {
-      response = await HttpClient.post(`${server}/api/v1/admin/domains/create`, JSON.stringify({ payload: payload }), rpsKey, false)
-    }
-    if (response === `Domain ${String(payload.Name)} successfully inserted` || response === `Domain ${String(payload.Name)} successfully updated`) {
-      this.props.notificationCallback(true, response)
-    } else {
-      this.props.notificationCallback(false, response)
+      response = await HttpClient.post(`${server}/api/v1/admin/domains`, JSON.stringify(payload), rpsKey, false)
+      if (response.status === 201) {
+        this.props.notificationCallback(true, `Domain ${String(payload.profileName)} created`)
+      } else {
+        this.props.notificationCallback(false, response.data.message)
+      }
     }
   }
 
@@ -147,10 +152,10 @@ domainFlyoutState
       provisioningCertPasswordBlur,
       invalidFile
     } = this.state
-    const isDisabled = !!isFalsy(domainFormDetails.name) && !!isFalsy(domainFormDetails.domainSuffix) && !!isFalsy(domainFormDetails.provisioningCertPassword) && !!isFalsy(domainFormDetails.provisioningCert) && !isFalsy(invalidFile)
+    const isDisabled = !!isFalsy(domainFormDetails.profileName) && !!isFalsy(domainFormDetails.domainSuffix) && !!isFalsy(domainFormDetails.provisioningCertPassword) && !!isFalsy(domainFormDetails.provisioningCert) && !isFalsy(invalidFile)
 
     const isValid =
-    isFalsy(nameValidation(domainFormDetails.name)) && passwordValidation(domainFormDetails.provisioningCertPassword)
+      isFalsy(nameValidation(domainFormDetails.profileName)) && passwordValidation(domainFormDetails.provisioningCertPassword)
     return (
       <Flyout className="domain">
         <form onSubmit={this.handleSubmit}>
@@ -170,11 +175,11 @@ domainFlyoutState
               </label>
               <input
                 type="text"
-                name="name"
+                name="profileName"
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
                 placeholder={translateText('domain.namePlaceHolder')}
-                value={this.state.domainFormDetails.name}
+                value={this.state.domainFormDetails.profileName}
                 disabled={isEdit}
               />
               {isFalsy(nameBlur) && !isFalsy(nameValidation(domainFormDetails.name)) && (
