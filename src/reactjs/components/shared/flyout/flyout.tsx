@@ -6,11 +6,11 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import React from 'react';
-import './flyout.scss';
+import React from 'react'
+import './flyout.scss'
 
-export const Flyout = ({ className, children }) => (
+export const Flyout = ({ className, children }): JSX.Element => (
   <div className='flyout-container'>
     {children}
   </div>
-);
+)

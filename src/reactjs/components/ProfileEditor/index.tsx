@@ -3,20 +3,20 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import * as React from 'react';
-import ReactDom from 'react-dom';
-import { Profile } from './ProfileEditor';
+import * as React from 'react'
+import ReactDom from 'react-dom'
+import { Profile } from './ProfileEditor'
 import { Provider } from '../shared/context/BasicContextProvider'
 
-import i18n from '../../../../i18n';
+import i18n from '../../../../i18n'
 // Get browser language
-i18n.changeLanguage(navigator.language)
+i18n.changeLanguage(navigator.language).catch(() => console.info('error occured'))
 
-var url = new URL(window.location.href);
-var params = new URLSearchParams(url.search);
+var url = new URL(window.location.href)
+var params = new URLSearchParams(url.search)
 const data = {
-    rpsKey: process.env.API_KEY_RPS,
-    mpsKey: process.env.API_KEY_MPS
+  rpsKey: process.env.API_KEY_RPS,
+  mpsKey: process.env.API_KEY_MPS
 }
 
-ReactDom.render(<Provider data={data}><Profile  mpsServer={params.get('mpsServer')} rpsServer={params.get('rpsServer')}/></Provider>, document.getElementById('profileroot'));
+ReactDom.render(<Provider data={data}><Profile mpsServer={params.get('mpsServer')} rpsServer={params.get('rpsServer')}/></Provider>, document.getElementById('profileroot'))

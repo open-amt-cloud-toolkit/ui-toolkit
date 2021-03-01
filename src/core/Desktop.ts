@@ -4,13 +4,13 @@
  * Author : Ramu Bachala
  **********************************************************************/
 import { ILogger } from './ILogger'
-import { Protocol } from './AMTRedirector';
+import { Protocol } from './AMTRedirector'
 import { IModule } from './IModule'
 
 /**
  * Desktop is the base class for handling Remote Desktop functionality
  */
-class Desktop implements IModule{
+class Desktop implements IModule {
   rotation: number
   useZRLE: boolean
   oldMouseX: number
@@ -21,7 +21,7 @@ class Desktop implements IModule{
   kvmDataSupported: boolean
   onKvmDataAck: any
   urlvars: any
-  onKvmDataPending: Array<any>
+  onKvmDataPending: any[]
   sparew: number
   spareh: number
   sparew2: number
@@ -52,17 +52,17 @@ class Desktop implements IModule{
   protocol: Protocol
   ZLIB: any
   lastMouseMoveTime: number
-  
-  processData (data: string) {}
-  updateScreenDimensions: (width:number, height:number) => void
-  onStateChange (state: number) {}
+
+  processData (data: string): any {}
+  updateScreenDimensions: (width: number, height: number) => void
+  onStateChange (state: number): any {}
   onKvmData: (data: string) => void
   onScreenResize: (width: number, height: number, canvasId: string) => void
   onScreenSizeChange: (width: number, height: number) => void
   setDeskFocus: (el: string, focusmode: number) => void
   getDeskFocus: (el: string) => CSSStyleDeclaration
-  start () {}
-  onSendKvmData (data: string) {}
+  start (): any {}
+  onSendKvmData (data: string): any {}
 
   onSend: (data: string) => void
   onProcessData: (data: string) => void

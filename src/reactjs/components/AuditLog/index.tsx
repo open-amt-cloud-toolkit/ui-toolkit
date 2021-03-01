@@ -4,26 +4,23 @@
 **********************************************************************/
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { AuditLog } from './AuditLog';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faInfoCircle, faAngleDoubleRight, faAngleDoubleLeft, faAngleRight, faAngleLeft, faFileExport } from '@fortawesome/free-solid-svg-icons';
+import { AuditLog } from './AuditLog'
 import { Provider } from '../shared/context/BasicContextProvider'
 
-import i18n from '../../../../i18n';
-import { translateText } from '../shared/Methods';
-
+import i18n from '../../../../i18n'
+import { translateText } from '../shared/Methods'
 // Get browser language
-i18n.changeLanguage(navigator.language)
+i18n.changeLanguage(navigator.language).catch(() => console.info('error occured'))
 
-let url = new URL(window.location.href);
-let params = new URLSearchParams(url.search);
+const url = new URL(window.location.href)
+const params = new URLSearchParams(url.search)
 const data = {
-    mpsKey: process.env.API_KEY_MPS
+  mpsKey: process.env.API_KEY_MPS
 }
 
 ReactDOM.render(<React.Fragment>
-    <Provider data={data}>
-        <div style={{ textAlign: 'center', fontSize: "40px" }}> {translateText('auditLog.header.heading')}</div>
-        <AuditLog deviceId={params.get('deviceId')} mpsServer={params.get('mpsServer')} />
-    </Provider>
+  <Provider data={data}>
+    <div style={{ textAlign: 'center', fontSize: '40px' }}> {translateText('auditLog.header.heading')}</div>
+    <AuditLog deviceId={params.get('deviceId')} mpsServer={params.get('mpsServer')} />
+  </Provider>
 </React.Fragment>, document.querySelector('#auditlog'))

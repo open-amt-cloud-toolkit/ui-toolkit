@@ -4,9 +4,10 @@
 **********************************************************************/
 
 // simulate zlib
-class zLib {
-    inflate(s:string): string {
-      return s;  }
+class ZLib {
+  inflate (s: string): string {
+    return s
   }
+}
 
-  export { zLib }
+export { ZLib }

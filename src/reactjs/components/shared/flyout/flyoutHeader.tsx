@@ -6,10 +6,10 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import React from 'react';
+import React from 'react'
 
-export const FlyoutHeader = ({ className, children }) => (
+export const FlyoutHeader = ({ className, children }): JSX.Element => (
   <div className='flyout-header'>
     { children }
   </div>
-);
+)
