@@ -3,135 +3,106 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import { MouseHelper } from "../core/Utilities/MouseHelper";
+import { MouseHelper } from '../core/Utilities/MouseHelper'
 
 // classes defined for Unit testing
-import { AmtDesktop } from "./helper/testdesktop"
-import { Communicator } from "./helper/testcommunicator"
-import { TestEvent } from "./helper/testEvent"
-import { TestMouseEvent } from "./helper/testmouseevent"
+import { AmtDesktop } from './helper/testdesktop'
+import { Communicator } from './helper/testcommunicator'
+import { TestMouseEvent } from './helper/testmouseevent'
 
-describe("Test MouseHelper", () => {
+describe('Test MouseHelper', () => {
+  it('Test GrabMouseInput: MouseInputGrab == false', () => {
+    // Input
+    const comm = new Communicator()
+    const desktop = new AmtDesktop()
+    const mousehelper = new MouseHelper(desktop, comm, 0)
+    mousehelper.MouseInputGrab = false
+    desktop.canvasCtx.canvas.onmouseup = null
+    desktop.canvasCtx.canvas.onmousedown = null
+    desktop.canvasCtx.canvas.onmousemove = null
 
-    it('Test GrabMouseInput: MouseInputGrab == false', () => {
+    // Test GrabMouseInput
+    mousehelper.GrabMouseInput()
 
-        // Input
-        var comm = new Communicator();
-        var desktop = new AmtDesktop();
-        var mousehelper = new MouseHelper(desktop, comm, 0);
-        mousehelper.MouseInputGrab = false;
-        desktop.canvasCtx.canvas.onmouseup = null;
-        desktop.canvasCtx.canvas.onmousedown = null;
-        desktop.canvasCtx.canvas.onmousemove = null;
+    // Output
+    expect(mousehelper.MouseInputGrab).toBe(true)
+  })
 
-        // Test GrabMouseInput
-        mousehelper.GrabMouseInput();
+  it('Test GrabMouseInput: MouseInputGrab == true', () => {
+    // Input
+    const comm = new Communicator()
+    const desktop = new AmtDesktop()
+    const mousehelper = new MouseHelper(desktop, comm, 0)
+    mousehelper.MouseInputGrab = true
+    desktop.canvasCtx.canvas.onmouseup = null
+    desktop.canvasCtx.canvas.onmousedown = null
+    desktop.canvasCtx.canvas.onmousemove = null
 
-        // Output
-        expect(mousehelper.MouseInputGrab).toBe(true);
-    });
+    // Test GrabMouseInput
+    mousehelper.GrabMouseInput()
 
-    it('Test GrabMouseInput: MouseInputGrab == true', () => {
+    // Output
+    expect(desktop.canvasCtx.canvas.onmouseup).toBe(null)
+    expect(desktop.canvasCtx.canvas.onmousedown).toBe(null)
+    expect(desktop.canvasCtx.canvas.onmousemove).toBe(null)
+    expect(mousehelper.MouseInputGrab).toBe(true)
+  })
 
-        // Input
-        var comm = new Communicator();
-        var desktop = new AmtDesktop();
-        var mousehelper = new MouseHelper(desktop, comm, 0);
-        mousehelper.MouseInputGrab = true;
-        desktop.canvasCtx.canvas.onmouseup = null;
-        desktop.canvasCtx.canvas.onmousedown = null;
-        desktop.canvasCtx.canvas.onmousemove = null;
+  it('Test UnGrabMouseInput: MouseInputGrab == true', () => {
+    // Input
+    const comm = new Communicator()
+    const desktop = new AmtDesktop()
+    const mousehelper = new MouseHelper(desktop, comm, 0)
+    mousehelper.MouseInputGrab = true
+    desktop.canvasCtx.canvas.onmouseup = mousehelper.mouseup
+    desktop.canvasCtx.canvas.onmousedown = mousehelper.mousedown
+    desktop.canvasCtx.canvas.onmousemove = mousehelper.mousemove
 
-        // Test GrabMouseInput
-        mousehelper.GrabMouseInput();
+    // Test UnGrabMouseInput
+    mousehelper.UnGrabMouseInput()
 
-        // Output
-        expect(desktop.canvasCtx.canvas.onmouseup).toBe(null);
-        expect(desktop.canvasCtx.canvas.onmousedown).toBe(null);
-        expect(desktop.canvasCtx.canvas.onmousemove).toBe(null);
-        expect(mousehelper.MouseInputGrab).toBe(true);
-    });
+    // Output
+    expect(desktop.canvasCtx.canvas.onmouseup).toBe(null)
+    expect(desktop.canvasCtx.canvas.onmousedown).toBe(null)
+    expect(desktop.canvasCtx.canvas.onmousemove).toBe(null)
+    expect(mousehelper.MouseInputGrab).toBe(false)
+  })
 
-    it('Test UnGrabMouseInput: MouseInputGrab == true', () => {
+  it('Test UnGrabMouseInput: MouseInputGrab == false', () => {
+    // Input
+    const comm = new Communicator()
+    const desktop = new AmtDesktop()
+    const mousehelper = new MouseHelper(desktop, comm, 0)
+    mousehelper.MouseInputGrab = false
+    desktop.canvasCtx.canvas.onmouseup = mousehelper.mouseup
+    desktop.canvasCtx.canvas.onmousedown = mousehelper.mousedown
+    desktop.canvasCtx.canvas.onmousemove = mousehelper.mousemove
 
-        // Input
-        var comm = new Communicator();
-        var desktop = new AmtDesktop();
-        var mousehelper = new MouseHelper(desktop, comm, 0);
-        mousehelper.MouseInputGrab = true;
-        desktop.canvasCtx.canvas.onmouseup = mousehelper.mouseup;
-        desktop.canvasCtx.canvas.onmousedown = mousehelper.mousedown;
-        desktop.canvasCtx.canvas.onmousemove = mousehelper.mousemove;
+    // Test UnGrabMouseInput
+    mousehelper.UnGrabMouseInput()
 
-        // Test UnGrabMouseInput
-        mousehelper.UnGrabMouseInput();
+    // Output
+    desktop.canvasCtx.canvas.onmouseup = mousehelper.mouseup
+    desktop.canvasCtx.canvas.onmousedown = mousehelper.mousedown
+    desktop.canvasCtx.canvas.onmousemove = mousehelper.mousemove
+    expect(mousehelper.MouseInputGrab).toBe(false)
+  })
 
-        // Output
-        expect(desktop.canvasCtx.canvas.onmouseup).toBe(null);
-        expect(desktop.canvasCtx.canvas.onmousedown).toBe(null);
-        expect(desktop.canvasCtx.canvas.onmousemove).toBe(null);
-        expect(mousehelper.MouseInputGrab).toBe(false);
-    });
+  it('Test haltEvent', () => {
+    // Input
+    const comm = new Communicator()
+    const desktop = new AmtDesktop()
+    const mousehelper = new MouseHelper(desktop, comm, 0)
+    const e = new TestMouseEvent()
+    mousehelper.MouseInputGrab = false
+    TestMouseEvent.preventDefaultvar = 0
+    TestMouseEvent.stopPropagationvar = 0
 
-    it('Test UnGrabMouseInput: MouseInputGrab == false', () => {
+    // Test haltEvent
+    mousehelper.haltEvent(e)
 
-        // Input
-        var comm = new Communicator();
-        var desktop = new AmtDesktop();
-        var mousehelper = new MouseHelper(desktop, comm, 0);
-        mousehelper.MouseInputGrab = false;
-        desktop.canvasCtx.canvas.onmouseup = mousehelper.mouseup;
-        desktop.canvasCtx.canvas.onmousedown = mousehelper.mousedown;
-        desktop.canvasCtx.canvas.onmousemove = mousehelper.mousemove;
-
-        // Test UnGrabMouseInput
-        mousehelper.UnGrabMouseInput();
-
-        // Output
-        desktop.canvasCtx.canvas.onmouseup = mousehelper.mouseup;
-        desktop.canvasCtx.canvas.onmousedown = mousehelper.mousedown;
-        desktop.canvasCtx.canvas.onmousemove = mousehelper.mousemove;
-        expect(mousehelper.MouseInputGrab).toBe(false);
-    });
-
-    it('Test haltEvent', () => {
-
-        // Input
-        var comm = new Communicator();
-        var desktop = new AmtDesktop();
-        var mousehelper = new MouseHelper(desktop, comm, 0);
-        var e = new TestMouseEvent();
-        mousehelper.MouseInputGrab = false;
-        TestMouseEvent.preventDefaultvar = 0;
-        TestMouseEvent.stopPropagationvar = 0;
-
-        // Test haltEvent
-        mousehelper.haltEvent(e);
-
-        // Output
-        expect(TestMouseEvent.preventDefaultvar).toBe(1);
-        expect(TestMouseEvent.stopPropagationvar).toBe(1);
-
-    });
-
-    it('test mousedown event', () => {
-        var comm = new Communicator();
-        var desktop = new AmtDesktop();
-        var mousehelper = new MouseHelper(desktop, comm, 0);
-        var e: any = {
-            button: 1
-        }
-        desktop.state = 4;
-        desktop.canvasControl = {
-            height: 100,
-            offsetHeight: 20,
-            width: 200,
-            offsetWidth: 20
-        };
-        desktop.setDeskFocus = jest.fn();
-        mousehelper.mousedown(e);
-
-       expect(mousehelper.parent.state).toEqual(4)
-
-    })
-});
+    // Output
+    expect(TestMouseEvent.preventDefaultvar).toBe(1)
+    expect(TestMouseEvent.stopPropagationvar).toBe(1)
+  })
+})

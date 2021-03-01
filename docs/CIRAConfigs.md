@@ -41,7 +41,7 @@ npm start
 Open the browser and navigate to following URL
 
 ```
-http://localhost:8080/cira.htm?server=<protocol>://<rps IPaddress>:<rps port>
+http://localhost:8080/cira.htm?rpsServer=<protocol>://<rps IPaddress>:<rps port>&mpsServer=<MPS server:port>
 ```
 
 **Note:** By default webpack dev server runs on port 8080. If port 8080 is already in use, webpack automatically runs on  the next immediate available port
@@ -82,7 +82,7 @@ npx serve
 ```
 Open Chrome browser, navigate to the following url
 ```
-http://<localhost>:5000/src/sample/sampleCIRA.htm?server=<rps IPaddress>:<rps port>
+http://<localhost>:5000/src/sample/sampleCIRA.htm?rpsServer=<protocol>://<rps IPaddress>:<rps port>&mpsServer=<MPS server:port>
 ```
 
 ## Add a new Language for Internationalization

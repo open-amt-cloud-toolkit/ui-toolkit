@@ -4,12 +4,12 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
- /**
+/**
  * Interface for FileReader to read data over WebSockets
  */
 export interface FileReader {
-  readAsArrayBuffer(data: Blob): void;
-  readAsBinaryString(data: Blob): void;
-  onload: (e: Event) => void;
-  onloadend: (e: Event) => void;
+  readAsArrayBuffer: (data: Blob) => void
+  readAsBinaryString: (data: Blob) => void
+  onload: (e: Event) => void
+  onloadend: (e: Event) => void
 }

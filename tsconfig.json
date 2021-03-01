@@ -9,11 +9,12 @@
         "jsx": "react",
         "esModuleInterop":true,
         "resolveJsonModule": true,
-        "allowSyntheticDefaultImports": true 
+        "allowSyntheticDefaultImports": true,
+        "strictNullChecks": true
     },
     "include":[
         "./src/core/**/*",
         "./src/test/**/*",
-        "./src/reactjs/**/*", "../setupTests.js"
+        "./src/reactjs/**/*", "../setupTests.js", "jest.setup.ts"
     ]
  }

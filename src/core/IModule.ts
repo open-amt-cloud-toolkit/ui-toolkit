@@ -4,12 +4,12 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
- /**
+/**
  * Interface for Desktop
  */
 export interface IModule {
-  protocol: number;
-  processData: (data: string) => void;
-  onStateChange: (state: number) => void;
-  start: () => void;
+  protocol: number
+  processData: (data: string) => void
+  onStateChange: (state: number) => void
+  start: () => void
 }

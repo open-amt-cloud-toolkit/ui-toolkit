@@ -3,72 +3,65 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import { prepareHeaders } from "../shared/Utilities";
+import { isFalsy, prepareHeaders } from '../shared/Utilities'
 
 export class HttpClient {
-
-  static get(url, apiKey, options = {}) {
+  static async get (url, apiKey, options = {}): Promise<any> {
     const jsonHeaders = prepareHeaders(apiKey)
-    return HttpClient.fetch(url, {
+    return await HttpClient.fetch(url, {
       ...options,
-      method: "GET",
+      method: 'GET',
       headers: jsonHeaders
-    });
+    })
   }
 
-  static post(url, body = {}, apiKey?, isMps?, options = {}) {
+  static async post (url, body = {}, apiKey?, isMps?, options = {}): Promise<any> {
     const jsonHeaders = prepareHeaders(apiKey, isMps)
-    if (isMps) {
-      return HttpClient.fetch(url, {
+    if (isFalsy(isMps)) {
+      return await HttpClient.fetch(url, {
         ...options,
-        method: "POST",
+        method: 'POST',
         body: body,
         headers: jsonHeaders
-      });
+      })
     } else {
-      return HttpClient.fetchRPS(url, {
+      return await HttpClient.fetchRPS(url, {
         ...options,
-        method: "POST",
+        method: 'POST',
         body: body,
         headers: jsonHeaders
-      });
+      })
     }
   }
 
-  static delete(url, apiKey?, options = {}) {
+  static async delete (url, apiKey?, options = {}): Promise<any> {
     const jsonHeaders = prepareHeaders(apiKey)
-    return HttpClient.fetchRPS(url, {
+    return await HttpClient.fetchRPS(url, {
       ...options,
       method: 'DELETE',
       headers: jsonHeaders
     })
   }
 
-  static patch(url, body = {}, apiKey?, options = {}) {
+  static async patch (url, body = {}, apiKey?, options = {}): Promise<any> {
     const jsonHeaders = prepareHeaders(apiKey)
-    return HttpClient.fetchRPS(url, {
+    return await HttpClient.fetchRPS(url, {
       ...options,
-      method: "PATCH",
+      method: 'PATCH',
       body: body,
       headers: jsonHeaders
-    });
-
+    })
   }
 
-  static fetch(url, options = {}) {
-    return fetch(url, options).then(result => result.json());
+  static async fetch (url, options = {}): Promise<any> {
+    (options as any).mode = 'cors';
+    (options as any).credentials = 'include';
+    (options as any).withCredentials = true
+    return await fetch(url, options).then(async result => await result.json())
   }
 
-  //Handles the response from the server as text
-  static fetchRPS(url, options = {}) {
-    return fetch(url, options).then(result => result.text());
+  // Handles the response from the server as text
+  static async fetchRPS (url, options = {}): Promise<any> {
+    return await fetch(url, options).then(async result => await result.text())
   }
 }
-
-const jsonHeaders = {
-  Accept: "application/json",
-  "Content-Type": "application/json",
-  "X-MPS-API-Key": 'APIKEYFORMPS123!',
-  'X-RPS-API-Key': 'APIKEYFORRPS123!'
-};
-

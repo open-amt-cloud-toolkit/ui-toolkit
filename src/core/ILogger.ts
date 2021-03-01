@@ -5,11 +5,11 @@
  **********************************************************************/
 
 interface ILogger {
-  debug(log: string):void
-  info(log: string):void
-  error(log: string):void
-  warn(log: string):void
-  verbose(log: string):void
+  debug: (log: string) => void
+  info: (log: string) => void
+  error: (log: string) => void
+  warn: (log: string) => void
+  verbose: (log: string) => void
 }
 enum LogLevel {
   VERBOSE = 5,

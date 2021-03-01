@@ -4,19 +4,19 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
- /**
+/**
  * ICommunicator interface handles all communication over the websocket
  */
 interface ICommunicator {
   onProcessData: (data: string) => void
   onStart: () => void
   onNewState: (state: number) => void
-  onStateChanged: (redirector: any, state: number) => void;
+  onStateChanged: (redirector: any, state: number) => void
   onError: () => void
-  start<T>(c: new (path: string) => T) : void
-  socketSend(data: string) : void
-  send(data: string) : void
-  stop() : void
+  start: <T>(c: new (path: string) => T) => void
+  socketSend: (data: string) => void
+  send: (data: string) => void
+  stop: () => void
 
 }
 
