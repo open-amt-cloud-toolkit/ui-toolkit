@@ -5,10 +5,10 @@
 
 // Exports the shared react components into as a library
 
-import { Flyout } from './flyout';
+import { Flyout } from './flyout'
 
-export * from './flyout';
+export * from './flyout'
 
 export default {
-  Container: Flyout,
-};
+  Container: Flyout
+}

@@ -4,7 +4,7 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { Encoding } from './Encoding';
+import { Encoding } from './Encoding'
 import { HandshakeState } from './HandshakeState'
 import { FrameBufferBellServerCutText } from './FrameBufferBellServerCutText'
 import { SecurityOptions } from './SecurityOptions'

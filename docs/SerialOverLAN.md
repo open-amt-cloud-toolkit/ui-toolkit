@@ -36,7 +36,7 @@ npm start
 open chrome browser, navigate to following url
 
 ```
-http://localhost:8080/sol.htm?deviceId=<device GUID>&server=<mps IPaddress>:<mps port>
+http://localhost:8080/sol.htm?deviceId=<device GUID>&mpsServer=<mps IPaddress>:<mps port>
 ```
 
 ## Create Bundle for SOL
@@ -74,7 +74,7 @@ npx serve
 ```
 Open Chrome browser, navigate to the following url
 ```
-http://<localhost>:5000/src/sample/sampleKVM.htm?deviceId=<device GUID>&server=<mps IPaddress>:<mps port>
+http://<localhost>:5000/src/sample/sampleKVM.htm?deviceId=<device GUID>&mpsServer=<mps IPaddress>:<mps port>
 ```
 You will see the errors in the following scenario's: 
  - compilation errors if ui-toolkit has not downloaded and installed to your react app.

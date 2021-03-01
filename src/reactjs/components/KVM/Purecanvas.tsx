@@ -4,8 +4,9 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import * as React from 'react';
-require("./Purecanvas.scss");
+import * as React from 'react'
+import { isFalsy } from '../shared/Utilities'
+require('./Purecanvas.scss')
 
 export interface PureCanvasProps {
   contextRef: (ctx: CanvasRenderingContext2D) => void
@@ -17,28 +18,21 @@ export interface PureCanvasProps {
 }
 
 export class PureCanvas extends React.Component<PureCanvasProps, {}> {
-  constructor(props: PureCanvasProps) {
-    super(props);
+  shouldComponentUpdate (): boolean {
+    return false
   }
-  
-  shouldComponentUpdate() 
-  { 
-    return false; 
-  }
-  
-  render() {
-    
-    let canvasAttributes : React.CanvasHTMLAttributes<HTMLCanvasElement> = {
-      width:"1366",
-      height:"768",
-      onContextMenu: (e) => {e.preventDefault(); return false;},
+
+  render (): React.ReactNode {
+    const canvasAttributes: React.CanvasHTMLAttributes<HTMLCanvasElement> = {
+      width: '1366',
+      height: '768',
+      onContextMenu: (e) => { e.preventDefault(); return false },
       onMouseDown: this.props.mouseDown,
       onMouseUp: this.props.mouseUp,
-      onMouseMove: this.props.mouseMove,
+      onMouseMove: this.props.mouseMove
     }
     return (
-        <canvas {...canvasAttributes} className="canvas" ref={c => c ? this.props.contextRef(c.getContext('2d')) : null}/> 
+      <canvas {...canvasAttributes} className="canvas" ref={(c: any) => isFalsy(c) ? this.props.contextRef(c.getContext('2d')) : null}/>
     )
   }
 }
-

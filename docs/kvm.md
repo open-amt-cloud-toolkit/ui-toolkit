@@ -36,7 +36,7 @@ After making  the changes, open a command prompt and navigate to the root of ui-
 npm start
 ```
 
-- Open the browser and navigate to http://localhost:8080/kvm.htm?deviceId=<Device uuid>&server=<MPS server:port>
+- Open the browser and navigate to http://localhost:8080/kvm.htm?deviceId=<Device uuid>&mpsServer=<MPS server:port>
 
 **Note:** By default webpack dev server runs on port 8080. If port 8080 is already in use, webpack automatically runs on  the next immediate available port
 
@@ -74,7 +74,7 @@ npx serve
 ```
 Open Chrome browser, navigate to the following url
 ```
-http://<localhost>:5000/src/sample/sampleKVM.htm?deviceId=<device GUID>&server=<mps IPaddress>:<mps port>
+http://<localhost>:5000/src/sample/sampleKVM.htm?deviceId=<device GUID>&mpsServer=<mps IPaddress>:<mps port>
 ```
 You will see the errors in the following scenario's: 
  - compilation errors if ui-toolkit has not downloaded and installed to your react app.
