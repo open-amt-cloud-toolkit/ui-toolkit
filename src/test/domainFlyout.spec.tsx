@@ -99,7 +99,7 @@ describe('Test domain Flyout', () => {
       notificationCallback: jest.fn(),
       isEdit: true,
       selectedDomain: [{
-        name: 'domain1',
+        profileName: 'domain1',
         domainSuffix: 'd2.com',
         provisioningCert: 'StringCert',
         provisioningCertPassword: 'Amtpass@123'
@@ -119,7 +119,7 @@ describe('Test domain Flyout', () => {
       notificationCallback: jest.fn(),
       isEdit: true,
       selectedDomain: [{
-        name: 'domain1',
+        profileName: 'domain1',
         domainSuffix: 'd2.com',
         provisioningCert: 'StringCert',
         provisioningCertPassword: 'Amtpass@123'
@@ -129,7 +129,7 @@ describe('Test domain Flyout', () => {
     const wrapper = shallow(<DomainFlyout {...domainFlyoutProps} />)
     const selectedDomainDetails = {
       selectedDomain: [{
-        name: 'domain2',
+        profileName: 'domain2',
         domainSuffix: 'd3.com',
         provisioningCert: 'StringCert',
         provisioningCertPassword: 'Amtpass@123'
@@ -137,7 +137,7 @@ describe('Test domain Flyout', () => {
     }
     wrapper.setProps(selectedDomainDetails)
     wrapper.instance().forceUpdate()
-    expect(wrapper.state('domainFormDetails')).toEqual({ name: 'domain2', domainSuffix: 'd3.com', provisioningCert: 'StringCert', provisioningCertPassword: 'Amtpass@123' })
+    expect(wrapper.state('domainFormDetails')).toEqual({ profileName: 'domain2', domainSuffix: 'd3.com', provisioningCert: 'StringCert', provisioningCertPassword: 'Amtpass@123' })
   })
 
   it('should toggle the password field visibility on icon click', () => {

@@ -12,7 +12,7 @@ export const CHECKBOX_COLUMN_CLASS = 'checkbox-column'
 export const domainColumnDefs = {
   Name: {
     headerName: 'domain.grid.name',
-    field: 'name',
+    field: 'profileName',
     sort: 'asc',
     filter: 'agTextColumnFilter',
     filterParams: { applyButton: true, clearButton: true },
@@ -45,7 +45,7 @@ export const defaultCiraGridProps = {
 }
 
 export const domainDataModel = {
-  name: 'name',
+  profileName: 'profileName',
   domainSuffix: 'domainSuffix',
   provisioningCert: 'provisioningCert',
   provisioningCertPassword: 'provisioningCertPassword'

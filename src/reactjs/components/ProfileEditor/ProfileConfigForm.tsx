@@ -51,8 +51,8 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
       generateRandomPassword,
       generateRandomMEBxPassword,
       amtPassword,
-      randomPasswordLength,
-      randomMEBXPasswordLength,
+      passwordLength,
+      mebxPasswordLength,
       networkConfigName,
       ciraConfigName,
       activation,
@@ -62,15 +62,14 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
     const amtPasswordValidation = passwordValidation(amtPassword)
     const mebxPasswordValidation = passwordValidation(mebxPassword)
     const randomPasswordValidation = passwordLengthValidation(
-      randomPasswordLength
+      passwordLength
     )
     const randomMEBXPasswordValidation = passwordLengthValidation(
-      randomMEBXPasswordLength
+      mebxPasswordLength
     )
     const isValidAMTPassword =
       isFalsy(generateRandomPassword) && isFalsy(randomPasswordValidation)
-        ? true
-        : !!(amtPassword && amtPasswordValidation)
+        ? true : !!(amtPassword && amtPasswordValidation)
     const isValidMEBXPassword: boolean = activation === 'ccmactivate' ? true : (isFalsy(generateRandomMEBxPassword) && isFalsy(randomMEBXPasswordValidation) ? true : !!(mebxPassword && mebxPasswordValidation))
 
     const isValidProfileName: boolean = isFalsy(profileName) && profilenameValidation
@@ -194,8 +193,8 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
                 <input
                   type="text"
                   style={{ width: '50px' }}
-                  name="randomPasswordLength"
-                  value={isFalsy(amtPassword) ? '' : randomPasswordLength}
+                  name="passwordLength"
+                  value={isFalsy(amtPassword) ? '' : passwordLength}
                   onChange={this.props.handleChange}
                   disabled={amtPassword}
                   onBlur={this.props.handleOnBlur}
@@ -276,8 +275,8 @@ export class ProfileConfigForm extends React.Component<ProfileConigFormProps> {
                 <input
                   type="text"
                   style={{ width: '50px' }}
-                  name="randomMEBXPasswordLength"
-                  value={isFalsy(mebxPassword) ? '' : randomMEBXPasswordLength}
+                  name="mebxPasswordLength"
+                  value={isFalsy(mebxPassword) ? '' : mebxPasswordLength}
                   onChange={this.props.handleChange}
                   disabled={mebxPassword}
                   onBlur={this.props.handleOnBlur}

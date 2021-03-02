@@ -68,16 +68,16 @@ profileFlyoutState
           mebxPassword: '',
           generateRandomPassword:
             isFalsy(props.slectedProfiles[0].generateRandomPassword) || '',
-          randomPasswordLength:
-            (isFalsy(props.slectedProfiles[0].randomPasswordLength) &&
+          passwordLength:
+            (isFalsy(props.slectedProfiles[0].passwordLength) &&
               JSON.stringify(
-                props.slectedProfiles[0].randomPasswordLength
+                props.slectedProfiles[0].passwordLength
               )) ||
             '',
-          randomMEBXPasswordLength:
-            (isFalsy(props.slectedProfiles[0].randomMeBxPasswordLength) &&
+          mebxPasswordLength:
+            (isFalsy(props.slectedProfiles[0].mebxPasswordLength) &&
               JSON.stringify(
-                props.slectedProfiles[0].randomMeBxPasswordLength
+                props.slectedProfiles[0].mebxPasswordLength
               )) ||
             '',
           generateRandomMEBxPassword:
@@ -92,16 +92,16 @@ profileFlyoutState
           mebxPassword: '',
           generateRandomPassword:
           isFalsy(props.slectedProfiles[0].generateRandomPassword) || '',
-          randomPasswordLength:
-            (isFalsy(props.slectedProfiles[0].randomPasswordLength) &&
+          passwordLength:
+            (isFalsy(props.slectedProfiles[0].passwordLength) &&
               JSON.stringify(
-                props.slectedProfiles[0].randomPasswordLength
+                props.slectedProfiles[0].passwordLength
               )) ||
             '',
-          randomMEBXPasswordLength:
-            (isFalsy(props.slectedProfiles[0].randomMeBxPasswordLength) &&
+          mebxPasswordLength:
+            (isFalsy(props.slectedProfiles[0].mebxPasswordLength) &&
               JSON.stringify(
-                props.slectedProfiles[0].randomMeBxPasswordLength
+                props.slectedProfiles[0].mebxPasswordLength
               )) ||
             '',
           generateRandomMEBxPassword:
@@ -124,9 +124,9 @@ profileFlyoutState
           ciraConfigName,
           networkConfigName,
           generateRandomPassword,
-          randomPasswordLength,
+          passwordLength,
           generateRandomMeBxPassword,
-          randomMeBxPasswordLength
+          mebxPasswordLength
         } = this.props.slectedProfiles[0]
         this.setState((prevState) => ({
           oldProfileFormDetails: {
@@ -136,13 +136,13 @@ profileFlyoutState
             amtPassword: '',
             mebxPassword: '',
             generateRandomPassword: isFalsy(generateRandomPassword) || '',
-            randomPasswordLength:
-              (isFalsy(randomPasswordLength) && JSON.stringify(randomPasswordLength)) ||
+            passwordLength:
+              (isFalsy(passwordLength) && JSON.stringify(passwordLength)) ||
               '',
             generateRandomMEBxPassword: isFalsy(generateRandomMeBxPassword) || '',
-            randomMEBXPasswordLength:
-              (isFalsy(randomMeBxPasswordLength) &&
-                JSON.stringify(randomMeBxPasswordLength)) ||
+            mebxPasswordLength:
+              (isFalsy(mebxPasswordLength) &&
+                JSON.stringify(mebxPasswordLength)) ||
               ''
           },
           profileFormDetails: {
@@ -152,13 +152,13 @@ profileFlyoutState
             amtPassword: '',
             mebxPassword: '',
             generateRandomPassword: isFalsy(generateRandomPassword) || '',
-            randomPasswordLength:
-              (isFalsy(randomPasswordLength) && JSON.stringify(randomPasswordLength)) ||
+            passwordLength:
+              (isFalsy(passwordLength) && JSON.stringify(passwordLength)) ||
               '',
             generateRandomMEBxPassword: isFalsy(generateRandomMeBxPassword) || '',
-            randomMEBXPasswordLength:
-              (isFalsy(randomMeBxPasswordLength) &&
-                JSON.stringify(randomMeBxPasswordLength)) ||
+            mebxPasswordLength:
+              (isFalsy(mebxPasswordLength) &&
+                JSON.stringify(mebxPasswordLength)) ||
               ''
           }
         }))
@@ -272,42 +272,55 @@ profileFlyoutState
         isFalsy(this.state.profileFormDetails.amtPassword) &&
           !isFalsy(this.state.profileFormDetails.generateRandomPassword)
           ? null
-          : parseInt(this.state.profileFormDetails.randomPasswordLength),
+          : parseInt(this.state.profileFormDetails.passwordLength),
       mebxPasswordLength:
       isFalsy(this.state.profileFormDetails.mebxPassword) &&
           !isFalsy(this.state.profileFormDetails.generateRandomMEBxPassword)
         ? null
-        : parseInt(this.state.profileFormDetails.randomMEBXPasswordLength),
+        : parseInt(this.state.profileFormDetails.mebxPasswordLength),
       ciraConfigName: this.state.profileFormDetails.networkConfigName !== 'dhcp_disabled'
         ? this.state.profileFormDetails.ciraConfigName
         : ''
     }
-    const payload = this.removeUnAssignedProperties(this.removeMEBxFieldsforCCM(obj))
+    let payload = this.removeUnAssignedProperties(this.removeMEBxFieldsforCCM(obj))
     const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
+    const cleanObj = (payload): any => {
+      for (const propName in payload) {
+        if (payload[propName] === null || payload[propName] === undefined || payload[propName] === '') {
+          // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+          delete payload[propName]
+        }
+      }
+      return payload
+    }
     if (this.props.isEdit) {
       // Rest api to update the profile
+      payload = cleanObj(payload)
       response = await HttpClient.patch(
-        `${server}/api/v1/admin/profiles/edit`,
-        JSON.stringify({ payload: payload }),
+        `${server}/api/v1/admin/profiles/`,
+        JSON.stringify(payload),
         this.props.rpsKey
       )
+      if (response.status === 200) {
+        this.props.createProfileNotification(true, `Profile ${String(response.data.profileName)} updated`)
+      } else {
+        const message = response.data.message ?? response.data.error
+        this.props.createProfileNotification(false, message)
+      }
     } else {
+      payload = cleanObj(payload)
       response = await HttpClient.post(
-        `${server}/api/v1/admin/profiles/create`,
-        JSON.stringify({ payload: payload }),
+        `${server}/api/v1/admin/profiles/`,
+        JSON.stringify(cleanObj(payload)),
         this.props.rpsKey,
         false
       )
-    }
-    if (
-      response ===
-      `Profile ${String(this.state.profileFormDetails.profileName)} successfully inserted` ||
-      response ===
-      `Profile ${String(this.state.profileFormDetails.profileName)} successfully updated`
-    ) {
-      this.props.createProfileNotification(true, response)
-    } else {
-      this.props.createProfileNotification(false, response)
+      if (response.status === 201) {
+        this.props.createProfileNotification(true, `Profile ${String(response.data.profileName)} created`)
+      } else {
+        const message = response.data.message ?? response.data.error
+        this.props.createProfileNotification(false, message)
+      }
     }
   }
 

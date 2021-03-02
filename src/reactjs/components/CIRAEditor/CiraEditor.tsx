@@ -74,18 +74,19 @@ CiraEditorState
     const configName = encodeSpecialCharacters(this.state.selectedCiraConfigs[0].configName)
     const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
     const response = await HttpClient.delete(`${server}/api/v1/admin/ciraconfigs/${configName}`, rpsKey)
-    if (response === `CIRA Config ${String(this.state.selectedCiraConfigs[0].configName)} successfully deleted`) {
+    if (response.status === 204) {
       this.setState({
         showMessage: true,
-        message: response,
+        message: `CIRA Config ${String(this.state.selectedCiraConfigs[0].configName)} deleted`,
         type: 'success',
         updateCiraGrid: !isFalsy(this.state.updateCiraGrid),
         selectedCiraConfigs: ''
       })
     } else {
+      const message = response.data.message ?? response.data.error
       this.setState({
         showMessage: true,
-        message: response,
+        message: message,
         type: 'error'
       })
     }
