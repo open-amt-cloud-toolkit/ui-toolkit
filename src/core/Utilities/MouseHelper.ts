@@ -42,17 +42,17 @@ export class MouseHelper {
     this.MouseInputGrab = false
   }
 
-  mousedown (e: React.MouseEvent): any {
+  mousedown (e: MouseEvent): any {
     this.parent.buttonmask |= (1 << e.button)
     return this.mousemove(e)
   }
 
-  mouseup (e: React.MouseEvent): any {
+  mouseup (e: MouseEvent): any {
     this.parent.buttonmask &= (0xFFFF - (1 << e.button))
     return this.mousemove(e)
   }
 
-  mousemove (e: React.MouseEvent): boolean {
+  mousemove (e: MouseEvent): boolean {
     if (this.parent.state !== 4) return true
     const pos = this.getPositionOfControl(this.parent.canvasControl)
     this.parent.lastMouseX = (e.pageX - pos[0]) * (this.parent.canvasControl.height / this.parent.canvasControl.offsetHeight)
