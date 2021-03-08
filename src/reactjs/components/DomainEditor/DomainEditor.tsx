@@ -67,14 +67,14 @@ export class DomainEditor extends React.Component<domainProps, domainState> {
 
   confirmDelete = async (): Promise<any> => {
     const { rpsKey } = this.context.data
-    const domainName = encodeSpecialCharacters(this.state.selectedDomain[0].name)
+    const domainName = encodeSpecialCharacters(this.state.selectedDomain[0].profileName)
     const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
     const response = await HttpClient.delete(`${server}/api/v1/admin/domains/${domainName}`, rpsKey)
 
-    if (response === `Domain ${domainName} successfully deleted`) {
+    if (response.status === 204) {
       this.setState({
         showMessage: true,
-        message: response,
+        message: `Domain ${domainName} deleted`,
         type: 'success',
         updateDomainGrid: !isFalsy(this.state.updateDomainGrid),
         selectedDomain: '',
@@ -83,7 +83,7 @@ export class DomainEditor extends React.Component<domainProps, domainState> {
     } else {
       this.setState({
         showMessage: true,
-        message: response,
+        message: response.message,
         showPopup: !isFalsy(this.state.showPopup),
         type: 'error'
       })

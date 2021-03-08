@@ -108,14 +108,10 @@ export class Profile extends React.Component<ProfileProps, ProfileStates> {
     )
     const server: string = this.props.rpsServer != null ? this.props.rpsServer : ''
     const response = await HttpClient.delete(`${server}/api/v1/admin/profiles/${profileName}`, rpsKey)
-
-    if (
-      response ===
-      `Profile ${String(this.state.selectedProfile[0].profileName)} successfully deleted`
-    ) {
+    if (response.status === 204) {
       this.setState({
         showMessage: true,
-        message: response,
+        message: `Profile ${String(this.state.selectedProfile[0].profileName)} deleted`,
         type: 'success',
         updateProfileGrid: !this.state.updateProfileGrid,
         selectedProfile: ''
@@ -123,7 +119,7 @@ export class Profile extends React.Component<ProfileProps, ProfileStates> {
     } else {
       this.setState({
         showMessage: true,
-        message: response,
+        message: response.message,
         type: 'error'
       })
     }

@@ -25,7 +25,7 @@ export const profileColumnDefs = {
   },
   RandomPasswordLength: {
     headerName: 'profiles.grid.randomPasswordLength',
-    field: 'randomPasswordLength',
+    field: 'passwordLength',
     filter: 'agTextColumnFilter',
     filterParams: { applyButton: true, clearButton: true },
     sortable: true
@@ -39,7 +39,7 @@ export const profileColumnDefs = {
   },
   RandomMEBXPasswordLength: {
     headerName: 'profiles.grid.randomMEBXPasswordLength',
-    field: 'randomMeBxPasswordLength',
+    field: 'mebxPasswordLength',
     filter: 'agTextColumnFilter',
     filterParams: { applyButton: true, clearButton: true },
     sortable: true
@@ -90,10 +90,10 @@ export const profileModel = {
   profileName: 'profileName',
   amtPassword: 'amtPassword',
   generateRandomPassword: 'generateRandomPassword',
-  randomPasswordLength: 'randomPasswordLength',
+  passwordLength: 'passwordLength',
   ciraConfigName: 'ciraConfigName',
   activation: 'activation',
   networkConfigName: 'networkConfigName',
   generateRandomMeBxPassword: 'generateRandomMeBxPassword',
-  randomMeBxPasswordLength: 'randomMeBxPasswordLength'
+  mebxPasswordLength: 'mebxPasswordLength'
 }

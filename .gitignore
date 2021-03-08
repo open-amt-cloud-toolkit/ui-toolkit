@@ -1,6 +1,7 @@
 # build output folder
 #dist/
-
+dist/lib/src/test
+dist/src
 # Logs
 logs
 *.log
