@@ -109,7 +109,7 @@ describe('Test domain Flyout', () => {
     const wrapper = shallow(<DomainFlyout {...domainFlyoutProps} />)
 
     expect(typeof wrapper.state('domainFormDetails')).toBe('object')
-    expect(wrapper.state('domainFormDetails')).toEqual({ name: 'domain1', domainSuffix: 'd2.com', provisioningCert: 'StringCert', provisioningCertPassword: '' })
+    expect(wrapper.state('domainFormDetails')).toEqual({ profileName: 'domain1', domainSuffix: 'd2.com', provisioningCert: 'StringCert', provisioningCertPassword: '' })
   })
 
   it('should update the component state when there is change in props', () => {

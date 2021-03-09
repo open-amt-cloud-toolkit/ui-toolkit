@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 import React from 'react'
-import isMatch from 'lodash/isMatch'
 import { Flyout } from '../shared/flyout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { translateText } from '../shared/Methods'
@@ -43,7 +42,7 @@ domainFlyoutState
       fileName: '',
       showPassword: false,
       domainFormDetails: {
-        name: isFalsy(this.props.isEdit) ? this.props.selectedDomain[0].profileName : '',
+        profileName: isFalsy(this.props.isEdit) ? this.props.selectedDomain[0].profileName : '',
         domainSuffix: isFalsy(this.props.isEdit) ? this.props.selectedDomain[0].domainSuffix : '',
         provisioningCert: isFalsy(this.props.isEdit) ? this.props.selectedDomain[0].provisioningCert : '',
         provisioningCertPassword: ''
@@ -256,8 +255,7 @@ domainFlyoutState
               <button
                 className="cursor domain-submit"
                 type="submit"
-                disabled={isFalsy(isEdit) ? !(isDisabled && isFalsy(isValid) && !isFalsy(isMatch(this.state.domainFormDetails, this.props.selectedDomain[0]))) : !(isDisabled && isFalsy(isValid))}
-              >
+                disabled={isFalsy(isEdit) ? !(isDisabled && isFalsy(isValid)) : !(isDisabled && isFalsy(isValid))}>
                 {isFalsy(isEdit) ? translateText('domain.save') : translateText('domain.create')}
               </button>
             </div>
