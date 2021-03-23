@@ -41,7 +41,7 @@
     "whatwg-fetch": "^3.5.0",
     "winston": "^3.0.0",
     "ws": "^7.3.1",
-    "xterm": "^4.4.0"
+    "xterm": "^4.9.0"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.8",
