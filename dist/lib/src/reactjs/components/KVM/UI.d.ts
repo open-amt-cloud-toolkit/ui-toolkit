@@ -43,5 +43,6 @@ export declare class RemoteDesktop extends React.Component<KVMProps, {
     stopKVM(): void;
     getRenderStatus(): any;
     handleConnectClick(e: any): void;
+    componentDidUpdate(prevProps: any): void;
     render(): React.ReactNode;
 }

@@ -9,6 +9,7 @@ interface gridStates {
     rowSelection: any;
     autoGroupColumnDef: any;
     softSelectedDevice: any;
+    showNotification: boolean;
 }
 export interface gridProps {
     deviceId: string | null;
@@ -23,12 +24,13 @@ export declare class DeviceGrid extends React.Component<gridProps, gridStates> {
     retry_timer: any;
     constructor(props: gridProps);
     componentDidMount(): void;
-    connectionStatusControl: () => any;
+    connectionStatusControl: () => void;
     fetchDevices: () => Promise<any>;
     filterDeviceList: (devices: any) => any;
-    onGridReady: (params: any) => any;
+    onGridReady: (params: any) => void;
     onSelectionChanged: () => void;
-    getSoftSelectId: (id?: {}) => any;
-    render(): React.ReactNode;
+    getSoftSelectId: (id?: {}) => {};
+    handleNotification: () => void;
+    render(): JSX.Element;
 }
 export {};
