@@ -107,10 +107,10 @@ export declare const profileModel: {
     profileName: string;
     amtPassword: string;
     generateRandomPassword: string;
-    randomPasswordLength: string;
+    passwordLength: string;
     ciraConfigName: string;
     activation: string;
     networkConfigName: string;
     generateRandomMeBxPassword: string;
-    randomMeBxPasswordLength: string;
+    mebxPasswordLength: string;
 };

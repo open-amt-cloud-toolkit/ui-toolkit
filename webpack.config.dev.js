@@ -9,7 +9,6 @@ const webpack = require('webpack');
 module.exports = {
   mode: "development",
   entry: {
-    auditlog: "./src/reactjs/components/AuditLog/index.tsx",
     kvm: "./src/reactjs/components/KVM/index.tsx",
     sol: "./src/reactjs/components/SerialOverLAN/index.tsx",
     device: "./src/reactjs/components/DeviceGrid/index.tsx",
@@ -41,12 +40,6 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      filename: "auditlog.htm",
-      template: "./src/sample/sampleAuditLog.htm",
-      inject: true,
-      chunks: ["auditlog"],
-    }),
     new HtmlWebpackPlugin({
       filename: "device.htm",
       template: "./src/sample/sampleDG.htm",

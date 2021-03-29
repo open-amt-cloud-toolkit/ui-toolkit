@@ -1,5 +1,5 @@
 export const FlyoutSectionHeader: {
-    new (props: Readonly<any>): {
+    new (props: any): {
         render(): JSX.Element;
         context: any;
         setState<K extends string | number | symbol>(state: any, callback?: (() => void) | undefined): void;
@@ -24,7 +24,7 @@ export const FlyoutSectionHeader: {
         componentWillUpdate?(nextProps: Readonly<any>, nextState: Readonly<any>, nextContext: any): void;
         UNSAFE_componentWillUpdate?(nextProps: Readonly<any>, nextState: Readonly<any>, nextContext: any): void;
     };
-    new (props: any, context?: any): {
+    new (props: any, context: any): {
         render(): JSX.Element;
         context: any;
         setState<K extends string | number | symbol>(state: any, callback?: (() => void) | undefined): void;
