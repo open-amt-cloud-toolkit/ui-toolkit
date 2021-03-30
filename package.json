@@ -17,7 +17,7 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
-    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.13",
     "ag-grid-community": "^22.0.0",
     "ag-grid-react": "^22.0.0",
@@ -53,7 +53,7 @@
     "@types/react": "^17.0.0",
     "@types/ws": "^6.0.1",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
-    "@typescript-eslint/parser": "^4.9.1",
+    "@typescript-eslint/parser": "^4.19.0",
     "awesome-typescript-loader": "^5.2.1",
     "canvas": "^2.7.0",
     "css-loader": "^5.1.3",
