@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "UI controls for Intel AMT features",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.dev.js",
+    "start": "webpack --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
     "build-ext": "webpack --config webpack.config.externals.js",
     "lint": "eslint . --ext .ts",
