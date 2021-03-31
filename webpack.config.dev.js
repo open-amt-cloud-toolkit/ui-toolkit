@@ -18,6 +18,9 @@ module.exports = {
     domain: "./src/reactjs/components/DomainEditor/index.tsx",
     network:"./src/reactjs/components/NetworkEditor/index.tsx"
   },
+  devServer:{
+    port: 9000
+  },
   //sourceMap in tsconfig which holds information about your original files when the code is minified
   //devtool deal with existing source maps
   devtool: "inline-source-map",
