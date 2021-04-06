@@ -46,7 +46,7 @@ export declare const defaultCiraGridProps: {
     resizable: boolean;
 };
 export declare const domainDataModel: {
-    name: string;
+    profileName: string;
     domainSuffix: string;
     provisioningCert: string;
     provisioningCertPassword: string;
