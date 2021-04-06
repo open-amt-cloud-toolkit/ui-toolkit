@@ -10,7 +10,6 @@ const nodeExternals = require('webpack-node-externals');
 module.exports = {
   mode: "production",
   entry: {
-    auditlog: "./src/reactjs/components/AuditLog/AuditLog.tsx",
     kvm: "./src/reactjs/components/KVM/UI.tsx",
     sol: './src/reactjs/components/SerialOverLAN/Sol.tsx',
     device: './src/reactjs/components/DeviceGrid/DeviceGrid.tsx',
