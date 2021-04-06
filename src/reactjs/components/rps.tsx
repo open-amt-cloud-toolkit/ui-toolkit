@@ -4,8 +4,7 @@
  **********************************************************************/
 
 import { CiraEditor } from './CIRAEditor/CiraEditor'
-import { DomainEditor } from './DomainEditor/DomainEditor'
 import { NetworkEditor } from './NetworkEditor/NetworkEditor'
 import { Provider as RpsProvider } from './shared/context/BasicContextProvider'
 
-export { CiraEditor, DomainEditor, RpsProvider, NetworkEditor }
+export { CiraEditor, RpsProvider, NetworkEditor }
