@@ -9,11 +9,9 @@ const webpack = require('webpack');
 module.exports = {
   mode: "development",
   entry: {
-    auditlog: "./src/reactjs/components/AuditLog/index.tsx",
     kvm: "./src/reactjs/components/KVM/index.tsx",
     sol: "./src/reactjs/components/SerialOverLAN/index.tsx",
     device: "./src/reactjs/components/DeviceGrid/index.tsx",
-    profile: "./src/reactjs/components/ProfileEditor/index.tsx",
     cira: "./src/reactjs/components/CIRAEditor/index.tsx",
     domain: "./src/reactjs/components/DomainEditor/index.tsx",
     network:"./src/reactjs/components/NetworkEditor/index.tsx"
@@ -45,12 +43,6 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "auditlog.htm",
-      template: "./src/sample/sampleAuditLog.htm",
-      inject: true,
-      chunks: ["auditlog"],
-    }),
-    new HtmlWebpackPlugin({
       filename: "device.htm",
       template: "./src/sample/sampleDG.htm",
       inject: true,
@@ -68,13 +60,7 @@ module.exports = {
       inject: true,
       chunks: ["sol"],
     }),
-    new HtmlWebpackPlugin({
-      filename: "profile.htm",
-      template: "./src/sample/sampleProfile.htm",
-      inject: true,
-      chunks: ["profile"],
-    }),
-    new HtmlWebpackPlugin({
+   new HtmlWebpackPlugin({
       filename: "cira.htm",
       template: "./src/sample/sampleCIRA.htm",
       inject: true,

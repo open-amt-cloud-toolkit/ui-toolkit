@@ -9,11 +9,9 @@ const webpack = require('webpack');
 module.exports = {
   mode: "production",
   entry: {
-    auditlog: "./src/reactjs/components/AuditLog/index.tsx",
     kvm: "./src/reactjs/components/KVM/index.tsx",
     sol: './src/reactjs/components/SerialOverLAN/index.tsx',
     device: './src/reactjs/components/DeviceGrid/index.tsx',
-    profile:'./src/reactjs/components/ProfileEditor/index.tsx',
     cira: './src/reactjs/components/CIRAEditor/index.tsx',
     domain: './src/reactjs/components/DomainEditor/index.tsx',
     network:'./src/reactjs/components/NetworkEditor/index.tsx'
