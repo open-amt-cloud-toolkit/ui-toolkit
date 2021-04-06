@@ -13,7 +13,7 @@ export class AccordionProvider extends React.Component<any, any, any> {
     };
 }
 export function withAccordion(ComponentToWrap: any): {
-    new (props: Readonly<any>): {
+    new (props: any): {
         render(): JSX.Element;
         context: any;
         setState<K extends string | number | symbol>(state: any, callback?: (() => void) | undefined): void;
@@ -38,7 +38,7 @@ export function withAccordion(ComponentToWrap: any): {
         componentWillUpdate?(nextProps: Readonly<any>, nextState: Readonly<any>, nextContext: any): void;
         UNSAFE_componentWillUpdate?(nextProps: Readonly<any>, nextState: Readonly<any>, nextContext: any): void;
     };
-    new (props: any, context?: any): {
+    new (props: any, context: any): {
         render(): JSX.Element;
         context: any;
         setState<K extends string | number | symbol>(state: any, callback?: (() => void) | undefined): void;
@@ -71,7 +71,7 @@ export function withAccordion(ComponentToWrap: any): {
     contextType?: React.Context<any> | undefined;
 };
 export const AccordionCollapsableContent: {
-    new (props: Readonly<any>): {
+    new (props: any): {
         render(): JSX.Element;
         context: any;
         setState<K extends string | number | symbol>(state: any, callback?: (() => void) | undefined): void;
@@ -96,7 +96,7 @@ export const AccordionCollapsableContent: {
         componentWillUpdate?(nextProps: Readonly<any>, nextState: Readonly<any>, nextContext: any): void;
         UNSAFE_componentWillUpdate?(nextProps: Readonly<any>, nextState: Readonly<any>, nextContext: any): void;
     };
-    new (props: any, context?: any): {
+    new (props: any, context: any): {
         render(): JSX.Element;
         context: any;
         setState<K extends string | number | symbol>(state: any, callback?: (() => void) | undefined): void;
