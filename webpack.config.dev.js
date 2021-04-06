@@ -13,8 +13,7 @@ module.exports = {
     sol: "./src/reactjs/components/SerialOverLAN/index.tsx",
     device: "./src/reactjs/components/DeviceGrid/index.tsx",
     cira: "./src/reactjs/components/CIRAEditor/index.tsx",
-    domain: "./src/reactjs/components/DomainEditor/index.tsx",
-    network:"./src/reactjs/components/NetworkEditor/index.tsx"
+    network: "./src/reactjs/components/NetworkEditor/index.tsx"
   },
   devServer:{
     port: 9000
@@ -65,12 +64,8 @@ module.exports = {
       template: "./src/sample/sampleCIRA.htm",
       inject: true,
       chunks: ["cira"],
-    }), new HtmlWebpackPlugin({
-      filename: "domain.htm",
-      template: "./src/sample/sampleDomain.htm",
-      inject: true,
-      chunks: ["domain"],
-    }),new HtmlWebpackPlugin({
+    }),
+    new HtmlWebpackPlugin({
       filename: "network.htm",
       template: "./src/sample/sampleNetworkConfig.htm",
       inject: true,

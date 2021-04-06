@@ -13,7 +13,6 @@ module.exports = {
     sol: './src/reactjs/components/SerialOverLAN/index.tsx',
     device: './src/reactjs/components/DeviceGrid/index.tsx',
     cira: './src/reactjs/components/CIRAEditor/index.tsx',
-    domain: './src/reactjs/components/DomainEditor/index.tsx',
     network:'./src/reactjs/components/NetworkEditor/index.tsx'
   },
   //sourceMap in tsconfig which holds information about your original files when the code is minified
