@@ -10,8 +10,7 @@ module.exports = {
   mode: "development",
   entry: {
     kvm: "./src/reactjs/components/KVM/index.tsx",
-    sol: "./src/reactjs/components/SerialOverLAN/index.tsx",
-    network: "./src/reactjs/components/NetworkEditor/index.tsx"
+    sol: "./src/reactjs/components/SerialOverLAN/index.tsx"
   },
   devServer:{
     port: 9000
@@ -51,12 +50,7 @@ module.exports = {
       inject: true,
       chunks: ["sol"],
     }),
-    new HtmlWebpackPlugin({
-      filename: "network.htm",
-      template: "./src/sample/sampleNetworkConfig.htm",
-      inject: true,
-      chunks: ["network"],
-    }), new webpack.DefinePlugin({
+    new webpack.DefinePlugin({
       'process.env': {
         'API_KEY_RPS': JSON.stringify('APIKEYFORRPS123!'),
         'API_KEY_MPS': JSON.stringify('APIKEYFORMPS123!')
