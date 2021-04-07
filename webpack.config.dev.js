@@ -11,7 +11,6 @@ module.exports = {
   entry: {
     kvm: "./src/reactjs/components/KVM/index.tsx",
     sol: "./src/reactjs/components/SerialOverLAN/index.tsx",
-    cira: "./src/reactjs/components/CIRAEditor/index.tsx",
     network: "./src/reactjs/components/NetworkEditor/index.tsx"
   },
   devServer:{
@@ -51,12 +50,6 @@ module.exports = {
       template: "./src/sample/sampleSOL.htm",
       inject: true,
       chunks: ["sol"],
-    }),
-   new HtmlWebpackPlugin({
-      filename: "cira.htm",
-      template: "./src/sample/sampleCIRA.htm",
-      inject: true,
-      chunks: ["cira"],
     }),
     new HtmlWebpackPlugin({
       filename: "network.htm",

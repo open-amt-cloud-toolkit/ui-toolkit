@@ -5,4 +5,4 @@
 import { RemoteDesktop } from './KVM/UI';
 import { Sol } from './SerialOverLAN/Sol';
 import { Provider as MpsProvider } from './shared/context/BasicContextProvider';
-export { DeviceGrid, RemoteDesktop, Sol, MpsProvider };
+export { RemoteDesktop, Sol, MpsProvider };
