@@ -11,7 +11,6 @@ module.exports = {
   entry: {
     kvm: "./src/reactjs/components/KVM/index.tsx",
     sol: './src/reactjs/components/SerialOverLAN/index.tsx',
-    cira: './src/reactjs/components/CIRAEditor/index.tsx',
     network:'./src/reactjs/components/NetworkEditor/index.tsx'
   },
   //sourceMap in tsconfig which holds information about your original files when the code is minified

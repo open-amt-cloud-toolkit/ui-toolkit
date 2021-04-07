@@ -12,7 +12,6 @@ module.exports = {
   entry: {
     kvm: "./src/reactjs/components/KVM/UI.tsx",
     sol: './src/reactjs/components/SerialOverLAN/Sol.tsx',
-    cira: './src/reactjs/components/CIRAEditor/CiraEditor.tsx',
     network:'./src/reactjs/components/NetworkEditor/NetworkEditor.tsx',
     mps: "./src/reactjs/components/mps.tsx",
     rps:"./src/reactjs/components/rps.tsx",
