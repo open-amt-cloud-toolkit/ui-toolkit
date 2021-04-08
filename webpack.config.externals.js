@@ -12,12 +12,7 @@ module.exports = {
   entry: {
     kvm: "./src/reactjs/components/KVM/UI.tsx",
     sol: './src/reactjs/components/SerialOverLAN/Sol.tsx',
-    device: './src/reactjs/components/DeviceGrid/DeviceGrid.tsx',
-    cira: './src/reactjs/components/CIRAEditor/CiraEditor.tsx',
-    domain: './src/reactjs/components/DomainEditor/DomainEditor.tsx',
-    network:'./src/reactjs/components/NetworkEditor/NetworkEditor.tsx',
     mps: "./src/reactjs/components/mps.tsx",
-    rps:"./src/reactjs/components/rps.tsx",
     core: "./src/core/index.ts"
   },
   //sourceMap in tsconfig which holds information about your original files when the code is minified
