@@ -12,7 +12,7 @@ export const powerActions = async (guid, action, mpsServer: string | null, apiKe
     payload: isFalsy(useSOL) ? { guid, action, useSOL } : { guid, action }
   })
   const server: string = mpsServer != null ? mpsServer : ''
-  return await HttpClient.post(`https://${server}/amt`, body, apiKey, true)
+  return await HttpClient.post(`${server}/amt`, body, apiKey, true)
 }
 
 export const getPowerState = async (guid, mpsServer: string | null, apiKey): Promise<any> => {
@@ -22,5 +22,5 @@ export const getPowerState = async (guid, mpsServer: string | null, apiKey): Pro
     payload: { guid }
   })
   const server: string = mpsServer != null ? mpsServer : ''
-  return await HttpClient.post(`https://${server}/amt`, body, apiKey, true)
+  return await HttpClient.post(`${server}/amt`, body, apiKey, true)
 }

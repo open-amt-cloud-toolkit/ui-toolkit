@@ -44,7 +44,7 @@ export class AMTRedirector implements ICommunicator {
   RedirectStartIder: string
   urlvars: any
   inDataCount: number
-  server: any
+  server: string | undefined
   logger: ILogger
   onProcessData: (data: string) => void
   onStart: () => void
@@ -83,7 +83,7 @@ export class AMTRedirector implements ICommunicator {
       ${window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'))}
       /webrelay.ashx?p=2&host=${this.host}&port=${this.port}&tls=${this.tls}${((this.user === '*') ? '&serverauth=1' : '')}${((typeof this.pass === 'undefined') ? ('&serverauth=1&user=' + this.user) : '')}&tls1only=${this.tlsv1only}`
     } else {
-      return `wss://${String(this.server)}/webrelay.ashx?p=2&host=${this.host}&port=${this.port}&tls=${this.tls}${((this.user === '*') ? '&serverauth=1' : '')}${((typeof this.pass === 'undefined') ? ('&serverauth=1&user=' + this.user) : '')}&tls1only=${this.tlsv1only}`
+      return `${String(this.server)}/webrelay.ashx?p=2&host=${this.host}&port=${this.port}&tls=${this.tls}${((this.user === '*') ? '&serverauth=1' : '')}${((typeof this.pass === 'undefined') ? ('&serverauth=1&user=' + this.user) : '')}&tls1only=${this.tlsv1only}`
     }
   }
 

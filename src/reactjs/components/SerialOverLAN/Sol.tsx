@@ -87,7 +87,7 @@ export class Sol extends React.Component<SOLProps, SOLStates> {
   }
 
   init = (): void => {
-    const server: string = this.props.mpsServer != null ? this.props.mpsServer : ''
+    const server: string = this.props.mpsServer != null ? this.props.mpsServer.replace('http', 'ws') : ''
     const deviceUuid: string = this.props.deviceId != null ? this.props.deviceId : ''
     this.terminal = new AmtTerminal()
     this.redirector = new AMTRedirector(
