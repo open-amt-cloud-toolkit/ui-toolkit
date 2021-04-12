@@ -10,14 +10,15 @@ module.exports = {
   mode: "production",
   entry: {
     kvm: "./src/reactjs/components/KVM/index.tsx",
-    sol: './src/reactjs/components/SerialOverLAN/index.tsx'
+    sol: './src/reactjs/components/SerialOverLAN/index.tsx',
+    core: './src/core/index.ts'
   },
   //sourceMap in tsconfig which holds information about your original files when the code is minified
   //devtool deal with existing source maps
   devtool: "inline-source-map",
 
   output: {
-    filename: "[name].core.min.js",
+    filename: "[name].min.js",
     path: path.resolve(__dirname, "./dist")
   },
   module: {
