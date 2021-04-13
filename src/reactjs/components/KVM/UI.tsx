@@ -32,7 +32,7 @@ export interface KVMProps {
   autoConnect?: boolean
 }
 
-export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number }> {
+export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number, encodingOption: number }> {
   module: Desktop | any
   dataProcessor: IDataProcessor | any
   redirector: IKvmDataCommunicator | any
@@ -44,7 +44,7 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
   fr: FileReader
   constructor (props: KVMProps) {
     super(props)
-    this.state = { kvmstate: 0 }
+    this.state = { kvmstate: 0, encodingOption: 1 }
     this.logger = new ConsoleLogger(LogLevel.ERROR)
     this.saveContext = this.saveContext.bind(this)
     this.startKVM = this.startKVM.bind(this)
@@ -78,6 +78,7 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
     this.redirector.onError = this.onRedirectorError.bind(this)
     this.module.onSend = this.redirector.send.bind(this.redirector)
     this.module.onProcessData = this.dataProcessor.processData.bind(this.dataProcessor)
+    this.module.bpp = this.state.encodingOption
   }
 
   cleanUp (): void {
@@ -116,7 +117,10 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
       this.module.bpp = settings.encoding
       this.stopKVM()
     } else {
-      this.module.bpp = settings.encoding
+      this.setState({
+        encodingOption: parseInt(settings.encoding)
+      })
+      this.module.bpp = parseInt(settings.encoding)
     }
   }
 
@@ -150,8 +154,8 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
       // Take Action
     }
   }
-
-  componentDidUpdate (prevProps) {
+  
+  componentDidUpdate (prevProps): void {
     if (prevProps.deviceId !== this.props.deviceId) {
       this.stopKVM()
     }
@@ -159,17 +163,19 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number 
 
   render (): React.ReactNode {
     return (
-      <div className="canvas-container">
-        {!isFalsy(this.props.autoConnect) ? <Header key="kvm_header" handleConnectClick={this.handleConnectClick} getConnectState={() => this.state.kvmstate} kvmstate={this.state.kvmstate} changeDesktopSettings={this.changeDesktopSettings} deviceId={this.props.deviceId} server={this.props.mpsServer}
-        /> : ''}
-        <PureCanvas key="kvm_comp" contextRef={ctx => this.saveContext(ctx)} canvasHeight={this.props.canvasHeight} canvasWidth={this.props.canvasWidth}
-          mouseMove={event => { if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.mousemove(event) }}
-          mouseDown={event => { if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.mousedown(event) }}
-          mouseUp={event => {
-            if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.mouseup(event)
-          }}
-        />
-      </div>
+       <div className="canvas-container">
+         {!isFalsy(this.props.autoConnect)
+           ? <Header key="kvm_header" handleConnectClick={this.handleConnectClick} getConnectState={() => this.state.kvmstate} kvmstate={this.state.kvmstate} changeDesktopSettings={this.changeDesktopSettings} deviceId={this.props.deviceId} server={this.props.mpsServer}
+         />
+           : ''}
+         <PureCanvas key="kvm_comp" contextRef={ctx => this.saveContext(ctx)} canvasHeight={this.props.canvasHeight} canvasWidth={this.props.canvasWidth}
+           mouseMove={event => { if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.mousemove(event) }}
+           mouseDown={event => { if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.mousedown(event) }}
+           mouseUp={event => {
+             if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.mouseup(event)
+           }}
+         />
+       </div>
     )
   }
 }
