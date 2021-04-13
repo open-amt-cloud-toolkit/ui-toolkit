@@ -12,7 +12,7 @@ export const getAmtFeatures = async (guid, mpsServer: string, apiKey): Promise<a
     payload: { guid }
   })
 
-  return await HttpClient.post(`https://${mpsServer}/amt`, body, apiKey, true)
+  return await HttpClient.post(`${mpsServer}/amt`, body, apiKey, true)
 }
 
 export const setAmtFeatures = async (guid, userConsent, enableKVM, enableSOL, enableIDER, mpsServer: string, apiKey): Promise<any> => {
@@ -24,5 +24,5 @@ export const setAmtFeatures = async (guid, userConsent, enableKVM, enableSOL, en
     }
   })
 
-  return await HttpClient.post(`https://${mpsServer}/amt`, body, apiKey, true)
+  return await HttpClient.post(`${mpsServer}/amt`, body, apiKey, true)
 }

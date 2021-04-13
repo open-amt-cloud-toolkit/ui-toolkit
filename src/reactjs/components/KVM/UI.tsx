@@ -63,7 +63,7 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number,
 
   init (): void {
     const deviceUuid: string = this.props.deviceId != null ? this.props.deviceId : ''
-    const server: string = this.props.mpsServer != null ? this.props.mpsServer : ''
+    const server: string = this.props.mpsServer != null ? this.props.mpsServer.replace('http', 'ws') : ''
     this.module = new AMTDesktop(this.logger, this.ctx)
     this.redirector = new AMTKvmDataRedirector(this.logger, Protocol.KVM, new FileReader(), deviceUuid, 16994, '', '', 0, 0, server)
     this.dataProcessor = new DataProcessor(this.logger, this.redirector, this.module)
@@ -154,7 +154,7 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number,
       // Take Action
     }
   }
-
+  
   componentDidUpdate (prevProps): void {
     if (prevProps.deviceId !== this.props.deviceId) {
       this.stopKVM()
