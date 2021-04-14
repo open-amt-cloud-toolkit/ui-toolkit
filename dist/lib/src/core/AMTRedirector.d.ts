@@ -35,7 +35,7 @@ export declare class AMTRedirector implements ICommunicator {
     RedirectStartIder: string;
     urlvars: any;
     inDataCount: number;
-    server: any;
+    server: string | undefined;
     logger: ILogger;
     onProcessData: (data: string) => void;
     onStart: () => void;

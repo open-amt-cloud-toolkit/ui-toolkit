@@ -5,7 +5,6 @@
 
 import React from 'react'
 import { getPowerState } from '../services/PowerActionServices'
-import { DomainContext } from './context/BasicContextProvider'
 import { isFalsy } from './Utilities'
 
 export interface PowerStateProps {
@@ -20,25 +19,25 @@ export interface PowerStateProps {
  */
 export class PowerState extends React.Component<PowerStateProps, { powerState: number }> {
   timeInterval: any
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       powerState: 0
     }
   }
 
-  componentDidMount (): void {
+  componentDidMount(): void {
     this.getAmtPowerState()
     this.timeInterval = setInterval(() => this.getAmtPowerState(), 15000)
   }
 
-  componentWillUnmount (): void {
+  componentWillUnmount(): void {
     clearInterval(this.timeInterval)
   }
 
   /** Fetch the Power state from AMT Device */
   getAmtPowerState = (): any => {
-    getPowerState(this.props.deviceId, this.props.server, this.context.data.mpsKey)
+    getPowerState(this.props.deviceId, this.props.server)
       .then(data => {
         this.props.updateParent()
         if (isFalsy(data.powerstate)) {
@@ -86,13 +85,11 @@ export class PowerState extends React.Component<PowerStateProps, { powerState: n
     }
   }
 
-  render (): React.ReactNode {
+  render(): React.ReactNode {
     const { powerState } = this.state
     return (
       this.renderPowerState(powerState)
-    // powerState === 4 ? (<span style={{ color: "red" }}>deep sleep </span>) : powerState === 2 ? (<span style={{ color: "green" }}>Power on </span>) : (<span>unknown</span>)
+      // powerState === 4 ? (<span style={{ color: "red" }}>deep sleep </span>) : powerState === 2 ? (<span style={{ color: "green" }}>Power on </span>) : (<span>unknown</span>)
     )
   }
 }
-
-PowerState.contextType = DomainContext

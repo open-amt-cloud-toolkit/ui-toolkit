@@ -47,20 +47,11 @@ describe('Test HttpClient class', () => {
       payload: { guid: 'abcd-1234-efgh-5678', action: '20' }
     })
 
-    HttpClient.post('localhost/actions', body, 'APIKEYFORMPS', true).catch(() => console.info('error occured'))
+    HttpClient.post('localhost/actions', body, true).catch(() => console.info('error occured'))
   })
 
   it('should test the delete function', () => {
     HttpClient.fetch = jest.fn(async () => await Promise.resolve())
     HttpClient.delete('localhost/actions').catch(() => console.info('error occured'))
-  })
-
-  it('should test the patch function', () => {
-    HttpClient.fetch = jest.fn(async () => await Promise.resolve())
-
-    const body = JSON.stringify({
-      payload: { profileName: 'profile1', amtPassword: 'P@ssw0rd' }
-    })
-    HttpClient.patch('localhost/actions', body).catch(() => console.info('error occured'))
   })
 })
