@@ -17,7 +17,7 @@ describe('Test powerActionsServices function component', () => {
     })
 
     // call powerActions function
-    powerActions('abcd-efgh-ijkl-lmop', 100, '1.2.3.4:1234', 'APIKEYFORMPS123!').catch(() => console.info('error occured'))
+    powerActions('abcd-efgh-ijkl-lmop', 100, '1.2.3.4:1234').catch(() => console.info('error occured'))
   })
 
   it('Test getPowerState function', () => {
@@ -31,6 +31,6 @@ describe('Test powerActionsServices function component', () => {
     })
 
     // call getPowerState function
-    getPowerState('wxyz-efgh-ijkl-lmop', '7.8.9.10:5678', 'APIKEYFORMPS123!').catch(() => console.info('error occured'))
+    getPowerState('wxyz-efgh-ijkl-lmop', '7.8.9.10:5678').catch(() => console.info('error occured'))
   })
 })
