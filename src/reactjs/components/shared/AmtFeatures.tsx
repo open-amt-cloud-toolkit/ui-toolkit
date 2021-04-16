@@ -10,7 +10,6 @@ import SnackBar from '../shared/SnackBar'
 import { translateText, translateDynamicText } from './Methods'
 
 import './amtfeatures.scss'
-import { DomainContext } from './context/BasicContextProvider'
 
 /**
  * interface for input props to AMTFeatures class
@@ -66,7 +65,7 @@ export class AmtFeatures extends React.Component<AmtFeatureProps, AmtFeatureStat
   /** Get the AMT Device features  */
   fetchAmtFeatures = (): any => {
     const mpsServer: string = this.props.server != null ? this.props.server : ''
-    getAmtFeatures(this.props.deviceId, mpsServer, this.context.data.mpsKey)
+    getAmtFeatures(this.props.deviceId, mpsServer)
       .then(data => {
         if (data.statuscode === 200) {
           this.setState({
@@ -111,7 +110,7 @@ export class AmtFeatures extends React.Component<AmtFeatureProps, AmtFeatureStat
       feature: feature,
       featureText: featureStatusText
     }
-    setAmtFeatures(deviceId, 'none', useKVM, useSOL, useIDER, mpsServer, this.context.data.mpsKey)
+    setAmtFeatures(deviceId, 'none', useKVM, useSOL, useIDER, mpsServer)
       .then(data => {
         if (data.statuscode === 200) {
           this.setState({
@@ -196,4 +195,3 @@ export class AmtFeatures extends React.Component<AmtFeatureProps, AmtFeatureStat
   }
 }
 
-AmtFeatures.contextType = DomainContext

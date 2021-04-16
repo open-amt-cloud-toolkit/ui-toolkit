@@ -21,7 +21,6 @@ import SnackBar from '../shared/SnackBar'
 import { AmtFeatures } from '../shared/AmtFeatures'
 import { PowerState } from '../shared/PowerState'
 import { translateText } from '../shared/Methods'
-import { DomainContext } from '../shared/context/BasicContextProvider'
 import { isFalsy } from '../shared/Utilities'
 
 const StyledDiv = Style.div`
@@ -87,7 +86,7 @@ export class Sol extends React.Component<SOLProps, SOLStates> {
   }
 
   init = (): void => {
-    const server: string = this.props.mpsServer != null ? this.props.mpsServer : ''
+    const server: string = this.props.mpsServer != null ? this.props.mpsServer.replace('http', 'ws') : ''
     const deviceUuid: string = this.props.deviceId != null ? this.props.deviceId : ''
     this.terminal = new AmtTerminal()
     this.redirector = new AMTRedirector(
@@ -168,7 +167,6 @@ export class Sol extends React.Component<SOLProps, SOLStates> {
   /** send power actions to AMT device */
   handlePowerOptions = async (e): Promise<any> => {
     if (e.detail === 0) {
-      const { mpsKey } = this.context.data
       const powerAction: string = getActionById(parseInt(e.target.value))
       if (this.state.SOLstate === 3 && (e.target.value === '8' || e.target.value === '5')) {
         this.setState({
@@ -178,7 +176,7 @@ export class Sol extends React.Component<SOLProps, SOLStates> {
           isSelected: !this.state.isSelected
         })
       } else {
-        powerActions(this.props.deviceId, e.target.value, this.props.mpsServer, mpsKey, true).then(response => {
+        powerActions(this.props.deviceId, e.target.value, this.props.mpsServer, true).then(response => {
           const resBody = response.Body
           if (resBody !== undefined && resBody.ReturnValueStr === 'SUCCESS') {
             this.setState({
@@ -285,4 +283,3 @@ export class Sol extends React.Component<SOLProps, SOLStates> {
   }
 }
 
-Sol.contextType = DomainContext

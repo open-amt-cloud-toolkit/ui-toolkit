@@ -52,7 +52,6 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'API_KEY_RPS': JSON.stringify('APIKEYFORRPS123!'),
         'API_KEY_MPS': JSON.stringify('APIKEYFORMPS123!')
       }
     })
