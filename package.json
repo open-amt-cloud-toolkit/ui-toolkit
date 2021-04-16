@@ -69,7 +69,7 @@
     "svg-url-loader": "^4.0.0",
     "ts-jest": "^26.5.4",
     "typescript": "^3.6.4",
-    "webpack": "^4.42.0",
+    "webpack": "^5.33.2",
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-node-externals": "^1.7.2"
