@@ -252,11 +252,6 @@ describe('Test Sol class', () => {
     const myInstance = sol.instance() as Sol
 
     myInstance.handleFeatureStatus('enabled')
-    myInstance.updatePowerStatus()
-    myInstance.handlePowerStatus('sleep')
-
-    expect(sol.state('isPowerStateLoaded')).toEqual(true)
-    expect(sol.state('deviceOnSleep')).toEqual('sleep')
     expect(sol.state('solNotEnabled')).toEqual('enabled')
 
     myInstance.handleFeatureStatus('notEnabled')
@@ -264,69 +259,6 @@ describe('Test Sol class', () => {
 
     myInstance.handleFeatureStatus('failed')
     expect(sol.state('solNotEnabled')).toEqual('failed')
-
-    myInstance.handlePowerStatus('poweron')
-    expect(sol.state('deviceOnSleep')).toEqual('poweron')
-
-    myInstance.handlePowerStatus('failed')
-    expect(sol.state('deviceOnSleep')).toEqual('failed')
   })
 
-  it('should handle the power actions by showing appropriate message when sol is connected', async () => {
-    const sol = shallow(<Sol {...solprop} />)
-    const myInstance = sol.instance() as Sol
-
-    sol.setState({
-      SOLstate: 3
-    })
-
-    myInstance.context = {
-      data: {
-        mpsKey: 'APIKEYFORMPS123!'
-      }
-    }
-
-    const event = {
-      detail: 0,
-      target: {
-        value: '8'
-      }
-    }
-
-    myInstance.handlePowerOptions(event).catch(() => console.info('error occured'))
-    expect(sol.state('message')).toEqual('Power Off not allowed while termina1 is connected')
-    expect(sol.state('showSuccess')).toEqual(true)
-
-    // expect()
-  })
-
-  it('should handle the power action by sending an api call to the amt device', async () => {
-    const sol = shallow(<Sol {...solprop} />)
-    const myInstance = sol.instance() as Sol
-
-    HttpClient.post = jest.fn(async () => await Promise.resolve({
-      Body: {
-        ReturnValueStr: 'SUCCESS'
-      }
-    }))
-
-    const powerEvent = {
-      detail: 0,
-      target: {
-        value: '4'
-      }
-    }
-
-    sol.setState({
-      SOLstate: 3
-    })
-
-    myInstance.context = {
-      data: {
-        mpsKey: 'APIKEYFORMPS123!'
-      }
-    }
-    myInstance.handlePowerOptions(powerEvent).catch(() => console.info('error occured'))
-    expect(HttpClient.post).toHaveBeenCalled()
-  })
 })
