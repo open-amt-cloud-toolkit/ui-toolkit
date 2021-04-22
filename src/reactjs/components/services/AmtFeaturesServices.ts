@@ -5,24 +5,22 @@
 
 import { HttpClient } from './HttpClient'
 
-export const getAmtFeatures = async (guid, mpsServer: string, apiKey): Promise<any> => {
+export const getAmtFeatures = async (guid, mpsServer: string): Promise<any> => {
   const body = JSON.stringify({
-    apikey: 'xxxxx',
     method: 'GetAMTFeatures',
     payload: { guid }
   })
 
-  return await HttpClient.post(`https://${mpsServer}/amt`, body, apiKey, true)
+  return await HttpClient.post(`${mpsServer}/amt`, body, true)
 }
 
-export const setAmtFeatures = async (guid, userConsent, enableKVM, enableSOL, enableIDER, mpsServer: string, apiKey): Promise<any> => {
+export const setAmtFeatures = async (guid, userConsent, enableKVM, enableSOL, enableIDER, mpsServer: string): Promise<any> => {
   const body = JSON.stringify({
-    apikey: 'xxxxx',
     method: 'SetAMTFeatures',
     payload: {
       guid, userConsent, enableKVM, enableSOL, enableIDER
     }
   })
 
-  return await HttpClient.post(`https://${mpsServer}/amt`, body, apiKey, true)
+  return await HttpClient.post(`${mpsServer}/amt`, body, true)
 }

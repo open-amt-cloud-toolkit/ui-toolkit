@@ -17,7 +17,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -44,7 +44,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -72,7 +72,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -102,7 +102,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -132,7 +132,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -157,7 +157,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -182,7 +182,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -213,7 +213,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -244,7 +244,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -273,7 +273,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -300,7 +300,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -327,7 +327,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -367,7 +367,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -405,7 +405,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
@@ -438,7 +438,7 @@ describe('Testing UI', () => {
     // Initialization of KVMProps
     const kvmprops: KVMProps = {
       deviceId: '1234',
-      mpsServer: 'localhost/mps',
+      mpsServer: 'wss://localhost/mps',
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',

@@ -28,10 +28,6 @@ module.exports = {
         test: /\.(sc|sa|c)ss$/,
         use: ["style-loader", "css-loader", "sass-loader"],
       },
-      {
-        test: /\.svg$/,
-        use: ["svg-url-loader"],
-      },
     ],
   },
   resolve: {
@@ -52,7 +48,6 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'API_KEY_RPS': JSON.stringify('APIKEYFORRPS123!'),
         'API_KEY_MPS': JSON.stringify('APIKEYFORMPS123!')
       }
     })

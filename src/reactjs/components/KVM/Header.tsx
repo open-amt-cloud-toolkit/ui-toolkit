@@ -14,7 +14,6 @@ import SnackBar from '../shared/SnackBar'
 import Style from 'styled-components'
 import { PowerState } from '../shared/PowerState'
 import { translateText } from '../shared/Methods'
-import { DomainContext } from '../shared/context/BasicContextProvider'
 import { isFalsy } from '../shared/Utilities'
 require('./Header.scss')
 
@@ -48,7 +47,7 @@ export interface PowerStates {
 }
 
 export class Header extends React.Component<IHeaderProps, PowerStates> {
-  constructor (props: IHeaderProps) {
+  constructor(props: IHeaderProps) {
     super(props)
     this.state = {
       powerState: 0,
@@ -66,7 +65,6 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
   handlePowerOptions = async (e): Promise<any> => {
     const server: string = this.props.server != null ? this.props.server : ''
     if (e.detail === 0) {
-      const { mpsKey } = this.context.data
       const powerAction: string = getActionById(parseInt(e.target.value))
       if (this.props.kvmstate === 2 && (e.target.value === '8' || e.target.value === '5')) {
         this.setState({
@@ -80,7 +78,6 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
           this.props.deviceId,
           e.target.value,
           server.substr(0, server.indexOf('/')),
-          mpsKey
         ).then(response => {
           if (
             response.Body !== undefined &&
@@ -137,7 +134,7 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
     })
   }
 
-  render (): JSX.Element {
+  render(): JSX.Element {
     const {
       showSuccess,
       message,
@@ -205,4 +202,3 @@ export class Header extends React.Component<IHeaderProps, PowerStates> {
   }
 }
 
-Header.contextType = DomainContext
