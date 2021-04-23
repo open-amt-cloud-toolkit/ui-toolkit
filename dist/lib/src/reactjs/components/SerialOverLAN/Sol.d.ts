@@ -45,12 +45,8 @@ export declare class Sol extends React.Component<SOLProps, SOLStates> {
     stopSOL: () => void;
     handleSOLConnect: (e: any) => void;
     onTerminalStateChange: (redirector: any, state: number) => void;
-    /** send power actions to AMT device */
-    handlePowerOptions: (e: any) => Promise<any>;
     /** callback functions from child components to update the state values */
     handleFeatureStatus: (value: any) => void;
-    handlePowerStatus: (value: any) => void;
-    updatePowerStatus: () => void;
     getSOLState: () => any;
     render(): React.ReactNode;
 }
