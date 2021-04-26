@@ -169,7 +169,7 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number,
          />
            : ''}
          <PureCanvas key="kvm_comp" contextRef={ctx => this.saveContext(ctx)} canvasHeight={this.props.canvasHeight} canvasWidth={this.props.canvasWidth}
-           mouseMove={event => { if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.mousemove(event) }}
+           mouseMove={event => { if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.throttleMouseMove(event) }}
            mouseDown={event => { if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.mousedown(event) }}
            mouseUp={event => {
              if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.mouseup(event)

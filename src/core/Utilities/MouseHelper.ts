@@ -10,19 +10,19 @@ import { ImageHelper } from './ImageHelper'
 import { isTruthy } from './UtilityMethods'
 
 /**
- * Mousehelper provides helper functions for handling mouse events. mouseup, mousedown, mousemove
- */
+  * Mousehelper provides helper functions for handling mouse events. mouseup, mousedown, mousemove
+  */
 export class MouseHelper {
   parent: Desktop | any
   comm: ICommunicator
   MouseInputGrab: boolean
   lastEvent: any
-  debounceTime: number
+  throttleTime: number = 200
   mouseClickCompleted: boolean
-  constructor (parent: Desktop, comm: ICommunicator, debounceTime: number) {
+  constructor (parent: Desktop, comm: ICommunicator, throttleTime: number) {
     this.parent = parent
     this.comm = comm
-    this.debounceTime = debounceTime
+    this.throttleTime = throttleTime < 200 ? this.throttleTime : throttleTime
     this.mouseClickCompleted = true
     this.lastEvent = null
   }
@@ -52,7 +52,16 @@ export class MouseHelper {
     return this.mousemove(e)
   }
 
-  mousemove (e: MouseEvent): boolean {
+  throttleMouseMove (e: MouseEvent): any {
+    if (!this.mouseClickCompleted) return
+    this.mouseClickCompleted = false
+    this.mousemove(e)
+    setTimeout(() => {
+      this.mouseClickCompleted = true
+    }, this.throttleTime)
+  }
+
+  mousemove (e: MouseEvent): any {
     if (this.parent.state !== 4) return true
     const pos = this.getPositionOfControl(this.parent.canvasControl)
     this.parent.lastMouseX = (e.pageX - pos[0]) * (this.parent.canvasControl.height / this.parent.canvasControl.offsetHeight)
