@@ -19,7 +19,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.13",
-    "i18next": "^20.2.1",
+    "i18next": "^20.2.2",
     "i18next-browser-languagedetector": "^6.1.0",
     "i18next-xhr-backend": "^3.2.2",
     "md5": "^2.2.1",
