@@ -174,4 +174,3 @@ export class Sol extends React.Component<SOLProps, SOLStates> {
     )
   }
 }
-
