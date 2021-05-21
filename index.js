@@ -3,9 +3,9 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-exports.KVM = require('./dist/mps.bundle').RemoteDesktop;
-exports.Sol = require('./dist/mps.bundle').Sol;
-exports.MpsProvider = require('./dist/mps.bundle').MpsProvider;
+exports.KVM = require('./dist/kvm.bundle').RemoteDesktop;
+exports.Sol = require('./dist/sol.bundle').Sol;
+exports.MpsProvider = require('./dist/kvm.bundle').MpsProvider;
 exports.AMTDesktop = require('./dist/core.bundle').AMTDesktop;
 exports.AMTRedirector = require('./dist/core.bundle').AMTRedirector;
 exports.DataProcessor = require('./dist/core.bundle').DataProcessor;
