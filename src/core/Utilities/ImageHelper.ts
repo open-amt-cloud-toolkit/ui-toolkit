@@ -9,21 +9,21 @@ import { Desktop } from '../Desktop'
 /**
  * Provides helper functions to handle image pixel data.
  */
-export class ImageHelper {
+export const ImageHelper = {
   /**
    * puts image on canvas using the parent canvas ctx.
    * @param parent parent desktop with CTX for canvas
    * @param x x loc
    * @param y y loc
    */
-  static putImage (parent: Desktop, x: number, y: number): any {
+  putImage (parent: Desktop, x: number, y: number): any {
     if (parent.holding) return
 
     const xx = ImageHelper.arotX(parent, x, y)
     y = ImageHelper.arotY(parent, x, y)
     x = xx
     parent.canvasCtx.putImageData(parent.spare, x, y)
-  }
+  },
 
   /**
    *
@@ -31,7 +31,7 @@ export class ImageHelper {
    * @param value pixel value at ptr
    * @param ptr ptr into the image pixel data
    */
-  static setPixel (parent: Desktop, value: any, ptr: number): any {
+  setPixel (parent: Desktop, value: any, ptr: number): any {
     let pp = ptr * 4
     let x: number
     let y: number
@@ -61,57 +61,57 @@ export class ImageHelper {
       parent.spare.data[pp++] = (value & 31) << 3
     }
     parent.spare.data[pp] = 0xFF // Set alpha channel to opaque.
-  }
+  },
 
-  static arotX (parent: Desktop, x: number, y: number): number {
+  arotX (parent: Desktop, x: number, y: number): number {
     if (parent.rotation === 0) return x
     if (parent.rotation === 1) return parent.canvasCtx.canvas.width - parent.sparew2 - y
     if (parent.rotation === 2) return parent.canvasCtx.canvas.width - parent.sparew2 - x
     if (parent.rotation === 3) return y
     return 0
-  }
+  },
 
-  static arotY (parent: Desktop, x: number, y: number): number {
+  arotY (parent: Desktop, x: number, y: number): number {
     if (parent.rotation === 0) return y
     if (parent.rotation === 1) return x
     if (parent.rotation === 2) return parent.canvasCtx.canvas.height - parent.spareh2 - y
     if (parent.rotation === 3) return parent.canvasCtx.canvas.height - parent.spareh - x
     return 0
-  }
+  },
 
-  static crotX (parent: Desktop, x: number, y: number): number {
+  crotX (parent: Desktop, x: number, y: number): number {
     if (parent.rotation === 0) return x
     if (parent.rotation === 1) return y
     if (parent.rotation === 2) return parent.canvasCtx.canvas.width - x
     if (parent.rotation === 3) return parent.canvasCtx.canvas.height - y
     return 0
-  }
+  },
 
-  static crotY (parent: Desktop, x: number, y: number): number {
+  crotY (parent: Desktop, x: number, y: number): number {
     if (parent.rotation === 0) return y
     if (parent.rotation === 1) return parent.canvasCtx.canvas.width - x
     if (parent.rotation === 2) return parent.canvasCtx.canvas.height - y
     if (parent.rotation === 3) return x
     return 0
-  }
+  },
 
-  static rotX (parent: Desktop, x: number, y: number): number {
+  rotX (parent: Desktop, x: number, y: number): number {
     if (parent.rotation === 0) return x
     if (parent.rotation === 1) return x
     if (parent.rotation === 2) return x - parent.canvasCtx.canvas.width
     if (parent.rotation === 3) return x - parent.canvasCtx.canvas.height
     return 0
-  }
+  },
 
-  static rotY (parent: Desktop, x: number, y: number): number {
+  rotY (parent: Desktop, x: number, y: number): number {
     if (parent.rotation === 0) return y
     if (parent.rotation === 1) return y - parent.canvasCtx.canvas.width
     if (parent.rotation === 2) return y - parent.canvasCtx.canvas.height
     if (parent.rotation === 3) return y
     return 0
-  }
+  },
 
-  static setRotation (parent: Desktop, x: number): boolean {
+  setRotation (parent: Desktop, x: number): boolean {
     while (x < 0) { x += 4 }
     const newrotation: any = x % 4
     // console.log('hard-rot: ' + newrotation);
@@ -147,9 +147,9 @@ export class ImageHelper {
     parent.height = parent.canvasCtx.canvas.height
     if (parent.onScreenResize != null) parent.onScreenResize(parent.width, parent.height, parent.canvasId)
     return true
-  }
+  },
 
-  static fixColor (c: number): number {
+  fixColor (c: number): number {
     return (c > 127) ? (c + 32) : c
   }
 }

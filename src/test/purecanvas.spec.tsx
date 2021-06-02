@@ -26,7 +26,7 @@ describe('Testing purecanvas component rendering', () => {
 describe('Testing purecanvas component update', () => {
   it('component update should return false', () => {
     const wrapper: any = shallow(<PureCanvas {...testprops} />)
-    var result = wrapper.instance()?.shouldComponentUpdate(any, any, any)
+    const result = wrapper.instance()?.shouldComponentUpdate(any, any, any)
     expect(result).toBe(false)
   })
 })

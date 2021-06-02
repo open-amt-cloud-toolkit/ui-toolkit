@@ -10,7 +10,6 @@ export const joinClasses = (...classNames): any =>
     .join(' ')
     .trim()
 
-
 export const prepareHeaders = (): any => {
   const headers = {
     Accept: 'application/json',

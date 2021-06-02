@@ -17,7 +17,7 @@ class ServerInit implements IStateProcessor {
   wsSocket: ICommunicator
   next: IStateProcessor
 
-  binaryEncDec: TypeConverter
+  // binaryEncDec: TypeConverter
   parent: Desktop
   updateRFBState: any
   constructor (comm: ICommunicator, parent: Desktop, updateRFBState: (state: number) => void) {

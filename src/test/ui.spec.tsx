@@ -473,52 +473,52 @@ describe('Testing UI', () => {
   })
 })
 
-var mystate1 = 0
+let mystate1 = 0
 function func1 (redirector: any, state: number): any {
   mystate1 = state
 }
 
-var mystate3 = 0
+let mystate3 = 0
 function func3 (redirector: any, state: number): any {
   mystate3 = state
 }
 
-var mystate4 = 0
+let mystate4 = 0
 function func4 (redirector: any, state: number): any {
   mystate4 = state
 }
 
-var mystate2 = 0
+let mystate2 = 0
 function func2 (redirector: any, state: number): any {
   mystate2 = state
 }
 
-var mystate5 = 0
+let mystate5 = 0
 function func5 (redirector: any, state: number): any {
   mystate5 = state
 }
 
-var mystate6 = 0
+let mystate6 = 0
 function func6 (redirector: any, state: number): any {
   mystate6 = state
 }
 
-var mystate7 = 0
+let mystate7 = 0
 function func7 (redirector: any, state: number): any {
   mystate7 = state
 }
 
-var mystate8 = 0
+let mystate8 = 0
 function func8 (redirector: any, state: number): any {
   mystate8 = state
 }
 
-var mystate9 = 0
+let mystate9 = 0
 function func9 (redirector: any, state: number): any {
   mystate9 = state
 }
 
-var mystate10 = 0
+let mystate10 = 0
 function func10 (redirector: any, state: number): any {
   mystate10 = state
 }

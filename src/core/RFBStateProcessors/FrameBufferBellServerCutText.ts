@@ -13,7 +13,7 @@ class FrameBufferBellServerCutText implements IStateProcessor {
   wsSocket: ICommunicator
   next: IStateProcessor
   cmdSize: number
-  binaryEncDec: TypeConverter
+  // binaryEncDec: TypeConverter
   serverCutTextHandler: IServerCutTextHandler
   updateRFBState: any
   constructor (comm: ICommunicator, serverCutTextHandler: IServerCutTextHandler, updateRFBState: (state: number) => void) {
@@ -24,6 +24,7 @@ class FrameBufferBellServerCutText implements IStateProcessor {
 
   processState (acc: string): number { // acc is the accumulated byte encoded string so far
     let cmdsize = 0
+    let len = 0
     switch (acc.charCodeAt(0)) {
       case 0: // FramebufferUpdate
         if (acc.length < 4) return 0
@@ -35,7 +36,7 @@ class FrameBufferBellServerCutText implements IStateProcessor {
         break
       case 3: // This is ServerCutText
         if (acc.length < 8) return 0
-        var len = TypeConverter.ReadInt(acc, 4) + 8
+        len = TypeConverter.ReadInt(acc, 4) + 8
         if (acc.length < len) return 0
         cmdsize = this.serverCutTextHandler.handleServerCutText(acc)
         break
