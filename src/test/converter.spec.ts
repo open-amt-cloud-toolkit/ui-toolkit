@@ -131,16 +131,6 @@ describe('Test IntToStrX function: ', () => {
   })
 })
 
-describe('Test MakeToArray function: ', () => {
-  // Test Input 2
-  const input = 2
-
-  it('Test if MakeToArray works for positive test case', () => {
-    const value = TypeConverter.MakeToArray(input)
-    expect(value).toEqual(expect.arrayContaining([2]))
-  })
-})
-
 describe('Test SplitArray function: ', () => {
   // Test Input "123"
   const input = '123'
@@ -332,16 +322,6 @@ describe('Test ObjectToString2 function: ', () => {
   it('Test if ObjectToString2 works for positive test case', () => {
     const value = TypeConverter.ObjectToString2(input)
     expect(value).toBe(output)
-  })
-})
-
-describe('Test hex2rstr function: ', () => {
-  // Test Input number:56
-  const input = '3536'
-
-  it('Test if hex2rstr works for positive test case', () => {
-    const value = TypeConverter.hex2rstr(input)
-    expect(value).toBe('56')
   })
 })
 

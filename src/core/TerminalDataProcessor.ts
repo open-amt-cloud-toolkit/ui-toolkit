@@ -17,7 +17,7 @@ export class TerminalDataProcessor implements IDataProcessor {
 
   /** processing data received from serial port**/
   processData = (str: string): any => {
-    if (this.terminal.capture != null) this.terminal.capture += str
+    if (this.terminal.capture != null) this.terminal.capture = String(this.terminal.capture) + str
     let c: string = ''
     for (let i = 0; i < str.length; i++) {
       const ch = str.charCodeAt(i)

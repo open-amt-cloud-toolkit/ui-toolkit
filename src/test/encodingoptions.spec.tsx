@@ -38,7 +38,7 @@ describe('Testing EncodingOptions', () => {
     const eo = shallow(<EncodingOptions {...encodingoptionsprops} />)
 
     // Output
-    var ret = expect(eo).toMatchSnapshot()
+    const ret = expect(eo).toMatchSnapshot()
     console.info('ret', ret)
     console.log(eo.debug())
     console.log(eo.props())
@@ -54,7 +54,7 @@ describe('Testing EncodingOptions', () => {
     const eo = shallow(<EncodingOptions {...encodingoptionsprops} />)
 
     // Output
-    var ret = expect(eo).toMatchSnapshot()
+    const ret = expect(eo).toMatchSnapshot()
     console.info('ret', ret)
     console.log(eo.debug())
     console.log(eo.props())
@@ -69,7 +69,7 @@ function testFunc3 (): number {
   return 2
 }
 
-var value1 = 0
+let value1 = 0
 function testFunc2 (v: number): void {
   ++value1
 }

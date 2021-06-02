@@ -14,7 +14,6 @@ import { TypeConverter } from '../Converter'
 class SecurityResponse implements IStateProcessor {
   wsSocket: ICommunicator
   next: IStateProcessor
-  binaryEncDec: TypeConverter
   updateRFBState: any
   constructor (comm: ICommunicator, updateRFBState: (state: number) => void) {
     this.wsSocket = comm

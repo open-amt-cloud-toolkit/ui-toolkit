@@ -5,7 +5,6 @@
  **********************************************************************/
 import { ICommunicator } from '../ICommunicator';
 import { IStateProcessor } from '../IStateProcessor';
-import { TypeConverter } from '../Converter';
 import { Desktop } from '../Desktop';
 /**
  * Set supported encodings for RFB
@@ -13,7 +12,6 @@ import { Desktop } from '../Desktop';
 declare class ServerInit implements IStateProcessor {
     wsSocket: ICommunicator;
     next: IStateProcessor;
-    binaryEncDec: TypeConverter;
     parent: Desktop;
     updateRFBState: any;
     constructor(comm: ICommunicator, parent: Desktop, updateRFBState: (state: number) => void);

@@ -260,5 +260,4 @@ describe('Test Sol class', () => {
     myInstance.handleFeatureStatus('failed')
     expect(sol.state('solNotEnabled')).toEqual('failed')
   })
-
 })
