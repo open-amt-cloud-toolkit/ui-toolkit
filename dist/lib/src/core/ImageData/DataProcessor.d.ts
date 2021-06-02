@@ -3,12 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { IStateProcessor } from '../IStateProcessor';
-import { IDataProcessor } from '../IDataProcessor';
+import { IStateProcessor, IDataProcessor, ILogger, ICommunicator } from '../Interfaces';
 import { StateProcessorFactory } from '../StateProcessorFactory';
-import { ICommunicator } from '../ICommunicator';
 import { Desktop } from '../Desktop';
-import { ILogger } from '../ILogger';
 /**
  * DataProcessor provides the functionality for processing different states of RFB leveraging
  * the different StateProcessors

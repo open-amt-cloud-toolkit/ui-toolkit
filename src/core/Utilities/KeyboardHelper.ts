@@ -4,7 +4,7 @@
  * Author : Ramu Bachala
  **********************************************************************/
 import { AMTKeyCodeConverter } from './AMTKeyCodeConverter'
-import { ICommunicator } from '../ICommunicator'
+import { ICommunicator } from '../Interfaces/ICommunicator'
 import { CommsHelper } from './CommsHelper'
 import { Desktop } from '../Desktop'
 import { isTruthy } from './UtilityMethods'

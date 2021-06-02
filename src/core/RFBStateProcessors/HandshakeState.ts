@@ -4,8 +4,7 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { ICommunicator } from '../ICommunicator'
-import { IStateProcessor } from '../IStateProcessor'
+import { ICommunicator, IStateProcessor } from '../Interfaces'
 
 /**
  * Initial handshake and send RFB protocol supported on client

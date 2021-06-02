@@ -4,10 +4,8 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { ICommunicator } from '../ICommunicator'
-import { IStateProcessor } from '../IStateProcessor'
+import { ICommunicator, IStateProcessor, IServerCutTextHandler } from '../Interfaces'
 import { TypeConverter } from '../Converter'
-import { IServerCutTextHandler } from '../IServerCutTextHandler'
 
 class FrameBufferBellServerCutText implements IStateProcessor {
   wsSocket: ICommunicator

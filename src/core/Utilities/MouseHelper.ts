@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { ICommunicator } from '../ICommunicator'
+import { ICommunicator } from '../Interfaces/ICommunicator'
 import { Desktop } from '../Desktop'
 import { TypeConverter } from '../Converter'
 import { ImageHelper } from './ImageHelper'

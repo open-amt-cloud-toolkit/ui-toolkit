@@ -4,14 +4,10 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { ICommunicator } from '../ICommunicator'
-import { IStateProcessor } from '../IStateProcessor'
+import { ICommunicator, IStateProcessor, IRLEDecoder } from '../Interfaces'
 import { TypeConverter } from '../Converter'
 import { Desktop } from '../Desktop'
-import { IRLEDecoder } from '../IRLEDecoder'
-import { ImageHelper } from '../Utilities/ImageHelper'
-import { CommsHelper } from '../Utilities/CommsHelper'
-import { isTruthy } from '../Utilities/UtilityMethods'
+import { ImageHelper, CommsHelper, isTruthy } from '../Utilities'
 
 /**
  * Handle encoded RFB packets. Supported encodings, RAW, ZRLE.

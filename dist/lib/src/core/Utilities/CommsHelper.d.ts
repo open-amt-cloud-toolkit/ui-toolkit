@@ -4,12 +4,14 @@
  * Author : Ramu Bachala
  **********************************************************************/
 import { Desktop } from '../Desktop';
-import { ICommunicator } from '../ICommunicator';
-export declare const CommsHelper: {
+import { ICommunicator } from '../Interfaces/ICommunicator';
+import { UpDown } from './KeyboardHelper';
+declare const CommsHelper: {
     sendRefresh(parent: Desktop, comm: ICommunicator): void;
-    sendKey(comm: ICommunicator, k: any, d: number): any;
-    sendKvmData(parent: Desktop, comm: ICommunicator, x: any): any;
-    sendKeepAlive(parent: Desktop, comm: ICommunicator): any;
-    sendCtrlAltDelMsg(comm: ICommunicator): any;
-    sendCad(comm: ICommunicator): any;
+    sendKey(comm: ICommunicator, k: number | any, d: UpDown): void;
+    sendKvmData(parent: Desktop, comm: ICommunicator, x: any): void;
+    sendKeepAlive(parent: Desktop, comm: ICommunicator): void;
+    sendCtrlAltDelMsg(comm: ICommunicator): void;
+    sendCad(comm: ICommunicator): void;
 };
+export { CommsHelper };

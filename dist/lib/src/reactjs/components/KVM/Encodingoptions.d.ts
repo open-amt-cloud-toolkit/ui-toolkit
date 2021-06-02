@@ -2,7 +2,8 @@
  * Copyright (c) Intel Corporation 2019
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
-import * as React from 'react';
+import React from 'react';
+import './EncodingOptions.scss';
 export interface IEncodingOptions {
     changeEncoding: (encoding: number) => void;
     getConnectState: () => number;

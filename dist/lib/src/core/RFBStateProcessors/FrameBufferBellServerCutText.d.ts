@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { ICommunicator } from '../ICommunicator';
-import { IStateProcessor } from '../IStateProcessor';
-import { IServerCutTextHandler } from '../IServerCutTextHandler';
+import { ICommunicator, IStateProcessor, IServerCutTextHandler } from '../Interfaces';
 declare class FrameBufferBellServerCutText implements IStateProcessor {
     wsSocket: ICommunicator;
     next: IStateProcessor;

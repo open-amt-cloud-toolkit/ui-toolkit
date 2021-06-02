@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import * as React from 'react';
+import React from 'react';
+import './PureCanvas.scss';
 export interface PureCanvasProps {
     contextRef: (ctx: CanvasRenderingContext2D) => void;
     mouseDown: (event: React.MouseEvent) => void;

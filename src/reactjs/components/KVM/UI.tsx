@@ -4,24 +4,14 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import * as React from 'react'
-import { IDataProcessor } from '../../../core/IDataProcessor'
-import { DataProcessor } from '../../../core/ImageData/DataProcessor'
-import { Desktop } from '../../../core/Desktop'
-import { IKvmDataCommunicator } from '../../../core/ICommunicator'
-import { AMTKvmDataRedirector } from '../../../core/AMTKvmDataRedirector'
-import { AMTDesktop } from '../../../core/AMTDesktop'
-import { Protocol } from '../../../core/AMTRedirector'
-import { MouseHelper } from '../../../core/Utilities/MouseHelper'
-import { ILogger, LogLevel } from '../../../core/ILogger'
-import { ConsoleLogger } from '../../../core/ConsoleLogger'
-import { KeyBoardHelper } from '../../../core/Utilities/KeyboardHelper'
-
+import { IDataProcessor, IKvmDataCommunicator, ILogger, LogLevel, DataProcessor, Desktop, AMTKvmDataRedirector, AMTDesktop, Protocol, ConsoleLogger } from '../../../core'
+import { MouseHelper, KeyBoardHelper } from '../../../core/Utilities'
 import { Header } from './Header'
-import { PureCanvas } from './Purecanvas'
+import { PureCanvas } from './PureCanvas'
 import { isFalsy } from '../shared/Utilities'
+import React from 'react'
 
-require('./UI.scss')
+import './UI.scss'
 
 export interface KVMProps {
   deviceId: string | null
@@ -32,7 +22,7 @@ export interface KVMProps {
   autoConnect?: boolean
 }
 
-export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number, encodingOption: number }> {
+export class KVM extends React.Component<KVMProps, { kvmstate: number, encodingOption: number }> {
   module: Desktop | any
   dataProcessor: IDataProcessor | any
   redirector: IKvmDataCommunicator | any
@@ -171,11 +161,10 @@ export class RemoteDesktop extends React.Component<KVMProps, { kvmstate: number,
          <PureCanvas key="kvm_comp" contextRef={ctx => this.saveContext(ctx)} canvasHeight={this.props.canvasHeight} canvasWidth={this.props.canvasWidth}
            mouseMove={event => { if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.mousemove(event) }}
            mouseDown={event => { if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.mousedown(event) }}
-           mouseUp={event => {
-             if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.mouseup(event)
-           }}
+           mouseUp={event => { if (typeof this.mouseHelper !== 'undefined') this.mouseHelper.mouseup(event) }}
          />
        </div>
     )
   }
 }
+

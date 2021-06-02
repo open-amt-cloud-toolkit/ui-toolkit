@@ -5,7 +5,7 @@
 import Term, { IPropTerminal } from '../reactjs/components/SerialOverLAN/Terminal'
 import { Terminal } from 'xterm'
 
-import * as React from 'react'
+import React from 'react'
 import { shallow } from 'enzyme'
 
 describe('Test Term class', () => {

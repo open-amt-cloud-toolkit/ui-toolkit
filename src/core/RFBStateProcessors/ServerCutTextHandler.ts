@@ -4,8 +4,7 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { IServerCutTextHandler } from '../IServerCutTextHandler'
-import { IKvmDataCommunicator } from '../ICommunicator'
+import { IKvmDataCommunicator, IServerCutTextHandler } from '../Interfaces'
 import { Desktop } from '../Desktop'
 import { TypeConverter } from '../Converter'
 import { isTruthy } from '../Utilities/UtilityMethods'

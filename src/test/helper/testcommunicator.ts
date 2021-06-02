@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import { ICommunicator } from '../../core/ICommunicator'
+import { ICommunicator } from '../../core/Interfaces/ICommunicator'
 
 class Communicator implements ICommunicator {
   static sentData: string

@@ -2,7 +2,6 @@
 * Copyright (c) Intel Corporation 2020
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-const path = require("path"); //No ES6 in webpack config
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require('webpack');
 
@@ -22,7 +21,7 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: ["awesome-typescript-loader"],
+        use: ["ts-loader"],
       },
       {
         test: /\.(sc|sa|c)ss$/,
@@ -45,11 +44,6 @@ module.exports = {
       template: "./src/sample/sampleSOL.htm",
       inject: true,
       chunks: ["sol"],
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'API_KEY_MPS': JSON.stringify('APIKEYFORMPS123!')
-      }
     })
   ],
 };

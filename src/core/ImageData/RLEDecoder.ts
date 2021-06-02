@@ -4,7 +4,7 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { IRLEDecoder } from '../IRLEDecoder'
+import { IRLEDecoder } from '../Interfaces'
 import { Desktop } from '../Desktop'
 import { ImageHelper } from '../Utilities/ImageHelper'
 class RLEDecoder implements IRLEDecoder {

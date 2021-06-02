@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { ILogger, LogLevel } from './ILogger'
+import { ILogger, LogLevel } from './Interfaces'
 
 /**
  * ConsoleLogger implements ILogger to provide basic console logging functionality.

@@ -8,29 +8,37 @@ const nodeExternals = require('webpack-node-externals');
 // const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: {
     kvm: "./src/reactjs/components/KVM/UI.tsx",
     sol: './src/reactjs/components/SerialOverLAN/Sol.tsx',
-    mps: "./src/reactjs/components/mps.tsx",
     core: "./src/core/index.ts"
   },
   //sourceMap in tsconfig which holds information about your original files when the code is minified
   //devtool deal with existing source maps
   devtool: "inline-source-map",
-
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "./dist"),
-    library: '',
-    libraryTarget: 'commonjs'
+    library: {
+      name: 'ui-toolkit',
+      type: 'umd'
+    },
   },
-  externals: [nodeExternals()],
+  optimization: {
+    concatenateModules: false
+  },
+  // externalsPresets: { node: true },
+  externals: {
+    "react": "react",
+    "react-dom": "ReactDOM",
+  },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: ['awesome-typescript-loader'],
+        use: ['ts-loader'],
+        exclude: /node_modules/
       },
       {
         test: /\.(sc|sa|c)ss$/,

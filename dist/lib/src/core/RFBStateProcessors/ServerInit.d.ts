@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { ICommunicator } from '../ICommunicator';
-import { IStateProcessor } from '../IStateProcessor';
+import { ICommunicator, IStateProcessor } from '../Interfaces';
 import { Desktop } from '../Desktop';
 /**
  * Set supported encodings for RFB

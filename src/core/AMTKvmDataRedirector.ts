@@ -4,8 +4,7 @@
  * Author : Ramu Bachala
  **********************************************************************/
 import { AMTRedirector } from './AMTRedirector'
-import { IKvmDataCommunicator } from './ICommunicator'
-import { ILogger } from './ILogger'
+import { ILogger, IKvmDataCommunicator } from './Interfaces'
 
 export class AMTKvmDataRedirector extends AMTRedirector implements IKvmDataCommunicator {
   onSendKvmData: (data: string) => void

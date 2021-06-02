@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import * as React from 'react'
-import { IDesktopSettings, DesktopSettings } from '../reactjs/components/KVM/Desktopsettings'
+import React from 'react'
+import { IDesktopSettings, DesktopSettings } from '../reactjs/components/KVM/DesktopSettings'
 import { shallow } from 'enzyme'
 
 describe('Testing DesktopSettings', () => {

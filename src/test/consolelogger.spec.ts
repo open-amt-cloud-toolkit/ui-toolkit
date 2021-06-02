@@ -4,7 +4,7 @@
 **********************************************************************/
 
 import { ConsoleLogger } from '../core/ConsoleLogger'
-import { LogLevel } from '../core/ILogger'
+import { LogLevel } from '../core'
 
 describe('test logger functions', () => {
   it('should set the error log from loglevel', () => {

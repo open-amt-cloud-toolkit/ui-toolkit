@@ -2,7 +2,7 @@
  * Copyright (c) Intel Corporation 2019
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
-import { IDataProcessor } from './IDataProcessor';
+import { IDataProcessor } from './Interfaces';
 /** class to process serial over lan data **/
 export declare class TerminalDataProcessor implements IDataProcessor {
     terminal: any;

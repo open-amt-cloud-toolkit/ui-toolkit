@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { ICommunicator } from '../ICommunicator';
-import { IStateProcessor } from '../IStateProcessor';
+import { ICommunicator, IStateProcessor } from '../Interfaces';
 /**
  * Get auth security response and proceed with share desktop flag
  */

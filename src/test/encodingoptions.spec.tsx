@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import * as React from 'react'
-import { IEncodingOptions, EncodingOptions } from '../reactjs/components/KVM/Encodingoptions'
+import React from 'react'
+import { IEncodingOptions, EncodingOptions } from '../reactjs/components/KVM/EncodingOptions'
 import { shallow } from 'enzyme'
 
 describe('Testing EncodingOptions', () => {

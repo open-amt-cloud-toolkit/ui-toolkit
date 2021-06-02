@@ -2,9 +2,8 @@
 * Copyright (c) Intel Corporation 2019
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-import { Desktop } from '../../core/Desktop'
-import { ILogger } from '../../core/ILogger'
-import { TypeConverter } from '../../core/Converter'
+import { Desktop, ILogger, TypeConverter } from '../../core'
+import { } from '../../core/Converter'
 import { isTruthy } from '../../core/Utilities/UtilityMethods'
 
 import ZLIB from '../../core/zlib/zlib'

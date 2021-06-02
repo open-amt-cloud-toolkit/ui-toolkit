@@ -4,8 +4,7 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { ICommunicator } from '../ICommunicator'
-import { IStateProcessor } from '../IStateProcessor'
+import { ICommunicator, IStateProcessor } from '../Interfaces'
 import { TypeConverter } from '../Converter'
 import { Desktop } from '../Desktop'
 import { CommsHelper } from '../Utilities/CommsHelper'

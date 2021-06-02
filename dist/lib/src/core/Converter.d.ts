@@ -13,7 +13,6 @@ export declare const TypeConverter: {
     ShortToStrX(v: number): string;
     IntToStr(v: number): string;
     IntToStrX(v: number): string;
-    MakeToArray(v: number): number | number[];
     SplitArray(v: string): string[];
     Clone(v: string): string;
     EscapeHtml(x: string | number | boolean): string | number | boolean | undefined;
@@ -24,7 +23,6 @@ export declare const TypeConverter: {
     gap2(c: number): string;
     ObjectToString(x: any): string;
     ObjectToString2(x: any): string;
-    hex2rstr(d: string): string;
     char2hex(i: number): string;
     rstr2hex(input: string): string;
     encode_utf8(s: string): string;

@@ -7,7 +7,7 @@ import { HttpClient } from '../reactjs/components/services/HttpClient'
 import { AMTRedirector1, Protocol } from './helper/amtredirector1'
 import { Mockeventpersist } from './helper/mockeventpersist'
 
-import * as React from 'react'
+import React from 'react'
 import { shallow } from 'enzyme'
 import { Terminal } from './helper/terminal'
 import { AmtTerminal } from '../core/AMTTerminal'

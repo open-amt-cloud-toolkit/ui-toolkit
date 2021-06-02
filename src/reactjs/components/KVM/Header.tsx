@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import * as React from 'react'
-import { ConnectButton } from './Connectbutton'
-import { DesktopSettings } from './Desktopsettings'
-require('./Header.scss')
+import React from 'react'
+import { ConnectButton } from './ConnectButton'
+import { DesktopSettings } from './DesktopSettings'
+import './Header.scss'
 
 export interface IHeaderProps {
   kvmstate: number

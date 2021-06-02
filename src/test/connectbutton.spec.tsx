@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import * as React from 'react'
-import { ConnectButton, ConnectProps } from '../reactjs/components/KVM/Connectbutton'
+import React from 'react'
+import { ConnectButton, ConnectProps } from '../reactjs/components/KVM/ConnectButton'
 import { shallow } from 'enzyme'
 
 describe('Test ConnectButton', () => {
