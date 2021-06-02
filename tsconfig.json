@@ -7,9 +7,9 @@
         "allowJs": true,
         "target":"es6",
         "jsx": "react",
+        "module": "esnext",
         "esModuleInterop":true,
         "resolveJsonModule": true,
-        "allowSyntheticDefaultImports": true,
         "strictNullChecks": true,
         "declaration": true,
         "declarationDir": "./dist/lib"

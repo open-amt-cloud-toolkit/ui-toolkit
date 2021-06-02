@@ -4,9 +4,8 @@
  * Author : Ramu Bachala
  **********************************************************************/
 import { TypeConverter } from './Converter'
-import { ICommunicator } from './ICommunicator'
+import { ICommunicator, ILogger } from './Interfaces'
 import md5 from 'md5'
-import { ILogger } from './ILogger'
 import { isTruthy } from './Utilities/UtilityMethods'
 /**
  * Protocol for different Redir protocols. SOL=1,KVM=2,IDER=USB-R

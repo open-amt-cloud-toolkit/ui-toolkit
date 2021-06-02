@@ -3,13 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import * as React from 'react';
-import { IDataProcessor } from '../../../core/IDataProcessor';
-import { Desktop } from '../../../core/Desktop';
-import { IKvmDataCommunicator } from '../../../core/ICommunicator';
-import { MouseHelper } from '../../../core/Utilities/MouseHelper';
-import { ILogger } from '../../../core/ILogger';
-import { KeyBoardHelper } from '../../../core/Utilities/KeyboardHelper';
+import { IDataProcessor, IKvmDataCommunicator, ILogger, Desktop } from '../../../core';
+import { MouseHelper, KeyBoardHelper } from '../../../core/Utilities';
+import React from 'react';
+import './UI.scss';
 export interface KVMProps {
     deviceId: string | null;
     mpsServer: string | null;
@@ -18,7 +15,7 @@ export interface KVMProps {
     canvasWidth: string;
     autoConnect?: boolean;
 }
-export declare class RemoteDesktop extends React.Component<KVMProps, {
+export declare class KVM extends React.Component<KVMProps, {
     kvmstate: number;
     encodingOption: number;
 }> {

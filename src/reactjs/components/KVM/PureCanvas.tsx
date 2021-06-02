@@ -4,9 +4,9 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import * as React from 'react'
+import React from 'react'
 import { isFalsy } from '../shared/Utilities'
-require('./Purecanvas.scss')
+import './PureCanvas.scss'
 
 export interface PureCanvasProps {
   contextRef: (ctx: CanvasRenderingContext2D) => void

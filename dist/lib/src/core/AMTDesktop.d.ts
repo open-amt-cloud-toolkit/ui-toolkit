@@ -4,7 +4,7 @@
  * Author : Ramu Bachala
  **********************************************************************/
 import { Desktop } from './Desktop';
-import { ILogger } from './ILogger';
+import { ILogger } from './Interfaces';
 /**
  * AMTDesktop represents the Desktop on the browser. Constructed using the canvas context.
  */

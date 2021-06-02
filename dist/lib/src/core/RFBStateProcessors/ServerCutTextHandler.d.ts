@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { IServerCutTextHandler } from '../IServerCutTextHandler';
-import { IKvmDataCommunicator } from '../ICommunicator';
+import { IKvmDataCommunicator, IServerCutTextHandler } from '../Interfaces';
 import { Desktop } from '../Desktop';
 declare class ServerCutTextHandler implements IServerCutTextHandler {
     wsSocket: IKvmDataCommunicator;

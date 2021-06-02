@@ -14,14 +14,14 @@ export declare const ImageHelper: {
      * @param x x loc
      * @param y y loc
      */
-    putImage(parent: Desktop, x: number, y: number): any;
+    putImage(parent: Desktop, x: number, y: number): void;
     /**
      *
      * @param parent parent desktop
      * @param value pixel value at ptr
      * @param ptr ptr into the image pixel data
      */
-    setPixel(parent: Desktop, value: any, ptr: number): any;
+    setPixel(parent: Desktop, value: number, ptr: number): void;
     arotX(parent: Desktop, x: number, y: number): number;
     arotY(parent: Desktop, x: number, y: number): number;
     crotX(parent: Desktop, x: number, y: number): number;

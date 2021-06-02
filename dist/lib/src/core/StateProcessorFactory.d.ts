@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { ICommunicator } from './ICommunicator';
-import { IStateProcessor } from './IStateProcessor';
+import { IStateProcessor, ICommunicator } from './Interfaces';
 import { Desktop } from './Desktop';
 /**
  * StateProcessorFactory is the factory class to return the processor for current state.

@@ -4,7 +4,7 @@
 **********************************************************************/
 
 import React from 'react'
-import ReactDom from 'react-dom'
+import { render } from 'react-dom'
 import { Sol } from './Sol'
 import i18n from '../../../../i18n'
 // Get browser language
@@ -13,4 +13,4 @@ i18n.changeLanguage(navigator.language).catch(() => console.info('error occured'
 const url = new URL(window.location.href)
 const params = new URLSearchParams(url.search)
 
-ReactDom.render(<Sol deviceId={params.get('deviceId')} mpsServer={params.get('mpsServer')} />, document.getElementById('sol'))
+render(<Sol deviceId={params.get('deviceId')} mpsServer={params.get('mpsServer')} />, document.getElementById('sol'))

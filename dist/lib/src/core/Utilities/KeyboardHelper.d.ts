@@ -1,4 +1,4 @@
-import { ICommunicator } from '../ICommunicator';
+import { ICommunicator } from '../Interfaces/ICommunicator';
 import { Desktop } from '../Desktop';
 export declare enum UpDown {
     Up = 0,

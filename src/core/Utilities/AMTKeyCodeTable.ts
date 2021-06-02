@@ -7,7 +7,7 @@
 /**
  * Key code table used for special key handling
  */
-const AMTKeyCodeTable: any = {
+const AMTKeyCodeTable = {
   Pause: 19,
   CapsLock: 20,
   Space: 32,

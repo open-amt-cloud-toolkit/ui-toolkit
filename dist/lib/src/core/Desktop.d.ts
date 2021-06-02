@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { ILogger } from './ILogger';
+import { ILogger, IModule } from './Interfaces';
 import { Protocol } from './AMTRedirector';
-import { IModule } from './IModule';
 /**
  * Desktop is the base class for handling Remote Desktop functionality
  */

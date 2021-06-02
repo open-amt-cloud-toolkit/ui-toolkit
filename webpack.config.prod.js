@@ -3,6 +3,7 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
+const { library } = require("@fortawesome/fontawesome-svg-core");
 const path = require("path"); //No ES6 in webpack config 
 const webpack = require('webpack');
 
@@ -19,13 +20,17 @@ module.exports = {
 
   output: {
     filename: "[name].min.js",
-    path: path.resolve(__dirname, "./dist")
+    path: path.resolve(__dirname, "./dist"),
+     library: {
+      name: 'ui-toolkit',
+      type: 'umd'
+    },
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: ['awesome-typescript-loader'],
+        use: ['ts-loader'],
       },
       {
         test: /\.(sc|sa|c)ss$/,
@@ -35,12 +40,5 @@ module.exports = {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"]
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'API_KEY_MPS': JSON.stringify('APIKEYFORMPS123!')
-      }
-    })
-  ]
+  }
 };

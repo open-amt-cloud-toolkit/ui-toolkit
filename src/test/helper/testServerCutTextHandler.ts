@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import { IServerCutTextHandler } from '../../core/IServerCutTextHandler'
+import { IServerCutTextHandler } from '../../core'
 
 class ServerCutTextHandler implements IServerCutTextHandler {
   handleServerCutText (acc: string): number {

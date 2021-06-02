@@ -6,9 +6,11 @@
 
 import { Desktop } from '../Desktop'
 import { TypeConverter } from '../Converter'
-import { ICommunicator } from '../ICommunicator'
+import { ICommunicator } from '../Interfaces/ICommunicator'
 import { isTruthy } from './UtilityMethods'
-export const CommsHelper = {
+import { UpDown } from './KeyboardHelper'
+
+const CommsHelper = {
   sendRefresh (parent: Desktop, comm: ICommunicator): void {
     if (parent.holding) return
 
@@ -30,11 +32,11 @@ export const CommsHelper = {
     }
   },
 
-  sendKey (comm: ICommunicator, k: any, d: number): any {
-    if (typeof k === 'object') { for (const i in k) { CommsHelper.sendKey(comm, k[i][0], k[i][1]) } } else { comm.send(String.fromCharCode(4, d, 0, 0) + TypeConverter.IntToStr(k)) }
+  sendKey (comm: ICommunicator, k: number |any, d: UpDown): void {
+    if (typeof k === 'object') { for (const i in k) { this.sendKey(comm, k[i][0], k[i][1]) } } else { comm.send(String.fromCharCode(4, d, 0, 0) + TypeConverter.IntToStr(k)) }
   },
 
-  sendKvmData (parent: Desktop, comm: ICommunicator, x: any): any {
+  sendKvmData (parent: Desktop, comm: ICommunicator, x: any): void {
     if (parent.onKvmDataAck !== true) {
       parent.onKvmDataPending.push(x)
     } else {
@@ -45,23 +47,25 @@ export const CommsHelper = {
     }
   },
 
-  sendKeepAlive (parent: Desktop, comm: ICommunicator): any {
+  sendKeepAlive (parent: Desktop, comm: ICommunicator): void {
     if (parent.lastKeepAlive < Date.now() - 5000) {
       parent.lastKeepAlive = Date.now()
       comm.send(String.fromCharCode(6, 0, 0, 0) + TypeConverter.IntToStr(16) + '\0KvmDataChannel\0')
     }
   },
 
-  sendCtrlAltDelMsg (comm: ICommunicator): any {
-    CommsHelper.sendCad(comm)
+  sendCtrlAltDelMsg (comm: ICommunicator): void {
+    this.sendCad(comm)
   },
 
-  sendCad (comm: ICommunicator): any {
-    CommsHelper.sendKey(comm, 0xFFE3, 1) // Control
-    CommsHelper.sendKey(comm, 0xFFE9, 1) // Alt
-    CommsHelper.sendKey(comm, 0xFFFF, 1) // Delete
-    CommsHelper.sendKey(comm, 0xFFFF, 0) // Delete
-    CommsHelper.sendKey(comm, 0xFFE9, 0) // Alt
-    CommsHelper.sendKey(comm, 0xFFE3, 0) // Control
+  sendCad (comm: ICommunicator): void {
+    this.sendKey(comm, 0xFFE3, 1) // Control
+    this.sendKey(comm, 0xFFE9, 1) // Alt
+    this.sendKey(comm, 0xFFFF, 1) // Delete
+    this.sendKey(comm, 0xFFFF, 0) // Delete
+    this.sendKey(comm, 0xFFE9, 0) // Alt
+    this.sendKey(comm, 0xFFE3, 0) // Control
   }
 }
+
+export { CommsHelper }

@@ -2,8 +2,7 @@
 * Copyright (c) Intel Corporation 2019
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-import { AMTRedirector } from '../../core/AMTRedirector'
-import { ILogger } from '../../core/ILogger'
+import { ILogger, AMTRedirector } from '../../core'
 // import { FileReader } from '../../core/FileReader'
 // import { TypeConverter } from "../../core/converter";
 

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import { IDataProcessor } from './IDataProcessor'
+import { IDataProcessor } from './Interfaces'
 
 /** class to process serial over lan data **/
 export class TerminalDataProcessor implements IDataProcessor {

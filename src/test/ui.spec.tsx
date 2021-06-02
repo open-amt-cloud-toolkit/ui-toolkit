@@ -7,8 +7,8 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import * as React from 'react'
-import { KVMProps, RemoteDesktop as UI } from '../reactjs/components/KVM/UI'
+import React from 'react'
+import { KVMProps, KVM as UI } from '../reactjs/components/KVM/UI'
 import { shallow } from 'enzyme'
 import { createCanvas } from 'canvas'
 

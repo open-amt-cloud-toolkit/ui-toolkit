@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import * as React from 'react'
-import { PureCanvas, PureCanvasProps } from '../reactjs/components/KVM/Purecanvas'
+import React from 'react'
+import { PureCanvas, PureCanvasProps } from '../reactjs/components/KVM/PureCanvas'
 import { shallow } from 'enzyme'
 import { any } from 'prop-types'
 

@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import * as React from 'react'
-import { EncodingOptions } from './Encodingoptions'
+import React from 'react'
+import { EncodingOptions } from './EncodingOptions'
 
 export interface IDesktopSettings {
   changeDesktopSettings: (settings: any) => void

@@ -1,5 +1,4 @@
-import { ICommunicator } from './ICommunicator';
-import { ILogger } from './ILogger';
+import { ICommunicator, ILogger } from './Interfaces';
 /**
  * Protocol for different Redir protocols. SOL=1,KVM=2,IDER=USB-R
  */

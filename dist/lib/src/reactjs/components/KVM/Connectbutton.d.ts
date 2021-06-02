@@ -2,7 +2,8 @@
  * Copyright (c) Intel Corporation 2019
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
-import * as React from 'react';
+import React from 'react';
+import './ConnectButton.scss';
 export interface ConnectProps {
     kvmstate: number;
     handleConnectClick: (e: any) => void;

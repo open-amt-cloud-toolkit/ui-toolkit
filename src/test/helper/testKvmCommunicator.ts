@@ -2,7 +2,7 @@
 * Copyright (c) Intel Corporation 2019
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-import { IKvmDataCommunicator } from '../../core/ICommunicator'
+import { IKvmDataCommunicator } from '../../core/Interfaces/ICommunicator'
 
 class KvmCommunicator implements IKvmDataCommunicator {
   onProcessData (data: string): void {

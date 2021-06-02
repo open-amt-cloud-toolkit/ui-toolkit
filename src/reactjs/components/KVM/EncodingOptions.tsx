@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import * as React from 'react'
-require('./Encodingoptions.scss')
+import React from 'react'
+import './EncodingOptions.scss'
 
 export interface IEncodingOptions {
   changeEncoding: (encoding: number) => void

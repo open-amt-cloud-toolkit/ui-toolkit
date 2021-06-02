@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import * as React from 'react'
-require('./Connectbutton.scss')
+import React from 'react'
+import './ConnectButton.scss'
 
 export interface ConnectProps {
   kvmstate: number

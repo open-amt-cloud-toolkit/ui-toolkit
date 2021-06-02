@@ -2,8 +2,7 @@
 * Copyright (c) Intel Corporation 2019
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-import { ILogger } from '../../core/ILogger'
-import { Desktop } from '../../core/Desktop'
+import { ILogger, Desktop } from '../../core'
 import { ZLib } from '../helper/testzlib'
 import { TestLogger } from '../helper/testlogger'
 

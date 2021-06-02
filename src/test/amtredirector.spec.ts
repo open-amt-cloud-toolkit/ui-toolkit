@@ -5,7 +5,7 @@
 
 import { AMTRedirector } from '../core/AMTRedirector'
 import { ConsoleLogger } from '../core/ConsoleLogger'
-import { LogLevel } from '../core/ILogger'
+import { LogLevel } from '../core'
 
 describe('Test AMT redirector class', () => {
   it('', () => {
