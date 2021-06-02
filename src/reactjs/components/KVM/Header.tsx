@@ -6,18 +6,8 @@
 import * as React from 'react'
 import { ConnectButton } from './Connectbutton'
 import { DesktopSettings } from './Desktopsettings'
-import Style from 'styled-components' 
 require('./Header.scss')
 
-const StyledLabel = Style.label`
-font-size : 15px;
-margin-left: 30px;
-`
-
-const StyledDiv = Style.div`
-display : inline-block;
-padding : 0px 5px;
-`
 export interface IHeaderProps {
   kvmstate: number
   deviceId: string | null
@@ -28,8 +18,7 @@ export interface IHeaderProps {
 }
 
 export class Header extends React.Component<IHeaderProps> {
-
-  render(): JSX.Element {
+  render (): JSX.Element {
     return (
       <React.Fragment>
         <div className="header">
@@ -46,4 +35,3 @@ export class Header extends React.Component<IHeaderProps> {
     )
   }
 }
-

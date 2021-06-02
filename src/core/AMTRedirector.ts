@@ -107,6 +107,7 @@ export class AMTRedirector implements ICommunicator {
   start<T> (c: new(path: string) => T): any { // Using this generic signature allows us to pass the WebSocket type from unit tests or in producion from a web browser
     this.connectState = 0
     // let ws = new c(this.getWsLocation()) // using create function c invokes the constructor WebSocket()
+    // eslint-disable-next-line new-cap
     this.socket = new c(this.getWsLocation()) // The "p=2" indicates to the relay that this is a REDIRECTION session
     this.socket.onopen = this.onSocketConnected.bind(this)
     this.socket.onmessage = this.onMessage.bind(this)
@@ -295,7 +296,7 @@ export class AMTRedirector implements ICommunicator {
             let totallen: number = this.user.length + realm.length + nonce.length + this.authUri.length + cnonce.length + snc.length + digest.length + 7
             if (authType === 4) totallen += (parseInt(qop.length) + 1)
             let buf: any = String.fromCharCode(0x13, 0x00, 0x00, 0x00, authType) + TypeConverter.IntToStrX(totallen) + String.fromCharCode(this.user.length) + this.user + String.fromCharCode(realm.length) + realm + String.fromCharCode(nonce.length) + nonce + String.fromCharCode(this.authUri.length) + this.authUri + String.fromCharCode(cnonce.length) + cnonce + String.fromCharCode(snc.length) + snc + String.fromCharCode(digest.length) + digest
-            if (authType === 4) buf += (String.fromCharCode(qop.length) + qop)
+            if (authType === 4) buf = String(buf) + (String.fromCharCode(qop.length) + String(qop))
             this.socketSend(buf)
           } else
           if (status === 0) { // Success
@@ -327,6 +328,7 @@ export class AMTRedirector implements ICommunicator {
           this.logger.verbose('Response to settings')
           cmdsize = 23
           this.socketSend(String.fromCharCode(0x27, 0x00, 0x00, 0x00) + TypeConverter.IntToStrX(this.amtSequence++) + String.fromCharCode(0x00, 0x00, 0x1B, 0x00, 0x00, 0x00))
+          // eslint-disable-next-line @typescript-eslint/no-implied-eval
           if (this.protocol === 1) { this.amtKeepAliveTimer = setInterval(this.sendAmtKeepAlive.bind(this), 2000) }
           this.connectState = 1
           this.onStateChange(3)

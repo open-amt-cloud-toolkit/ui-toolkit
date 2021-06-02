@@ -42,7 +42,7 @@ describe('Testing DesktopSettings', () => {
     // Output
     expect(ds.prop('getConnectState')).toBe(testFunc1)
     expect(ds.prop('changeEncoding')).toBe(myInstance.changeEncoding)
-    var ret = expect(ds).toMatchSnapshot()
+    const ret = expect(ds).toMatchSnapshot()
     console.info('ret', ret)
     expect(value1).toBe(3)
     console.log(ds.debug())
@@ -58,7 +58,7 @@ class class1 {
   encoding: number
 }
 
-var value1 = 0
+let value1 = 0
 
 function testFunc2 (v: class1): void {
   value1 = v.encoding

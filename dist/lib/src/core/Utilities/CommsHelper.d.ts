@@ -5,11 +5,11 @@
  **********************************************************************/
 import { Desktop } from '../Desktop';
 import { ICommunicator } from '../ICommunicator';
-export declare class CommsHelper {
-    static sendRefresh(parent: Desktop, comm: ICommunicator): void;
-    static sendKey(comm: ICommunicator, k: any, d: number): any;
-    static sendKvmData(parent: Desktop, comm: ICommunicator, x: any): any;
-    static sendKeepAlive(parent: Desktop, comm: ICommunicator): any;
-    static sendCtrlAltDelMsg(comm: ICommunicator): any;
-    static sendCad(comm: ICommunicator): any;
-}
+export declare const CommsHelper: {
+    sendRefresh(parent: Desktop, comm: ICommunicator): void;
+    sendKey(comm: ICommunicator, k: any, d: number): any;
+    sendKvmData(parent: Desktop, comm: ICommunicator, x: any): any;
+    sendKeepAlive(parent: Desktop, comm: ICommunicator): any;
+    sendCtrlAltDelMsg(comm: ICommunicator): any;
+    sendCad(comm: ICommunicator): any;
+};

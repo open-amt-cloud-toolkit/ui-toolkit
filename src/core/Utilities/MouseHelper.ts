@@ -56,7 +56,7 @@ export class MouseHelper {
     if (this.parent.state !== 4) return true
     const pos = this.getPositionOfControl(this.parent.canvasControl)
     this.parent.lastMouseX = (e.pageX - pos[0]) * (this.parent.canvasControl.height / this.parent.canvasControl.offsetHeight)
-    this.parent.lastMouseY = ((e.pageY - pos[1] + (isTruthy(this.parent.scrolldiv) ? this.parent.scrolldiv.scrollTop : 0)) * (this.parent.canvasControl.width / this.parent.canvasControl.offsetWidth))
+    this.parent.lastMouseY = ((Number(e.pageY - pos[1]) + (isTruthy(this.parent.scrolldiv) ? Number(this.parent.scrolldiv.scrollTop) : 0)) * (this.parent.canvasControl.width / this.parent.canvasControl.offsetWidth))
 
     if (!isTruthy(this.parent.noMouseRotate)) {
       this.parent.lastMouseX2 = ImageHelper.crotX(this.parent, this.parent.lastMouseX, this.parent.lastMouseY)
@@ -97,8 +97,8 @@ export class MouseHelper {
     Position[0] = Position[1] = 0
     let control: HTMLElement = c
     while (control != null) {
-      Position[0] += control.offsetLeft
-      Position[1] += control.offsetTop
+      Position[0] = Number(Position[0]) + Number(control.offsetLeft)
+      Position[1] = Number(Position[1]) + Number(control.offsetTop)
       control = control.offsetParent as HTMLElement
     }
     return Position
