@@ -16,7 +16,7 @@ export const ImageHelper = {
    * @param x x loc
    * @param y y loc
    */
-  putImage (parent: Desktop, x: number, y: number): any {
+  putImage (parent: Desktop, x: number, y: number): void {
     if (parent.holding) return
 
     const xx = ImageHelper.arotX(parent, x, y)
@@ -31,7 +31,7 @@ export const ImageHelper = {
    * @param value pixel value at ptr
    * @param ptr ptr into the image pixel data
    */
-  setPixel (parent: Desktop, value: any, ptr: number): any {
+  setPixel (parent: Desktop, value: number, ptr: number): void {
     let pp = ptr * 4
     let x: number
     let y: number

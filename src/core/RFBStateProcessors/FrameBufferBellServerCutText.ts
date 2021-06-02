@@ -13,7 +13,6 @@ class FrameBufferBellServerCutText implements IStateProcessor {
   wsSocket: ICommunicator
   next: IStateProcessor
   cmdSize: number
-  // binaryEncDec: TypeConverter
   serverCutTextHandler: IServerCutTextHandler
   updateRFBState: any
   constructor (comm: ICommunicator, serverCutTextHandler: IServerCutTextHandler, updateRFBState: (state: number) => void) {

@@ -10,7 +10,6 @@ import { Desktop } from '../Desktop'
 import { TypeConverter } from '../Converter'
 import { isTruthy } from '../Utilities/UtilityMethods'
 class ServerCutTextHandler implements IServerCutTextHandler {
-  // binaryEncDec: TypeConverter
   wsSocket: IKvmDataCommunicator
   parent: Desktop
   constructor (comm: IKvmDataCommunicator, parent: Desktop) {
