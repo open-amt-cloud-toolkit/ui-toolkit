@@ -7,7 +7,7 @@ import { Desktop } from './Desktop'
 import { ILogger } from './Interfaces'
 import { TypeConverter } from '../core/Converter'
 import { isTruthy } from './Utilities/UtilityMethods'
-import  ZLIB from '../core/zlib/zlib'
+import ZLIB from '../core/zlib/zlib'
 
 /**
  * AMTDesktop represents the Desktop on the browser. Constructed using the canvas context.
