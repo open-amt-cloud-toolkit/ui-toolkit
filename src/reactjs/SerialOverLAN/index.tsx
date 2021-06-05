@@ -6,7 +6,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Sol } from './Sol'
-import i18n from '../../../../i18n'
+import i18n from '../../i18n'
 // Get browser language
 i18n.changeLanguage(navigator.language).catch(() => console.info('error occured'))
 

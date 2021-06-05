@@ -2,7 +2,7 @@
 * Copyright (c) Intel Corporation 2019
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-import Term, { IPropTerminal } from '../reactjs/components/SerialOverLAN/Terminal'
+import Term, { IPropTerminal } from '../reactjs/SerialOverLAN/Terminal'
 import { Terminal } from 'xterm'
 
 import React from 'react'

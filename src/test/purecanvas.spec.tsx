@@ -4,7 +4,7 @@
 **********************************************************************/
 
 import React from 'react'
-import { PureCanvas, PureCanvasProps } from '../reactjs/components/KVM/PureCanvas'
+import { PureCanvas, PureCanvasProps } from '../reactjs/KVM/PureCanvas'
 import { shallow } from 'enzyme'
 import { any } from 'prop-types'
 

@@ -4,8 +4,8 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { IDataProcessor, IKvmDataCommunicator, ILogger, LogLevel, DataProcessor, Desktop, AMTKvmDataRedirector, AMTDesktop, Protocol, ConsoleLogger } from '../../../core'
-import { MouseHelper, KeyBoardHelper } from '../../../core/Utilities'
+import { IDataProcessor, IKvmDataCommunicator, ILogger, LogLevel, DataProcessor, Desktop, AMTKvmDataRedirector, AMTDesktop, Protocol, ConsoleLogger } from '../../core'
+import { MouseHelper, KeyBoardHelper } from '../../core/Utilities'
 import { Header } from './Header'
 import { PureCanvas } from './PureCanvas'
 import { isFalsy } from '../shared/Utilities'

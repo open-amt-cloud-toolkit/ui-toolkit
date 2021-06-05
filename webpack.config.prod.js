@@ -3,15 +3,14 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-const { library } = require("@fortawesome/fontawesome-svg-core");
 const path = require("path"); //No ES6 in webpack config 
 const webpack = require('webpack');
 
 module.exports = {
   mode: "production",
   entry: {
-    kvm: "./src/reactjs/components/KVM/index.tsx",
-    sol: './src/reactjs/components/SerialOverLAN/index.tsx',
+    kvm: "./src/reactjs/KVM/index.tsx",
+    sol: './src/reactjs/SerialOverLAN/index.tsx',
     core: './src/core/index.ts'
   },
   //sourceMap in tsconfig which holds information about your original files when the code is minified

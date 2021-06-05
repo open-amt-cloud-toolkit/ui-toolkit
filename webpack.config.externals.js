@@ -3,41 +3,103 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-const path = require("path"); //No ES6 in webpack config 
-const nodeExternals = require('webpack-node-externals');
-// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const path = require('path'); //No ES6 in webpack config 
+const webpack = require('webpack');
 
-module.exports = {
-  mode: "production",
+coreConfig = {
+  mode: 'production',
   entry: {
-    kvm: "./src/reactjs/components/KVM/UI.tsx",
-    sol: './src/reactjs/components/SerialOverLAN/Sol.tsx',
-    core: "./src/core/index.ts"
+    core: {
+      import: './src/core/index.ts',
+      library: {
+        name: 'ui-toolkit/core',
+        type: 'umd'
+      },
+    }
   },
-  //sourceMap in tsconfig which holds information about your original files when the code is minified
-  //devtool deal with existing source maps
-  devtool: "inline-source-map",
   output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "./dist"),
-    library: {
-      name: 'ui-toolkit',
-      type: 'umd'
-    },
+    filename: '[name].bundle.js',
+    libraryTarget: 'umd',
+    path: path.resolve(__dirname, './dist/bundles'),
   },
   optimization: {
     concatenateModules: false
   },
-  // externalsPresets: { node: true },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+           configFile: "tsconfig.build.json"
+          }
+         },
+        exclude: /node_modules/
+      }
+    ],
+  },
+  resolve: {
+    extensions: ['.ts', '.js']
+  }
+};
+
+reactConfig = {
+  mode: 'production',
+  entry: {
+    kvm: {
+      import:'./src/reactjs/KVM/UI.tsx',
+      library: {
+        name: 'ui-toolkit/reactjs/kvm',
+        type: 'umd'
+      },
+    },
+    sol: {
+      import:'./src/reactjs/SerialOverLAN/Sol.tsx',
+      library: {
+        name: 'ui-toolkit/reactjs/sol',
+        type: 'umd'
+      },
+    }    
+  },
+  resolve: {      
+    alias: {          
+      'react': path.resolve(__dirname, './node_modules/react'),
+      'react-dom': path.resolve(__dirname, './node_modules/react-dom'),      
+    }  
+  },  
+  output: {
+    filename: '[name].bundle.js',
+    libraryTarget: 'umd',
+    path: path.resolve(__dirname, './dist/reactjs/src'),
+  },
+  optimization: {
+    concatenateModules: false
+  },  
   externals: {
-    "react": "react",
-    "react-dom": "ReactDOM",
+    react: {          
+      commonjs: "react",          
+      commonjs2: "react",          
+      amd: "React",          
+      root: "React"      
+    },      
+    "react-dom": {          
+        commonjs: "react-dom",          
+        commonjs2: "react-dom",          
+        amd: "ReactDOM",          
+        root: "ReactDOM"      
+    }  
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: ['ts-loader'],
+        use: {
+         loader: 'ts-loader',
+         options: {
+          configFile: "tsconfig.build.json"
+         }
+        },
         exclude: /node_modules/
       },
       {
@@ -47,6 +109,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"]
+    extensions: ['.tsx', '.ts', '.js']
   }
 };
+module.exports = [coreConfig, reactConfig]

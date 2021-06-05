@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { IDataProcessor, IKvmDataCommunicator, ILogger, Desktop } from '../../../core';
-import { MouseHelper, KeyBoardHelper } from '../../../core/Utilities';
+import { IDataProcessor, IKvmDataCommunicator, ILogger, Desktop } from '../../core';
+import { MouseHelper, KeyBoardHelper } from '../../core/Utilities';
 import React from 'react';
 import './UI.scss';
 export interface KVMProps {

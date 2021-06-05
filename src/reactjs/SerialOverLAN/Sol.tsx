@@ -4,12 +4,9 @@
 **********************************************************************/
 
 import React from 'react'
-import { AmtTerminal } from '../../../core/AMTTerminal'
+import { AmtTerminal, AMTRedirector, Protocol, ConsoleLogger, LogLevel, TerminalDataProcessor } from '../../core'
 import Style from 'styled-components'
-import { AMTRedirector, Protocol } from '../../../core/AMTRedirector'
-import { ConsoleLogger } from '../../../core/ConsoleLogger'
-import { LogLevel } from '../../../core'
-import { TerminalDataProcessor } from '../../../core/TerminalDataProcessor'
+
 import { Terminal } from 'xterm'
 import Term from './Terminal'
 import 'xterm/css/xterm.css'

@@ -8,8 +8,8 @@ const webpack = require('webpack');
 module.exports = {
   mode: "development",
   entry: {
-    kvm: "./src/reactjs/components/KVM/index.tsx",
-    sol: "./src/reactjs/components/SerialOverLAN/index.tsx"
+    kvm: "./src/reactjs/KVM/index.tsx",
+    sol: "./src/reactjs/SerialOverLAN/index.tsx"
   },
   devServer:{
     port: 9000
@@ -33,15 +33,18 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      "react": "react",
+    }),
     new HtmlWebpackPlugin({
       filename: "kvm.htm",
-      template: "./src/sample/sampleKVM.htm",
+      template: "./src/reactjs/sample/sampleKVM.htm",
       inject: true,
       chunks: ["kvm"],
     }),
     new HtmlWebpackPlugin({
       filename: "sol.htm",
-      template: "./src/sample/sampleSOL.htm",
+      template: "./src/reactjs/sample/sampleSOL.htm",
       inject: true,
       chunks: ["sol"],
     })
