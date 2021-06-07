@@ -31,6 +31,7 @@ export interface SOLProps {
   deviceId: string | null
   mpsServer: string | null
   autoConnect?: boolean
+  authToken: string
 }
 
 export interface SOLStates {
@@ -86,6 +87,7 @@ export class Sol extends React.Component<SOLProps, SOLStates> {
       '',
       0,
       0,
+      this.props.authToken,
       `${server}/relay`
     )
     this.dataProcessor = new TerminalDataProcessor(this.terminal)

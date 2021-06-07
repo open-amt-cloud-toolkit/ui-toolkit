@@ -50,8 +50,9 @@ export class AMTRedirector implements ICommunicator {
   onNewState: (state: number) => void
   onStateChanged: (redirector: any, state: number) => void
   onError: () => void
+  authToken: string
 
-  constructor (logger: ILogger, protocol: number, fr: FileReader, host: string, port: number, user: string, pass: string, tls: number, tls1only: number, server?: string) {
+  constructor (logger: ILogger, protocol: number, fr: FileReader, host: string, port: number, user: string, pass: string, tls: number, tls1only: number, authToken: string, server?: string) {
     this.fileReader = fr
     this.randomNonceChars = 'abcdef0123456789'
     this.host = host
@@ -69,6 +70,7 @@ export class AMTRedirector implements ICommunicator {
     this.amtAccumulator = ''
     this.authUri = ''
     this.logger = logger
+    this.authToken = authToken
   }
 
   /**
@@ -103,11 +105,11 @@ export class AMTRedirector implements ICommunicator {
    * gets Ws Location and starts a websocket for listening
    * @param c is base type for WebSocket
    */
-  start<T> (c: new(path: string) => T): any { // Using this generic signature allows us to pass the WebSocket type from unit tests or in producion from a web browser
+  start<T> (c: new(path: string, auth: string) => T): any { // Using this generic signature allows us to pass the WebSocket type from unit tests or in producion from a web browser
     this.connectState = 0
     // let ws = new c(this.getWsLocation()) // using create function c invokes the constructor WebSocket()
     // eslint-disable-next-line new-cap
-    this.socket = new c(this.getWsLocation()) // The "p=2" indicates to the relay that this is a REDIRECTION session
+    this.socket = new c(this.getWsLocation(), 'authToken') // The "p=2" indicates to the relay that this is a REDIRECTION session
     this.socket.onopen = this.onSocketConnected.bind(this)
     this.socket.onmessage = this.onMessage.bind(this)
     this.socket.onclose = this.onSocketClosed.bind(this)

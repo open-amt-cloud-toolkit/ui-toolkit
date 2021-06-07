@@ -13,4 +13,4 @@ i18n.changeLanguage(navigator.language).catch(() => console.info('error occured'
 const url = new URL(window.location.href)
 const params = new URLSearchParams(url.search)
 
-render(<Sol deviceId={params.get('deviceId')} mpsServer={params.get('mpsServer')} />, document.getElementById('sol'))
+render(<Sol deviceId={params.get('deviceId')} authToken="authToken" mpsServer={params.get('mpsServer')} />, document.getElementById('sol'))
