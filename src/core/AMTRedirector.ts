@@ -109,7 +109,7 @@ export class AMTRedirector implements ICommunicator {
     this.connectState = 0
     // let ws = new c(this.getWsLocation()) // using create function c invokes the constructor WebSocket()
     // eslint-disable-next-line new-cap
-    this.socket = new c(this.getWsLocation(), 'authToken') // The "p=2" indicates to the relay that this is a REDIRECTION session
+    this.socket = new c(this.getWsLocation(), this.authToken) // The "p=2" indicates to the relay that this is a REDIRECTION session
     this.socket.onopen = this.onSocketConnected.bind(this)
     this.socket.onmessage = this.onMessage.bind(this)
     this.socket.onclose = this.onSocketClosed.bind(this)
