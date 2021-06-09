@@ -12,4 +12,4 @@ i18n.changeLanguage(navigator.language).catch(() => console.info('error occured'
 const url = new URL(window.location.href)
 const params = new URLSearchParams(url.search)
 
-render(<KVM autoConnect={false} deviceId={params.get('deviceId')} mpsServer={params.get('mpsServer') + '/relay'} mouseDebounceTime={200} canvasHeight={'100%'} canvasWidth={'100%'} />, document.querySelector('#kvm'))
+render(<KVM autoConnect={false} deviceId={params.get('deviceId')} mpsServer={params.get('mpsServer') + '/relay'} authToken="authorization" mouseDebounceTime={200} canvasHeight={'100%'} canvasWidth={'100%'} />, document.querySelector('#kvm'))

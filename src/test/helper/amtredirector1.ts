@@ -49,8 +49,8 @@ export class AMTRedirector1 extends AMTRedirector {
   onStateChanged: (redirector: any, state: number) => void
   onError: () => void
 
-  constructor (logger: ILogger, protocol: number, fr: FileReader, host: string, port: number, user: string, pass: string, tls: number, tls1only: number, server?: string) {
-    super(logger, protocol, fr, host, port, user, pass, tls, tls1only, server)
+  constructor (logger: ILogger, protocol: number, fr: FileReader, host: string, port: number, user: string, pass: string, tls: number, tls1only: number, authToken: string, server?: string) {
+    super(logger, protocol, fr, host, port, user, pass, tls, tls1only, authToken, server)
     this.fileReader = fr
     this.randomNonceChars = 'abcdef0123456789'
     this.host = host
@@ -76,7 +76,7 @@ export class AMTRedirector1 extends AMTRedirector {
      * gets Ws Location and starts a websocket for listening
      * @param c is base type for WebSocket
      */
-  start<T> (c: new(path: string) => T): void { // Using this generic signature allows us to pass the WebSocket type from unit tests or in producion from a web browser
+  start<T> (c: new(path: string, authToken: string) => T): void { // Using this generic signature allows us to pass the WebSocket type from unit tests or in producion from a web browser
     this.startvariable = 5
   }
 

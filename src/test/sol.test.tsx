@@ -15,7 +15,8 @@ import { AmtTerminal } from '../core/AMTTerminal'
 
 const solprop: SOLProps = {
   deviceId: 'acfae359-be7b-4861-8e0c-54b20389bb68',
-  mpsServer: 'https://localhost:9300'
+  mpsServer: 'https://localhost:9300',
+  authToken: 'authToken'
 }
 
 describe('Test Sol class', () => {
@@ -29,7 +30,8 @@ describe('Test Sol class', () => {
     // Initialization of ConnectProps
     const solprop: SOLProps = {
       deviceId: 'abcd-efh-ijkl-mnop',
-      mpsServer: '1.2.3.4:1234'
+      mpsServer: '1.2.3.4:1234',
+      authToken: 'authToken'
     }
 
     // shallow
@@ -43,7 +45,8 @@ describe('Test Sol class', () => {
     // Initialization of ConnectProps
     const solprop: SOLProps = {
       deviceId: 'abcd-efh-ijkl-mnop',
-      mpsServer: '1.2.3.4:1234'
+      mpsServer: '1.2.3.4:1234',
+      authToken: 'authToken'
     }
     HttpClient.post = jest.fn(async function (arg1, arg2, arg3) {
       return await new Promise((resolve, reject) => {
@@ -67,7 +70,8 @@ describe('Test Sol class', () => {
     // Initialization of ConnectProps
     const solprop: SOLProps = {
       deviceId: 'abcd-efh-ijkl-mnop',
-      mpsServer: '1.2.3.4:1234'
+      mpsServer: '1.2.3.4:1234',
+      authToken: 'authToken'
     }
 
     const sol = shallow(<Sol {...solprop} />)
@@ -82,7 +86,8 @@ describe('Test Sol class', () => {
     // Initialization of ConnectProps
     const solprop: SOLProps = {
       deviceId: 'abcd-efh-ijkl-mnop',
-      mpsServer: '1.2.3.4:1234'
+      mpsServer: '1.2.3.4:1234',
+      authToken: 'authToken'
     }
 
     const sol = shallow(<Sol {...solprop} />)
@@ -96,6 +101,7 @@ describe('Test Sol class', () => {
       '',
       0,
       0,
+      'authToken',
       '1.2.3.4:9876' + '/relay')
 
     // call the function and check the expected output
@@ -107,7 +113,8 @@ describe('Test Sol class', () => {
     // Initialization of ConnectProps
     const solprop: SOLProps = {
       deviceId: 'abcd-efh-ijkl-mnop',
-      mpsServer: '1.2.3.4:1234'
+      mpsServer: '1.2.3.4:1234',
+      authToken: 'authToken'
     }
 
     const sol = shallow(<Sol {...solprop} />)
@@ -121,6 +128,7 @@ describe('Test Sol class', () => {
       '',
       0,
       0,
+      'authToken',
       '1.2.3.4:9876' + '/relay')
 
     // call the function and check the expected output
@@ -133,7 +141,8 @@ describe('Test Sol class', () => {
     // Initialization of ConnectProps
     const solprop: SOLProps = {
       deviceId: 'abcd-efh-ijkl-mnop',
-      mpsServer: '1.2.3.4:1234'
+      mpsServer: '1.2.3.4:1234',
+      authToken: 'authToken'
     }
 
     const sol = shallow(<Sol {...solprop} />)
@@ -148,7 +157,8 @@ describe('Test Sol class', () => {
     // Initialization of ConnectProps
     const solprop: SOLProps = {
       deviceId: 'abcd-efh-ijkl-mnop',
-      mpsServer: '1.2.3.4:1234'
+      mpsServer: '1.2.3.4:1234',
+      authToken: 'authToken'
     }
     const e = new Mockeventpersist()
 
@@ -164,6 +174,7 @@ describe('Test Sol class', () => {
       '',
       0,
       0,
+      'authToken',
       '1.2.3.4:9876' + '/relay')
 
     // call the function and check the expected output
@@ -176,7 +187,8 @@ describe('Test Sol class', () => {
     // Initialization of ConnectProps
     const solprop: SOLProps = {
       deviceId: 'abcd-efh-ijkl-mnop',
-      mpsServer: '1.2.3.4:1234'
+      mpsServer: '1.2.3.4:1234',
+      authToken: 'authToken'
     }
     const e = new Mockeventpersist()
 
@@ -192,6 +204,7 @@ describe('Test Sol class', () => {
       '',
       0,
       0,
+      'authToken',
       '1.2.3.4:9876' + '/relay')
 
     // call the function and check the expected output
@@ -205,7 +218,8 @@ describe('Test Sol class', () => {
     // Initialization of ConnectProps
     const solprop: SOLProps = {
       deviceId: 'abcd-efh-ijkl-mnop',
-      mpsServer: '1.2.3.4:1234'
+      mpsServer: '1.2.3.4:1234',
+      authToken: 'authToken'
     }
 
     const sol = shallow(<Sol {...solprop} />)
