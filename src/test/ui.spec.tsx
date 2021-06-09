@@ -8,7 +8,7 @@
 **********************************************************************/
 
 import React from 'react'
-import { KVMProps, KVM as UI } from '../reactjs/components/KVM/UI'
+import { KVMProps, KVM as UI } from '../reactjs/KVM/UI'
 import { shallow } from 'enzyme'
 import { createCanvas } from 'canvas'
 

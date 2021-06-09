@@ -2,7 +2,7 @@
 * Copyright (c) Intel Corporation 2019
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-import { HttpClient } from '../reactjs/components/services/HttpClient'
+import { HttpClient } from '../reactjs/services/HttpClient'
 
 describe('Test HttpClient class', () => {
   it('Test HttpClient.get function', () => {

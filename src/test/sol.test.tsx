@@ -2,8 +2,8 @@
 * Copyright (c) Intel Corporation 2019
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-import { Sol, SOLProps } from '../reactjs/components/SerialOverLAN/Sol'
-import { HttpClient } from '../reactjs/components/services/HttpClient'
+import { Sol, SOLProps } from '../reactjs/SerialOverLAN/Sol'
+import { HttpClient } from '../reactjs/services/HttpClient'
 import { AMTRedirector1, Protocol } from './helper/amtredirector1'
 import { Mockeventpersist } from './helper/mockeventpersist'
 

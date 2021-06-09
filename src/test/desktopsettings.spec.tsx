@@ -4,7 +4,7 @@
 **********************************************************************/
 
 import React from 'react'
-import { IDesktopSettings, DesktopSettings } from '../reactjs/components/KVM/DesktopSettings'
+import { IDesktopSettings, DesktopSettings } from '../reactjs/KVM/DesktopSettings'
 import { shallow } from 'enzyme'
 
 describe('Testing DesktopSettings', () => {
