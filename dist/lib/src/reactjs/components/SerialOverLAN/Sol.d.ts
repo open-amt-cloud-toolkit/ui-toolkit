@@ -9,6 +9,7 @@ export interface SOLProps {
     deviceId: string | null;
     mpsServer: string | null;
     autoConnect?: boolean;
+    authToken: string;
 }
 export interface SOLStates {
     isConnected: boolean;

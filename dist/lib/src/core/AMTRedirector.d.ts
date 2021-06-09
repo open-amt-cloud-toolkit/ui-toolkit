@@ -41,7 +41,8 @@ export declare class AMTRedirector implements ICommunicator {
     onNewState: (state: number) => void;
     onStateChanged: (redirector: any, state: number) => void;
     onError: () => void;
-    constructor(logger: ILogger, protocol: number, fr: FileReader, host: string, port: number, user: string, pass: string, tls: number, tls1only: number, server?: string);
+    authToken: string;
+    constructor(logger: ILogger, protocol: number, fr: FileReader, host: string, port: number, user: string, pass: string, tls: number, tls1only: number, authToken: string, server?: string);
     /**
      * Returns WebSocket path to connect to using the current environment.
      * Uses host(deviceid), port, tls, tlsv1only, user, pass options to build the url.
@@ -55,7 +56,7 @@ export declare class AMTRedirector implements ICommunicator {
      * gets Ws Location and starts a websocket for listening
      * @param c is base type for WebSocket
      */
-    start<T>(c: new (path: string) => T): any;
+    start<T>(c: new (path: string, auth: string) => T): any;
     onSocketConnected(): any;
     /**
      * Called when there is new data on the websocket
