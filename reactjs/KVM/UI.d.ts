@@ -14,6 +14,7 @@ export interface KVMProps {
     canvasHeight: string;
     canvasWidth: string;
     autoConnect?: boolean;
+    authToken: string;
 }
 export declare class KVM extends React.Component<KVMProps, {
     kvmstate: number;
