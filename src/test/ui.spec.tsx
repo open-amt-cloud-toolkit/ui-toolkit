@@ -8,7 +8,7 @@
 **********************************************************************/
 
 import React from 'react'
-import { KVMProps, KVM as UI } from '../reactjs/components/KVM/UI'
+import { KVMProps, KVM as UI } from '../reactjs/KVM/UI'
 import { shallow } from 'enzyme'
 import { createCanvas } from 'canvas'
 
@@ -21,7 +21,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     // function call saveContext
@@ -48,7 +49,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     // function call cleanUp
@@ -76,7 +78,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     const ui = shallow(<UI {...kvmprops} />)
@@ -106,7 +109,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     const ui = shallow(<UI {...kvmprops} />)
@@ -136,7 +140,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     const ui = shallow(<UI {...kvmprops} />)
@@ -161,7 +166,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     const ui = shallow(<UI {...kvmprops} />)
@@ -186,7 +192,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     const ui = shallow(<UI {...kvmprops} />)
@@ -217,7 +224,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     const ui = shallow(<UI {...kvmprops} />)
@@ -248,7 +256,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     const ui = shallow(<UI {...kvmprops} />)
@@ -277,7 +286,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     const ui = shallow(<UI {...kvmprops} />)
@@ -304,7 +314,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     const ui = shallow(<UI {...kvmprops} />)
@@ -331,7 +342,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     const ui = shallow(<UI {...kvmprops} />)
@@ -371,7 +383,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     const ui = shallow(<UI {...kvmprops} />)
@@ -409,7 +422,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     const ui = shallow(<UI {...kvmprops} />)
@@ -442,7 +456,8 @@ describe('Testing UI', () => {
       mouseDebounceTime: 10,
       canvasHeight: '600',
       canvasWidth: '400',
-      autoConnect: false
+      autoConnect: false,
+      authToken: 'authToken'
     }
 
     const ui = shallow(<UI {...kvmprops} />)

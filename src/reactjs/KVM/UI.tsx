@@ -4,8 +4,8 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { IDataProcessor, IKvmDataCommunicator, ILogger, LogLevel, DataProcessor, Desktop, AMTKvmDataRedirector, AMTDesktop, Protocol, ConsoleLogger } from '../../../core'
-import { MouseHelper, KeyBoardHelper } from '../../../core/Utilities'
+import { IDataProcessor, IKvmDataCommunicator, ILogger, LogLevel, DataProcessor, Desktop, AMTKvmDataRedirector, AMTDesktop, Protocol, ConsoleLogger } from '../../core'
+import { MouseHelper, KeyBoardHelper } from '../../core/Utilities'
 import { Header } from './Header'
 import { PureCanvas } from './PureCanvas'
 import { isFalsy } from '../shared/Utilities'
@@ -20,6 +20,7 @@ export interface KVMProps {
   canvasHeight: string
   canvasWidth: string
   autoConnect?: boolean
+  authToken: string
 }
 
 export class KVM extends React.Component<KVMProps, { kvmstate: number, encodingOption: number }> {
@@ -55,7 +56,7 @@ export class KVM extends React.Component<KVMProps, { kvmstate: number, encodingO
     const deviceUuid: string = this.props.deviceId != null ? this.props.deviceId : ''
     const server: string = this.props.mpsServer != null ? this.props.mpsServer.replace('http', 'ws') : ''
     this.module = new AMTDesktop(this.logger, this.ctx)
-    this.redirector = new AMTKvmDataRedirector(this.logger, Protocol.KVM, new FileReader(), deviceUuid, 16994, '', '', 0, 0, server)
+    this.redirector = new AMTKvmDataRedirector(this.logger, Protocol.KVM, new FileReader(), deviceUuid, 16994, '', '', 0, 0, this.props.authToken, server)
     this.dataProcessor = new DataProcessor(this.logger, this.redirector, this.module)
     this.mouseHelper = new MouseHelper(this.module, this.redirector, this.props.mouseDebounceTime < 200 ? 200 : this.props.mouseDebounceTime) // anything less than 200 ms causes timeout
     this.keyboard = new KeyBoardHelper(this.module, this.redirector)
@@ -167,4 +168,3 @@ export class KVM extends React.Component<KVMProps, { kvmstate: number, encodingO
     )
   }
 }
-

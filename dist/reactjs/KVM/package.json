@@ -1,0 +1,9 @@
+{
+    "name": "ui-toolkit/reactjs/kvm",
+    "main": "../src/kvm.bundle.js",
+    "typings": "./index.d.ts",
+    "module": "../src/kvm.bundle.js",
+    "es2015": "../src/kvm.bundle.js",
+    "fesm2015": "../src/kvm.bundle.js",
+    "esm2015": "../src/kvm.bundle.js"
+}
