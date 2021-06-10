@@ -4,7 +4,7 @@
 **********************************************************************/
 
 import React from 'react'
-import { ConnectButton, ConnectProps } from '../reactjs/components/KVM/ConnectButton'
+import { ConnectButton, ConnectProps } from '../reactjs/KVM/ConnectButton'
 import { shallow } from 'enzyme'
 
 describe('Test ConnectButton', () => {

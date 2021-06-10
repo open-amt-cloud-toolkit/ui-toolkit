@@ -4,7 +4,7 @@
 **********************************************************************/
 
 import React from 'react'
-import { IEncodingOptions, EncodingOptions } from '../reactjs/components/KVM/EncodingOptions'
+import { IEncodingOptions, EncodingOptions } from '../reactjs/KVM/EncodingOptions'
 import { shallow } from 'enzyme'
 
 describe('Testing EncodingOptions', () => {

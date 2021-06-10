@@ -4,12 +4,9 @@
 **********************************************************************/
 
 import React from 'react'
-import { AmtTerminal } from '../../../core/AMTTerminal'
+import { AmtTerminal, AMTRedirector, Protocol, ConsoleLogger, LogLevel, TerminalDataProcessor } from '../../core'
 import Style from 'styled-components'
-import { AMTRedirector, Protocol } from '../../../core/AMTRedirector'
-import { ConsoleLogger } from '../../../core/ConsoleLogger'
-import { LogLevel } from '../../../core'
-import { TerminalDataProcessor } from '../../../core/TerminalDataProcessor'
+
 import { Terminal } from 'xterm'
 import Term from './Terminal'
 import 'xterm/css/xterm.css'
@@ -31,6 +28,7 @@ export interface SOLProps {
   deviceId: string | null
   mpsServer: string | null
   autoConnect?: boolean
+  authToken: string
 }
 
 export interface SOLStates {
@@ -86,6 +84,7 @@ export class Sol extends React.Component<SOLProps, SOLStates> {
       '',
       0,
       0,
+      this.props.authToken,
       `${server}/relay`
     )
     this.dataProcessor = new TerminalDataProcessor(this.terminal)
