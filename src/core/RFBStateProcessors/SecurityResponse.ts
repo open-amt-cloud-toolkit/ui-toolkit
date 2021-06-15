@@ -5,7 +5,7 @@
  **********************************************************************/
 
 import { ICommunicator, IStateProcessor } from '../Interfaces'
-import { TypeConverter } from '../Converter'
+// import { TypeConverter } from '../Converter'
 
 /**
  * Get auth security response and proceed with share desktop flag
@@ -14,17 +14,18 @@ class SecurityResponse implements IStateProcessor {
   wsSocket: ICommunicator
   next: IStateProcessor
   updateRFBState: any
-  constructor (comm: ICommunicator, updateRFBState: (state: number) => void) {
+  constructor (comm: ICommunicator, updateRFBState: (state: number, byteLength: number) => void) {
     this.wsSocket = comm
     this.updateRFBState = updateRFBState
   }
 
-  processState (acc: string): number { // acc is the accumulated byte encoded string so far
+  processState (acc: any): number { // acc is the accumulated byte encoded string so far
     let cmdSize = 0
     if (acc.length >= 4) {
       // Getting security response
       cmdSize = 4
-      if (TypeConverter.ReadInt(acc, 0) !== 0) {
+      const accview = new DataView(acc.buffer)
+      if (accview.getUint32(0) !== 0) {
         // const reasonLength = TypeConverter.ReadInt(acc, 4)
         // const reasonString = acc.substring(8, 8 + reasonLength)
         // console.log(reasonString)

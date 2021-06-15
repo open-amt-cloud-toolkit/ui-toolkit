@@ -14,14 +14,14 @@ class HandshakeState implements IStateProcessor {
   next: IStateProcessor
 
   updateRFBState: any
-  constructor (comm: ICommunicator, updateRFBState: (state: number) => void) {
+  constructor (comm: ICommunicator, updateRFBState: (state: number, byteLength: number) => void) {
     this.wsSocket = comm
     this.updateRFBState = updateRFBState
   }
 
-  processState (acc: string): number { // acc is the accumulated byte encoded string so far
+  processState (acc: any): number { // acc is the accumulated byte encoded string so far
     let cmdSize = 0
-    if (acc.length >= 12) {
+    if (acc.byteLength >= 12) {
       // Getting handshake & version
       cmdSize = 12
       // if (obj.acc.substring(0, 4) != "RFB ") { return obj.Stop(); }

@@ -14,7 +14,7 @@ import { isTruthy } from '../Utilities/UtilityMethods'
  * the different StateProcessors
  */
 export class DataProcessor implements IDataProcessor {
-  acc: string
+  acc: any
   remoteFrameBufferStateManager: IStateProcessor
   stateProcessorFac: StateProcessorFactory
   parent: Desktop
@@ -30,11 +30,21 @@ export class DataProcessor implements IDataProcessor {
    * processData is called from ICommunicator on new data coming over the wire
    * @param data is the current data block received on the web socket
    */
-  processData (data: string): any {
+  processData (data: any): any {
     if (!isTruthy(data)) return
-    this.acc += data
+    // Append to accumulator
+    if (this.acc == null) {
+      this.acc = new Uint8Array(data)
+    } else {
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+      const tmp = new Uint8Array(this.acc.byteLength + data.byteLength)
+      tmp.set(this.acc, 0)
+      tmp.set(new Uint8Array(data), this.acc.byteLength)
+      this.acc = tmp
+    }
+    // this.acc += data
     let cmdSize = 0
-    this.logger.verbose(`Process Data ACC length:  ${this.acc.length}`)
+    // this.logger.verbose(`Process Data ACC length:  ${this.acc.byteLength}`)
     while (this.acc.length > 0) {
       const stateProcessor: IStateProcessor = this.stateProcessorFac.getProcessor(this.parent.state)
       const prevState = this.parent.state
@@ -43,7 +53,7 @@ export class DataProcessor implements IDataProcessor {
       if (cmdSize === 0) return
       // console.log('before acc ', this.acc)
       this.acc = this.acc.substring(cmdSize)
-      this.logger.verbose(`remaining acc  ${this.acc.length} command size: ${cmdSize} new parent state: ${this.parent.state}`)
+      // this.logger.verbose(`remaining acc  ${this.acc.length} command size: ${cmdSize} new parent state: ${this.parent.state}`)
     }
   }
 

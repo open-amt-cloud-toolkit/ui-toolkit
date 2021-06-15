@@ -30,7 +30,7 @@ export class AMTRedirector implements ICommunicator {
   tlsv1only: number
   connectState: number
   protocol: Protocol
-  amtAccumulator: string
+  amtAccumulator: any
   amtSequence: number
   amtKeepAliveTimer: any
 
@@ -113,20 +113,23 @@ export class AMTRedirector implements ICommunicator {
     this.socket.onopen = this.onSocketConnected.bind(this)
     this.socket.onmessage = this.onMessage.bind(this)
     this.socket.onclose = this.onSocketClosed.bind(this)
+    console.log('onload')
     const onload = (e: any): any => {
       this.onSocketData(e.target.result)
-      if (this.fileReaderAcc.length === 0) {
+      console.log('FilereaderAcc', this.fileReaderAcc)
+      if (this.fileReaderAcc?.length === 0) {
         this.fileReaderInUse = false
       } else {
-        this.fileReader.readAsBinaryString(new Blob([this.fileReaderAcc.shift()]))
+        this.fileReader.readAsBinaryString(new Blob([this.fileReaderAcc?.shift()]))
       }
     }
     const onloadend = (e: any): any => {
       this.onSocketData(e.target.result)
-      if (this.fileReaderAcc.length === 0) {
+      console.log('FilereaderAcc', this.fileReaderAcc)
+      if (this.fileReaderAcc?.length === 0) {
         this.fileReaderInUse = false
       } else {
-        this.fileReader.readAsArrayBuffer(this.fileReaderAcc.shift())
+        this.fileReader.readAsArrayBuffer(this.fileReaderAcc?.shift())
       }
     }
     if (isTruthy(this.fileReader) && isTruthy(this.fileReader.readAsBinaryString)) {
@@ -156,32 +159,32 @@ export class AMTRedirector implements ICommunicator {
    */
   onMessage (e: any): any {
     try {
-      // console.log(e.data)
+      console.log('on message', e.data, typeof e.data)
       this.inDataCount++
-      if (typeof e.data === 'object') {
-        if (this.fileReaderInUse) {
-          this.fileReaderAcc.push(e.data)
-          return
-        }
-        if (this.fileReader.readAsBinaryString != null) {
-          // Chrome & Firefox (Draft)
-          this.fileReaderInUse = true
-          this.fileReader.readAsBinaryString(new Blob([e.data]))
-        } else if (this.fileReader.readAsArrayBuffer != null) {
-          // Chrome & Firefox (Spec)
-          this.fileReaderInUse = true
-          this.fileReader.readAsArrayBuffer(e.data)
-        } else {
-          // IE10, readAsBinaryString does not exist, use an alternative.
-          let binary = ''; const bytes = new Uint8Array(e.data); const length = bytes.byteLength
-          for (let i = 0; i < length; i++) { binary += String.fromCharCode(bytes[i]) }
-          this.onSocketData(binary)
-        }
-      } else {
-        // If we get a string object, it maybe the WebRTC confirm. Ignore it.
-        // this.debug("MeshDataChannel - OnData - " + typeof e.data + " - " + e.data.length);
-        this.onSocketData(e.data)
-      }
+      // if (typeof e.data === 'object') {
+      //   if (this.fileReaderInUse) {
+      //     this.fileReaderAcc.push(e.data)
+      //     return
+      //   }
+      //   if (this.fileReader.readAsBinaryString != null) {
+      //     // Chrome & Firefox (Draft)
+      //     this.fileReaderInUse = true
+      //     this.fileReader.readAsBinaryString(new Blob([e.data]))
+      //   } else if (this.fileReader.readAsArrayBuffer != null) {
+      //     // Chrome & Firefox (Spec)
+      //     this.fileReaderInUse = true
+      //     this.fileReader.readAsArrayBuffer(e.data)
+      //   } else {
+      //     // IE10, readAsBinaryString does not exist, use an alternative.
+      //     let binary = ''; const bytes = new Uint8Array(e.data); const length = bytes.byteLength
+      //     for (let i = 0; i < length; i++) { binary += String.fromCharCode(bytes[i]) }
+      //     this.onSocketData(binary)
+      //   }
+      // } else {
+      // If we get a string object, it maybe the WebRTC confirm. Ignore it.
+      // this.debug("MeshDataChannel - OnData - " + typeof e.data + " - " + e.data.length);
+      this.onSocketData(e.data)
+      // }
     } catch (error) {
       this.logger.error(error)
       this.stop()
@@ -193,43 +196,57 @@ export class AMTRedirector implements ICommunicator {
    * Called from onMessage
    * @param data data over the wire
    */
-  private onSocketData (data: string): any {
+  private onSocketData (data: any): any {
     if (!isTruthy(data) || this.connectState === -1) return
 
-    if (typeof data === 'object') {
-      // This is an ArrayBuffer, convert it to a string array (used in IE)
-      let binary = ''
-      const bytes = new Uint8Array(data)
-      const length = bytes.byteLength
-      for (let i = 0; i < length; i++) { binary += String.fromCharCode(bytes[i]) }
-      data = binary
-    } else if (typeof data !== 'string') { return }
+    // if (typeof data === 'object') {
+    //   // This is an ArrayBuffer, convert it to a string array (used in IE)
+    //   let binary = ''
+    //   const bytes = new Uint8Array(data)
+    //   const length = bytes.byteLength
+    //   for (let i = 0; i < length; i++) { binary += String.fromCharCode(bytes[i]) }
+    //   data = binary
+    // } else if (typeof data !== 'string') { return }
 
     if ((this.protocol === Protocol.KVM || this.protocol === Protocol.IDER) && this.connectState === 1) {
       return this.onProcessData(data)
     } // KVM traffic, forward it directly.
 
+    // Append to accumulator
+    if (this.amtAccumulator == null) {
+      this.amtAccumulator = data
+    } else {
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+      const tmp = new Uint8Array(this.amtAccumulator.byteLength + data.byteLength)
+      tmp.set(new Uint8Array(this.amtAccumulator), 0)
+      tmp.set(new Uint8Array(data), this.amtAccumulator.byteLength)
+      this.amtAccumulator = tmp.buffer
+    }
+
     // console.log('before: ', this.amtAccumulator)
-    this.amtAccumulator += data
+    // this.amtAccumulator += data
     // console.log('after: ', this.amtAccumulator)
     // console.log("REDIR-RECV(" + this.amtAccumulator.length + "): " + TypeConverter.rstr2hex(this.amtAccumulator));
-    while (this.amtAccumulator.length >= 1) {
+    while (this.amtAccumulator?.byteLength >= 1) {
       let cmdsize = 0
-      switch (this.amtAccumulator.charCodeAt(0)) {
+      const accArray = new Uint8Array(this.amtAccumulator)
+      switch (accArray[0]) {
         case 0x11: { // StartRedirectionSessionReply (17)
           this.logger.verbose(`Start Redirection Session reply received for  ${this.protocol}`)
-          if (this.amtAccumulator.length < 4) return
-          const statuscode = this.amtAccumulator.charCodeAt(1)
+          if (accArray.byteLength < 4) return
+          const statuscode = accArray[1]
           switch (statuscode) {
             case 0: { // STATUS_SUCCESS
               this.logger.verbose('Session status success. Start handshake')
-              if (this.amtAccumulator.length < 13) return
-              const oemlen = this.amtAccumulator.charCodeAt(12)
-              if (this.amtAccumulator.length < 13 + oemlen) return
+              if (accArray.byteLength < 13) return
+              const oemlen = accArray[12]
+              // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+              if (accArray.byteLength < 13 + oemlen) return
 
               // Query for available authentication
               this.logger.verbose('Query for available authentication')
-              this.socketSend(String.fromCharCode(0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) // Query authentication support
+              this.socketSend(new Uint8Array([0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])) // Query authentication support
+              // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
               cmdsize = (13 + oemlen)
               break }
             default:
@@ -376,7 +393,7 @@ export class AMTRedirector implements ICommunicator {
     return md5(str)
   }
 
-  socketSend (data: string): any { // xxSend
+  socketSend (data: any): any { // xxSend
     if (isTruthy(this.urlvars) && isTruthy(this.urlvars.redirtrace)) { this.logger.verbose(`REDIR-SEND(${data.length}): ${TypeConverter.rstr2hex(data)}`) }
 
     try {

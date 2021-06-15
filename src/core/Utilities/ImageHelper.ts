@@ -32,6 +32,7 @@ export const ImageHelper = {
    * @param ptr ptr into the image pixel data
    */
   setPixel (parent: Desktop, value: number, ptr: number): void {
+    // Set 16bit color RGB565
     let pp = ptr * 4
     let x: number
     let y: number
@@ -40,12 +41,14 @@ export const ImageHelper = {
         x = ptr % parent.sparew
         y = Math.floor(ptr / parent.sparew)
         ptr = (x * parent.sparew2) + (parent.sparew2 - 1 - y)
-        pp = ptr * 4
-      } else if (parent.rotation === 2) { pp = (parent.sparew * parent.spareh * 4) - 4 - pp } else if (parent.rotation === 3) {
+        pp = ptr << 2
+      } else if (parent.rotation === 2) {
+        pp = (parent.sparew * parent.spareh * 4) - 4 - pp
+      } else if (parent.rotation === 3) {
         x = ptr % parent.sparew
         y = Math.floor(ptr / parent.sparew)
         ptr = ((parent.sparew2 - 1 - x) * parent.sparew2) + (y)
-        pp = ptr * 4
+        pp = ptr << 2
       }
     }
 

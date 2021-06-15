@@ -18,25 +18,28 @@ class ServerInit implements IStateProcessor {
 
   parent: Desktop
   updateRFBState: any
-  constructor (comm: ICommunicator, parent: Desktop, updateRFBState: (state: number) => void) {
+  constructor (comm: ICommunicator, parent: Desktop, updateRFBState: (state: number, byteLength: number) => void) {
     this.wsSocket = comm
     this.parent = parent
     this.updateRFBState = updateRFBState
   }
 
-  processState (acc: string): number { // acc is the accumulated byte encoded string so far
+  processState (acc: any): number { // acc is the accumulated byte encoded string so far
     let cmdSize: number = 0
+    const accview = new DataView(acc.buffer)
     if (acc.length >= 24) {
       // Getting server init
 
       this.parent.rotation = 0 // We don't currently support screen init while rotated.
-      const namelen = TypeConverter.ReadInt(acc, 20)
-      if (acc.length < 24 + namelen) return 0
+      const namelen = accview.getUint32(20)
+      if (acc.byteLength < 24 + namelen) return 0
       cmdSize = 24 + namelen
 
-      if (this.parent.updateScreenDimensions != null) { this.parent.updateScreenDimensions(TypeConverter.ReadShort(acc, 0), TypeConverter.ReadShort(acc, 2)) }
-      this.parent.canvasCtx.canvas.width = this.parent.ScreenWidth = this.parent.rwidth = this.parent.width = TypeConverter.ReadShort(acc, 0)
-      this.parent.canvasCtx.canvas.height = this.parent.ScreenHeight = this.parent.rheight = this.parent.height = TypeConverter.ReadShort(acc, 2)
+      // if (this.parent.updateScreenDimensions != null) { this.parent.updateScreenDimensions(TypeConverter.ReadShort(acc, 0), TypeConverter.ReadShort(acc, 2)) }
+      // this.parent.canvasCtx.canvas.width = this.parent.ScreenWidth = this.parent.rwidth = this.parent.width = TypeConverter.ReadShort(acc, 0)
+      // this.parent.canvasCtx.canvas.height = this.parent.ScreenHeight = this.parent.rheight = this.parent.height = TypeConverter.ReadShort(acc, 2)
+      this.parent.canvasCtx.canvas.width = this.parent.ScreenWidth = this.parent.rwidth = this.parent.width = accview.getUint16(0)
+      this.parent.canvasCtx.canvas.height = this.parent.ScreenHeight = this.parent.rheight = this.parent.height = accview.getUint16(2)
       // obj.canvas.canvas.width = obj.rwidth = obj.width = obj.ScreenWidth = ReadShort(obj.acc, 0);
       // obj.canvas.canvas.height = obj.rheight = obj.height = obj.ScreenHeight = ReadShort(obj.acc, 2);
 

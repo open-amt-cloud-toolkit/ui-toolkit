@@ -10,8 +10,8 @@ import { ImageHelper } from './ImageHelper'
 import { isTruthy } from './UtilityMethods'
 
 /**
- * Mousehelper provides helper functions for handling mouse events. mouseup, mousedown, mousemove
- */
+  * Mousehelper provides helper functions for handling mouse events. mouseup, mousedown, mousemove
+  */
 export class MouseHelper {
   parent: Desktop | any
   comm: ICommunicator
@@ -19,6 +19,8 @@ export class MouseHelper {
   lastEvent: any
   debounceTime: number
   mouseClickCompleted: boolean
+  mNagleTimer: any
+  force: number
   constructor (parent: Desktop, comm: ICommunicator, debounceTime: number) {
     this.parent = parent
     this.comm = comm
@@ -44,15 +46,15 @@ export class MouseHelper {
 
   mousedown (e: MouseEvent): any {
     this.parent.buttonmask |= (1 << e.button)
-    return this.mousemove(e)
+    return this.mousemove(e, 1)
   }
 
   mouseup (e: MouseEvent): any {
     this.parent.buttonmask &= (0xFFFF - (1 << e.button))
-    return this.mousemove(e)
+    return this.mousemove(e, 1)
   }
 
-  mousemove (e: MouseEvent): boolean {
+  mousemove (e: MouseEvent, force?: number): boolean {
     if (this.parent.state !== 4) return true
     const pos = this.getPositionOfControl(this.parent.canvasControl)
     this.parent.lastMouseX = (e.pageX - pos[0]) * (this.parent.canvasControl.height / this.parent.canvasControl.offsetHeight)
@@ -64,7 +66,19 @@ export class MouseHelper {
       this.parent.lastMouseX = this.parent.lastMouseX2
     }
 
-    this.comm.send(String.fromCharCode(5, this.parent.buttonmask) + TypeConverter.ShortToStr(this.parent.lastMouseX) + TypeConverter.ShortToStr(this.parent.lastMouseY))
+    if (force === 1) {
+      this.comm.send(String.fromCharCode(5, this.parent.buttonmask) + TypeConverter.ShortToStr(this.parent.lastMouseX) + TypeConverter.ShortToStr(this.parent.lastMouseY))
+      if (this.mNagleTimer != null) { clearTimeout(this.mNagleTimer); this.mNagleTimer = null }
+    } else {
+      if (this.mNagleTimer == null) {
+        this.mNagleTimer = setTimeout(() => {
+          this.comm.send(String.fromCharCode(5, this.parent.buttonmask) + TypeConverter.ShortToStr(this.parent.lastMouseX) + TypeConverter.ShortToStr(this.parent.lastMouseY))
+          this.mNagleTimer = null
+        }, 300)
+      }
+    }
+
+    // this.comm.send(String.fromCharCode(5, this.parent.buttonmask) + TypeConverter.ShortToStr(this.parent.lastMouseX) + TypeConverter.ShortToStr(this.parent.lastMouseY))
 
     // Update focus area if we are in focus mode
     this.parent.setDeskFocus('DeskFocus', this.parent.focusMode)

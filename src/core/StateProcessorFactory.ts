@@ -15,7 +15,7 @@ import { RLEDecoder } from './ImageData/RLEDecoder'
  */
 class StateProcessorFactory {
   stateProcessors: any
-  constructor (comm: ICommunicator, parent: Desktop, updateRFBState: (state: number) => void) {
+  constructor (comm: ICommunicator, parent: Desktop, updateRFBState: (state: number, byteLength: number) => void) {
     this.stateProcessors = {}
     this.stateProcessors[0] = new HandshakeState(comm, updateRFBState) // Got server version. Send client version
     this.stateProcessors[1] = new SecurityOptions(comm, updateRFBState) // Got security options, send None security type

@@ -13,16 +13,17 @@ class SecurityOptions implements IStateProcessor {
   wsSocket: ICommunicator
   next: IStateProcessor
   updateRFBState: any
-  constructor (comm: ICommunicator, updateRFBState: (state: number) => void) {
+  constructor (comm: ICommunicator, updateRFBState: (state: number, byteLength: number) => void) {
     this.wsSocket = comm
     this.updateRFBState = updateRFBState
   }
 
-  processState (acc: string): number { // acc is the accumulated byte encoded string so far
+  processState (acc: any): number { // acc is the accumulated byte encoded string so far
     let cmdSize = 0
-    if (acc.length >= 1) {
+    if (acc.byteLength >= 1) {
       // Getting security options
-      cmdSize = acc.charCodeAt(0) + 1
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+      cmdSize = acc[0] + 1
       this.wsSocket.send(String.fromCharCode(1)) // Send the "None" security type. Since we already authenticated using redirection digest auth, we don't need to do this again.
       this.updateRFBState(2)
       return cmdSize
