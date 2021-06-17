@@ -45,12 +45,13 @@ export class AMTRedirector implements ICommunicator {
   inDataCount: number
   server: string | undefined
   logger: ILogger
-  onProcessData: (data: string) => void
+  onProcessData: (data: any) => void
   onStart: () => void
   onNewState: (state: number) => void
   onStateChanged: (redirector: any, state: number) => void
   onError: () => void
   authToken: string
+  serverIsRecording: boolean
 
   constructor (logger: ILogger, protocol: number, fr: FileReader, host: string, port: number, user: string, pass: string, tls: number, tls1only: number, authToken: string, server?: string) {
     this.fileReader = fr
@@ -67,7 +68,7 @@ export class AMTRedirector implements ICommunicator {
     this.RedirectStartIder = String.fromCharCode(0x10, 0x00, 0x00, 0x00, 0x49, 0x44, 0x45, 0x52)
     this.urlvars = {}
     this.server = server
-    this.amtAccumulator = ''
+    this.amtAccumulator = null
     this.authUri = ''
     this.logger = logger
     this.authToken = authToken
@@ -207,8 +208,9 @@ export class AMTRedirector implements ICommunicator {
     //   for (let i = 0; i < length; i++) { binary += String.fromCharCode(bytes[i]) }
     //   data = binary
     // } else if (typeof data !== 'string') { return }
-
+    console.info('protocol', this.amtAccumulator, typeof data)
     if ((this.protocol === Protocol.KVM || this.protocol === Protocol.IDER) && this.connectState === 1) {
+      console.info('onsocket data protocol check', data)
       return this.onProcessData(data)
     } // KVM traffic, forward it directly.
 
@@ -223,12 +225,13 @@ export class AMTRedirector implements ICommunicator {
       this.amtAccumulator = tmp.buffer
     }
 
-    // console.log('before: ', this.amtAccumulator)
+    console.log('before: ', this.amtAccumulator)
     // this.amtAccumulator += data
     // console.log('after: ', this.amtAccumulator)
     // console.log("REDIR-RECV(" + this.amtAccumulator.length + "): " + TypeConverter.rstr2hex(this.amtAccumulator));
     while (this.amtAccumulator?.byteLength >= 1) {
       let cmdsize = 0
+      console.info('inside the while loop')
       const accArray = new Uint8Array(this.amtAccumulator)
       switch (accArray[0]) {
         case 0x11: { // StartRedirectionSessionReply (17)
@@ -256,14 +259,15 @@ export class AMTRedirector implements ICommunicator {
           break }
         case 0x14: { // AuthenticateSessionReply (20)
           this.logger.verbose('Available Authentications reply received.')
-          if (this.amtAccumulator.length < 9) return
-          const authDataLen = TypeConverter.ReadIntX(this.amtAccumulator, 5)
-          if (this.amtAccumulator.length < 9 + authDataLen) return
-          const status = this.amtAccumulator.charCodeAt(1)
-          const authType = this.amtAccumulator.charCodeAt(4)
+          if (accArray.byteLength < 9) return
+          const authDataLen = new DataView(this.amtAccumulator).getUint32(5, true)
+          // const authDataLen = TypeConverter.ReadIntX(this.amtAccumulator, 5)
+          if (accArray.byteLength < 9 + authDataLen) return
+          const status = accArray[1]
+          const authType = accArray[4]
           const authData: any = []
-          for (let i = 0; i < authDataLen; i++) { authData.push(this.amtAccumulator.charCodeAt(9 + i)) }
-          const authDataBuf = this.amtAccumulator.substring(9, 9 + authDataLen)
+          for (let i = 0; i < authDataLen; i++) { authData.push(accArray[9 + i]) }
+          const authDataBuf = new Uint8Array(this.amtAccumulator.slice(9, 9 + authDataLen))
           cmdsize = 9 + authDataLen
 
           if (authType === 0) {
@@ -288,13 +292,14 @@ export class AMTRedirector implements ICommunicator {
             let curptr = 0
 
             // Realm
-            const realmlen = authDataBuf.charCodeAt(curptr)
-            const realm = authDataBuf.substring(curptr + 1, curptr + 1 + realmlen)
+            const realmlen = authDataBuf[curptr]
+            // const realm = authDataBuf.substring(curptr + 1, curptr + 1 + realmlen)
+            const realm = this.arrToStr(new Uint8Array(authDataBuf.buffer.slice(curptr + 1, curptr + 1 + realmlen)))
             curptr += (realmlen + 1)
 
             // Nonce
-            const noncelen = authDataBuf.charCodeAt(curptr)
-            const nonce = authDataBuf.substring(curptr + 1, curptr + 1 + noncelen)
+            const noncelen = authDataBuf[curptr]
+            const nonce = this.arrToStr(new Uint8Array(authDataBuf.buffer.slice(curptr + 1, curptr + 1 + noncelen)))
             curptr += (noncelen + 1)
 
             // QOP
@@ -304,8 +309,8 @@ export class AMTRedirector implements ICommunicator {
             const snc = '00000002'
             let extra = ''
             if (authType === 4) {
-              qoplen = authDataBuf.charCodeAt(curptr)
-              qop = authDataBuf.substring(curptr + 1, curptr + 1 + qoplen)
+              qoplen = authDataBuf[curptr]
+              qop = this.arrToStr(new Uint8Array(authDataBuf.buffer.slice(curptr + 1, curptr + 1 + qoplen)))
               curptr += (qoplen + 1)
               extra = `${snc}:${cnonce}:${String(qop)} :`
             }
@@ -332,7 +337,7 @@ export class AMTRedirector implements ICommunicator {
             }
             if (this.protocol === 2) {
               // Remote Desktop: Send traffic directly...
-              this.socketSend(String.fromCharCode(0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00))
+              this.socketSend(new Uint8Array([0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]))
             }
             if (this.protocol === 3) {
               // Remote IDER: Send traffic directly...
@@ -342,7 +347,7 @@ export class AMTRedirector implements ICommunicator {
           } else this.stop()
           break }
         case 0x21: { // Response to settings (33)
-          if (this.amtAccumulator.length < 23) break
+          if (accArray.byteLength < 23) break
           this.logger.verbose('Response to settings')
           cmdsize = 23
           this.socketSend(String.fromCharCode(0x27, 0x00, 0x00, 0x00) + TypeConverter.IntToStrX(this.amtSequence++) + String.fromCharCode(0x00, 0x00, 0x1B, 0x00, 0x00, 0x00))
@@ -352,39 +357,49 @@ export class AMTRedirector implements ICommunicator {
           this.onStateChange(3)
           break }
         case 0x29: // Serial Settings (41)
-          if (this.amtAccumulator.length < 10) break
+          if (accArray.byteLength < 10) break
           this.logger.verbose('Serial Settings')
           cmdsize = 10
           break
         case 0x2A: { // Incoming display data (42)
-          if (this.amtAccumulator.length < 10) break
+          if (accArray.byteLength < 10) break
           this.logger.verbose('Incoming display data')
           const cs = (10 + ((this.amtAccumulator.charCodeAt(9) & 0xFF) << 8) + (this.amtAccumulator.charCodeAt(8) & 0xFF))
-          if (this.amtAccumulator.length < cs) break
-          this.onProcessData(this.amtAccumulator.substring(10, cs))
+          if (accArray.byteLength < cs) break
+          this.onProcessData(new Uint8Array(accArray.buffer.slice(10, cs)))
           cmdsize = cs
           break }
         case 0x2B: // Keep alive message (43)
-          if (this.amtAccumulator.length < 8) break
+          if (accArray.byteLength < 8) break
           this.logger.verbose('Keep Alve message')
           cmdsize = 8
           break
         case 0x41:
-          if (this.amtAccumulator.length < 8) break
+          if (accArray.byteLength < 8) break
           this.logger.verbose('KVM traffic. Call onStart handler. And forward rest of acc directly.')
           this.connectState = 1
           this.onStart()
           // KVM traffic, forward rest of accumulator directly.
-          if (this.amtAccumulator.length > 8) { this.onProcessData(this.amtAccumulator.substring(8)) }
-          cmdsize = this.amtAccumulator.length
+          if (accArray.byteLength > 8) { this.onProcessData(new Uint8Array(accArray.buffer.slice(8))) }
+          cmdsize = accArray.byteLength
+          break
+        case 0xF0:
+          // console.log('Session is being recorded');
+          this.serverIsRecording = true
+          cmdsize = 1
           break
         default:
-          this.logger.error(`Unknown Intel AMT command:  ${this.amtAccumulator.charCodeAt(0)}  acclen=${this.amtAccumulator.length}`)
+          this.logger.error(`Unknown Intel AMT command:  ${accArray[0]}  acclen=${accArray.byteLength}`)
           this.stop()
           return
       }
       if (cmdsize === 0) return
       this.amtAccumulator = this.amtAccumulator.substring(cmdsize)
+      if (cmdsize !== this.amtAccumulator.byteLength) {
+        this.amtAccumulator = this.amtAccumulator.slice(cmdsize)
+      } else {
+        this.amtAccumulator = null
+      }
     }
   }
 
@@ -394,12 +409,14 @@ export class AMTRedirector implements ICommunicator {
   }
 
   socketSend (data: any): any { // xxSend
-    if (isTruthy(this.urlvars) && isTruthy(this.urlvars.redirtrace)) { this.logger.verbose(`REDIR-SEND(${data.length}): ${TypeConverter.rstr2hex(data)}`) }
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    if (isTruthy(this.urlvars) && isTruthy(this.urlvars.redirtrace)) { this.logger.verbose(`REDIR-SEND(${data.byteLength}): ${TypeConverter.rstr2hex(data)}`) }
 
     try {
       if (this.socket != null && this.socket.readyState === 1) { // 1 = WebSocket.OPEN
         const b = new Uint8Array(data.length)
-        this.logger.verbose(`Redir Send( ${data.length}): ${TypeConverter.rstr2hex(data)}`)
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        this.logger.verbose(`Redir Send( ${data.byteLength}): ${TypeConverter.rstr2hex(data)}`)
         for (let i = 0; i < data.length; ++i) { b[i] = data.charCodeAt(i) }
         this.socket.send(b.buffer)
       }
@@ -459,4 +476,6 @@ export class AMTRedirector implements ICommunicator {
     if (this.socket != null) { this.socket.close(); this.socket = null }
     if (this.amtKeepAliveTimer != null) { clearInterval(this.amtKeepAliveTimer); this.amtKeepAliveTimer = null }
   }
+
+  arrToStr (arr): string { return String.fromCharCode.apply(null, arr) }
 }
