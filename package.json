@@ -32,7 +32,7 @@
     "styled-components": "^5.3.0",
     "winston": "^3.0.0",
     "ws": "^7.5.0",
-    "xterm": "^4.12.0"
+    "xterm": "^4.13.0"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.8",
