@@ -1,3 +1,71 @@
+
+<a name="v1.4.0"></a>
+## [v1.4.0] - 2021-06-22
+### Build
+- **dep:** bump sass to 1.34.1
+- **deps:** bump sass from 1.34.1 to 1.35.1 ([#219](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/219))
+- **deps:** bump styled-components from 5.2.3 to 5.3.0 ([#161](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/161))
+- **deps:** bump ws from 7.4.5 to 7.4.6
+- **deps:** bump i18next-browser-languagedetector from 6.1.1 to 6.1.2 ([#225](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/225))
+- **deps:** bump ws from 7.4.6 to 7.5.0 ([#221](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/221))
+- **deps:** bump i18next from 20.3.1 to 20.3.2 ([#228](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/228))
+- **deps:** bump xterm from 4.12.0 to 4.13.0 ([#214](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/214))
+- **deps:** bump react-i18next from 11.10.0 to 11.11.0 ([#215](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/215))
+- **deps:** bump xterm from 4.11.0 to 4.12.0
+- **deps-dev:** bump [@types](https://github.com/types)/react-dom from 17.0.7 to 17.0.8 ([#227](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/227))
+- **deps-dev:** bump webpack from 5.38.1 to 5.39.1 ([#222](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/222))
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 4.26.1 to 4.27.0 ([#217](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/217))
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.14.43 to 14.14.44
+- **deps-dev:** bump [@types](https://github.com/types)/react from 17.0.9 to 17.0.11
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin ([#216](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/216))
+- **deps-dev:** bump ts-jest from 27.0.2 to 27.0.3
+- **deps-dev:** bump webpack-cli from 4.7.0 to 4.7.2 ([#206](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/206))
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 4.26.0 to 4.26.1
+- **deps-dev:** bump [@types](https://github.com/types)/react-dom from 17.0.6 to 17.0.7 ([#210](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/210))
+- **deps-dev:** bump sass-loader from 12.0.0 to 12.1.0
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin
+- **deps-dev:** bump jest from 27.0.3 to 27.0.4
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.17.2 to 14.17.3
+- **deps-dev:** bump eslint from 7.27.0 to 7.28.0
+- **deps-dev:** bump ts-loader from 9.2.2 to 9.2.3
+- **deps-dev:** bump [@types](https://github.com/types)/react from 17.0.5 to 17.0.9
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.14.44 to 14.17.1
+- **deps-dev:** bump [@types](https://github.com/types)/ws from 7.4.4 to 7.4.5 ([#226](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/226))
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 4.22.1 to 4.26.0
+- **deps-dev:** bump typescript from 4.3.2 to 4.3.4 ([#224](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/224))
+- **deps-dev:** bump eslint from 7.26.0 to 7.27.0
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin
+- **deps-dev:** bump [@types](https://github.com/types)/react-dom from 17.0.3 to 17.0.5
+- **deps-dev:** bump eslint from 7.25.0 to 7.26.0
+- **deps-dev:** bump eslint from 7.28.0 to 7.29.0 ([#229](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/229))
+- **deps-dev:** bump ts-jest from 26.5.5 to 26.5.6 ([#165](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/165))
+- **deps-dev:** bump [@types](https://github.com/types)/react from 17.0.4 to 17.0.5
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 4.22.0 to 4.22.1
+- **version:** bump to v1.4.0
+
+### Ci
+- add lint check
+- **changelog:** add automation for changelog generation
+
+### Feat
+- **websocket:** add auth token to websocket requests ([#209](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/209))
+
+### Fix
+- **sample:** update path for kvm and sol
+- **webpack:** set external build to prod
+
+### Refactor
+- organize structure of components ([#201](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/201))
+- upgrade to webpack 5 BREAKING CHANGE: bundles are built as UMD, moved to React 17
+- **lint:** fix linting errors ([#192](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/192))
+
+### BREAKING CHANGE
+
+react dependencies are now peer dependencies
+imports have changed
+auth tokens required to authenticate against MPS
+
 <a name="v1.3.0"></a>
 ## [v1.3.0]
 
