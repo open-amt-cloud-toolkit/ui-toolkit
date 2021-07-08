@@ -47,8 +47,8 @@ export class KeyBoardHelper {
     this.KeyInputGrab = false
   }
 
-  handleKeys (e: Event): any {
-    return this.haltEvent(e)
+  handleKeys (e: any): any {
+    return this.handleKeyDown(e)
   }
 
   /**

@@ -20,7 +20,7 @@ export declare class KeyBoardHelper {
      * releases event handlers used for keyboard event handling
      */
     UnGrabKeyInput(): any;
-    handleKeys(e: Event): any;
+    handleKeys(e: any): any;
     /**
      * halts default keyboard event  handling. Since the sole purpose of this event is to send it to the remote desktop
      * @param e keyboard event

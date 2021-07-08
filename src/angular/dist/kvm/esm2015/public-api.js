@@ -1,0 +1,6 @@
+/*
+ * Public API Surface of kvm
+ */
+export * from './lib/kvm.component';
+export * from './lib/kvm.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3Byb2plY3RzL2t2bS9zcmMvcHVibGljLWFwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7R0FFRztBQUVILGNBQWMscUJBQXFCLENBQUE7QUFDbkMsY0FBYyxrQkFBa0IsQ0FBQSIsInNvdXJjZXNDb250ZW50IjpbIi8qXHJcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiBrdm1cclxuICovXHJcblxyXG5leHBvcnQgKiBmcm9tICcuL2xpYi9rdm0uY29tcG9uZW50J1xyXG5leHBvcnQgKiBmcm9tICcuL2xpYi9rdm0ubW9kdWxlJ1xyXG4iXX0=
