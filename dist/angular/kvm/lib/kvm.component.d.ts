@@ -1,0 +1,52 @@
+import { AfterViewInit, ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { IDataProcessor, ILogger, KeyBoardHelper, MouseHelper } from '@open-amt-cloud-toolkit/ui-toolkit/core';
+import * as i0 from "@angular/core";
+export declare class KvmComponent implements OnInit, AfterViewInit, OnDestroy {
+    params: any;
+    canvas: ElementRef | undefined;
+    context: CanvasRenderingContext2D;
+    width: number;
+    height: number;
+    deviceState: number;
+    deviceStatus: EventEmitter<number>;
+    deviceConnection: EventEmitter<boolean>;
+    selectedEncoding: EventEmitter<number>;
+    token: any;
+    module: any;
+    redirector: any;
+    dataProcessor: IDataProcessor | null;
+    mouseHelper: MouseHelper;
+    keyboardHelper: KeyBoardHelper;
+    logger: ILogger;
+    powerState: any;
+    deviceId: string;
+    selected: number;
+    timeInterval: any;
+    server: string;
+    mouseMove: any;
+    mpsServer: boolean;
+    encodings: {
+        value: number;
+        viewValue: string;
+    }[];
+    constructor(params: any);
+    urlConstructor: () => string;
+    ngOnInit(): void;
+    ngAfterViewInit(): void;
+    instantiate(): void;
+    onConnectionStateChange: (redirector: any, state: number) => any;
+    onRedirectorError(): void;
+    init(): void;
+    autoConnect(): void;
+    onEncodingChange(): void;
+    checkPowerStatus(): boolean;
+    reset: () => void;
+    stopKvm: () => void;
+    onMouseup(event: MouseEvent): void;
+    onMousedown(event: MouseEvent): void;
+    onMousemove(event: MouseEvent): void;
+    ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDef<KvmComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<KvmComponent, "amt-kvm", never, { "width": "width"; "height": "height"; "deviceConnection": "deviceConnection"; "selectedEncoding": "selectedEncoding"; }, { "deviceState": "deviceState"; "deviceStatus": "deviceStatus"; }, never, never>;
+}
+//# sourceMappingURL=kvm.component.d.ts.map
