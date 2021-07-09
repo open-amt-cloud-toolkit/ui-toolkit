@@ -1,0 +1,62 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "kvm": {
+      "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "css"
+        }
+      },
+      "root": "projects/kvm",
+      "sourceRoot": "projects/kvm/src",
+      "prefix": "amt",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/kvm/tsconfig.lib.json",
+            "project": "projects/kvm/ng-package.json"
+          },
+          "styles": [
+            "./projects/**/*.css"
+          ],
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/kvm/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/kvm/src/test.ts",
+            "tsConfig": "projects/kvm/tsconfig.spec.json",
+            "karmaConfig": "projects/kvm/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/kvm/tsconfig.lib.json",
+              "projects/kvm/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "css"
+    }
+  },
+  "defaultProject": "kvm"
+}
