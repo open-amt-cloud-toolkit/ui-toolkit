@@ -1,18 +1,19 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@open-amt-cloud-toolkit/ui-toolkit/core'), require('rxjs'), require('rxjs/operators'), require('@angular/platform-browser'), require('@angular/platform-browser/animations'), require('@angular/flex-layout'), require('@angular/common/http')) :
-    typeof define === 'function' && define.amd ? define('kvm', ['exports', '@angular/core', '@open-amt-cloud-toolkit/ui-toolkit/core', 'rxjs', 'rxjs/operators', '@angular/platform-browser', '@angular/platform-browser/animations', '@angular/flex-layout', '@angular/common/http'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.kvm = {}, global.ng.core, global['@open-amt-cloud-toolkit']['ui-toolkit'].core, global.rxjs, global.rxjs.operators, global.ng.platformBrowser, global.ng.platformBrowser.animations, global.ng.flexLayout, global.ng.common.http));
-}(this, (function (exports, i0, core, rxjs, operators, platformBrowser, animations, flexLayout, http) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@open-amt-cloud-toolkit/ui-toolkit/core'), require('rxjs'), require('rxjs/operators'), require('@angular/router'), require('@angular/platform-browser'), require('@angular/platform-browser/animations'), require('@angular/flex-layout'), require('@angular/common/http')) :
+    typeof define === 'function' && define.amd ? define('kvm', ['exports', '@angular/core', '@open-amt-cloud-toolkit/ui-toolkit/core', 'rxjs', 'rxjs/operators', '@angular/router', '@angular/platform-browser', '@angular/platform-browser/animations', '@angular/flex-layout', '@angular/common/http'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.kvm = {}, global.ng.core, global['@open-amt-cloud-toolkit']['ui-toolkit'].core, global.rxjs, global.rxjs.operators, global.ng.router, global.ng.platformBrowser, global.ng.platformBrowser.animations, global.ng.flexLayout, global.ng.common.http));
+}(this, (function (exports, i0, core, rxjs, operators, i1, platformBrowser, animations, flexLayout, http) { 'use strict';
 
     var _c0 = ["canvas"];
+    var _c1 = ["device"];
     var KvmComponent = /** @class */ (function () {
-        function KvmComponent(params) {
+        function KvmComponent(params, activatedRoute) {
             var _this = this;
             this.params = params;
+            this.activatedRoute = activatedRoute;
             // //setting a width and height for the canvas
             this.width = 400;
             this.height = 400;
-            this.deviceState = 0;
             this.deviceStatus = new i0.EventEmitter();
             this.deviceConnection = new i0.EventEmitter();
             this.selectedEncoding = new i0.EventEmitter();
@@ -29,7 +30,6 @@
                 return _this.params.mpsServer.replace('http', 'ws');
             };
             this.onConnectionStateChange = function (redirector, state) {
-                _this.deviceState = state;
                 _this.deviceStatus.emit(state);
             };
             this.reset = function () {
@@ -46,7 +46,6 @@
                 _this.reset();
             };
             this.token = localStorage.getItem('loggedInUser');
-            this.deviceId = window.location.pathname.split('/')[2];
             this.server = this.urlConstructor() + "/relay";
             this.mpsServer = this.params.mpsServer.includes('/mps');
             if (this.mpsServer) {
@@ -56,6 +55,9 @@
         }
         KvmComponent.prototype.ngOnInit = function () {
             var _this = this;
+            this.activatedRoute.params.subscribe(function (params) {
+                _this.deviceId = params.id;
+            });
             this.logger = new core.ConsoleLogger(1);
             this.deviceConnection.subscribe(function (data) {
                 if (data) {
@@ -121,9 +123,6 @@
                 _this.autoConnect();
             });
         };
-        KvmComponent.prototype.checkPowerStatus = function () {
-            return this.powerState.powerstate === 2;
-        };
         KvmComponent.prototype.onMouseup = function (event) {
             if (this.mouseHelper != null) {
                 this.mouseHelper.mouseup(event);
@@ -144,16 +143,18 @@
         };
         return KvmComponent;
     }());
-    KvmComponent.ɵfac = function KvmComponent_Factory(t) { return new (t || KvmComponent)(i0.ɵɵdirectiveInject('userInput')); };
+    KvmComponent.ɵfac = function KvmComponent_Factory(t) { return new (t || KvmComponent)(i0.ɵɵdirectiveInject('userInput'), i0.ɵɵdirectiveInject(i1.ActivatedRoute)); };
     KvmComponent.ɵcmp = i0.ɵɵdefineComponent({ type: KvmComponent, selectors: [["amt-kvm"]], viewQuery: function KvmComponent_Query(rf, ctx) {
             if (rf & 1) {
                 i0.ɵɵviewQuery(_c0, 1);
+                i0.ɵɵviewQuery(_c1, 1);
             }
             if (rf & 2) {
                 var _t = void 0;
                 i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.canvas = _t.first);
+                i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.device = _t.first);
             }
-        }, inputs: { width: "width", height: "height", deviceConnection: "deviceConnection", selectedEncoding: "selectedEncoding" }, outputs: { deviceState: "deviceState", deviceStatus: "deviceStatus" }, decls: 3, vars: 2, consts: [["oncontextmenu", "return false", 1, "canvas", 3, "width", "height", "mouseup", "mousedown", "mousemove"], ["canvas", ""]], template: function KvmComponent_Template(rf, ctx) {
+        }, inputs: { width: "width", height: "height", deviceConnection: "deviceConnection", selectedEncoding: "selectedEncoding" }, outputs: { deviceStatus: "deviceStatus" }, decls: 3, vars: 2, consts: [["oncontextmenu", "return false", 1, "canvas", 3, "width", "height", "mouseup", "mousedown", "mousemove"], ["canvas", ""]], template: function KvmComponent_Template(rf, ctx) {
             if (rf & 1) {
                 i0.ɵɵelementStart(0, "div");
                 i0.ɵɵelementStart(1, "canvas", 0, 1);
@@ -178,16 +179,17 @@
             return [{ type: undefined, decorators: [{
                             type: i0.Inject,
                             args: ['userInput']
-                        }] }];
+                        }] }, { type: i1.ActivatedRoute }];
         }, { canvas: [{
                     type: i0.ViewChild,
                     args: ['canvas', { static: false }]
+                }], device: [{
+                    type: i0.ViewChild,
+                    args: ['device', { static: false }]
                 }], width: [{
                     type: i0.Input
                 }], height: [{
                     type: i0.Input
-                }], deviceState: [{
-                    type: i0.Output
                 }], deviceStatus: [{
                     type: i0.Output
                 }], deviceConnection: [{
