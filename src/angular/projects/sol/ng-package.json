@@ -1,0 +1,11 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../../../dist/angular/sol",
+  "lib": {
+    "entryFile": "src/public-api.ts",
+    "umdModuleIds": {
+      "@open-amt-cloud-toolkit/ui-toolkit/core" : "@open-amt-cloud-toolkit.ui-toolkit.core",
+      "xterm" : "xterm"
+    }
+  }
+}

@@ -11,6 +11,10 @@
       "kvm": [
         "dist/kvm/kvm",
         "dist/kvm"
+      ],
+      "sol": [
+        "dist/sol/sol",
+        "dist/sol"
       ]
     },
     "experimentalDecorators": true,

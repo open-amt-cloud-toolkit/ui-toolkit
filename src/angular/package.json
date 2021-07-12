@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "lib:build": "ng build kvm"
+    "build:kvm": "ng build kvm",
+    "build:sol": "ng build sol"
   },
   "private": true,
   "dependencies": {
