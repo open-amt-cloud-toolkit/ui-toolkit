@@ -4,22 +4,6 @@
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.sol = {}, global.ng.core, global.xterm, global['@open-amt-cloud-toolkit']['ui-toolkit'].core, global.ng.cdk.keycodes, global.ng.router, global.ng.platformBrowser, global.ng.platformBrowser.animations, global.ng.flexLayout, global.ng.common.http));
 }(this, (function (exports, i0, xterm, core, keycodes, i1, platformBrowser, animations, flexLayout, http) { 'use strict';
 
-    var SolService = /** @class */ (function () {
-        function SolService() {
-        }
-        return SolService;
-    }());
-    SolService.ɵfac = function SolService_Factory(t) { return new (t || SolService)(); };
-    SolService.ɵprov = i0.ɵɵdefineInjectable({ token: SolService, factory: SolService.ɵfac, providedIn: 'root' });
-    (function () {
-        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(SolService, [{
-                type: i0.Injectable,
-                args: [{
-                        providedIn: 'root'
-                    }]
-            }], function () { return []; }, null);
-    })();
-
     var SolComponent = /** @class */ (function () {
         function SolComponent(params, activatedRoute) {
             this.params = params;
@@ -227,7 +211,6 @@
 
     exports.SolComponent = SolComponent;
     exports.SolModule = SolModule;
-    exports.SolService = SolService;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

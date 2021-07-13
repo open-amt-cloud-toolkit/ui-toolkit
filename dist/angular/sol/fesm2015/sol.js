@@ -1,4 +1,4 @@
-import { ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, EventEmitter, ɵɵdirectiveInject, ɵɵdefineComponent, ɵɵelementStart, ɵɵelement, ɵɵelementEnd, Component, ViewEncapsulation, Inject, Output, Input, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { EventEmitter, ɵɵdirectiveInject, ɵɵdefineComponent, ɵɵelementStart, ɵɵelement, ɵɵelementEnd, ɵsetClassMetadata, Component, ViewEncapsulation, Inject, Output, Input, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Terminal } from 'xterm';
 import { ConsoleLogger, LogLevel, AmtTerminal, TerminalDataProcessor, AMTRedirector, Protocol } from '@open-amt-cloud-toolkit/ui-toolkit/core';
 import { C, V, SPACE } from '@angular/cdk/keycodes';
@@ -7,18 +7,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
-
-class SolService {
-    constructor() { }
-}
-SolService.ɵfac = function SolService_Factory(t) { return new (t || SolService)(); };
-SolService.ɵprov = ɵɵdefineInjectable({ token: SolService, factory: SolService.ɵfac, providedIn: 'root' });
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(SolService, [{
-        type: Injectable,
-        args: [{
-                providedIn: 'root'
-            }]
-    }], function () { return []; }, null); })();
 
 class SolComponent {
     constructor(params, activatedRoute) {
@@ -208,5 +196,5 @@ SolModule.ɵinj = ɵɵdefineInjector({ imports: [[
  * Generated bundle index. Do not edit.
  */
 
-export { SolComponent, SolModule, SolService };
+export { SolComponent, SolModule };
 //# sourceMappingURL=sol.js.map
