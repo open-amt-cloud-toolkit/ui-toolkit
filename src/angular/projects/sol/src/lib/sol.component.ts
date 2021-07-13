@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output, ViewEncapsulation, OnDestroy, Input } from '@angular/core'
+import { Component, EventEmitter, Inject, OnInit, Output, ViewEncapsulation, OnDestroy, Input, AfterViewInit } from '@angular/core'
 import { Terminal } from 'xterm'
 import { AmtTerminal, AMTRedirector, TerminalDataProcessor, ConsoleLogger, Protocol, LogLevel } from '@open-amt-cloud-toolkit/ui-toolkit/core'
 import { ActivatedRoute } from '@angular/router'
@@ -10,7 +10,7 @@ import { C, V, SPACE } from '@angular/cdk/keycodes'
   styleUrls: ['./sol.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class SolComponent implements OnInit, OnDestroy {
+export class SolComponent implements OnInit, OnDestroy, AfterViewInit {
   uuid: string = ''
   terminal: any
   container!: any
@@ -19,21 +19,49 @@ export class SolComponent implements OnInit, OnDestroy {
   dataProcessor: any
   token: any
   server: string = ''
+  mpsServer: boolean
   logger: ConsoleLogger = new ConsoleLogger(LogLevel.ERROR)
   @Output() deviceStatus: EventEmitter<number> = new EventEmitter<number>()
   @Input() deviceConnection: EventEmitter<boolean> = new EventEmitter<boolean>()
 
   constructor (@Inject('userInput') public params, private readonly activatedRoute: ActivatedRoute) {
     this.token = localStorage.getItem('loggedInUser')
+    this.server = `${this.urlConstructor()}/relay`
+    this.mpsServer = this.params.mpsServer.includes('/mps')
+    if (this.mpsServer) {
+      this.server = `${this.urlConstructor()}/ws/relay`
+    }
+  }
+
+  urlConstructor (): string {
+    return this.params.mpsServer.replace('http', 'ws')
   }
 
   ngOnInit (): void {
     this.activatedRoute.params.subscribe(params => {
       this.uuid = params.id
     })
+    this.deviceConnection.subscribe((data: boolean) => {
+      if (data) {
+        this.init()
+      } else {
+        this.stopSol()
+      }
+    })
+  }
+
+  ngAfterViewInit (): void {
+    this.init()
   }
 
   init (): void {
+    this.instantiate()
+    setTimeout(() => {
+      this.startSol()
+    }, 4000)
+  }
+
+  instantiate (): void {
     this.terminal = new AmtTerminal()
     this.dataProcessor = new TerminalDataProcessor(this.terminal)
     this.redirector = new AMTRedirector(this.logger, Protocol.SOL, new FileReader(), this.uuid, 16994, '', '', 0, 0, JSON.parse(this.token).token, this.server)
@@ -86,14 +114,18 @@ export class SolComponent implements OnInit, OnDestroy {
   }
 
   startSol (): void {
-    this.redirector.start(WebSocket)
+    if (this.redirector !== null) {
+      this.redirector.start(WebSocket)
+    }
   }
 
   stopSol (): void {
-    this.redirector.stop()
-    this.handleClearTerminal()
-    this.term.dispose()
-    this.cleanup()
+    if (this.redirector !== null) {
+      this.redirector.stop()
+      this.handleClearTerminal()
+      this.term.dispose()
+      this.cleanup()
+    }
   }
 
   cleanup (): void {
@@ -104,7 +136,6 @@ export class SolComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy (): void {
-    this.redirector.stop()
-    this.cleanup()
+    this.stopSol()
   }
 }

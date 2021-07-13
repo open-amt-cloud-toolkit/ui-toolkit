@@ -1,8 +1,12 @@
-import { ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, EventEmitter, ɵɵdirectiveInject, ɵɵdefineComponent, ɵɵelementStart, ɵɵelement, ɵɵelementEnd, Component, ViewEncapsulation, Inject, Output, Input, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
+import { ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, EventEmitter, ɵɵdirectiveInject, ɵɵdefineComponent, ɵɵelementStart, ɵɵelement, ɵɵelementEnd, Component, ViewEncapsulation, Inject, Output, Input, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Terminal } from 'xterm';
 import { ConsoleLogger, LogLevel, AmtTerminal, TerminalDataProcessor, AMTRedirector, Protocol } from '@open-amt-cloud-toolkit/ui-toolkit/core';
 import { C, V, SPACE } from '@angular/cdk/keycodes';
 import { ActivatedRoute } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
 
 class SolService {
     constructor() { }
@@ -26,13 +30,38 @@ class SolComponent {
         this.deviceStatus = new EventEmitter();
         this.deviceConnection = new EventEmitter();
         this.token = localStorage.getItem('loggedInUser');
+        this.server = `${this.urlConstructor()}/relay`;
+        this.mpsServer = this.params.mpsServer.includes('/mps');
+        if (this.mpsServer) {
+            this.server = `${this.urlConstructor()}/ws/relay`;
+        }
+    }
+    urlConstructor() {
+        return this.params.mpsServer.replace('http', 'ws');
     }
     ngOnInit() {
         this.activatedRoute.params.subscribe(params => {
             this.uuid = params.id;
         });
+        this.deviceConnection.subscribe((data) => {
+            if (data) {
+                this.init();
+            }
+            else {
+                this.stopSol();
+            }
+        });
+    }
+    ngAfterViewInit() {
+        this.init();
     }
     init() {
+        this.instantiate();
+        setTimeout(() => {
+            this.startSol();
+        }, 4000);
+    }
+    instantiate() {
         this.terminal = new AmtTerminal();
         this.dataProcessor = new TerminalDataProcessor(this.terminal);
         this.redirector = new AMTRedirector(this.logger, Protocol.SOL, new FileReader(), this.uuid, 16994, '', '', 0, 0, JSON.parse(this.token).token, this.server);
@@ -82,13 +111,17 @@ class SolComponent {
         this.deviceStatus.emit(state);
     }
     startSol() {
-        this.redirector.start(WebSocket);
+        if (this.redirector !== null) {
+            this.redirector.start(WebSocket);
+        }
     }
     stopSol() {
-        this.redirector.stop();
-        this.handleClearTerminal();
-        this.term.dispose();
-        this.cleanup();
+        if (this.redirector !== null) {
+            this.redirector.stop();
+            this.handleClearTerminal();
+            this.term.dispose();
+            this.cleanup();
+        }
     }
     cleanup() {
         this.terminal = null;
@@ -97,8 +130,7 @@ class SolComponent {
         this.term = null;
     }
     ngOnDestroy() {
-        this.redirector.stop();
-        this.cleanup();
+        this.stopSol();
     }
 }
 SolComponent.ɵfac = function SolComponent_Factory(t) { return new (t || SolComponent)(ɵɵdirectiveInject('userInput'), ɵɵdirectiveInject(ActivatedRoute)); };
@@ -106,7 +138,7 @@ SolComponent.ɵcmp = ɵɵdefineComponent({ type: SolComponent, selectors: [["amt
         ɵɵelementStart(0, "div", 0);
         ɵɵelement(1, "div", 1);
         ɵɵelementEnd();
-    } }, styles: ["@import \"xterm/css/xterm.css\";.container{display:block;text-align:center}.xtermDisplay{display:inline-block}"], encapsulation: 2 });
+    } }, styles: [".container{display:block;text-align:center}.xtermDisplay{display:inline-block}"], encapsulation: 2 });
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(SolComponent, [{
         type: Component,
         args: [{
@@ -139,18 +171,32 @@ class SolModule {
 }
 SolModule.ɵfac = function SolModule_Factory(t) { return new (t || SolModule)(); };
 SolModule.ɵmod = ɵɵdefineNgModule({ type: SolModule });
-SolModule.ɵinj = ɵɵdefineInjector({ imports: [[]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(SolModule, { declarations: [SolComponent], exports: [SolComponent] }); })();
+SolModule.ɵinj = ɵɵdefineInjector({ imports: [[
+            HttpClientModule,
+            FlexLayoutModule,
+            BrowserModule,
+            BrowserAnimationsModule
+        ]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(SolModule, { declarations: [SolComponent], imports: [HttpClientModule,
+        FlexLayoutModule,
+        BrowserModule,
+        BrowserAnimationsModule], exports: [SolComponent] }); })();
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(SolModule, [{
         type: NgModule,
         args: [{
                 declarations: [
                     SolComponent
                 ],
-                imports: [],
+                imports: [
+                    HttpClientModule,
+                    FlexLayoutModule,
+                    BrowserModule,
+                    BrowserAnimationsModule
+                ],
                 exports: [
                     SolComponent
-                ]
+                ],
+                schemas: [CUSTOM_ELEMENTS_SCHEMA]
             }]
     }], null, null); })();
 

@@ -1,8 +1,8 @@
-import { EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { EventEmitter, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { AMTRedirector, ConsoleLogger } from '@open-amt-cloud-toolkit/ui-toolkit/core';
 import { ActivatedRoute } from '@angular/router';
 import * as i0 from "@angular/core";
-export declare class SolComponent implements OnInit, OnDestroy {
+export declare class SolComponent implements OnInit, OnDestroy, AfterViewInit {
     params: any;
     private readonly activatedRoute;
     uuid: string;
@@ -13,12 +13,16 @@ export declare class SolComponent implements OnInit, OnDestroy {
     dataProcessor: any;
     token: any;
     server: string;
+    mpsServer: boolean;
     logger: ConsoleLogger;
     deviceStatus: EventEmitter<number>;
     deviceConnection: EventEmitter<boolean>;
     constructor(params: any, activatedRoute: ActivatedRoute);
+    urlConstructor(): string;
     ngOnInit(): void;
+    ngAfterViewInit(): void;
     init(): void;
+    instantiate(): void;
     handleKeyPress(domEvent: any): void;
     handleClearTerminal(): void;
     handleWriteToXterm(str: string): void;

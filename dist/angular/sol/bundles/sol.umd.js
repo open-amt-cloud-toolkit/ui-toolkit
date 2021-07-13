@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('xterm'), require('@open-amt-cloud-toolkit/ui-toolkit/core'), require('@angular/cdk/keycodes'), require('@angular/router')) :
-    typeof define === 'function' && define.amd ? define('sol', ['exports', '@angular/core', 'xterm', '@open-amt-cloud-toolkit/ui-toolkit/core', '@angular/cdk/keycodes', '@angular/router'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.sol = {}, global.ng.core, global.xterm, global['@open-amt-cloud-toolkit']['ui-toolkit'].core, global.ng.cdk.keycodes, global.ng.router));
-}(this, (function (exports, i0, xterm, core, keycodes, i1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('xterm'), require('@open-amt-cloud-toolkit/ui-toolkit/core'), require('@angular/cdk/keycodes'), require('@angular/router'), require('@angular/platform-browser'), require('@angular/platform-browser/animations'), require('@angular/flex-layout'), require('@angular/common/http')) :
+    typeof define === 'function' && define.amd ? define('sol', ['exports', '@angular/core', 'xterm', '@open-amt-cloud-toolkit/ui-toolkit/core', '@angular/cdk/keycodes', '@angular/router', '@angular/platform-browser', '@angular/platform-browser/animations', '@angular/flex-layout', '@angular/common/http'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.sol = {}, global.ng.core, global.xterm, global['@open-amt-cloud-toolkit']['ui-toolkit'].core, global.ng.cdk.keycodes, global.ng.router, global.ng.platformBrowser, global.ng.platformBrowser.animations, global.ng.flexLayout, global.ng.common.http));
+}(this, (function (exports, i0, xterm, core, keycodes, i1, platformBrowser, animations, flexLayout, http) { 'use strict';
 
     var SolService = /** @class */ (function () {
         function SolService() {
@@ -30,14 +30,40 @@
             this.deviceStatus = new i0.EventEmitter();
             this.deviceConnection = new i0.EventEmitter();
             this.token = localStorage.getItem('loggedInUser');
+            this.server = this.urlConstructor() + "/relay";
+            this.mpsServer = this.params.mpsServer.includes('/mps');
+            if (this.mpsServer) {
+                this.server = this.urlConstructor() + "/ws/relay";
+            }
         }
+        SolComponent.prototype.urlConstructor = function () {
+            return this.params.mpsServer.replace('http', 'ws');
+        };
         SolComponent.prototype.ngOnInit = function () {
             var _this = this;
             this.activatedRoute.params.subscribe(function (params) {
                 _this.uuid = params.id;
             });
+            this.deviceConnection.subscribe(function (data) {
+                if (data) {
+                    _this.init();
+                }
+                else {
+                    _this.stopSol();
+                }
+            });
+        };
+        SolComponent.prototype.ngAfterViewInit = function () {
+            this.init();
         };
         SolComponent.prototype.init = function () {
+            var _this = this;
+            this.instantiate();
+            setTimeout(function () {
+                _this.startSol();
+            }, 4000);
+        };
+        SolComponent.prototype.instantiate = function () {
             var _this = this;
             this.terminal = new core.AmtTerminal();
             this.dataProcessor = new core.TerminalDataProcessor(this.terminal);
@@ -88,13 +114,17 @@
             this.deviceStatus.emit(state);
         };
         SolComponent.prototype.startSol = function () {
-            this.redirector.start(WebSocket);
+            if (this.redirector !== null) {
+                this.redirector.start(WebSocket);
+            }
         };
         SolComponent.prototype.stopSol = function () {
-            this.redirector.stop();
-            this.handleClearTerminal();
-            this.term.dispose();
-            this.cleanup();
+            if (this.redirector !== null) {
+                this.redirector.stop();
+                this.handleClearTerminal();
+                this.term.dispose();
+                this.cleanup();
+            }
         };
         SolComponent.prototype.cleanup = function () {
             this.terminal = null;
@@ -103,8 +133,7 @@
             this.term = null;
         };
         SolComponent.prototype.ngOnDestroy = function () {
-            this.redirector.stop();
-            this.cleanup();
+            this.stopSol();
         };
         return SolComponent;
     }());
@@ -115,7 +144,7 @@
                 i0.ɵɵelement(1, "div", 1);
                 i0.ɵɵelementEnd();
             }
-        }, styles: ["@import \"xterm/css/xterm.css\";.container{display:block;text-align:center}.xtermDisplay{display:inline-block}"], encapsulation: 2 });
+        }, styles: [".container{display:block;text-align:center}.xtermDisplay{display:inline-block}"], encapsulation: 2 });
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(SolComponent, [{
                 type: i0.Component,
@@ -155,8 +184,18 @@
     }());
     SolModule.ɵfac = function SolModule_Factory(t) { return new (t || SolModule)(); };
     SolModule.ɵmod = i0.ɵɵdefineNgModule({ type: SolModule });
-    SolModule.ɵinj = i0.ɵɵdefineInjector({ imports: [[]] });
-    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(SolModule, { declarations: [SolComponent], exports: [SolComponent] }); })();
+    SolModule.ɵinj = i0.ɵɵdefineInjector({ imports: [[
+                http.HttpClientModule,
+                flexLayout.FlexLayoutModule,
+                platformBrowser.BrowserModule,
+                animations.BrowserAnimationsModule
+            ]] });
+    (function () {
+        (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(SolModule, { declarations: [SolComponent], imports: [http.HttpClientModule,
+                flexLayout.FlexLayoutModule,
+                platformBrowser.BrowserModule,
+                animations.BrowserAnimationsModule], exports: [SolComponent] });
+    })();
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(SolModule, [{
                 type: i0.NgModule,
@@ -164,10 +203,16 @@
                         declarations: [
                             SolComponent
                         ],
-                        imports: [],
+                        imports: [
+                            http.HttpClientModule,
+                            flexLayout.FlexLayoutModule,
+                            platformBrowser.BrowserModule,
+                            animations.BrowserAnimationsModule
+                        ],
                         exports: [
                             SolComponent
-                        ]
+                        ],
+                        schemas: [i0.CUSTOM_ELEMENTS_SCHEMA]
                     }]
             }], null, null);
     })();
