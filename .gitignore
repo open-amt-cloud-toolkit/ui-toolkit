@@ -40,6 +40,8 @@ build/Release
 node_modules/
 jspm_packages/
 
+src/angular/node_modules
+
 # TypeScript v1 declaration files
 typings/
 
