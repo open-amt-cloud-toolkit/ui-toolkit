@@ -8,7 +8,7 @@ module.exports = {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.json'
     }
-  },  
+  },
   moduleFileExtensions: [
     'js',
     'ts',
@@ -16,18 +16,11 @@ module.exports = {
   ],
   transform: {
     '^.+\\.(ts|tsx)?$': 'ts-jest',
-    ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
   },
   testMatch: [
     '**/test/**/*.test.ts',
     '**/test/**/*.spec.ts',
-    '**/test/**/*.spec.tsx',
-    '**/test/**/*.test.tsx',
     '**/test/**/*.spec.js'
   ],
   testEnvironment: 'jsdom',
-  setupFiles: ['<rootDir>/jest.setup.ts'],
-  moduleNameMapper: {
-   "^.+\\.(css|scss)$": "identity-obj-proxy"
- }
 }
