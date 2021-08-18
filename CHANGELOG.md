@@ -1,3 +1,44 @@
+<a name="v1.5.0"></a>
+## [v1.5.0] - 2021-08-12
+### Build
+- **deps:** bump react-i18next from 11.11.0 to 11.11.1 ([#258](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/258))
+- **deps:** bump ws from 7.5.0 to 7.5.1
+- **deps:** bump ws from 7.5.1 to 7.5.2
+- **deps-dev:** bump webpack from 5.39.1 to 5.40.0
+- **deps-dev:** bump jest from 27.0.5 to 27.0.6 ([#248](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/248))
+- **deps-dev:** bump eslint from 7.29.0 to 7.30.0 ([#250](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/250))
+- **deps-dev:** bump ts-jest from 27.0.3 to 27.0.4
+- **deps-dev:** bump [@types](https://github.com/types)/ws from 7.4.5 to 7.4.6 ([#251](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/251))
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin ([#256](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/256))
+- **deps-dev:** bump webpack from 5.42.1 to 5.43.0 ([#257](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/257))
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 4.28.1 to 4.28.2 ([#255](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/255))
+- **deps-dev:** bump [@types](https://github.com/types)/jest from 26.0.23 to 26.0.24
+- **deps-dev:** bump webpack from 5.41.1 to 5.42.1
+- **deps-dev:** bump [@types](https://github.com/types)/react from 17.0.11 to 17.0.13
+- **deps-dev:** bump typescript from 4.3.4 to 4.3.5
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 4.28.0 to 4.28.1
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin
+- **deps-dev:** bump webpack from 5.40.0 to 5.41.1
+- **deps-dev:** bump [@types](https://github.com/types)/md5 from 2.3.0 to 2.3.1
+- **deps-dev:** bump html-webpack-plugin from 5.3.1 to 5.3.2
+- **deps-dev:** bump style-loader from 2.0.0 to 3.0.0
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.17.3 to 14.17.4
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 4.27.0 to 4.28.0
+- **deps-dev:** bump jest from 27.0.4 to 27.0.5
+- **version:** bump to v1.5.0
+
+### Ci
+- add codeql for code analysis
+
+### Docs
+- add coverage badge
+- **readme:** update to v1.4.0 steps
+- **security:** added SECURITY.md file
+- **security:** added security.md file
+
+### Refactor
+- remove angular and react components from corer
 
 <a name="v1.4.0"></a>
 ## [v1.4.0] - 2021-06-22
