@@ -1,9 +1,0 @@
-{
-    "name": "ui-toolkit/reactjs/sol",
-    "main": "../src/sol.bundle.js",
-    "typings": "./index.d.ts",
-    "module": "../src/sol.bundle.js",
-    "es2015": "../src/sol.bundle.js",
-    "fesm2015": "../src/sol.bundle.js",
-    "esm2015": "../src/sol.bundle.js"
-}
