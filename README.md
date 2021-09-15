@@ -4,61 +4,17 @@
 
 > Disclaimer: Production viable releases are tagged and listed under 'Releases'. All other check-ins should be considered 'in-development' and should not be used in production
 
-The UI Toolkit provides prebuilt, React-based components for integrating remote management features such as a keyboard, video, mouse (KVM) control into a web-based management console UI. The controls have a reference UI and layout that can be customized further to seamlessly integrate with existing management console solutions.
 
-<br><br>
+The UI Toolkit is a framework agnostic implementation of remote management features like Keyboard, Video, Mouse (KVM) or Serial-over-LAN (SOL). The provided core components simplify the task of adding these complex manageability controls into a management console UI.
 
-**For detailed documentation** about [Getting Started with the UI Toolkit](https://open-amt-cloud-toolkit.github.io/docs/1.4/Tutorials/uitoolkit) or other features of the Open AMT Cloud Toolkit, see the [docs](https://open-amt-cloud-toolkit.github.io/docs/).
+The UI Toolkit can be used with your front-end framework of choice such as ReactJS, Angular, or many others. See the [ui-toolkit-react](https://github.com/open-amt-cloud-toolkit/ui-toolkit-react) and [ui-toolkit-angular](https://github.com/open-amt-cloud-toolkit/ui-toolkit-angular) repos for framework-specific, pre-built example UI Toolkit implementations.
+
 
 <br>
 
-## Prerequisites
+**For documentation** about Getting Started with the UI Toolkit or other features of the Open AMT Cloud Toolkit, see the [docs](https://open-amt-cloud-toolkit.github.io/docs/).
 
-To succesfully deploy the UI Toolkit using React, the following software must be installed on your development system:
-
-- [Node.js\* LTS 12.x.x or newer](https://nodejs.org/en/)
-- [git](https://git-scm.com/downloads)
-- [Visual Studio Code](https://code.visualstudio.com/) or any other IDE of choice
-
-## Create a New React App
-
-The React app can be created in any preferred development directory. The MPS can continue to run while creating and running the app.
-
-1. In a Command Prompt or Terminal, go to your preferred development directory.
-
-2. Run the following commands to create sample React app named `my-app`.
-
-   ```bash
-   npx create-react-app my-app && cd my-app
-   ```
-
-## Add UI Toolkit
-
-1. Run the following command to add the UI Toolkit and install the required dependencies:
-
-   ```bash
-   npm install @open-amt-cloud-toolkit/ui-toolkit
-   ```
-
-2. Run the following commands to start the web UI locally:
-
-   ```bash
-   npm start
-   ```
-
-3. By default, React apps run on port `3000`. If port `3000` is already used by the MPS server or any other application, you'll be prompted to use another port. If this happens, enter 'Y'.
-
-   Sample Output:
-
-   ```
-   You can now view my-app in the browser.
-   Local: http://localhost:3000
-   On Your Network: http://172.16.17.4:3000
-   ```
-
-Learn how to add the KVM control to your new React app [here](https://open-amt-cloud-toolkit.github.io/docs/1.4/Tutorials/uitoolkit/#add-a-sample-control)
-
-For detailed documentation about the UI Toolkit, see the [docs](https://open-amt-cloud-toolkit.github.io/docs/)
+<br>
 
 ## License Note
 
