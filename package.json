@@ -1,6 +1,6 @@
 {
   "name": "@open-amt-cloud-toolkit/ui-toolkit",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "UI controls for Intel AMT features",
   "scripts": {
     "start": "webpack serve --config webpack.config.dev.js",
@@ -16,10 +16,10 @@
   "types": "index.d.ts",
   "dependencies": {
     "md5": "^2.2.1",
-    "ws": "^7.5.0"
+    "ws": "^8.2.1"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.23",
+    "@types/jest": "^27.0.1",
     "@types/md5": "^2.1.33",
     "@types/node": "^14.17.3",
     "@types/ws": "^7.4.5",
@@ -28,7 +28,7 @@
     "canvas": "^2.8.0",
     "eslint": "^7.29.0",
     "eslint-config-standard": "^16.0.3",
-    "eslint-config-standard-with-typescript": "^20.0.0",
+    "eslint-config-standard-with-typescript": "^21.0.1",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
