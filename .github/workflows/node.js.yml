@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
   workflow_dispatch:
 jobs:
   build:
@@ -32,17 +32,17 @@ jobs:
       name: Upload Coverage Results
     #checkout the dist branch    
     - uses: actions/checkout@v2
-      if: ${{ github.ref == 'refs/heads/master' }}      
+      if: ${{ github.ref == 'refs/heads/main' }}      
       with:
         path: 'to-be-published'
         ref: 'dist'
     #copy the built dist content
     - name: Copy 
-      if: ${{ github.ref == 'refs/heads/master' }}      
+      if: ${{ github.ref == 'refs/heads/main' }}      
       run: cp -rlf dist/* ./to-be-published/
     #publish it
     - name: Publish content
-      if: ${{ github.ref == 'refs/heads/master' }}      
+      if: ${{ github.ref == 'refs/heads/main' }}      
       run: |
         cd ./to-be-published
         git config user.name github-actions
