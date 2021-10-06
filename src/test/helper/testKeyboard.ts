@@ -4,6 +4,14 @@
 **********************************************************************/
 
 class TestKeyBoardEvent implements KeyboardEvent {
+  initKeyboardEvent (): any {
+
+  }
+
+  initUIEvent (): any {
+
+  }
+
   altKey: boolean; char: string
   charCode: number
   code: string

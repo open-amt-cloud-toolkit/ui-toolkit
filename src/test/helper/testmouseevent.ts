@@ -4,6 +4,10 @@
 **********************************************************************/
 
 class TestMouseEvent implements MouseEvent {
+  initUIEvent (): any {
+
+  }
+
   altKey: boolean
   button: number
   buttons: number
