@@ -2,8 +2,66 @@
 ## [Unreleased]
 
 
-<a name="2.0.0"></a>
-## [2.0.0] - 2021-09-15
+<a name="2.0.3"></a>
+## [2.0.3] - 2021-11-08
+### Build
+- **deps:** bump ws from 8.2.2 to 8.2.3 (#8abf04e) 
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin (#58fd0d1) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.17.29 to 14.17.32 (#eab5220) 
+- **deps-dev:** bump webpack from 5.59.0 to 5.61.0 (#302a217) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.17.27 to 14.17.29 (#2086dbf) 
+- **deps-dev:** bump jest from 27.3.0 to 27.3.1 (#307ca0e) 
+- **deps-dev:** bump webpack from 5.58.2 to 5.59.0 (#5cde2f6) 
+- **deps-dev:** bump typescript from 4.4.3 to 4.4.4 (#1e58132) 
+- **deps-dev:** bump jest from 27.2.5 to 27.3.0 (#f42e5de) 
+- **deps-dev:** bump webpack-cli from 4.8.0 to 4.9.1 (#343f63c) 
+- **deps-dev:** bump ts-jest from 27.0.6 to 27.0.7 (#28b9758) 
+- **deps-dev:** bump jest from 27.2.4 to 27.2.5 (#a363415) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.17.21 to 14.17.27 (#3f4cc88) 
+- **deps-dev:** bump ts-jest from 27.0.5 to 27.0.6 (#dc4ca32) 
+- **deps-dev:** bump webpack from 5.58.1 to 5.58.2 (#e8facb8) 
+- **deps-dev:** bump eslint-plugin-import from 2.24.2 to 2.25.2 (#870906d) 
+- **deps-dev:** bump webpack from 5.57.1 to 5.58.1 (#f7b3965) 
+- **deps-dev:** bump webpack from 5.57.1 to 5.58.0 (#09b7b14) 
+- **deps-dev:** bump typescript from 4.3.5 to 4.4.3 (#d470f86) 
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin (#98602d1) 
+- **deps-dev:** bump webpack from 5.56.1 to 5.57.1 (#3350522) 
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 4.32.0 to 4.33.0 (#07a586d) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.17.20 to 14.17.21 (#ba843e8) 
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 4.31.2 to 4.32.0 (#fe8390a) 
+- **deps-dev:** bump eslint-plugin-promise from 5.1.0 to 5.1.1 (#feb42c3) 
+- **deps-dev:** bump webpack from 5.55.1 to 5.56.1 (#fb1818d) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.17.19 to 14.17.20 (#4c3e001) 
+- **deps-dev:** bump jest from 27.2.3 to 27.2.4 (#b27cf9a) 
+- **deps-dev:** bump [@types](https://github.com/types)/ws from 7.4.7 to 8.2.0 (#1b66067) 
+- **deps-dev:** bump webpack from 5.55.0 to 5.55.1 (#d8a82c3) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.17.18 to 14.17.19 (#0babd3b) 
+- **deps-dev:** bump webpack from 5.53.0 to 5.55.0 (#964f2da) 
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin (#8163fa7) 
+- **deps-dev:** bump jest from 27.1.1 to 27.2.3 (#8d0f9fc) 
+- **deps-dev:** bump ts-loader from 9.2.5 to 9.2.6 (#bba1539) 
+- **deps-dev:** bump [@types](https://github.com/types)/jest from 27.0.1 to 27.0.2 (#ac8b221) 
+- **deps-dev:** bump webpack from 5.52.0 to 5.53.0 (#6168ec3) 
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 4.31.0 to 4.31.2 (#eb5a213) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.17.15 to 14.17.18 (#d0452a8) 
+- **version:** bump version to v2.0.3 (#c5094b4) 
+
+### Ci
+- rename master to main for jobs (#41351d6) 
+
+### Docs
+- adds issue template (#37a47a6) 
+- add contributing guidelines (#b81581a) 
+- **github:** add pull request template (#c17d893) 
+- **github:** add pull request template (#8bb7dbd) 
+- **readme:** change from react (#20e4536) 
+
+### Test
+- fix mock keyboard and mouse events (#a50cb1a) 
+
+
+<a name="v2.0.0"></a>
+## [v2.0.0] - 2021-09-15
 ### Build
 - update version to v2.0.0 (#8a302e8) 
 - **deps:** bump ws from 8.2.1 to 8.2.2 (#565b8cd) 
@@ -34,6 +92,9 @@
 
 ### Ci
 - automate dist branch deployment (#9304b05) 
+
+### Docs
+- **changelog:** update changelog (#d56470a) 
 
 
 <a name="v1.5.0"></a>
@@ -313,8 +374,9 @@ v1.2.0
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2020-11-20
 
-[Unreleased]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/2.0.0...HEAD
-[2.0.0]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v1.5.0...2.0.0
+[Unreleased]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/2.0.3...HEAD
+[2.0.3]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v2.0.0...2.0.3
+[v2.0.0]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v1.5.0...v2.0.0
 [v1.5.0]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v1.4.0...v1.5.0
 [v1.4.0]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v1.3.0...v1.4.0
 [v1.3.0]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v1.2.0...v1.3.0
