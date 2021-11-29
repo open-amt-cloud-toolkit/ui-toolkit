@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [12.x, 14.x, 16.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -30,26 +30,3 @@ jobs:
       - run: npm run coverage
       - uses: codecov/codecov-action@v1.0.14
         name: Upload Coverage Results
-      #checkout the dist branch
-      - uses: actions/checkout@v2
-        if: ${{ github.ref == 'refs/heads/main' }}
-        with:
-          path: "to-be-published"
-          ref: "dist"
-      #copy the built dist content
-      - name: Copy Dist To Be Published
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: cp -rlf dist/* ./to-be-published/
-      - name: Copy package.json
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: cp -rlf package.json ./to-be-published
-      #publish it
-      - name: Publish content
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: |
-          cd ./to-be-published
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m 'ci: ${{github.event.head_commit.message}}'
-          git push origin dist
