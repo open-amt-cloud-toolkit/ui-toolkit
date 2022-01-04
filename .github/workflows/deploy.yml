@@ -9,24 +9,27 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
     steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build-ext
       #checkout the dist branch
       - uses: actions/checkout@v2
-        if: ${{ github.ref == 'refs/heads/main' }}
         with:
           path: "to-be-published"
           ref: "dist"
       #copy the built dist content
       - name: Copy Dist To Be Published
-        if: ${{ github.ref == 'refs/heads/main' }}
         run: cp -rlf dist/* ./to-be-published/
       - name: Copy package.json
-        if: ${{ github.ref == 'refs/heads/main' }}
         run: cp -rlf package.json ./to-be-published
       #publish it
       - name: Publish content
-        if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           cd ./to-be-published
           git config user.name github-actions
