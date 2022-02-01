@@ -2,7 +2,9 @@
   "name": "@open-amt-cloud-toolkit/ui-toolkit",
   "version": "2.0.3",
   "description": "UI controls for Intel AMT features",
+  "main": "index.js",
   "scripts": {
+    "prepublishOnly": "cp package.json dist",
     "start": "webpack serve --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
     "build-ext": "npm run build-types && webpack --config webpack.config.externals.js",
@@ -13,6 +15,10 @@
   },
   "author": "",
   "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues"
+  },
+  "homepage": "https://github.com/open-amt-cloud-toolkit/ui-toolkit#readme",
   "types": "index.d.ts",
   "dependencies": {
     "md5": "^2.2.1",
