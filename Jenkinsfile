@@ -8,33 +8,37 @@ pipeline{
         timeout(unit: 'HOURS', time: 2)
     }
     stages{
-        stage('Cloning Repository') {
-            steps{ 
+        stage('Scan'){
+            environment {
+                PROJECT_NAME               = 'OpenAMT - UI Toolkit'
+                SCANNERS                   = 'checkmarx,snyk'
+                
+                // publishArtifacts details
+                PUBLISH_TO_ARTIFACTORY     = true
+
+                SNYK_MANIFEST_FILE         = 'package-lock.json'
+                SNYK_PROJECT_NAME          = 'openamt-ui-toolkit'
+            }
+            when {
+                anyOf {
+                    branch 'main';
+                }
+            }
+            steps {
                 script{
-                    scmCheckout {
+                    scmCheckout { 
                         clean = true
                     }
                 }
+                rbheStaticCodeScan()
             }
         }
-        stage('Static Code Scan') {
-            steps{
-                script{
-                    staticCodeScan {
-                        // generic
-                        scanners             = ['checkmarx', 'protex', 'snyk']
-                        scannerType          = 'javascript'
-
-                        protexProjectName    = 'OpenAMT - UI Toolkit'
-                        // internal, do not change
-                        protexBuildName      = 'rrs-generic-protex-build'
-
-                        checkmarxProjectName = "OpenAMT - UI Toolkit"
-
-                        //snyk details
-                        snykManifestFile        = ['package-lock.json']
-                        snykProjectName         = ['openamt-ui-toolkit']
-                    }
+    }
+    post{
+        failure {
+             script{
+                slackBuildNotify {
+                    slackFailureChannel = '#open-amt-cloud-toolkit-build'
                 }
             }
         }
