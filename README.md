@@ -1,6 +1,6 @@
 # UI Toolkit
 
-[![Known Vulnerabilities](https://snyk.io/test/github/open-amt-cloud-toolkit/ui-toolkit/badge.svg?targetFile=package.json)](https://snyk.io/test/github/open-amt-cloud-toolkit/ui-toolkit?targetFile=package.json) ![Node.js CI](https://github.com/open-amt-cloud-toolkit/sample-web-ui/workflows/Node.js%20CI/badge.svg) ![codecov.io](https://codecov.io/github/open-amt-cloud-toolkit/ui-toolkit/coverage.svg?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/open-amt-cloud-toolkit/ui-toolkit/badge.svg?targetFile=package.json)](https://snyk.io/test/github/open-amt-cloud-toolkit/ui-toolkit?targetFile=package.json) ![Node.js CI](https://github.com/open-amt-cloud-toolkit/sample-web-ui/workflows/Node.js%20CI/badge.svg) ![codecov.io](https://codecov.io/github/open-amt-cloud-toolkit/ui-toolkit/coverage.svg?branch=main)
 
 > Disclaimer: Production viable releases are tagged and listed under 'Releases'. All other check-ins should be considered 'in-development' and should not be used in production
 
@@ -19,3 +19,4 @@ The UI Toolkit can be used with your front-end framework of choice such as React
 ## License Note
 
 If you are distributing the FortAwesome Icons, please provide attribution to the source per the [CC-by 4.0](https://creativecommons.org/licenses/by/4.0/deed.ast) license obligations.
+
