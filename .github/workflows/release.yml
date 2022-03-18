@@ -23,7 +23,7 @@ jobs:
       with:
         node-version: "16.x"
     - run: npm ci
-    - run: npm run compile --if-present
+    - run: npm run build-ext --if-present
     - run: rsync -a package.json README.md ./dist/
     - name: Semantic Release
       uses: cycjimmy/semantic-release-action@v2
