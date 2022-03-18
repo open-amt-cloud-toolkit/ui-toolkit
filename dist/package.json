@@ -13,6 +13,10 @@
   },
   "author": "",
   "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues"
+  },
+  "homepage": "https://github.com/open-amt-cloud-toolkit/ui-toolkit#readme",
   "types": "index.d.ts",
   "dependencies": {
     "md5": "^2.2.1",
@@ -31,7 +35,7 @@
     "eslint-config-standard-with-typescript": "^21.0.1",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-standard": "^5.0.0",
     "filereader": "^0.10.3",
     "jest": "^27.0.4",
