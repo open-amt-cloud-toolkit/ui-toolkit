@@ -22,8 +22,8 @@ class TestMouseEvent implements MouseEvent {
   pageX: number
   pageY: number
   relatedTarget: EventTarget
-  screenX: number
-  screenY: number
+  screenX: number = 0
+  screenY: number = 0
   shiftKey: boolean
   x: number
   y: number

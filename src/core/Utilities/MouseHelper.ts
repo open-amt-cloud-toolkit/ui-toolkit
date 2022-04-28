@@ -13,12 +13,14 @@ import { isTruthy } from './UtilityMethods'
  * Mousehelper provides helper functions for handling mouse events. mouseup, mousedown, mousemove
  */
 export class MouseHelper {
-  parent: Desktop | any
+  parent: Desktop
   comm: ICommunicator
   MouseInputGrab: boolean
   lastEvent: any
   debounceTime: number
   mouseClickCompleted: boolean
+  topposition: number = 0
+  leftposition: number = 0
   constructor (parent: Desktop, comm: ICommunicator, debounceTime: number) {
     this.parent = parent
     this.comm = comm
@@ -55,8 +57,17 @@ export class MouseHelper {
   mousemove (e: MouseEvent): boolean {
     if (this.parent.state !== 4) return true
     const pos = this.getPositionOfControl(this.parent.canvasControl)
-    this.parent.lastMouseX = (e.pageX - pos[0]) * (this.parent.canvasControl.height / this.parent.canvasControl.offsetHeight)
-    this.parent.lastMouseY = ((Number(e.pageY - pos[1]) + (isTruthy(this.parent.scrolldiv) ? Number(this.parent.scrolldiv.scrollTop) : 0)) * (this.parent.canvasControl.width / this.parent.canvasControl.offsetWidth))
+    const bcr = this.parent.canvasControl.getBoundingClientRect()
+    if (this.topposition === 0 || bcr.top > this.topposition) {
+      this.topposition = bcr.top
+    }
+    if (this.leftposition === 0 || bcr.left > this.leftposition) {
+      this.leftposition = bcr.left
+    }
+    const topOffset = this.topposition - bcr.top
+    const leftOffset = this.leftposition - bcr.left
+    this.parent.lastMouseX = ((e.pageX - pos[0]) + leftOffset) * (this.parent.canvasControl.height / this.parent.canvasControl.offsetHeight)
+    this.parent.lastMouseY = ((e.pageY - pos[1]) + topOffset) * (this.parent.canvasControl.width / this.parent.canvasControl.offsetWidth)
 
     if (!isTruthy(this.parent.noMouseRotate)) {
       this.parent.lastMouseX2 = ImageHelper.crotX(this.parent, this.parent.lastMouseX, this.parent.lastMouseY)
@@ -92,10 +103,10 @@ export class MouseHelper {
     return false
   }
 
-  getPositionOfControl (c: HTMLElement): any {
-    const Position = Array(2)
-    Position[0] = Position[1] = 0
-    let control: HTMLElement = c
+  getPositionOfControl (c: HTMLElement | null): number[] {
+    const Position = [0, 0]
+
+    let control: HTMLElement|null = c
     while (control != null) {
       Position[0] = Number(Position[0]) + Number(control.offsetLeft)
       Position[1] = Number(Position[1]) + Number(control.offsetTop)

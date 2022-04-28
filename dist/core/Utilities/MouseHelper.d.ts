@@ -15,6 +15,8 @@ export declare class MouseHelper {
     lastEvent: any;
     debounceTime: number;
     mouseClickCompleted: boolean;
+    topposition: number;
+    leftposition: number;
     constructor(parent: Desktop, comm: ICommunicator, debounceTime: number);
     GrabMouseInput(): any;
     UnGrabMouseInput(): any;
@@ -22,5 +24,5 @@ export declare class MouseHelper {
     mouseup(e: MouseEvent): any;
     mousemove(e: MouseEvent): boolean;
     haltEvent(e: any): boolean;
-    getPositionOfControl(c: HTMLElement): any;
+    getPositionOfControl(c: HTMLElement): number[];
 }
