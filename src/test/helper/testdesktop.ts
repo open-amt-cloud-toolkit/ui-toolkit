@@ -63,6 +63,13 @@ class AmtDesktop extends Desktop {
     this.focusMode = 0
     this.useZRLE = true
     this.frameRateDelay = 2
+    this.canvasControl = {
+      getBoundingClientRect: () => {
+        return { top: 5, left: 5 }
+      }
+    }
+    this.setDeskFocus = () => { }
+    this.getDeskFocus = () => { return { left: 0, top: 0, width: 1, height: 1 } }
     this.logger = new TestLogger()
     this.canvasCtx = {
       canvas: {

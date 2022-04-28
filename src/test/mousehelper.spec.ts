@@ -105,4 +105,94 @@ describe('Test MouseHelper', () => {
     expect(TestMouseEvent.preventDefaultvar).toBe(1)
     expect(TestMouseEvent.stopPropagationvar).toBe(1)
   })
+
+  it('Test mousedown', () => {
+    // Input
+    const comm = new Communicator()
+    const desktop = new AmtDesktop()
+    const mousehelper = new MouseHelper(desktop, comm, 0)
+    const e = new TestMouseEvent()
+    
+    // Test mousedown
+    mousehelper.mousedown(e)
+
+    expect(e.screenY).toBe(0)
+  })
+
+  it('Test mouseup', () => {
+    // Input
+    const comm = new Communicator()
+    const desktop = new AmtDesktop()
+    const mousehelper = new MouseHelper(desktop, comm, 0)
+    const e = new TestMouseEvent()
+    
+    // Test mousedown
+    mousehelper.mouseup(e)
+
+    expect(e.screenY).toBe(0)
+  })
+
+  it('Test mousemove', () => {
+    // Input
+    const comm = new Communicator()
+    const desktop = new AmtDesktop()
+    const mousehelper = new MouseHelper(desktop, comm, 0)
+    const e = new TestMouseEvent()
+    
+    desktop.state = 4
+    
+    // Test mousemove
+    mousehelper.mousemove(e)
+
+    expect(e.screenY).toBe(0)
+  })
+
+  it('Test mousemove - vertical scroll', () => {
+    // Input
+    const comm = new Communicator()
+    const desktop = new AmtDesktop()
+    const mousehelper = new MouseHelper(desktop, comm, 0)
+    const e = new TestMouseEvent()
+    
+    desktop.state = 4
+    mousehelper.topposition = -1
+    
+    // Test mousemove
+    mousehelper.mousemove(e)
+
+    expect(e.screenY).toBe(0)
+  })
+
+  it('Test mousemove - horizontal scroll', () => {
+    // Input
+    const comm = new Communicator()
+    const desktop = new AmtDesktop()
+    const mousehelper = new MouseHelper(desktop, comm, 0)
+    const e = new TestMouseEvent()
+    
+    desktop.state = 4
+    mousehelper.leftposition = -1
+    
+    // Test mousemove
+    mousehelper.mousemove(e)
+
+    expect(e.screenY).toBe(0)
+  })
+
+  it('Test mousemove with focusmode', () => {
+    // Input
+    const comm = new Communicator()
+    const desktop = new AmtDesktop()
+    const mousehelper = new MouseHelper(desktop, comm, 0)
+    const e = new TestMouseEvent()
+    
+    desktop.state = 4
+    desktop.focusMode = 1
+    
+    // Test mousemove
+    mousehelper.mousemove(e)
+
+    expect(e.screenY).toBe(0)
+  })
+
 })
