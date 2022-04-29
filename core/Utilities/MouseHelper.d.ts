@@ -9,12 +9,14 @@ import { Desktop } from '../Desktop';
  * Mousehelper provides helper functions for handling mouse events. mouseup, mousedown, mousemove
  */
 export declare class MouseHelper {
-    parent: Desktop | any;
+    parent: Desktop;
     comm: ICommunicator;
     MouseInputGrab: boolean;
     lastEvent: any;
     debounceTime: number;
     mouseClickCompleted: boolean;
+    topposition: number;
+    leftposition: number;
     constructor(parent: Desktop, comm: ICommunicator, debounceTime: number);
     GrabMouseInput(): any;
     UnGrabMouseInput(): any;
@@ -22,5 +24,5 @@ export declare class MouseHelper {
     mouseup(e: MouseEvent): any;
     mousemove(e: MouseEvent): boolean;
     haltEvent(e: any): boolean;
-    getPositionOfControl(c: HTMLElement): any;
+    getPositionOfControl(c: HTMLElement | null): number[];
 }
