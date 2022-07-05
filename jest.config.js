@@ -22,5 +22,6 @@ module.exports = {
     '**/test/**/*.spec.ts',
     '**/test/**/*.spec.js'
   ],
+  reporters: ["default", "jest-junit"],
   testEnvironment: 'jsdom',
 }
