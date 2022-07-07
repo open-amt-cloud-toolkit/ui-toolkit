@@ -1,9 +1,118 @@
-<a name="unreleased"></a>
-## [Unreleased]
+<a name="2.0.7"></a>
+## [2.0.7] - 2022-07-05
+### Build
+- **deps:** bump ws from 8.6.0 to 8.7.0 ([#485](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/485)) (#d8f7a55) 
+- **deps:** bump ws from 8.5.0 to 8.6.0 (#763790d) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.18.18 to 14.18.20 (#1394269) 
+- **deps-dev:** bump typescript from 4.7.2 to 4.7.3 (#dd431e0) 
+- **deps-dev:** bump typescript from 4.6.4 to 4.7.2 (#95bce96) 
+- **deps-dev:** bump webpack from 5.72.1 to 5.73.0 (#95b9d4d) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.18.17 to 14.18.18 (#4d9ae32) 
+- **deps-dev:** bump webpack from 5.72.0 to 5.72.1 (#70c82e1) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.18.16 to 14.18.17 (#97976d7) 
+- **deps-dev:** bump [@types](https://github.com/types)/jest from 27.4.1 to 27.5.0 (#93e4063) 
+- **deps-dev:** bump ts-loader from 9.2.9 to 9.3.0 (#9728a6b) 
+- **deps-dev:** bump webpack-cli from 4.9.2 to 4.10.0 (#f14a04e) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.18.14 to 14.18.16 (#98f1c2a) 
+
+### Ci
+- rename test output (#216f43d) 
+- remove node 12, add 18 as experimental to build (#d16a8bd) 
+- **jest:** add junit reports (#ebe6532) 
 
 
-<a name="2.0.3"></a>
-## [2.0.3] - 2021-11-08
+<a name="v2.0.6"></a>
+## [v2.0.6] - 2022-04-28
+### Build
+- **deps:** bump minimist from 1.2.5 to 1.2.6 (#4a76495) 
+- **deps-dev:** bump typescript from 4.6.3 to 4.6.4 (#cce9088) 
+- **deps-dev:** bump ts-loader from 9.2.8 to 9.2.9 (#af8d936) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.18.12 to 14.18.13 (#3937d4e) 
+- **deps-dev:** bump ts-jest from 27.1.3 to 27.1.4 (#30d9c65) 
+- **deps-dev:** bump eslint-plugin-import from 2.25.4 to 2.26.0 (#1562efe) 
+- **deps-dev:** bump webpack from 5.70.0 to 5.72.0 (#3dd2021) 
+- **deps-dev:** bump [@types](https://github.com/types)/ws from 8.5.2 to 8.5.3 (#c0c576b) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.18.13 to 14.18.14 (#0fe4da2) 
+- **deps-dev:** bump canvas from 2.9.0 to 2.9.1 (#4a8bc8c) 
+- **deps-dev:** bump typescript from 4.6.2 to 4.6.3 (#ae80bd5) 
+
+### Ci
+- **lint:** adds semantic checks to PRs (#0ff1dc0) 
+
+### Fix
+- aligns cursor properly when srolling (#f4d4669) 
+
+
+<a name="v2.0.5"></a>
+## [v2.0.5] - 2022-03-18
+### Fix
+- **build:** semantic release shoudl now build code correctly (#97db0d3) 
+
+
+<a name="v2.0.4"></a>
+## [v2.0.4] - 2022-03-18
+### Build
+- **deploy:** separate out push to dist branch (#b1e6de6) 
+- **deps:** bump simple-get from 3.1.0 to 3.1.1 (#2f9e511) 
+- **deps:** bump ws from 8.2.3 to 8.3.0 (#eb9b2a4) 
+- **deps:** bump ws from 8.3.0 to 8.4.0 (#6ce18a9) 
+- **deps:** bump ws from 8.4.2 to 8.5.0 (#c02593e) 
+- **deps:** bump ws from 8.4.0 to 8.4.2 (#d494388) 
+- **deps:** bump node-fetch from 2.6.1 to 2.6.7 (#a525de0) 
+- **deps-dev:** bump ts-loader from 9.2.7 to 9.2.8 (#71d054e) 
+- **deps-dev:** bump [@types](https://github.com/types)/jest from 27.4.0 to 27.4.1 (#c2a949c) 
+- **deps-dev:** bump ts-loader from 9.2.6 to 9.2.7 (#16672d9) 
+- **deps-dev:** bump jest from 27.4.7 to 27.5.1 (#f60ca3a) 
+- **deps-dev:** bump webpack from 5.67.0 to 5.68.0 (#63a2146) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.18.9 to 14.18.10 (#08225cf) 
+- **deps-dev:** bump [@types](https://github.com/types)/ws from 8.2.2 to 8.5.2 (#c7b48ea) 
+- **deps-dev:** bump webpack from 5.66.0 to 5.67.0 (#4758726) 
+- **deps-dev:** bump typescript from 4.5.4 to 4.5.5 (#ab8bdb0) 
+- **deps-dev:** bump webpack-cli from 4.9.1 to 4.9.2 (#993ed09) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.18.10 to 14.18.12 (#a640eda) 
+- **deps-dev:** bump webpack from 5.65.0 to 5.66.0 (#733b74d) 
+- **deps-dev:** bump canvas from 2.8.0 to 2.9.0 (#2e2449c) 
+- **deps-dev:** bump ts-jest from 27.1.2 to 27.1.3 (#4f2005a) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.17.34 to 14.18.9 (#3de01d5) 
+- **deps-dev:** bump webpack from 5.68.0 to 5.70.0 (#14a416b) 
+- **deps-dev:** bump eslint-plugin-import from 2.25.3 to 2.25.4 (#5b25153) 
+- **deps-dev:** bump jest from 27.4.5 to 27.4.7 (#49d7675) 
+- **deps-dev:** bump [@types](https://github.com/types)/jest from 27.0.3 to 27.4.0 (#84c0819) 
+- **deps-dev:** bump eslint-plugin-promise from 5.2.0 to 6.0.0 (#6b3407b) 
+- **deps-dev:** bump ts-jest from 27.1.1 to 27.1.2 (#20ef758) 
+- **deps-dev:** bump typescript from 4.5.2 to 4.5.4 (#c8bc732) 
+- **deps-dev:** bump jest from 27.4.4 to 27.4.5 (#596db86) 
+- **deps-dev:** bump ts-jest from 27.0.7 to 27.1.1 (#acc2568) 
+- **deps-dev:** bump webpack from 5.64.4 to 5.65.0 (#8e451a4) 
+- **deps-dev:** bump eslint-plugin-promise from 5.1.1 to 5.2.0 (#1ed7b61) 
+- **deps-dev:** bump [@types](https://github.com/types)/ws from 8.2.0 to 8.2.2 (#36c17c4) 
+- **deps-dev:** bump jest from 27.4.1 to 27.4.4 (#6c5a8dc) 
+- **deps-dev:** bump jest from 27.3.1 to 27.4.1 (#f5ceda7) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.17.33 to 14.17.34 (#16cde93) 
+- **deps-dev:** bump [@types](https://github.com/types)/md5 from 2.3.1 to 2.3.2 (#bcbae77) 
+- **deps-dev:** bump typescript from 4.5.5 to 4.6.2 (#ee562cf) 
+- **deps-dev:** bump eslint-plugin-import from 2.25.2 to 2.25.3 (#0472d3f) 
+- **deps-dev:** bump webpack from 5.64.2 to 5.64.4 (#ac80387) 
+- **deps-dev:** bump typescript from 4.4.4 to 4.5.2 (#4f161d1) 
+- **deps-dev:** bump [@types](https://github.com/types)/jest from 27.0.2 to 27.0.3 (#b1db9c2) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 14.17.32 to 14.17.33 (#1e59e28) 
+- **deps-dev:** bump webpack from 5.64.0 to 5.64.2 (#aeef4e8) 
+- **deps-dev:** bump webpack from 5.61.0 to 5.64.0 (#f52f7d5) 
+- **node:** bump from 14.x to 16.x (#b2479d0) 
+
+### Ci
+- **deploy:** fix broken publish (#94c637a) 
+- **jenkinsfile:** removes protex scan (#e55f395) 
+- **npm:** add job to publish to npm (#33bdf7e) 
+- **semantic-release:** adds automated releases (#fd8efba) 
+- **workflow:** optimize node CI (#b14dab6) 
+
+### Fix
+- **deps:** release all dependency updates since 2.0.3 (#38383e6) 
+
+
+<a name="v2.0.3"></a>
+## [v2.0.3] - 2021-11-09
 ### Build
 - **deps:** bump ws from 8.2.2 to 8.2.3 (#8abf04e) 
 - **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin (#58fd0d1) 
@@ -52,6 +161,7 @@
 ### Docs
 - adds issue template (#37a47a6) 
 - add contributing guidelines (#b81581a) 
+- **changelog:** update changelog (#131ab61) 
 - **github:** add pull request template (#c17d893) 
 - **github:** add pull request template (#8bb7dbd) 
 - **readme:** change from react (#20e4536) 
@@ -375,7 +485,11 @@ v1.2.0
 ## v1.0.0 - 2020-11-20
 
 [Unreleased]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/2.0.3...HEAD
-[2.0.3]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v2.0.0...2.0.3
+[2.0.3]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v2.0.6...2.0.3
+[v2.0.6]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v2.0.5...v2.0.6
+[v2.0.5]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v2.0.4...v2.0.5
+[v2.0.4]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v2.0.3...v2.0.4
+[v2.0.3]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v2.0.0...v2.0.3
 [v2.0.0]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v1.5.0...v2.0.0
 [v1.5.0]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v1.4.0...v1.5.0
 [v1.4.0]: https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v1.3.0...v1.4.0
