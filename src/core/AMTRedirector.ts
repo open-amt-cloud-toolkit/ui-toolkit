@@ -54,6 +54,8 @@ export class AMTRedirector implements ICommunicator {
 
   constructor (logger: ILogger, protocol: number, fr: FileReader, host: string, port: number, user: string, pass: string, tls: number, tls1only: number, authToken: string, server?: string) {
     this.fileReader = fr
+    this.fileReaderInUse = false
+    this.fileReaderAcc = []
     this.randomNonceChars = 'abcdef0123456789'
     this.host = host
     this.port = port
@@ -105,7 +107,7 @@ export class AMTRedirector implements ICommunicator {
    * gets Ws Location and starts a websocket for listening
    * @param c is base type for WebSocket
    */
-  start<T> (c: new(path: string, auth: string) => T): any { // Using this generic signature allows us to pass the WebSocket type from unit tests or in producion from a web browser
+  start<T> (c: new(path: string, auth: string) => T): any { // Using this generic signature allows us to pass the WebSocket type from unit tests or in production from a web browser
     this.connectState = 0
     // let ws = new c(this.getWsLocation()) // using create function c invokes the constructor WebSocket()
     // eslint-disable-next-line new-cap
