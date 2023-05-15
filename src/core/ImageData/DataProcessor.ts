@@ -4,9 +4,9 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { IStateProcessor, IDataProcessor, ILogger, ICommunicator } from '../Interfaces'
+import { type IStateProcessor, type IDataProcessor, type ILogger, type ICommunicator } from '../Interfaces'
 import { StateProcessorFactory } from '../StateProcessorFactory'
-import { Desktop } from '../Desktop'
+import { type Desktop } from '../Desktop'
 import { isTruthy } from '../Utilities/UtilityMethods'
 
 /**

@@ -4,8 +4,8 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { IKvmDataCommunicator, IServerCutTextHandler } from '../Interfaces'
-import { Desktop } from '../Desktop'
+import { type IKvmDataCommunicator, type IServerCutTextHandler } from '../Interfaces'
+import { type Desktop } from '../Desktop'
 import { TypeConverter } from '../Converter'
 import { isTruthy } from '../Utilities/UtilityMethods'
 class ServerCutTextHandler implements IServerCutTextHandler {

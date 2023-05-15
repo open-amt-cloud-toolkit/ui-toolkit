@@ -2,10 +2,10 @@
 * Copyright (c) Intel Corporation 2019
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-import { IDataProcessor, ILogger } from '../core'
+import { type IDataProcessor, type ILogger } from '../core'
 import { DataProcessor } from '../core/ImageData/DataProcessor'
 import { Desktop } from '../core/Desktop'
-import { IKvmDataCommunicator } from '../core/Interfaces/ICommunicator'
+import { type IKvmDataCommunicator } from '../core/Interfaces/ICommunicator'
 import { AMTKvmDataRedirector } from '../core/AMTKvmDataRedirector'
 import { TypeConverter } from '../core/Converter'
 import { ConsoleLogger } from '../core/ConsoleLogger'

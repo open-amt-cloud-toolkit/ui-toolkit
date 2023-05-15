@@ -4,9 +4,9 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { IStateProcessor, ICommunicator, IKvmDataCommunicator } from './Interfaces'
+import { type IStateProcessor, type ICommunicator, type IKvmDataCommunicator } from './Interfaces'
 import { HandshakeState, SecurityOptions, SecurityResponse, ServerInit, FrameBufferBellServerCutText, Encoding } from './RFBStateProcessors'
-import { Desktop } from './Desktop'
+import { type Desktop } from './Desktop'
 import { ServerCutTextHandler } from './RFBStateProcessors/ServerCutTextHandler'
 import { RLEDecoder } from './ImageData/RLEDecoder'
 

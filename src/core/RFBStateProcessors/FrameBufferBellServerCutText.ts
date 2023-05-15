@@ -4,7 +4,7 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { ICommunicator, IStateProcessor, IServerCutTextHandler } from '../Interfaces'
+import { type ICommunicator, type IStateProcessor, type IServerCutTextHandler } from '../Interfaces'
 import { TypeConverter } from '../Converter'
 
 class FrameBufferBellServerCutText implements IStateProcessor {

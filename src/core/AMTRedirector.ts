@@ -4,7 +4,7 @@
  * Author : Ramu Bachala
  **********************************************************************/
 import { TypeConverter } from './Converter'
-import { ICommunicator, ILogger } from './Interfaces'
+import { type ICommunicator, type ILogger } from './Interfaces'
 import md5 from 'md5'
 import { isTruthy } from './Utilities/UtilityMethods'
 /**
@@ -208,7 +208,7 @@ export class AMTRedirector implements ICommunicator {
     } else if (typeof data !== 'string') { return }
 
     if ((this.protocol === Protocol.KVM || this.protocol === Protocol.IDER) && this.connectState === 1) {
-      return this.onProcessData(data)
+      this.onProcessData(data); return
     } // KVM traffic, forward it directly.
 
     // console.log('before: ', this.amtAccumulator)

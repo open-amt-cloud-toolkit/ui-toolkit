@@ -4,9 +4,9 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { ICommunicator, IStateProcessor, IRLEDecoder } from '../Interfaces'
+import { type ICommunicator, type IStateProcessor, type IRLEDecoder } from '../Interfaces'
 import { TypeConverter } from '../Converter'
-import { Desktop } from '../Desktop'
+import { type Desktop } from '../Desktop'
 import { ImageHelper, CommsHelper, isTruthy } from '../Utilities'
 
 /**
@@ -127,7 +127,7 @@ class Encoding implements IStateProcessor {
       if (--this.parent.state === 100) {
         this.parent.logger.debug('Frame completed. Update state and request new frame')
         this.updateRFBState(4)
-        const sendRefreshCallback = (): any => CommsHelper.sendRefresh(this.parent, this.wsSocket)
+        const sendRefreshCallback = (): any => { CommsHelper.sendRefresh(this.parent, this.wsSocket) }
         if (this.parent.frameRateDelay === 0) {
           CommsHelper.sendRefresh(this.parent, this.wsSocket) // Ask for new frame
         } else {
