@@ -18,4 +18,4 @@ enum LogLevel {
   WARNING = 2,
   ERROR = 1
 }
-export { ILogger, LogLevel }
+export { type ILogger, LogLevel }

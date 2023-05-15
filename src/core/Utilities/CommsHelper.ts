@@ -4,11 +4,11 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { Desktop } from '../Desktop'
+import { type Desktop } from '../Desktop'
 import { TypeConverter } from '../Converter'
-import { ICommunicator } from '../Interfaces/ICommunicator'
+import { type ICommunicator } from '../Interfaces/ICommunicator'
 import { isTruthy } from './UtilityMethods'
-import { UpDown } from './KeyboardHelper'
+import { type UpDown } from './KeyboardHelper'
 
 const CommsHelper = {
   sendRefresh (parent: Desktop, comm: ICommunicator): void {
@@ -32,7 +32,7 @@ const CommsHelper = {
     }
   },
 
-  sendKey (comm: ICommunicator, k: number |any, d: UpDown): void {
+  sendKey (comm: ICommunicator, k: number | any, d: UpDown): void {
     if (typeof k === 'object') { for (const i in k) { this.sendKey(comm, k[i][0], k[i][1]) } } else { comm.send(String.fromCharCode(4, d, 0, 0) + TypeConverter.IntToStr(k)) }
   },
 

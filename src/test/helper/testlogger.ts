@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import { ILogger } from '../../core'
+import { type ILogger } from '../../core'
 
 class TestLogger implements ILogger {
   static verboseData = ''

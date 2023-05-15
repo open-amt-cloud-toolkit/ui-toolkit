@@ -4,7 +4,7 @@
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
 
-import { IDataProcessor } from '../../core'
+import { type IDataProcessor } from '../../core'
 
 export class TestDataProcessor implements IDataProcessor {
   static processeddata = ''

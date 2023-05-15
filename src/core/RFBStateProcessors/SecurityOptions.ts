@@ -4,7 +4,7 @@
  * Author : Ramu Bachala
  **********************************************************************/
 
-import { ICommunicator, IStateProcessor } from '../Interfaces'
+import { type ICommunicator, type IStateProcessor } from '../Interfaces'
 
 /**
  * Get security options from remote device. Send auth type.

@@ -5,6 +5,7 @@
         "jest": true
     },
     "extends": [
+        "eslint:recommended",
         "standard-with-typescript"
     ],
     "ignorePatterns": [

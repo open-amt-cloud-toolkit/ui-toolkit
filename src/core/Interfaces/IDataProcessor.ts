@@ -10,4 +10,4 @@ interface IDataProcessor {
   processData: (data: string) => void
 }
 
-export { IDataProcessor }
+export type { IDataProcessor }

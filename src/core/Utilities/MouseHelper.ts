@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { ICommunicator } from '../Interfaces/ICommunicator'
-import { Desktop } from '../Desktop'
+import { type ICommunicator } from '../Interfaces/ICommunicator'
+import { type Desktop } from '../Desktop'
 import { TypeConverter } from '../Converter'
 import { ImageHelper } from './ImageHelper'
 import { isTruthy } from './UtilityMethods'
@@ -106,7 +106,7 @@ export class MouseHelper {
   getPositionOfControl (c: HTMLElement | null): number[] {
     const Position = [0, 0]
 
-    let control: HTMLElement|null = c
+    let control: HTMLElement | null = c
     while (control != null) {
       Position[0] = Number(Position[0]) + Number(control.offsetLeft)
       Position[1] = Number(Position[1]) + Number(control.offsetTop)
