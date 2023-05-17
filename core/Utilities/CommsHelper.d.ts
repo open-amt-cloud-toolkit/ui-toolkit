@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { Desktop } from '../Desktop';
-import { ICommunicator } from '../Interfaces/ICommunicator';
-import { UpDown } from './KeyboardHelper';
+import { type Desktop } from '../Desktop';
+import { type ICommunicator } from '../Interfaces/ICommunicator';
+import { type UpDown } from './KeyboardHelper';
 declare const CommsHelper: {
     sendRefresh(parent: Desktop, comm: ICommunicator): void;
     sendKey(comm: ICommunicator, k: number | any, d: UpDown): void;

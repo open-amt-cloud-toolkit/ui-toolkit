@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { ICommunicator } from '../Interfaces/ICommunicator';
-import { Desktop } from '../Desktop';
+import { type ICommunicator } from '../Interfaces/ICommunicator';
+import { type Desktop } from '../Desktop';
 /**
  * Mousehelper provides helper functions for handling mouse events. mouseup, mousedown, mousemove
  */

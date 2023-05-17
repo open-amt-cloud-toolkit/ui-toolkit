@@ -10,4 +10,4 @@ interface IStateProcessor {
     next: IStateProcessor;
     processState: (acc: string) => number;
 }
-export { IStateProcessor };
+export type { IStateProcessor };

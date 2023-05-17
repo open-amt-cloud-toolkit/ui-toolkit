@@ -6,4 +6,4 @@
 interface IServerCutTextHandler {
     handleServerCutText: (acc: string) => number;
 }
-export { IServerCutTextHandler };
+export type { IServerCutTextHandler };

@@ -23,4 +23,4 @@ interface ICommunicator {
 interface IKvmDataCommunicator extends ICommunicator {
     onSendKvmData: (data: string) => void;
 }
-export { ICommunicator, IKvmDataCommunicator };
+export type { ICommunicator, IKvmDataCommunicator };
