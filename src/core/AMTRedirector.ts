@@ -302,29 +302,29 @@ export class AMTRedirector implements ICommunicator {
             if (authType === 4) buf = String(buf) + (String.fromCharCode(qop.length) + String(qop))
             this.socketSend(buf)
           } else
-          if (status === 0) { // Success
-            if (this.protocol === 1) {
+            if (status === 0) { // Success
+              if (this.protocol === 1) {
               // Serial-over-LAN: Send Intel AMT serial settings...
-              const MaxTxBuffer = 10000
-              const TxTimeout = 100
-              const TxOverflowTimeout = 0
-              const RxTimeout = 10000
-              const RxFlushTimeout = 100
-              const Heartbeat = 0// 5000;
-              this.socketSend(String.fromCharCode(0x20, 0x00, 0x00, 0x00) + TypeConverter.IntToStrX(this.amtSequence++) + TypeConverter.ShortToStrX(MaxTxBuffer) +
+                const MaxTxBuffer = 10000
+                const TxTimeout = 100
+                const TxOverflowTimeout = 0
+                const RxTimeout = 10000
+                const RxFlushTimeout = 100
+                const Heartbeat = 0// 5000;
+                this.socketSend(String.fromCharCode(0x20, 0x00, 0x00, 0x00) + TypeConverter.IntToStrX(this.amtSequence++) + TypeConverter.ShortToStrX(MaxTxBuffer) +
                   TypeConverter.ShortToStrX(TxTimeout) + TypeConverter.ShortToStrX(TxOverflowTimeout) + TypeConverter.ShortToStrX(RxTimeout) +
                   TypeConverter.ShortToStrX(RxFlushTimeout) + TypeConverter.ShortToStrX(Heartbeat) + TypeConverter.IntToStrX(0))
-            }
-            if (this.protocol === 2) {
+              }
+              if (this.protocol === 2) {
               // Remote Desktop: Send traffic directly...
-              this.socketSend(String.fromCharCode(0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00))
-            }
-            if (this.protocol === 3) {
+                this.socketSend(String.fromCharCode(0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00))
+              }
+              if (this.protocol === 3) {
               // Remote IDER: Send traffic directly...
-              this.connectState = 1
-              this.onStateChange(3)
-            }
-          } else this.stop()
+                this.connectState = 1
+                this.onStateChange(3)
+              }
+            } else this.stop()
           break }
         case 0x21: { // Response to settings (33)
           if (this.amtAccumulator.length < 23) break
