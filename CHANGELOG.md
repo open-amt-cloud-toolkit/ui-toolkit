@@ -1,3 +1,27 @@
+<a name="2.0.10"></a>
+## [2.0.10] - 2023-08-02
+### Build
+- update version in packagae.json and changelog (#c0afb04) 
+- **deps:** bump tough-cookie from 4.1.2 to 4.1.3 ([#664](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/664)) (#0c3210f) 
+- **deps:** bump semver from 6.3.0 to 6.3.1 ([#666](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/666)) (#9e2d939) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.4.1 to 20.4.2 ([#669](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/669)) (#9faf2b9) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.4.2 to 20.4.4 ([#676](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/676)) (#98f1997) 
+- **deps-dev:** bump eslint-config-standard-with-typescript ([#677](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/677)) (#fceec96) 
+- **deps-dev:** bump eslint from 8.44.0 to 8.45.0 ([#672](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/672)) (#22f0085) 
+- **deps-dev:** bump eslint-config-standard-with-typescript from 36.0.1 to 36.1.0 ([#671](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/671)) (#45d44e2) 
+- **deps-dev:** bump word-wrap from 1.2.3 to 1.2.4 ([#675](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/675)) (#159eb69) 
+- **deps-dev:** bump webpack from 5.88.1 to 5.88.2 ([#674](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/674)) (#a73297c) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.4.4 to 20.4.5 ([#679](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/679)) (#daeca37) 
+- **deps-dev:** bump eslint-config-standard-with-typescript ([#670](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/670)) (#4a660c9) 
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 5.61.0 to 5.62.0 ([#668](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/668)) (#8624d42) 
+- **deps-dev:** bump eslint-plugin-import from 2.27.5 to 2.28.0 ([#680](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/680)) (#7fe1fcd) 
+- **deps-dev:** bump eslint from 8.45.0 to 8.46.0 ([#681](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/681)) (#4c47b08) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.3.3 to 20.4.1 ([#665](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/665)) (#e0f2e7d) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.3.2 to 20.3.3 ([#659](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/659)) (#73d98cd) 
+- **deps-dev:** bump eslint from 8.43.0 to 8.44.0 ([#660](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/660)) (#3c40e87) 
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 5.60.1 to 5.61.0 ([#661](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/661)) (#1180523) 
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin ([#662](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/662)) (#b3ef930) 
+
 <a name="2.0.9"></a>
 ## [2.0.9] - 2023-06-30
 ### Build
