@@ -1,3 +1,45 @@
+<a name="2.0.11"></a>
+## [2.0.11] - 2023-09-07
+### Build
+- **deps:** bump actions/setup-node from 3.7.0 to 3.8.0 ([#702](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/702)) (#7ea5d0a) 
+- **deps:** bump actions/checkout from 3.6.0 to 4.0.0 ([#721](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/721)) (#209c896) 
+- **deps:** bump cycjimmy/semantic-release-action from 3.4.2 to 4.0.0 ([#718](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/718)) (#9f1fe0d) 
+- **deps:** bump github/codeql-action from 2.21.4 to 2.21.5 ([#716](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/716)) (#476acc4) 
+- **deps:** bump actions/checkout from 3.5.3 to 3.6.0 ([#711](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/711)) (#50a7385) 
+- **deps:** bump ossf/scorecard-action from 2.1.2 to 2.2.0 (#471968e) 
+- **deps:** bump actions/add-to-project from 0.3.0 to 0.5.0 (#bd2b625) 
+- **deps:** bump codecov/codecov-action from 3.1.3 to 3.1.4 (#153bcff) 
+- **deps:** bump github/codeql-action from 1.1.39 to 2.21.2 (#1ed8d31) 
+- **deps:** bump actions/checkout from 3.1.0 to 3.5.3 (#a1cdf4d) 
+- **deps:** bump danhellem/github-actions-issue-to-work-item (#711a660) 
+- **deps:** bump wagoid/commitlint-github-action from 4.1.15 to 5.4.3 ([#691](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/691)) (#4ff24b6) 
+- **deps:** bump actions/setup-node from 3.8.0 to 3.8.1 ([#705](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/705)) (#4a9858f) 
+- **deps:** bump github/codeql-action from 2.21.3 to 2.21.4 ([#704](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/704)) (#f7f8150) 
+- **deps:** bump step-security/harden-runner from 2.5.0 to 2.5.1 ([#699](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/699)) (#44f457c) 
+- **deps:** bump actions/upload-artifact from 2.3.1 to 3.1.2 (#2562845) 
+- **deps:** bump github/codeql-action from 2.21.2 to 2.21.3 ([#698](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/698)) (#63c0ec5) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.4.9 to 20.5.0 ([#700](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/700)) (#10c17dc) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.4.8 to 20.4.9 ([#697](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/697)) (#a9f824d) 
+- **deps-dev:** bump eslint from 8.46.0 to 8.47.0 ([#701](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/701)) (#f57bf28) 
+- **deps-dev:** bump eslint-plugin-import from 2.28.0 to 2.28.1 ([#707](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/707)) (#baf5df7) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.4.6 to 20.4.8 ([#695](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/695)) (#2cc25d6) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.5.0 to 20.5.1 ([#706](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/706)) (#d77a58f) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.5.1 to 20.5.2 ([#708](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/708)) (#e5c3531) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.4.5 to 20.4.6 (#ca5e379) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.5.2 to 20.5.3 ([#709](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/709)) (#a31351c) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.5.3 to 20.5.4 ([#710](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/710)) (#18367c8) 
+- **deps-dev:** bump eslint from 8.47.0 to 8.48.0 ([#715](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/715)) (#40cc8b7) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.5.4 to 20.5.7 ([#714](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/714)) (#61d2c62) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.5.7 to 20.5.9 ([#719](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/719)) (#135f23a) 
+
+### Chore
+- update build tasks, package.json and changelog (#d0e34c7) 
+
+### Ci
+- triggers version bump on chore commit message ([#722](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/722)) (#aeaa0de) 
+- [StepSecurity] Apply security best practices (#26b9f6c) 
+
+
 <a name="2.0.10"></a>
 ## [2.0.10] - 2023-08-02
 ### Build
