@@ -1,3 +1,15 @@
+<a name="2.0.12"></a>
+## [2.0.12] - 2023-09-07
+### Build
+- **deps:** bump actions/upload-artifact from 3.1.2 to 3.1.3 ([#723](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/723)) (#8466366) 
+- **deps:** bump ws from 8.13.0 to 8.14.0 ([#724](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/724)) (#995fbac) 
+
+### Chore
+-  update build tasks, package.json and changelog (#1d37574) 
+
+### Ci
+- updated semantic release with npm, github plugins ([#726](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/726)) (#e7c0401) 
+
 <a name="2.0.11"></a>
 ## [2.0.11] - 2023-09-07
 ### Build
