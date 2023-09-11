@@ -1,6 +1,10 @@
 # UI Toolkit
 
-[![Known Vulnerabilities](https://snyk.io/test/github/open-amt-cloud-toolkit/ui-toolkit/badge.svg?targetFile=package.json)](https://snyk.io/test/github/open-amt-cloud-toolkit/ui-toolkit?targetFile=package.json) ![Node.js CI](https://github.com/open-amt-cloud-toolkit/sample-web-ui/workflows/Node.js%20CI/badge.svg) ![codecov.io](https://codecov.io/github/open-amt-cloud-toolkit/ui-toolkit/coverage.svg?branch=main)
+![CodeQL](https://github.com/open-amt-cloud-toolkit/ui-toolkit/actions/workflows/codeql-analysis.yml/badge.svg?branch=main&event=push) 
+![Node.js CI](https://github.com/open-amt-cloud-toolkit/sample-web-ui/workflows/Node.js%20CI/badge.svg) 
+![codecov.io](https://codecov.io/github/open-amt-cloud-toolkit/ui-toolkit/coverage.svg?branch=main) 
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/open-amt-cloud-toolkit/ui-toolkit/badge)](https://api.securityscorecards.dev/projects/github.com/open-amt-cloud-toolkit/ui-toolkit) 
+[![Discord Shield](https://discordapp.com/api/guilds/1063200098680582154/widget.png?style=shield)](https://discord.gg/yrcMp2kDWh)
 
 > Disclaimer: Production viable releases are tagged and listed under 'Releases'. All other check-ins should be considered 'in-development' and should not be used in production
 
