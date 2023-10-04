@@ -1,3 +1,35 @@
+<a name="2.0.13"></a>
+## [2.0.13] - 2023-10-04
+### Build
+- removes jenkinsfile ([#749](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/749)) (#c219563) 
+- **deps:** bump actions/checkout from 4.0.0 to 4.1.0 ([#740](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/740)) (#620a185) 
+- **deps:** bump step-security/harden-runner from 2.5.1 to 2.6.0 ([#751](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/751)) (#17fd006) 
+- **deps:** bump ws from 8.14.0 to 8.14.1 ([#728](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/728)) (#88bcbd8) 
+- **deps:** bump github/codeql-action from 2.21.8 to 2.21.9 ([#747](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/747)) (#836f0bb) 
+- **deps:** bump github/codeql-action from 2.21.5 to 2.21.6 ([#733](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/733)) (#fb56e58) 
+- **deps:** bump github/codeql-action from 2.21.6 to 2.21.7 ([#735](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/735)) (#021ed05) 
+- **deps:** bump github/codeql-action from 2.21.7 to 2.21.8 ([#737](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/737)) (#b158c26) 
+- **deps:** bump ws from 8.14.1 to 8.14.2 ([#738](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/738)) (#88eac48) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.8.0 to 20.8.2 ([#750](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/750)) (#0fc08ae) 
+- **deps-dev:** bump eslint from 8.49.0 to 8.50.0 ([#741](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/741)) (#e33d5b9) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.6.3 to 20.6.5 ([#742](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/742)) (#26eec1f) 
+- **deps-dev:** bump [@types](https://github.com/types)/ws from 8.5.5 to 8.5.6 ([#744](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/744)) (#30b2bca) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.6.2 to 20.6.3 ([#739](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/739)) (#e6b1e88) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.6.5 to 20.7.0 ([#743](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/743)) (#a14c159) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.6.1 to 20.6.2 ([#736](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/736)) (#115d9b6) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.6.0 to 20.6.1 ([#734](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/734)) (#f8acdba) 
+- **deps-dev:** bump [@types](https://github.com/types)/md5 from 2.3.2 to 2.3.3 ([#745](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/745)) (#b87aeed) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.7.0 to 20.7.1 ([#746](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/746)) (#e9e2c32) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.7.1 to 20.8.0 ([#748](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/748)) (#cb488fa) 
+- **deps-dev:** bump eslint from 8.48.0 to 8.49.0 ([#729](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/729)) (#955a56e) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.5.9 to 20.6.0 ([#730](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/730)) (#f34a350) 
+
+### Chore
+- update build tasks, package.json and changelog (#fb250fb) 
+
+### Docs
+- **readme:** update badges (#e547cf9) 
+
 <a name="2.0.12"></a>
 ## [2.0.12] - 2023-09-07
 ### Build
