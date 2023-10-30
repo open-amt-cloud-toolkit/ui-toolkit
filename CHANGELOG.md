@@ -1,3 +1,33 @@
+<a name="2.0.14"></a>
+## [2.0.14] - 2023-10-30
+### Build
+- **deps:** bump github/codeql-action from 2.22.1 to 2.22.3 ([#765](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/765)) (#1ad4359) 
+- **deps:** bump github/codeql-action from 2.22.0 to 2.22.1 ([#758](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/758)) (#6baca80) 
+- **deps:** bump actions/setup-node from 3.8.1 to 4.0.0 ([#777](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/777)) (#86390e4) 
+- **deps:** bump ossf/scorecard-action from 2.3.0 to 2.3.1 ([#778](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/778)) (#56c5706) 
+- **deps:** bump ossf/scorecard-action from 2.2.0 to 2.3.0 ([#757](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/757)) (#c05b0ad) 
+- **deps:** bump github/codeql-action from 2.22.4 to 2.22.5 ([#780](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/780)) (#cea2cf8) 
+- **deps:** bump actions/checkout from 4.1.0 to 4.1.1 ([#767](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/767)) (#5ffe87d) 
+- **deps:** bump github/codeql-action from 2.22.3 to 2.22.4 ([#774](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/774)) (#cdeb90a) 
+- **deps:** bump github/codeql-action from 2.21.9 to 2.22.0 ([#753](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/753)) (#fa85f2b) 
+- **deps-dev:** bump webpack from 5.88.2 to 5.89.0 ([#763](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/763)) (#3e268e5) 
+- **deps-dev:** bump eslint-plugin-import from 2.28.1 to 2.29.0 ([#773](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/773)) (#a71f917) 
+- **deps-dev:** bump eslint from 8.51.0 to 8.52.0 ([#772](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/772)) (#e186551) 
+- **deps-dev:** bump [@types](https://github.com/types)/md5 from 2.3.3 to 2.3.4 ([#768](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/768)) (#1da40cf) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.8.5 to 20.8.7 ([#769](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/769)) (#8c2e327) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.8.4 to 20.8.5 ([#762](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/762)) (#49e5bf5) 
+- **deps-dev:** bump [@types](https://github.com/types)/ws from 8.5.6 to 8.5.7 ([#760](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/760)) (#696cb31) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.8.3 to 20.8.4 ([#759](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/759)) (#7248709) 
+- **deps-dev:** bump eslint from 8.50.0 to 8.51.0 ([#754](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/754)) (#9518ec8) 
+- **deps-dev:** bump ts-loader from 9.4.4 to 9.5.0 ([#755](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/755)) (#64c2246) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.8.2 to 20.8.3 ([#756](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/756)) (#82c2b88) 
+- **deps-dev:** bump [@types](https://github.com/types)/ws from 8.5.7 to 8.5.8 ([#771](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/771)) (#cbfabf2) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.8.7 to 20.8.8 ([#776](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/776)) (#3b9ea79) 
+- **deps-dev:** bump [@babel](https://github.com/babel)/traverse from 7.21.5 to 7.23.2 ([#770](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/770)) (#934fac3) 
+
+### Chore
+- update build tasks, package.json and changelog (#3d306e6) 
+
 <a name="2.0.13"></a>
 ## [2.0.13] - 2023-10-04
 ### Build
