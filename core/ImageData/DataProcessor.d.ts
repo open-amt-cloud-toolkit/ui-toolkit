@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { type IStateProcessor, type IDataProcessor, type ILogger, type ICommunicator } from '../Interfaces';
+import { type IStateProcessor, type IDataProcessor, type ICommunicator } from '../Interfaces';
 import { StateProcessorFactory } from '../StateProcessorFactory';
 import { type Desktop } from '../Desktop';
 /**
@@ -15,8 +15,7 @@ export declare class DataProcessor implements IDataProcessor {
     remoteFrameBufferStateManager: IStateProcessor;
     stateProcessorFac: StateProcessorFactory;
     parent: Desktop;
-    logger: ILogger;
-    constructor(logger: ILogger, comm: ICommunicator, parent: Desktop);
+    constructor(comm: ICommunicator, parent: Desktop);
     /**
      * processData is called from ICommunicator on new data coming over the wire
      * @param data is the current data block received on the web socket

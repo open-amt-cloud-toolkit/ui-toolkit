@@ -4,7 +4,6 @@
  * Author : Ramu Bachala
  **********************************************************************/
 import { Desktop } from './Desktop';
-import { type ILogger } from './Interfaces';
 /**
  * AMTDesktop represents the Desktop on the browser. Constructed using the canvas context.
  */
@@ -28,7 +27,6 @@ export declare class AMTDesktop extends Desktop {
     sparecache: any;
     frameRateDelay: number;
     inflate: any;
-    logger: ILogger;
     holding: boolean;
     canvasCtx: any;
     tcanvas: any;
@@ -56,10 +54,9 @@ export declare class AMTDesktop extends Desktop {
     protocol: number;
     /**
      * Constructs the AMT Desktop
-     * @param logger logger to use for internal logging
      * @param ctx Canvas Context to draw images
      */
-    constructor(logger: ILogger, ctx: any);
+    constructor(ctx: any);
     /**
      * Called when
      * @param data data to forward to DataProcessor

@@ -1,4 +1,4 @@
-import { type ICommunicator, type ILogger } from './Interfaces';
+import { type ICommunicator } from './Interfaces';
 /**
  * Protocol for different Redir protocols. SOL=1,KVM=2,IDER=USB-R
  */
@@ -6,6 +6,18 @@ export declare enum Protocol {
     SOL = 1,
     KVM = 2,
     IDER = 3
+}
+export interface RedirectorConfig {
+    protocol: number;
+    fr: FileReader;
+    host: string;
+    port: number;
+    user: string;
+    pass: string;
+    tls: number;
+    tls1only: number;
+    authToken: string;
+    server?: string;
 }
 /**
  * AMTRedirector provides all communication over WebSockets
@@ -35,14 +47,13 @@ export declare class AMTRedirector implements ICommunicator {
     urlvars: any;
     inDataCount: number;
     server: string | undefined;
-    logger: ILogger;
     onProcessData: (data: string) => void;
     onStart: () => void;
     onNewState: (state: number) => void;
     onStateChanged: (redirector: any, state: number) => void;
     onError: () => void;
     authToken: string;
-    constructor(logger: ILogger, protocol: number, fr: FileReader, host: string, port: number, user: string, pass: string, tls: number, tls1only: number, authToken: string, server?: string);
+    constructor(config: RedirectorConfig);
     /**
      * Returns WebSocket path to connect to using the current environment.
      * Uses host(deviceid), port, tls, tlsv1only, user, pass options to build the url.
