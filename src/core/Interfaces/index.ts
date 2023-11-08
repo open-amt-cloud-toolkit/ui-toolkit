@@ -1,5 +1,4 @@
 export type { IDataProcessor } from './IDataProcessor'
-export { type ILogger, LogLevel } from './ILogger'
 export type { IModule } from './IModule'
 export type { IRLEDecoder } from './IRLEDecoder'
 export type { IServerCutTextHandler } from './IServerCutTextHandler'

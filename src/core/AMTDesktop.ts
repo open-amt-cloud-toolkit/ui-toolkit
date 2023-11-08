@@ -4,11 +4,9 @@
  * Author : Ramu Bachala
  **********************************************************************/
 import { Desktop } from './Desktop'
-import { type ILogger } from './Interfaces'
 import { TypeConverter } from '../core/Converter'
 import { isTruthy } from './Utilities/UtilityMethods'
 import ZLIB from '../core/zlib/zlib'
-
 /**
  * AMTDesktop represents the Desktop on the browser. Constructed using the canvas context.
  */
@@ -32,7 +30,6 @@ export class AMTDesktop extends Desktop {
   sparecache: any
   frameRateDelay: number
   inflate: any
-  logger: ILogger
   holding: boolean
   canvasCtx: any
   tcanvas: any
@@ -62,10 +59,9 @@ export class AMTDesktop extends Desktop {
 
   /**
    * Constructs the AMT Desktop
-   * @param logger logger to use for internal logging
    * @param ctx Canvas Context to draw images
    */
-  constructor (logger: ILogger, ctx: any) {
+  constructor (ctx: any) {
     super()
     this.inflate = ZLIB.inflateInit(15)
     this.bpp = 1
@@ -78,7 +74,6 @@ export class AMTDesktop extends Desktop {
     this.buttonmask = 0
     this.canvasControl = this.canvasCtx.canvas
     this.lastMouseMoveTime = (new Date()).getTime()
-    this.logger = logger
     this.setDeskFocus = (el, mode) => {
 
     }
@@ -96,7 +91,7 @@ export class AMTDesktop extends Desktop {
   }
 
   onStateChange (state: number): void {
-    this.logger.verbose(`state change in AMTDesktop: ${state}`)
+    console.log(`state change in AMTDesktop: ${state}`)
     if (state === 0) {
       // Clear Canvas
       this.canvasCtx.fillStyle = '#FFFFFF'
@@ -105,7 +100,7 @@ export class AMTDesktop extends Desktop {
   }
 
   start (): void {
-    this.logger.verbose('Starting desktop here')
+    console.log('Starting desktop here')
     this.state = 0
     this.inflate.inflateReset()
     // console.log(this.inflate)
@@ -123,7 +118,7 @@ export class AMTDesktop extends Desktop {
     if (this.onKvmDataAck !== true) {
       this.onKvmDataPending.push(data)
     } else {
-      if (isTruthy(this.urlvars) && isTruthy(this.urlvars.kvmdatatrace)) { console.log(`KVM-Send (${data.length}) data`) }
+      if (isTruthy(this.urlvars) && isTruthy(this.urlvars.kvmdatatrace)) { console.debug(`KVM-Send (${data.length}) data`) }
       data = '\0KvmDataChannel\0' + data
       this.onSend(String.fromCharCode(6, 0, 0, 0) + TypeConverter.IntToStr(data.length) + data)
       this.onKvmDataAck = false

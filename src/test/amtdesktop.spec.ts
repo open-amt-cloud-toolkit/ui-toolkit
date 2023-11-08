@@ -7,18 +7,21 @@ import { AMTDesktop } from '../core/AMTDesktop'
 import { createCanvas } from 'canvas'
 
 // classes defined for Unit testing
-import { TestLogger } from '../test/helper/testlogger'
 import { Communicator } from '../test/helper/testcommunicator'
 import { TestDataProcessor } from '../test/helper/testDataProcessor'
 
 describe('Test AMTDesktop', () => {
-  it('Test start function in AMTDesktop', () => {
-    // create objects
-    const logger = new TestLogger()
-    const canvas = createCanvas(200, 200)
-    const canvasCtx = canvas.getContext('2d')
-    const desktop = new AMTDesktop(logger, canvasCtx)
+  let canvas
+  let canvasCtx
+  let desktop: AMTDesktop
 
+  beforeEach(() => {
+     // create objects
+     canvas = createCanvas(200, 200)
+     canvasCtx = canvas.getContext('2d')
+     desktop = new AMTDesktop(canvasCtx)
+  })
+  it('Test start function in AMTDesktop', () => {
     // test start function
     desktop.start()
 
@@ -30,12 +33,6 @@ describe('Test AMTDesktop', () => {
   })
 
   it('Test onSendKvmData function in AMTDesktop with onKvmDataAck as false', () => {
-    // create objects
-    const logger = new TestLogger()
-    const canvas = createCanvas(200, 200)
-    const canvasCtx = canvas.getContext('2d')
-    const desktop = new AMTDesktop(logger, canvasCtx)
-
     // Set Input
     const input = 'data'
     desktop.onKvmDataAck = false
@@ -49,12 +46,6 @@ describe('Test AMTDesktop', () => {
   })
 
   it('Test onSendKvmData function in AMTDesktop with onKvmDataAck as true', () => {
-    // create objects
-    const logger = new TestLogger()
-    const canvas = createCanvas(200, 200)
-    const canvasCtx = canvas.getContext('2d')
-    const desktop = new AMTDesktop(logger, canvasCtx)
-
     // Set Input
     const input = 'MyData'
     desktop.onKvmDataAck = true
@@ -80,11 +71,6 @@ describe('Test AMTDesktop', () => {
   })
 
   it('Test processData', () => {
-    // create objects
-    const logger = new TestLogger()
-    const canvas = createCanvas(200, 200)
-    const canvasCtx = canvas.getContext('2d')
-    const desktop = new AMTDesktop(logger, canvasCtx)
     const input = 'data'
 
     // Set Input
@@ -99,20 +85,14 @@ describe('Test AMTDesktop', () => {
   })
 
   it('Test onStateChange', () => {
-    // create objects
-    const logger = new TestLogger()
-    const canvas = createCanvas(200, 200)
-    const canvasCtx = canvas.getContext('2d')
-    const desktop = new AMTDesktop(logger, canvasCtx)
-
     // Set Input
-    const input = 3
-    TestLogger.verboseData = ''
+    const input = 0
+    const fillRectSpy = jest.spyOn(desktop.canvasCtx, 'fillRect')
 
     // test onStateChange function
     desktop.onStateChange(input)
 
     // Output
-    expect(TestLogger.verboseData).toContain('state change in AMTDesktop: 3')
+    expect(fillRectSpy).toHaveBeenCalled()
   })
 })

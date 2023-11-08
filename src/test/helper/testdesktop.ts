@@ -2,9 +2,8 @@
 * Copyright (c) Intel Corporation 2019
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-import { type ILogger, Desktop } from '../../core'
+import { Desktop } from '../../core'
 import { ZLib } from '../helper/testzlib'
-import { TestLogger } from '../helper/testlogger'
 
 class AmtDesktop extends Desktop {
   rotation: number
@@ -26,7 +25,6 @@ class AmtDesktop extends Desktop {
   sparecache: any
   frameRateDelay: number
   inflate: any
-  logger: ILogger
   holding: boolean
   canvasCtx: any
   tcanvas: any
@@ -70,7 +68,6 @@ class AmtDesktop extends Desktop {
     }
     this.setDeskFocus = () => { }
     this.getDeskFocus = () => { return { left: 0, top: 0, width: 1, height: 1 } }
-    this.logger = new TestLogger()
     this.canvasCtx = {
       canvas: {
         width: 0,

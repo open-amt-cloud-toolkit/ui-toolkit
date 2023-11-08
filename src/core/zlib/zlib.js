@@ -2136,7 +2136,7 @@ ZLIB.z_stream.prototype.inflate = function(input_string, opts)
         this.next_out = 0;
         this.error = ZLIB.inflate(this, flush);
         if(this.error != 0) 
-            console.log("zlib error", this.error)
+            console.error("zlib error", this.error)
         if(avail_out >= 0) {
             return this.output_data;
         }

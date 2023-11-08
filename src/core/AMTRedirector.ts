@@ -4,7 +4,7 @@
  * Author : Ramu Bachala
  **********************************************************************/
 import { TypeConverter } from './Converter'
-import { type ICommunicator, type ILogger } from './Interfaces'
+import { type ICommunicator } from './Interfaces'
 import md5 from 'md5'
 import { isTruthy } from './Utilities/UtilityMethods'
 /**
@@ -15,6 +15,20 @@ export enum Protocol {
   KVM = 2,
   IDER = 3
 }
+
+export interface RedirectorConfig {
+  protocol: number
+  fr: FileReader
+  host: string
+  port: number
+  user: string
+  pass: string
+  tls: number
+  tls1only: number
+  authToken: string
+  server?: string
+}
+
 /**
  * AMTRedirector provides all communication over WebSockets
  */
@@ -44,7 +58,6 @@ export class AMTRedirector implements ICommunicator {
   urlvars: any
   inDataCount: number
   server: string | undefined
-  logger: ILogger
   onProcessData: (data: string) => void
   onStart: () => void
   onNewState: (state: number) => void
@@ -52,27 +65,26 @@ export class AMTRedirector implements ICommunicator {
   onError: () => void
   authToken: string
 
-  constructor (logger: ILogger, protocol: number, fr: FileReader, host: string, port: number, user: string, pass: string, tls: number, tls1only: number, authToken: string, server?: string) {
-    this.fileReader = fr
+  constructor (config: RedirectorConfig) {
+    this.fileReader = config.fr
     this.fileReaderInUse = false
     this.fileReaderAcc = []
     this.randomNonceChars = 'abcdef0123456789'
-    this.host = host
-    this.port = port
-    this.user = user
-    this.pass = pass
-    this.tls = tls
-    this.tlsv1only = tls1only
-    this.protocol = protocol
+    this.host = config.host
+    this.port = config.port
+    this.user = config.user
+    this.pass = config.pass
+    this.tls = config.tls
+    this.tlsv1only = config.tls1only
+    this.protocol = config.protocol
     this.RedirectStartSol = String.fromCharCode(0x10, 0x00, 0x00, 0x00, 0x53, 0x4F, 0x4C, 0x20)
     this.RedirectStartKvm = String.fromCharCode(0x10, 0x01, 0x00, 0x00, 0x4b, 0x56, 0x4d, 0x52)
     this.RedirectStartIder = String.fromCharCode(0x10, 0x00, 0x00, 0x00, 0x49, 0x44, 0x45, 0x52)
     this.urlvars = {}
-    this.server = server
+    this.server = config.server
     this.amtAccumulator = ''
     this.authUri = ''
-    this.logger = logger
-    this.authToken = authToken
+    this.authToken = config.authToken
   }
 
   /**
@@ -96,7 +108,7 @@ export class AMTRedirector implements ICommunicator {
   private isBrowser (): boolean {
     try {
       const isWeb = (typeof window !== 'undefined')
-      if (isWeb) this.logger.debug('!!!!!BROWSER!!!!!')
+      if (isWeb) console.debug('!!!!!BROWSER!!!!!')
       return isWeb
     } catch (e) {
       return false
@@ -138,15 +150,16 @@ export class AMTRedirector implements ICommunicator {
     // Chrome & Firefox (Spec)
       this.fileReader.onloadend = onloadend.bind(this)
     }
-    this.logger.verbose('Connecting to websocket')
+    console.log('Connecting to websocket')
     this.onStateChange(1)
   }
 
   onSocketConnected (): any {
-    if (isTruthy(this.urlvars) && isTruthy(this.urlvars.redirtrace)) console.log('REDIR-CONNECT')
+    if (isTruthy(this.urlvars) && isTruthy(this.urlvars.redirtrace)) {
+      console.log('REDIR-CONNECT')
+    }
     this.onStateChange(2)
-    this.logger.verbose(`Connected to websocket server. With protocol ${this.protocol} (2 = KVM)`)
-    this.logger.info(`Start Redirect Session for protocol. ${this.protocol}`)
+    console.log(`Connected to websocket server. With protocol ${this.protocol} (2 = KVM)`)
     if (this.protocol === Protocol.SOL) this.socketSend(this.RedirectStartSol) // TODO: Put these strings in higher level module to tighten code
     if (this.protocol === Protocol.KVM) this.socketSend(this.RedirectStartKvm) // Don't need these is the feature is not compiled-in.
     if (this.protocol === Protocol.IDER) this.socketSend(this.RedirectStartIder)
@@ -185,7 +198,7 @@ export class AMTRedirector implements ICommunicator {
         this.onSocketData(e.data)
       }
     } catch (error) {
-      this.logger.error(error)
+      console.error(error)
       this.stop()
       this.onError()
     }
@@ -211,26 +224,26 @@ export class AMTRedirector implements ICommunicator {
       this.onProcessData(data); return
     } // KVM traffic, forward it directly.
 
-    // console.log('before: ', this.amtAccumulator)
+    // console.debug('before: ', this.amtAccumulator)
     this.amtAccumulator += data
-    // console.log('after: ', this.amtAccumulator)
-    // console.log("REDIR-RECV(" + this.amtAccumulator.length + "): " + TypeConverter.rstr2hex(this.amtAccumulator));
+    // console.debug('after: ', this.amtAccumulator)
+    // console.debug("REDIR-RECV(" + this.amtAccumulator.length + "): " + TypeConverter.rstr2hex(this.amtAccumulator));
     while (this.amtAccumulator.length >= 1) {
       let cmdsize = 0
       switch (this.amtAccumulator.charCodeAt(0)) {
         case 0x11: { // StartRedirectionSessionReply (17)
-          this.logger.verbose(`Start Redirection Session reply received for  ${this.protocol}`)
+          console.debug(`Start Redirection Session reply received for  ${this.protocol}`)
           if (this.amtAccumulator.length < 4) return
           const statuscode = this.amtAccumulator.charCodeAt(1)
           switch (statuscode) {
             case 0: { // STATUS_SUCCESS
-              this.logger.verbose('Session status success. Start handshake')
+              console.log('Session status success. Start handshake')
               if (this.amtAccumulator.length < 13) return
               const oemlen = this.amtAccumulator.charCodeAt(12)
               if (this.amtAccumulator.length < 13 + oemlen) return
 
               // Query for available authentication
-              this.logger.verbose('Query for available authentication')
+              console.log('Query for available authentication')
               this.socketSend(String.fromCharCode(0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) // Query authentication support
               cmdsize = (13 + oemlen)
               break }
@@ -240,7 +253,7 @@ export class AMTRedirector implements ICommunicator {
           }
           break }
         case 0x14: { // AuthenticateSessionReply (20)
-          this.logger.verbose('Available Authentications reply received.')
+          console.log('Available Authentications reply received.')
           if (this.amtAccumulator.length < 9) return
           const authDataLen = TypeConverter.ReadIntX(this.amtAccumulator, 5)
           if (this.amtAccumulator.length < 9 + authDataLen) return
@@ -255,18 +268,18 @@ export class AMTRedirector implements ICommunicator {
             // Query
             if (isTruthy(authData.includes(4))) {
               // Good Digest Auth (With cnonce and all)
-              this.logger.verbose('Good Digest Auth (With cnonce and all)')
+              console.log('Good Digest Auth (With cnonce and all)')
               this.socketSend(String.fromCharCode(0x13, 0x00, 0x00, 0x00, 0x04) + TypeConverter.IntToStrX(this.user.length + this.authUri.length + 8) + String.fromCharCode(this.user.length) + this.user + String.fromCharCode(0x00, 0x00) + String.fromCharCode(this.authUri.length) + this.authUri + String.fromCharCode(0x00, 0x00, 0x00, 0x00))
             } else if (isTruthy(authData.includes(3))) {
-              this.logger.warn('Bad Digest Auth')
+              console.warn('Bad Digest Auth')
               // Bad Digest Auth (Not sure why this is supported, cnonce is not used!)
               this.socketSend(String.fromCharCode(0x13, 0x00, 0x00, 0x00, 0x03) + TypeConverter.IntToStrX(this.user.length + this.authUri.length + 7) + String.fromCharCode(this.user.length) + this.user + String.fromCharCode(0x00, 0x00) + String.fromCharCode(this.authUri.length) + this.authUri + String.fromCharCode(0x00, 0x00, 0x00))
             } else if (isTruthy(authData.includes(1))) {
-              this.logger.verbose('Basic Auth')
+              console.log('Basic Auth')
               // Basic Auth (Probably a good idea to not support this unless this is an old version of Intel AMT)
               this.socketSend(String.fromCharCode(0x13, 0x00, 0x00, 0x00, 0x01) + TypeConverter.IntToStrX(this.user.length + this.pass.length + 2) + String.fromCharCode(this.user.length) + this.user + String.fromCharCode(this.pass.length) + this.pass)
             } else {
-              this.logger.error('Auth Type not recognized. Stopping.')
+              console.error('Auth Type not recognized. Stopping.')
               this.stop()
             }
           } else if ((authType === 3 || authType === 4) && status === 1) {
@@ -328,7 +341,7 @@ export class AMTRedirector implements ICommunicator {
           break }
         case 0x21: { // Response to settings (33)
           if (this.amtAccumulator.length < 23) break
-          this.logger.verbose('Response to settings')
+          console.log('Response to settings')
           cmdsize = 23
           this.socketSend(String.fromCharCode(0x27, 0x00, 0x00, 0x00) + TypeConverter.IntToStrX(this.amtSequence++) + String.fromCharCode(0x00, 0x00, 0x1B, 0x00, 0x00, 0x00))
           // eslint-disable-next-line @typescript-eslint/no-implied-eval
@@ -338,12 +351,12 @@ export class AMTRedirector implements ICommunicator {
           break }
         case 0x29: // Serial Settings (41)
           if (this.amtAccumulator.length < 10) break
-          this.logger.verbose('Serial Settings')
+          console.log('Serial Settings')
           cmdsize = 10
           break
         case 0x2A: { // Incoming display data (42)
           if (this.amtAccumulator.length < 10) break
-          this.logger.verbose('Incoming display data')
+          console.log('Incoming display data')
           const cs = (10 + ((this.amtAccumulator.charCodeAt(9) & 0xFF) << 8) + (this.amtAccumulator.charCodeAt(8) & 0xFF))
           if (this.amtAccumulator.length < cs) break
           this.onProcessData(this.amtAccumulator.substring(10, cs))
@@ -351,12 +364,12 @@ export class AMTRedirector implements ICommunicator {
           break }
         case 0x2B: // Keep alive message (43)
           if (this.amtAccumulator.length < 8) break
-          this.logger.verbose('Keep Alve message')
+          console.log('Keep Alive message')
           cmdsize = 8
           break
         case 0x41:
           if (this.amtAccumulator.length < 8) break
-          this.logger.verbose('KVM traffic. Call onStart handler. And forward rest of acc directly.')
+          console.log('KVM traffic. Call onStart handler. And forward rest of acc directly.')
           this.connectState = 1
           this.onStart()
           // KVM traffic, forward rest of accumulator directly.
@@ -364,7 +377,7 @@ export class AMTRedirector implements ICommunicator {
           cmdsize = this.amtAccumulator.length
           break
         default:
-          this.logger.error(`Unknown Intel AMT command:  ${this.amtAccumulator.charCodeAt(0)}  acclen=${this.amtAccumulator.length}`)
+          console.error(`Unknown Intel AMT command:  ${this.amtAccumulator.charCodeAt(0)}  acclen=${this.amtAccumulator.length}`)
           this.stop()
           return
       }
@@ -374,22 +387,22 @@ export class AMTRedirector implements ICommunicator {
   }
 
   hex_md5 (str: string): string {
-    this.logger.verbose('MD5 the string')
+    console.log('MD5 the string')
     return md5(str)
   }
 
   socketSend (data: string): any { // xxSend
-    if (isTruthy(this.urlvars) && isTruthy(this.urlvars.redirtrace)) { this.logger.verbose(`REDIR-SEND(${data.length}): ${TypeConverter.rstr2hex(data)}`) }
+    if (isTruthy(this.urlvars) && isTruthy(this.urlvars.redirtrace)) { console.debug(`REDIR-SEND(${data.length}): ${TypeConverter.rstr2hex(data)}`) }
 
     try {
       if (this.socket != null && this.socket.readyState === 1) { // 1 = WebSocket.OPEN
         const b = new Uint8Array(data.length)
-        this.logger.verbose(`Redir Send( ${data.length}): ${TypeConverter.rstr2hex(data)}`)
+        console.debug(`Redir Send( ${data.length}): ${TypeConverter.rstr2hex(data)}`)
         for (let i = 0; i < data.length; ++i) { b[i] = data.charCodeAt(i) }
         this.socket.send(b.buffer)
       }
     } catch (error) {
-      this.logger.error(`Socket send error: ${String(error)}`)
+      console.error(`Socket send error: ${String(error)}`)
     }
   }
 
@@ -398,7 +411,7 @@ export class AMTRedirector implements ICommunicator {
    * @param data data to send to server
    */
   send (data: string): any { // send
-    this.logger.verbose('Send called ' + data)
+    console.debug('Send called ' + data)
     if (this.socket == null || this.connectState !== 1) return
     if (this.protocol === Protocol.SOL) {
       this.socketSend(String.fromCharCode(0x28, 0x00, 0x00, 0x00) +
@@ -422,9 +435,8 @@ export class AMTRedirector implements ICommunicator {
   }
 
   onSocketClosed (e: Event): any {
-    // console.log(e)
     if (isTruthy(this.urlvars) && isTruthy(this.urlvars.redirtrace)) { console.log('REDIR-CLOSED') }
-    this.logger.warn('Redir Socket Closed')
+    console.warn('Redir Socket Closed')
     this.stop()
   }
 
@@ -437,7 +449,7 @@ export class AMTRedirector implements ICommunicator {
   }
 
   stop (): void {
-    this.logger.warn('Stop called on Redirector. Change state to 0 and close Socket.')
+    console.warn('Stop called on Redirector. Change state to 0 and close Socket.')
     this.onStateChange(0)
     this.connectState = -1
     this.amtAccumulator = ''

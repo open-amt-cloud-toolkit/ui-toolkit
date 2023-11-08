@@ -8,7 +8,6 @@ import { type ICommunicator, type IStateProcessor, type IRLEDecoder } from '../I
 import { TypeConverter } from '../Converter'
 import { type Desktop } from '../Desktop'
 import { ImageHelper, CommsHelper, isTruthy } from '../Utilities'
-
 /**
  * Handle encoded RFB packets. Supported encodings, RAW, ZRLE.
  */
@@ -40,7 +39,7 @@ class Encoding implements IStateProcessor {
       // console.log(x, y, width, height, s, encoding)
       if (encoding < 17) {
         if (width < 1 || width > 64 || height < 1 || height > 64) {
-          this.parent.logger.error(`Invalid tile size (${width},${height}), disconnecting.`)
+          console.error(`Invalid tile size (${width},${height}), disconnecting.`)
           throw new Error('Invalid tile size')
         }
 
@@ -65,7 +64,7 @@ class Encoding implements IStateProcessor {
 
       if (encoding === 0xFFFFFF21) {
         // Desktop Size (0xFFFFFF21, -223)
-        this.parent.logger.verbose('Desktop size')
+        console.log('Desktop size')
         this.parent.canvasCtx.canvas.width = this.parent.ScreenWidth = this.parent.rwidth = this.parent.width = width
         this.parent.canvasCtx.canvas.height = this.parent.ScreenHeight = this.parent.rheight = this.parent.height = height
         this.wsSocket.send(String.fromCharCode(3, 0, 0, 0, 0, 0) + TypeConverter.ShortToStr(this.parent.width) + TypeConverter.ShortToStr(this.parent.height)) // FramebufferUpdateRequest
@@ -113,19 +112,19 @@ class Encoding implements IStateProcessor {
           if (arr.length > 0) {
             this.rleDecoder.Decode(arr, 0, x, y, width, height, s, arr.length)
           } else {
-            this.parent.logger.error('Invalid deflate data.')
+            console.error('Invalid deflate data.')
             throw new Error('invalid deflate data')
           }
         }
 
         cmdSize = 16 + datalen
       } else {
-        this.parent.logger.error(`Unknown Encoding: ${encoding} , HEX: ${TypeConverter.rstr2hex(acc)}`)
+        console.error(`Unknown Encoding: ${encoding} , HEX: ${TypeConverter.rstr2hex(acc)}`)
         throw new Error(`Unknown Encoding: ${encoding}`)
       }
       // console.log('state ', this.parent.state, 'acc ', acc.length)
       if (--this.parent.state === 100) {
-        this.parent.logger.debug('Frame completed. Update state and request new frame')
+        console.debug('Frame completed. Update state and request new frame')
         this.updateRFBState(4)
         const sendRefreshCallback = (): any => { CommsHelper.sendRefresh(this.parent, this.wsSocket) }
         if (this.parent.frameRateDelay === 0) {

@@ -2,7 +2,8 @@
 * Copyright (c) Intel Corporation 2019
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-import { type ILogger, AMTRedirector } from '../../core'
+import { AMTRedirector } from '../../core'
+import { type RedirectorConfig } from '../../core/AMTRedirector'
 // import { FileReader } from '../../core/FileReader'
 // import { TypeConverter } from "../../core/converter";
 
@@ -40,7 +41,6 @@ export class AMTRedirector1 extends AMTRedirector {
   urlvars: any
   inDataCount: number
   server: any
-  logger: ILogger
   startvariable: number
   stopvariable: number
   onProcessData: (data: string) => void
@@ -49,25 +49,24 @@ export class AMTRedirector1 extends AMTRedirector {
   onStateChanged: (redirector: any, state: number) => void
   onError: () => void
 
-  constructor (logger: ILogger, protocol: number, fr: FileReader, host: string, port: number, user: string, pass: string, tls: number, tls1only: number, authToken: string, server?: string) {
-    super(logger, protocol, fr, host, port, user, pass, tls, tls1only, authToken, server)
-    this.fileReader = fr
+  constructor (config: RedirectorConfig) {
+    super(config)
+    this.fileReader = config.fr
     this.randomNonceChars = 'abcdef0123456789'
-    this.host = host
-    this.port = port
-    this.user = user
-    this.pass = pass
-    this.tls = tls
-    this.tlsv1only = tls1only
-    this.protocol = protocol
+    this.host = config.host
+    this.port = config.port
+    this.user = config.user
+    this.pass = config.pass
+    this.tls = config.tls
+    this.tlsv1only = config.tls1only
+    this.protocol = config.protocol
     this.RedirectStartSol = String.fromCharCode(0x10, 0x00, 0x00, 0x00, 0x53, 0x4F, 0x4C, 0x20)
     this.RedirectStartKvm = String.fromCharCode(0x10, 0x01, 0x00, 0x00, 0x4b, 0x56, 0x4d, 0x52)
     this.RedirectStartIder = String.fromCharCode(0x10, 0x00, 0x00, 0x00, 0x49, 0x44, 0x45, 0x52)
     this.urlvars = {}
-    this.server = server
+    this.server = config.server
     this.amtAccumulator = ''
     this.authUri = ''
-    this.logger = logger
     this.startvariable = 0
     this.stopvariable = 0
   }

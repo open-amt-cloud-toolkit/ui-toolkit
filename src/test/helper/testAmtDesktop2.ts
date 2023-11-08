@@ -2,7 +2,7 @@
 * Copyright (c) Intel Corporation 2019
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-import { Desktop, type ILogger, TypeConverter } from '../../core'
+import { Desktop, TypeConverter } from '../../core'
 import { } from '../../core/Converter'
 import { isTruthy } from '../../core/Utilities/UtilityMethods'
 
@@ -28,7 +28,6 @@ class AmtDesktop2 extends Desktop {
   sparecache: any
   frameRateDelay: number
   inflate: any
-  logger: ILogger
   holding: boolean
   canvasCtx: any
   tcanvas: any

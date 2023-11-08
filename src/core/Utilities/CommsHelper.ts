@@ -40,7 +40,7 @@ const CommsHelper = {
     if (parent.onKvmDataAck !== true) {
       parent.onKvmDataPending.push(x)
     } else {
-      if (isTruthy(parent.urlvars) && isTruthy(parent.urlvars.kvmdatatrace)) { console.log(`KVM-Send(${String(x.length)}): ${String(x)}`) }
+      if (isTruthy(parent.urlvars) && isTruthy(parent.urlvars.kvmdatatrace)) { console.debug(`KVM-Send(${String(x.length)}): ${String(x)}`) }
       x = '\0KvmDataChannel\0' + String(x)
       comm.send(`${String.fromCharCode(6, 0, 0, 0)}${TypeConverter.IntToStr(x.length)}${String(x)}`)
       parent.onKvmDataAck = false
