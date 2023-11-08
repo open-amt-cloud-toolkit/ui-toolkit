@@ -25,7 +25,7 @@ class RLEDecoder implements IRLEDecoder {
     // this.parent.Debug("RECT RLE (" + (datalen - 5) + ", " + subencoding + "):" + rstr2hex(data.substring(21, 21 + (datalen - 5))));
     if (subencoding === 0) {
       // RAW encoding
-      this.parent.logger.verbose('Raw encoding')
+      console.log('Raw encoding')
       for (i = 0; i < s; i++) { ImageHelper.setPixel(this.parent, data.charCodeAt(ptr++) + ((this.parent.bpp === 2) ? (data.charCodeAt(ptr++) << 8) : 0), i) }
       ImageHelper.putImage(this.parent, x, y)
     } else if (subencoding === 1) {
@@ -33,7 +33,7 @@ class RLEDecoder implements IRLEDecoder {
       v = data.charCodeAt(ptr++) + ((this.parent.bpp === 2) ? (data.charCodeAt(ptr++) << 8) : 0)
       this.parent.canvasCtx.fillStyle = 'rgb(' + ((this.parent.bpp === 1) ? (`${(v & 224)}, ${((v & 28) << 3)}, ${ImageHelper.fixColor((v & 3) << 6)}`) : (`${((v >> 8) & 248)}, ${((v >> 3) & 252)},${((v & 31) << 3)}`)) + ')'
 
-      this.parent.logger.verbose('fillstyle: ' + this.parent.canvasCtx.fillStyle)
+      console.log('fillstyle: ' + this.parent.canvasCtx.fillStyle)
       const xx = ImageHelper.rotX(this.parent, x, y)
       y = ImageHelper.rotY(this.parent, x, y)
       x = xx
@@ -41,7 +41,7 @@ class RLEDecoder implements IRLEDecoder {
       this.parent.canvasCtx.fillRect(x, y, width, height)
     } else if (subencoding > 1 && subencoding < 17) { // Packed palette encoded tile
       // Read the palette
-      this.parent.logger.verbose('Read the packed palette')
+      console.log('Read the packed palette')
       let br = 4; let bm = 15 // br is BitRead and bm is BitMask. By adjusting these two we can support all the variations in this encoding.
       for (i = 0; i < subencoding; i++) { palette[i] = data.charCodeAt(ptr++) + ((this.parent.bpp === 2) ? (data.charCodeAt(ptr++) << 8) : 0) }
 
@@ -52,7 +52,7 @@ class RLEDecoder implements IRLEDecoder {
       while (rlecount < s && ptr < data.length) { v = data.charCodeAt(ptr++); for (i = (8 - br); i >= 0; i -= br) { ImageHelper.setPixel(this.parent, palette[(v >> i) & bm], rlecount++) } }
       ImageHelper.putImage(this.parent, x, y)
     } else if (subencoding === 128) { // RLE encoded tile
-      this.parent.logger.verbose('RLE encoded tile')
+      console.log('RLE encoded tile')
       while (rlecount < s && ptr < data.length) {
         // Get the run color
         v = data.charCodeAt(ptr++) + ((this.parent.bpp === 2) ? (data.charCodeAt(ptr++) << 8) : 0)
@@ -65,10 +65,10 @@ class RLEDecoder implements IRLEDecoder {
       }
       ImageHelper.putImage(this.parent, x, y)
     } else if (subencoding > 129) { // Palette RLE encoded tile
-      this.parent.logger.verbose('Read the RLE palette')
+      console.log('Read the RLE palette')
       // Read the palette
       for (i = 0; i < (subencoding - 128); i++) { palette[i] = data.charCodeAt(ptr++) + ((this.parent.bpp === 2) ? (data.charCodeAt(ptr++) << 8) : 0) }
-      this.parent.logger.verbose('Decode RLE on palette')
+      console.log('Decode RLE on palette')
       // Decode RLE  on palette
       while (rlecount < s && ptr < data.length) {
         // Setup the run, get the color index and get the color from the palette.

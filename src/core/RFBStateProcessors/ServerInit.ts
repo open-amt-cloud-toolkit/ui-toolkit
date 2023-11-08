@@ -8,7 +8,6 @@ import { type ICommunicator, type IStateProcessor } from '../Interfaces'
 import { TypeConverter } from '../Converter'
 import { type Desktop } from '../Desktop'
 import { CommsHelper } from '../Utilities/CommsHelper'
-
 /**
  * Set supported encodings for RFB
  */
@@ -48,7 +47,7 @@ class ServerInit implements IStateProcessor {
       supportedEncodings += TypeConverter.IntToStr(0)
 
       supportedEncodings += TypeConverter.IntToStr(1092)
-      this.parent.logger.verbose('Send supported encodings')
+      console.log('Send supported encodings')
       this.wsSocket.send(String.fromCharCode(2, 0) + TypeConverter.ShortToStr((supportedEncodings.length / 4) + 1) + supportedEncodings + TypeConverter.IntToStr(-223)) // Supported Encodings + Desktop Size
 
       // Set the pixel encoding to something much smaller
@@ -58,7 +57,7 @@ class ServerInit implements IStateProcessor {
       this.updateRFBState(4)
 
       this.parent.onStateChange(3)
-      this.parent.logger.info('Start new frame.')
+      console.log('Start new frame.')
       CommsHelper.sendRefresh(this.parent, this.wsSocket)
       // obj.timer = setInterval(obj.xxOnTimer, 50);
       this.parent.oldMouseX = -1 // Old mouse x position

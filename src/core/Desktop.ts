@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { type ILogger, type IModule } from './Interfaces'
+import { type IModule } from './Interfaces'
 import { type Protocol } from './AMTRedirector'
 
 /**
@@ -29,7 +29,6 @@ class Desktop implements IModule {
   sparecache: any
   frameRateDelay: number
   inflate: any
-  logger: ILogger
   holding: boolean
   canvasCtx: CanvasRenderingContext2D
   tcanvas: HTMLCanvasElement

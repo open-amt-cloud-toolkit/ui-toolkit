@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { Desktop } from '../Desktop';
+import { type Desktop } from '../Desktop';
 /**
  * Provides helper functions to handle image pixel data.
  */

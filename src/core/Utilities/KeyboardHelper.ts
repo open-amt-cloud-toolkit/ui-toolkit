@@ -76,7 +76,7 @@ export class KeyBoardHelper {
     if (isTruthy(e.code)) {
       // For new browsers, this mapping is keyboard language independent
       const k = AMTKeyCodeConverter.convertAMTKeyCode(e)
-      this.parent.logger.verbose(`Key ${d} : ${String(k)}`)
+      console.debug(`Key ${d} : ${String(k)}`)
       if (k != null) { CommsHelper.sendKey(this.Comms, k, d) }
     } else {
       let k: number = e.keyCode
@@ -119,7 +119,7 @@ export class KeyBoardHelper {
       if (k === 220) kk = 92 // \
       if (k === 221) kk = 93 // ]t
       if (k === 222) kk = 39 // '
-      this.parent.logger.verbose(`Key ${d}: ${k}  = ${kk}`)
+      console.debug(`Key ${d}: ${k}  = ${kk}`)
       CommsHelper.sendKey(this.Comms, kk, d)
     }
     return this.haltEvent(e)

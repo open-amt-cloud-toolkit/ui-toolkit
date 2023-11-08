@@ -26,7 +26,7 @@ class ServerCutTextHandler implements IServerCutTextHandler {
       if ((d.length >= 16) && (d.substring(0, 15) === '\0KvmDataChannel')) {
         if (!this.parent.kvmDataSupported) { this.parent.kvmDataSupported = true; console.log('KVM Data Channel Supported.') }
         if (((this.parent.onKvmDataAck === -1) && (d.length === 16)) || (d.charCodeAt(15) !== 0)) { this.parent.onKvmDataAck = true }
-        if (isTruthy(this.parent.urlvars) && isTruthy(this.parent.urlvars.kvmdatatrace)) { console.log(`KVM-Recv((${d.length - 16})):  ${d.substring(16)}`) }
+        if (isTruthy(this.parent.urlvars) && isTruthy(this.parent.urlvars.kvmdatatrace)) { console.debug(`KVM-Recv((${d.length - 16})):  ${d.substring(16)}`) }
         if (d.length > 16) { this.parent.onKvmData(d.substring(16)) } // Event the data and ack
         if ((this.parent.onKvmDataAck === true) && (this.parent.onKvmDataPending.length > 0)) { this.wsSocket.onSendKvmData(this.parent.onKvmDataPending.shift()) } // Send pending data
       }

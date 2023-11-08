@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { IRLEDecoder } from '../Interfaces';
-import { Desktop } from '../Desktop';
+import { type IRLEDecoder } from '../Interfaces';
+import { type Desktop } from '../Desktop';
 declare class RLEDecoder implements IRLEDecoder {
     parent: Desktop;
     constructor(parent: Desktop);

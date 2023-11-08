@@ -27,13 +27,22 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: {
-          loader: 'ts-loader',
-          options: {
-            configFile: 'tsconfig.build.json'
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: [ ["transform-remove-console", { "exclude": [ "error", "warn"] }] ]
+            }
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              configFile: 'tsconfig.build.json'
+            }
           }
-        },
-      }
+        ],
+        exclude: /node_modules/,
+      },
     ]
   },
   resolve: {

@@ -9,22 +9,25 @@ import { StateProcessorFactory } from '../core/StateProcessorFactory'
 // classes defined for Unit testing
 import { AmtDesktop } from './helper/testdesktop'
 import { Communicator } from './helper/testcommunicator'
-import { TestLogger } from './helper/testlogger'
 
 describe('Test processData function in DataProcessor', () => {
-  it('Test processData for all the states', () => {
-    // create objects
-    const communicator = new Communicator()
-    const desktop = new AmtDesktop()
-    const output: any = []
-    const testLogger = new TestLogger()
+   let communicator: Communicator
+   let desktop: AmtDesktop
+   let output: any
+  beforeEach(() => {
+     // create objects
+     communicator = new Communicator()
+     desktop = new AmtDesktop()
+     output = []
+ })
 
+  it('Test processData for all the states', () => {
     function updateRFBState (state: number): any {
       desktop.state = state
       output.push(state)
     }
 
-    const dataprocessor = new DataProcessor(testLogger, communicator, desktop)
+    const dataprocessor = new DataProcessor(communicator, desktop)
     dataprocessor.stateProcessorFac = new StateProcessorFactory(communicator, desktop, updateRFBState)
 
     // Test input
@@ -65,18 +68,12 @@ describe('Test processData function in DataProcessor', () => {
   })
 
   it('processData: Test processData with Error in processing in HandshakeState state', () => {
-    // create objects
-    const communicator = new Communicator()
-    const desktop = new AmtDesktop()
-    const output: any = []
-    const testLogger = new TestLogger()
-
     function updateRFBState (state: number): any {
       desktop.state = state
       output.push(state)
     }
 
-    const dataprocessor = new DataProcessor(testLogger, communicator, desktop)
+    const dataprocessor = new DataProcessor(communicator, desktop)
     dataprocessor.stateProcessorFac = new StateProcessorFactory(communicator, desktop, updateRFBState)
 
     // Test input
@@ -90,18 +87,12 @@ describe('Test processData function in DataProcessor', () => {
   })
 
   it('processData: Test processData with Error in processing in SecurityOptions state', () => {
-    // create objects
-    const communicator = new Communicator()
-    const desktop = new AmtDesktop()
-    const output: any = []
-    const testLogger = new TestLogger()
-
-    function updateRFBState (state: number): any {
+   function updateRFBState (state: number): any {
       desktop.state = state
       output.push(state)
     }
 
-    const dataprocessor = new DataProcessor(testLogger, communicator, desktop)
+    const dataprocessor = new DataProcessor(communicator, desktop)
     dataprocessor.stateProcessorFac = new StateProcessorFactory(communicator, desktop, updateRFBState)
 
     // Test input
@@ -116,18 +107,12 @@ describe('Test processData function in DataProcessor', () => {
   })
 
   it('processData: Test processData with Error in processing in SecurityResponse state', () => {
-    // create objects
-    const communicator = new Communicator()
-    const desktop = new AmtDesktop()
-    const output: any = []
-    const testLogger = new TestLogger()
-
     function updateRFBState (state: number): any {
       desktop.state = state
       output.push(state)
     }
 
-    const dataprocessor = new DataProcessor(testLogger, communicator, desktop)
+    const dataprocessor = new DataProcessor(communicator, desktop)
     dataprocessor.stateProcessorFac = new StateProcessorFactory(communicator, desktop, updateRFBState)
 
     // Test input
@@ -147,18 +132,12 @@ describe('Test processData function in DataProcessor', () => {
   })
 
   it('processData: Test processData with Error in processing in ServerInit state', () => {
-    // create objects
-    const communicator = new Communicator()
-    const desktop = new AmtDesktop()
-    const output: any = []
-    const testLogger = new TestLogger()
-
     function updateRFBState (state: number): any {
       desktop.state = state
       output.push(state)
     }
 
-    const dataprocessor = new DataProcessor(testLogger, communicator, desktop)
+    const dataprocessor = new DataProcessor(communicator, desktop)
     dataprocessor.stateProcessorFac = new StateProcessorFactory(communicator, desktop, updateRFBState)
 
     // Test input
@@ -182,18 +161,12 @@ describe('Test processData function in DataProcessor', () => {
   })
 
   it('processData: Test processData with Error in processing in FrameBufferBellServerCutText state', () => {
-    // create objects
-    const communicator = new Communicator()
-    const desktop = new AmtDesktop()
-    const output: any = []
-    const testLogger = new TestLogger()
-
     function updateRFBState (state: number): any {
       desktop.state = state
       output.push(state)
     }
 
-    const dataprocessor = new DataProcessor(testLogger, communicator, desktop)
+    const dataprocessor = new DataProcessor(communicator, desktop)
     dataprocessor.stateProcessorFac = new StateProcessorFactory(communicator, desktop, updateRFBState)
 
     // Test input
@@ -232,18 +205,12 @@ describe('Test processData function in DataProcessor', () => {
   })
 
   it('processData: Test processData with Error in processing in Encoding state', () => {
-    // create objects
-    const communicator = new Communicator()
-    const desktop = new AmtDesktop()
-    const output: any = []
-    const testLogger = new TestLogger()
-
-    function updateRFBState (state: number): any {
+  function updateRFBState (state: number): any {
       desktop.state = state
       output.push(state)
     }
 
-    const dataprocessor = new DataProcessor(testLogger, communicator, desktop)
+    const dataprocessor = new DataProcessor(communicator, desktop)
     dataprocessor.stateProcessorFac = new StateProcessorFactory(communicator, desktop, updateRFBState)
 
     // Test input

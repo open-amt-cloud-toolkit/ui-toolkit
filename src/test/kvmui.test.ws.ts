@@ -2,18 +2,18 @@
 * Copyright (c) Intel Corporation 2019
 * SPDX-License-Identifier: Apache-2.0
 **********************************************************************/
-import { type IDataProcessor, type ILogger } from '../core'
+import { type IDataProcessor } from '../core'
 import { DataProcessor } from '../core/ImageData/DataProcessor'
 import { Desktop } from '../core/Desktop'
 import { type IKvmDataCommunicator } from '../core/Interfaces/ICommunicator'
 import { AMTKvmDataRedirector } from '../core/AMTKvmDataRedirector'
 import { TypeConverter } from '../core/Converter'
-import { ConsoleLogger } from '../core/ConsoleLogger'
 import { isTruthy } from '../core/Utilities/UtilityMethods'
 
 import FileReader from 'filereader'
 import WebSocket from 'ws'
 import ZLIB from '../core/zlib/zlib'
+import { type RedirectorConfig } from '../core/AMTRedirector'
 
 class AmtDesktop extends Desktop {
   rotation: number
@@ -35,7 +35,6 @@ class AmtDesktop extends Desktop {
   sparecache: any
   frameRateDelay: number
   inflate: any
-  logger: ILogger
   holding: boolean
   canvasCtx: any
   tcanvas: any
@@ -133,10 +132,22 @@ class UIToolKitKVM {
   module: Desktop
   dataProcessor: IDataProcessor
   redirector: IKvmDataCommunicator
+  config: RedirectorConfig = {
+    protocol: 2,
+    fr: new FileReader(),
+    host: '800626f0-aca4-4751-803d-d45ddf075ad1',
+    port: 16994,
+    user: '',
+    pass: '',
+    tls: 0,
+    tls1only: 0,
+    authToken: '104.42.171.35/mps'
+  }
+
   constructor () {
     this.module = new AmtDesktop()
-    this.redirector = new AMTKvmDataRedirector(new ConsoleLogger(3), 2, new FileReader(), '800626f0-aca4-4751-803d-d45ddf075ad1', 16994, '', '', 0, 0, '104.42.171.35/mps')
-    this.dataProcessor = new DataProcessor(new ConsoleLogger(3), this.redirector, new AmtDesktop())
+    this.redirector = new AMTKvmDataRedirector(this.config)
+    this.dataProcessor = new DataProcessor(this.redirector, new AmtDesktop())
 
     this.redirector.onProcessData = this.module.processData.bind(this.module)
     this.redirector.onStart = this.module.start.bind(this.module)

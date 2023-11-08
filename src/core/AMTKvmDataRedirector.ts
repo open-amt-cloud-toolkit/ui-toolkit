@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  * Author : Ramu Bachala
  **********************************************************************/
-import { AMTRedirector } from './AMTRedirector'
-import { type ILogger, type IKvmDataCommunicator } from './Interfaces'
+import { AMTRedirector, type RedirectorConfig } from './AMTRedirector'
+import { type IKvmDataCommunicator } from './Interfaces'
 
 export class AMTKvmDataRedirector extends AMTRedirector implements IKvmDataCommunicator {
   onSendKvmData: (data: string) => void
   // eslint-disable-next-line @typescript-eslint/no-useless-constructor
-  constructor (logger: ILogger, protocol: number, fr: FileReader, host: string, port: number, user: string, pass: string, tls: number, tls1only: number, authToken: string, server?: string) {
-    super(logger, protocol, fr, host, port, user, pass, tls, tls1only, authToken, server)
+  constructor (config: RedirectorConfig) {
+    super(config)
   }
 }

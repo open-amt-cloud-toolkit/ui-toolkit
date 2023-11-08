@@ -1,5 +1,5 @@
-import { ICommunicator } from '../Interfaces/ICommunicator';
-import { Desktop } from '../Desktop';
+import { type ICommunicator } from '../Interfaces/ICommunicator';
+import { type Desktop } from '../Desktop';
 export declare enum UpDown {
     Up = 0,
     Down = 1
