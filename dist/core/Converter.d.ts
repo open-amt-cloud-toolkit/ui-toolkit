@@ -30,4 +30,5 @@ export declare const TypeConverter: {
     data2blob(data: string): any;
     random(max: number): number;
     trademarks(x: string): string;
+    arrToStr(arr: any): any;
 };

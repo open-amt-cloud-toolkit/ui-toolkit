@@ -172,5 +172,9 @@ export const TypeConverter = {
   // Trademarks
   trademarks (x: string): string {
     return x.replace(/\(R\)/g, '&reg;').replace(/\(TM\)/g, '&trade;')
+  },
+
+  arrToStr (arr): any {
+    return String.fromCharCode.apply(null, arr)
   }
 }
