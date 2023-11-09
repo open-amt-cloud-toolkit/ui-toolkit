@@ -1,3 +1,8 @@
+/*********************************************************************
+ * Copyright (c) Intel Corporation 2023
+ * SPDX-License-Identifier: Apache-2.0
+ **********************************************************************/
+export { AMTIDER } from './AMTIDER'
 export { AMTDesktop } from './AMTDesktop'
 export { AMTKvmDataRedirector } from './AMTKvmDataRedirector'
 export { AMTRedirector, Protocol, type RedirectorConfig } from './AMTRedirector'
