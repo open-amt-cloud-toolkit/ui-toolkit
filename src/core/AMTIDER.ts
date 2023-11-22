@@ -245,7 +245,6 @@ export class AMTIDER {
         } // Un-queue read operation
       }
     }
-    console.debug('fr.readAsBinaryString :', fr.readAsBinaryString)
     if (fr.readAsBinaryString != null) {
       fr.readAsBinaryString(this.g_media.slice(lba, lba + len))
     } else {
