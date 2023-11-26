@@ -143,10 +143,10 @@ export class AMTRedirector implements ICommunicator {
         this.fileReader.readAsArrayBuffer(this.fileReaderAcc.shift())
       }
     }
-    if (isTruthy(this.fileReader) && isTruthy(this.fileReader.readAsBinaryString)) {
+    if (isTruthy(this.fileReader) && isTruthy(() => this.fileReader.readAsBinaryString.bind(this))) {
     // Chrome & Firefox (Draft)
       this.fileReader.onload = onload.bind(this)
-    } else if (isTruthy(this.fileReader) && isTruthy(this.fileReader.readAsArrayBuffer)) {
+    } else if (isTruthy(this.fileReader) && isTruthy(() => this.fileReader.readAsArrayBuffer.bind(this))) {
     // Chrome & Firefox (Spec)
       this.fileReader.onloadend = onloadend.bind(this)
     }
