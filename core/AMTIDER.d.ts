@@ -18,6 +18,10 @@ export declare class AMTIDER {
     protocol: number;
     bytesToAmt: number;
     bytesFromAmt: number;
+    floppyRead: number;
+    floppyWrite: number;
+    cdromRead: number;
+    cdromWrite: number;
     rx_timeout: number;
     tx_timeout: number;
     heartbeat: number;
