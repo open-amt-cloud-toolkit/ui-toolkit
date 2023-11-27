@@ -24,6 +24,10 @@ export class AMTIDER {
   protocol: number = 3 // IDER
   bytesToAmt: number = 0
   bytesFromAmt: number = 0
+  floppyRead: number = 0
+  floppyWrite: number = 0
+  cdromRead: number = 0
+  cdromWrite: number = 0
   rx_timeout: number = 30000 // Default 30000
   tx_timeout: number = 0 // Default 0
   heartbeat: number = 20000 // Default 20000
@@ -70,6 +74,10 @@ export class AMTIDER {
     console.debug('CD-ROM: ', this.cdrom)
     this.bytesToAmt = 0
     this.bytesFromAmt = 0
+    this.floppyRead = 0
+    this.floppyWrite = 0
+    this.cdromRead = 0
+    this.cdromWrite = 0
     this.inSequence = 0
     this.outSequence = 0
     this.g_readQueue = []
@@ -77,9 +85,11 @@ export class AMTIDER {
     this.sendCommand(0x40, TypeConverter.ShortToStrX(this.rx_timeout) + TypeConverter.ShortToStrX(this.tx_timeout) + TypeConverter.ShortToStrX(this.heartbeat) + TypeConverter.IntToStrX(this.version))
 
     // Send sector stats
+    console.log('Send sector stats')
     if (typeof this.sectorStats === 'function') {
-      this.sectorStats(0, 0, (this.floppy != null) ? (this.floppy.size >> 9) : 0)
-      this.sectorStats(0, 1, (this.cdrom != null) ? (this.cdrom.size >> 11) : 0)
+      console.log('IDE-R sectorStats')
+      this.sectorStats(0, 0, (this.floppy != null) ? (this.floppy.size >> 9) : 0, 0, 0)
+      this.sectorStats(0, 1, (this.cdrom != null) ? (this.cdrom.size >> 11) : 0, 0, 0)
     }
   }
 
