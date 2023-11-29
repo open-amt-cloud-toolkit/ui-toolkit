@@ -1,3 +1,53 @@
+<a name="3.1.2"></a>
+## [3.1.2] - 2023-11-29
+### Build
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 6.12.0 to 6.13.1 ([#812](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/812)) (#1bbd96f) 
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin ([#813](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/813)) (#881b4a5) 
+
+### Chore
+- update build tasks, package.json and changelog (#36f9018) 
+
+
+<a name="v3.1.1"></a>
+## [v3.1.1] - 2023-11-27
+### Build
+- **deps:** bump github/codeql-action from 2.22.6 to 2.22.7 ([#798](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/798)) (#b2dd23d) 
+- **deps:** bump github/codeql-action from 2.22.7 to 2.22.8 ([#809](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/809)) (#7257311) 
+- **deps:** bump github/codeql-action from 2.22.5 to 2.22.6 ([#795](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/795)) (#733a55c) 
+- **deps:** bump step-security/harden-runner from 2.6.0 to 2.6.1 ([#799](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/799)) (#3565dc4) 
+- **deps-dev:** bump eslint-config-standard-with-typescript from 39.1.1 to 40.0.0 ([#801](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/801)) (#114f8d6) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.9.2 to 20.9.3 ([#806](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/806)) (#52f35d4) 
+- **deps-dev:** bump [@types](https://github.com/types)/ws from 8.5.9 to 8.5.10 ([#805](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/805)) (#8964df3) 
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin ([#804](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/804)) (#10b3715) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.9.1 to 20.9.2 ([#802](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/802)) (#6a2d02f) 
+- **deps-dev:** bump eslint from 8.53.0 to 8.54.0 ([#803](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/803)) (#35dd669) 
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/parser from 6.11.0 to 6.12.0 ([#807](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/807)) (#50a92f1) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.9.3 to 20.9.4 ([#808](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/808)) (#dbbf278) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.9.0 to 20.9.1 ([#800](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/800)) (#8481e86) 
+- **deps-dev:** bump [@typescript](https://github.com/typescript)-eslint/eslint-plugin from 5.62.0 to 6.11.0 ([#797](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/797)) (#fc30ad5) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.9.4 to 20.10.0 ([#810](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/810)) (#dbb6885) 
+- **deps-dev:** bump ts-loader from 9.5.0 to 9.5.1 ([#794](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/794)) (#f44a2cc) 
+
+### Fix
+- separated floppy and cdrom read/writes (#3ce386a) 
+
+
+<a name="v3.1.0"></a>
+## [v3.1.0] - 2023-11-09
+### Feat
+- added IDER support ([#781](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/781)) (#da63a84) 
+
+
+<a name="v3.0.0"></a>
+## [v3.0.0] - 2023-11-08
+### Build
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.8.10 to 20.9.0 ([#792](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/792)) (#7de264e) 
+- **deps-dev:** bump [@types](https://github.com/types)/ws from 8.5.8 to 8.5.9 ([#791](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/791)) (#21fa3fa) 
+
+### BREAKING CHANGE
+
+AMT Redirector requires a configuration object and removed ILogger.
+
 <a name="2.0.14"></a>
 ## [2.0.14] - 2023-10-30
 ### Build
