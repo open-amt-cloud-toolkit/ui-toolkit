@@ -27,6 +27,7 @@ jobs:
       uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4.0.0
       with:
         node-version: "20.x"
+        persist-credentials: false
     - run: npm ci
     - run: npm run build-ext --if-present
     - run: rsync -a package.json README.md ./dist/
@@ -36,5 +37,5 @@ jobs:
         semantic_version: 19.0.5  # It is recommended to specify specifying version range
                                     # for semantic-release.
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.ROSIE_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
