@@ -11,6 +11,7 @@ describe('Test AMT redirector class', () => {
 
   beforeEach(() => {
      config = {
+      mode: 'kvm',
       protocol: 1,
       fr: new FileReader(),
       host: '',
