@@ -27,6 +27,7 @@ describe('IDERDataProcessor', () => {
 
     beforeEach(() => {
         config = {
+            mode: 'ider',
             protocol: Protocol.IDER,
             fr: new FileReader(),
             host: '4c4c4544-004d-4d10-8050-b3c04f325133',
