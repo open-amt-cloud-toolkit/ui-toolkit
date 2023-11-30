@@ -17,6 +17,7 @@ export enum Protocol {
 }
 
 export interface RedirectorConfig {
+  mode: 'kvm' | 'sol' | 'ider'
   protocol: number
   fr: FileReader
   host: string
@@ -34,6 +35,7 @@ export interface RedirectorConfig {
  */
 export class AMTRedirector implements ICommunicator {
   state: number
+  mode: 'kvm' | 'sol' | 'ider' | ''
   socket: any
   host: string
   port: number
@@ -75,6 +77,7 @@ export class AMTRedirector implements ICommunicator {
     this.user = config.user
     this.pass = config.pass
     this.tls = config.tls
+    this.mode = config.mode ?? ''
     this.tlsv1only = config.tls1only
     this.protocol = config.protocol
     this.RedirectStartSol = String.fromCharCode(0x10, 0x00, 0x00, 0x00, 0x53, 0x4F, 0x4C, 0x20)
@@ -96,9 +99,9 @@ export class AMTRedirector implements ICommunicator {
       return `${window.location.protocol.replace('http', 'ws')}//
       ${window.location.host}
       ${window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'))}
-      /webrelay.ashx?p=2&host=${this.host}&port=${this.port}&tls=${this.tls}${((this.user === '*') ? '&serverauth=1' : '')}${((typeof this.pass === 'undefined') ? ('&serverauth=1&user=' + this.user) : '')}&tls1only=${this.tlsv1only}`
+      /webrelay.ashx?p=2&host=${this.host}&port=${this.port}&tls=${this.tls}${((this.user === '*') ? '&serverauth=1' : '')}${((typeof this.pass === 'undefined') ? ('&serverauth=1&user=' + this.user) : '')}&tls1only=${this.tlsv1only}&mode=${this.mode}`
     } else {
-      return `${String(this.server)}/webrelay.ashx?p=2&host=${this.host}&port=${this.port}&tls=${this.tls}${((this.user === '*') ? '&serverauth=1' : '')}${((typeof this.pass === 'undefined') ? ('&serverauth=1&user=' + this.user) : '')}&tls1only=${this.tlsv1only}`
+      return `${String(this.server)}/webrelay.ashx?p=2&host=${this.host}&port=${this.port}&tls=${this.tls}${((this.user === '*') ? '&serverauth=1' : '')}${((typeof this.pass === 'undefined') ? ('&serverauth=1&user=' + this.user) : '')}&tls1only=${this.tlsv1only}&mode=${this.mode}`
     }
   }
 
