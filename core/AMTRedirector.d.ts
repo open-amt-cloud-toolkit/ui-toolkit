@@ -8,6 +8,7 @@ export declare enum Protocol {
     IDER = 3
 }
 export interface RedirectorConfig {
+    mode: 'kvm' | 'sol' | 'ider';
     protocol: number;
     fr: FileReader;
     host: string;
@@ -24,6 +25,7 @@ export interface RedirectorConfig {
  */
 export declare class AMTRedirector implements ICommunicator {
     state: number;
+    mode: 'kvm' | 'sol' | 'ider' | '';
     socket: any;
     host: string;
     port: number;
