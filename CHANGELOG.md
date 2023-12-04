@@ -1,3 +1,28 @@
+<a name="3.2.1"></a>
+## [3.2.1] - 2023-12-04
+### Build
+- **deps-dev:** bump eslint from 8.54.0 to 8.55.0 ([#821](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/821)) (#60adc35) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.10.1 to 20.10.3 ([#822](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/822)) (#9ce042b) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.10.0 to 20.10.1 ([#815](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/815)) (#b19a9e9) 
+
+### Chore
+- update build tasks, package.json and changelog (#215bccc) 
+
+
+<a name="v3.2.0"></a>
+## [v3.2.0] - 2023-11-30
+### Ci
+- remove git publish (#be323a5) 
+- moves persist-cred false to checkout action (#35ac9aa) 
+- adds changelog and package.json update automation ([#816](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/816)) (#071e81e) 
+
+### Feat
+- add mode query param for kvm, ider and sol (#28b9e30) 
+
+### Fix
+- update user to use Rosie (#5d6b39d) 
+- update user to use Rosie (#a440bca) 
+
 <a name="3.1.2"></a>
 ## [3.1.2] - 2023-11-29
 ### Build
