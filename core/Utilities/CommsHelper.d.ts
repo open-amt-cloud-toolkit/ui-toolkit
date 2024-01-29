@@ -9,7 +9,7 @@ import { type UpDown } from './KeyboardHelper';
 declare const CommsHelper: {
     sendRefresh(parent: Desktop, comm: ICommunicator): void;
     sendKey(comm: ICommunicator, k: number | any, d: UpDown): void;
-    sendKvmData(parent: Desktop, comm: ICommunicator, x: any): void;
+    sendKvmData(parent: Desktop, comm: ICommunicator, x: string): void;
     sendKeepAlive(parent: Desktop, comm: ICommunicator): void;
     sendCtrlAltDelMsg(comm: ICommunicator): void;
     sendCad(comm: ICommunicator): void;

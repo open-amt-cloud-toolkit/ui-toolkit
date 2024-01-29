@@ -19,12 +19,12 @@ declare class Desktop implements IModule {
     kvmDataSupported: boolean;
     onKvmDataAck: any;
     urlvars: any;
-    onKvmDataPending: any[];
+    onKvmDataPending: string[];
     sparew: number;
     spareh: number;
     sparew2: number;
     spareh2: number;
-    spare: any;
+    spare: ImageData;
     sparecache: any;
     frameRateDelay: number;
     inflate: any;
