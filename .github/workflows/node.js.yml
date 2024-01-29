@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 20.x]
+        node-version: [18.x, 20.x]
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@eb238b55efaa70779f274895e782ed17c84f2895 # v2.6.1
@@ -35,12 +35,12 @@ jobs:
       - run: npm run test
       - run: npm run build-ext
       - run: npm run coverage
-      - uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # v3.1.4
+      - uses: codecov/codecov-action@4fe8c5f003fae66aa5ebb77cfd3e7bfbbda0b6b0 # v3.1.5
         name: Upload Coverage Results
         if: ${{ matrix.node-version == '20.x' }}
       - run: mv junit.xml ui-toolkit-unit-${{ matrix.node-version }}.xml
       - name: Upload JEST Results
-        uses: actions/upload-artifact@694cdabd8bdb0f10b2cea11669e1bf5453eed0a6 # v4.2.0
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
         with:
           name: ui-toolkit-unit-${{ matrix.node-version }}
           path: ui-toolkit-unit-${{ matrix.node-version }}.xml
