@@ -4,6 +4,7 @@
  **********************************************************************/
 
 export class AmtTerminal {
+  capture: string
   terminalEmulation = 1
   fxEmulation = 0
   fxLineBreak = 0 // 0 = CR+LF, 1 = LF

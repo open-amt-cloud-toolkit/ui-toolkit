@@ -107,7 +107,7 @@ class Encoding implements IStateProcessor {
           // console.log('acclength=',acc.length,'ptr=',ptr,'datalen=',datalen,'dx=',dx)
           const zlibstring = acc.substring(ptr, ptr + datalen - dx)
           // console.log(zlibstring)
-          const arr = this.parent.inflate.inflate(zlibstring)
+          const arr: string = this.parent.inflate.inflate(zlibstring)
           // console.log('unzipped stream', arr)
           if (arr.length > 0) {
             this.rleDecoder.Decode(arr, 0, x, y, width, height, s, arr.length)

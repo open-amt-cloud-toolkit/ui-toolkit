@@ -170,7 +170,7 @@ describe('IDERDataProcessor', () => {
 
             it('should set g_reset to true and return 9 when g_media is not null', () => {
                 amtIder.acc = accData
-                amtIder.g_media = {}
+                amtIder.g_media = new Blob()
 
                 const result = amtIder.dataProcessor.processResetOccurredCommand()
 

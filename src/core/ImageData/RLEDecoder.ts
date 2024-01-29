@@ -16,12 +16,12 @@ class RLEDecoder implements IRLEDecoder {
   Decode (data: string, ptr: number, x: number, y: number, width: number, height: number, s: number, datalen: number): any {
     const subencoding = data.charCodeAt(ptr++)
     let index
-    let v
+    let v: number
     let runlengthdecode
-    const palette: any = {}
+    const palette: number[] = []
     let rlecount = 0
     let runlength = 0
-    let i
+    let i: number
     // this.parent.Debug("RECT RLE (" + (datalen - 5) + ", " + subencoding + "):" + rstr2hex(data.substring(21, 21 + (datalen - 5))));
     if (subencoding === 0) {
       // RAW encoding

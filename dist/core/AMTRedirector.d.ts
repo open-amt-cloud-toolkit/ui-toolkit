@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { type ICommunicator } from './Interfaces';
 /**
  * Protocol for different Redir protocols. SOL=1,KVM=2,IDER=USB-R
@@ -8,6 +9,7 @@ export declare enum Protocol {
     IDER = 3
 }
 export interface RedirectorConfig {
+    mode: 'kvm' | 'sol' | 'ider';
     protocol: number;
     fr: FileReader;
     host: string;
@@ -24,7 +26,8 @@ export interface RedirectorConfig {
  */
 export declare class AMTRedirector implements ICommunicator {
     state: number;
-    socket: any;
+    mode: 'kvm' | 'sol' | 'ider' | '';
+    socket: WebSocket | null;
     host: string;
     port: number;
     user: string;
@@ -36,10 +39,10 @@ export declare class AMTRedirector implements ICommunicator {
     protocol: Protocol;
     amtAccumulator: string;
     amtSequence: number;
-    amtKeepAliveTimer: any;
+    amtKeepAliveTimer: NodeJS.Timeout | null;
     fileReader: FileReader;
     fileReaderInUse: boolean;
-    fileReaderAcc: any[];
+    fileReaderAcc: Blob[];
     randomNonceChars: string;
     RedirectStartSol: string;
     RedirectStartKvm: string;
@@ -67,13 +70,13 @@ export declare class AMTRedirector implements ICommunicator {
      * gets Ws Location and starts a websocket for listening
      * @param c is base type for WebSocket
      */
-    start<T>(c: new (path: string, auth: string) => T): any;
+    start<T extends WebSocket>(c: new (path: string, auth: string) => T): any;
     onSocketConnected(): any;
     /**
      * Called when there is new data on the websocket
      * @param e data received over the websocket
      */
-    onMessage(e: any): any;
+    onMessage(e: MessageEvent<Blob | ArrayBufferLike>): any;
     /**
      * Called from onMessage
      * @param data data over the wire
@@ -86,7 +89,7 @@ export declare class AMTRedirector implements ICommunicator {
      * @param data data to send to server
      */
     send(data: string): any;
-    sendAmtKeepAlive(): any;
+    sendAmtKeepAlive(): void;
     generateRandomNonce(length: number): string;
     onSocketClosed(e: Event): any;
     onStateChange(newstate: number): any;

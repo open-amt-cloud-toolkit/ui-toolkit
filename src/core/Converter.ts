@@ -140,7 +140,8 @@ export const TypeConverter = {
 
   // Convert a raw string to a hex string
   rstr2hex (input: string): string {
-    let r = ''; let i
+    let r = ''
+    let i = 0
     for (i = 0; i < input.length; i++) {
       r = r + String(this.char2hex(input.charCodeAt(i)))
     }

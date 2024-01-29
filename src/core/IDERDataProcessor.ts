@@ -217,7 +217,7 @@ export class IDERDataProcessor {
     return 14 + len
   }
 
-  handleSCSI (cdbFirstByte: number, dev: number, cdb: string, featureRegister: number, deviceFlags): number {
+  handleSCSI (cdbFirstByte: number, dev: number, cdb: string, featureRegister: number, deviceFlags: number): number {
     switch (cdbFirstByte) {
       case 0x00: // TEST_UNIT_READY (0)
         return this.handleTestUnitReady(dev)
@@ -500,7 +500,7 @@ export class IDERDataProcessor {
   }
 
   // Handle GET_CONFIGURATION command (0x46)
-  handleGetConfiguration (dev, cdb, featureRegister): number {
+  handleGetConfiguration (dev: number, cdb: string, featureRegister): number {
     const sendall = (cdb.charCodeAt(1) !== 2)
     const firstcode = TypeConverter.ReadShort(cdb, 2)
     const buflen = TypeConverter.ReadShort(cdb, 7)
@@ -585,7 +585,7 @@ export class IDERDataProcessor {
   handleModeSense10 (dev: number, cdb: string, featureRegister: number): number {
     console.debug('SCSI: MODE_SENSE_10', dev, cdb.charCodeAt(2) & 0x3f)
     const buflen = TypeConverter.ReadShort(cdb, 7)
-    let r
+    let r: string | null = null
 
     if (buflen === 0) {
       this.ider.sendDataToHost(dev, true, TypeConverter.IntToStr(0x003c) + TypeConverter.IntToStr(0x0008), featureRegister & 1)
