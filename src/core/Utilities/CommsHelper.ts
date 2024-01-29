@@ -33,10 +33,10 @@ const CommsHelper = {
   },
 
   sendKey (comm: ICommunicator, k: number | any, d: UpDown): void {
-    if (typeof k === 'object') { for (const i in k) { this.sendKey(comm, k[i][0], k[i][1]) } } else { comm.send(String.fromCharCode(4, d, 0, 0) + TypeConverter.IntToStr(k)) }
+    if (typeof k === 'object') { for (const i in k) { this.sendKey(comm, k[i][0], k[i][1]) } } else { comm.send(String.fromCharCode(4, d, 0, 0) + TypeConverter.IntToStr(k as number)) }
   },
 
-  sendKvmData (parent: Desktop, comm: ICommunicator, x: any): void {
+  sendKvmData (parent: Desktop, comm: ICommunicator, x: string): void {
     if (parent.onKvmDataAck !== true) {
       parent.onKvmDataPending.push(x)
     } else {

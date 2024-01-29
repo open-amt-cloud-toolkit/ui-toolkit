@@ -55,13 +55,13 @@ describe('Test AMT redirector class', () => {
         data: 'stringdata'
       }
     }
-    redirector.onMessage(event)
+    redirector.onMessage(event as any)
 
     expect(redirector.fileReaderInUse).toEqual(true)
   })
 
   it('should send the received settings data to the data processor', () => {
-    const event = { data: '!+\t\t\t\t\t)\t\t\t\t\t\v\v\v\v\v\v\t\t\t\t\v\v\v' }
+    const event = { data: '!+\t\t\t\t\t)\t\t\t\t\t\v\v\v\v\v\v\t\t\t\t\v\v\v' } as any
     redirector.onError = jest.fn()
     redirector.onNewState = jest.fn()
     redirector.onMessage(event)
@@ -70,7 +70,7 @@ describe('Test AMT redirector class', () => {
 
   it('should send the received redirection data to the data processor', () => {
     const dataStream = `${String.fromCharCode(17)}${String.fromCharCode(0)}\v\v\v\v\v\v\v\v\v\v\v\v`
-    const event = { data: dataStream }
+    const event = { data: dataStream } as any
     redirector.onError = jest.fn()
     redirector.onNewState = jest.fn()
     redirector.onMessage(event)
@@ -79,7 +79,7 @@ describe('Test AMT redirector class', () => {
 
   it('should send the received authentication data to the data processor', () => {
     const dataStream = `${String.fromCharCode(20)}123456789`
-    const event = { data: dataStream }
+    const event = { data: dataStream } as any
     redirector.onError = jest.fn()
     redirector.onNewState = jest.fn()
     redirector.onMessage(event)
@@ -88,7 +88,7 @@ describe('Test AMT redirector class', () => {
   })
 
   it('should send the received serial setting data to the data processor', () => {
-    const event = { data: ')\t\t\t\t\t\t\t\t\t\t\t' }
+    const event = { data: ')\t\t\t\t\t\t\t\t\t\t\t' } as any
     redirector.onError = jest.fn()
     redirector.onNewState = jest.fn()
     redirector.onMessage(event)
@@ -96,7 +96,7 @@ describe('Test AMT redirector class', () => {
   })
 
   it('should send the received display data to the data processor', () => {
-    const event = { data: '*!@123qwerty' }
+    const event = { data: '*!@123qwerty' } as any
     redirector.onError = jest.fn()
     redirector.onNewState = jest.fn()
     redirector.onMessage(event)
@@ -104,7 +104,7 @@ describe('Test AMT redirector class', () => {
   })
 
   it('should send the received KVM data to the data processor', () => {
-    const event = { data: 'A\t\t\t\t\t\t\t\t\t\t\t' }
+    const event = { data: 'A\t\t\t\t\t\t\t\t\t\t\t' } as any
     redirector.onError = jest.fn()
     redirector.onStart = jest.fn()
     redirector.onProcessData = jest.fn()
@@ -114,7 +114,7 @@ describe('Test AMT redirector class', () => {
   })
 
   it('should send the received keepalive message data to the data processor', () => {
-    const event = { data: '+\t\t\t\t\t\t\t\t\t\t\t' }
+    const event = { data: '+\t\t\t\t\t\t\t\t\t\t\t' } as any
     redirector.onError = jest.fn()
     redirector.onNewState = jest.fn()
     redirector.onMessage(event)

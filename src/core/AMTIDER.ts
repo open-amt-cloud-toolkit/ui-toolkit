@@ -47,8 +47,8 @@ export class AMTIDER {
 
   g_readQueue: any = []
   g_reset: boolean = false
-  g_media: any = null
-  g_dev
+  g_media: Blob | null
+  g_dev: number
   g_lba: number
   g_len: number
 
@@ -205,7 +205,7 @@ export class AMTIDER {
     }
 
     if (dev === 0xA0) { lba <<= 9; len <<= 9 } else { lba <<= 11; len <<= 11 }
-    if (this.g_media !== null) {
+    if (this.g_media != null) {
       // Queue read operation
       this.g_readQueue.push({ media, dev, lba, len, fr: featureRegister })
     } else {
@@ -229,11 +229,11 @@ export class AMTIDER {
     const fr = new FileReader()
     fr.onload = () => {
       console.debug('fr.result :', fr.result)
-      let result: any = fr.result
+      let result = fr.result
       if (typeof result === 'object') {
-        result = TypeConverter.arrToStr(new Uint8Array(result))
+        result = TypeConverter.arrToStr(new Uint8Array(result as ArrayBufferLike))
       }
-      this.sendDataToHost(this.g_dev, (this.g_len === 0), result, featureRegister & 1)
+      this.sendDataToHost(this.g_dev, (this.g_len === 0), result as string, featureRegister & 1)
       console.debug('this.g_len: ', this.g_len, '!this.g_reset :', !this.g_reset)
       if ((this.g_len > 0) && (!this.g_reset)) {
         this.sendDiskDataEx(featureRegister)
@@ -251,14 +251,18 @@ export class AMTIDER {
           this.g_dev = op.dev
           this.g_lba = op.lba
           this.g_len = op.len
-          this.sendDiskDataEx(op.fr)
+          this.sendDiskDataEx(op.fr as number)
         } // Un-queue read operation
       }
     }
     if (fr.readAsBinaryString != null) {
-      fr.readAsBinaryString(this.g_media.slice(lba, lba + len))
+      if (this.g_media != null) {
+        fr.readAsBinaryString(this.g_media.slice(lba, lba + len))
+      }
     } else {
-      fr.readAsArrayBuffer(this.g_media.slice(lba, lba + len))
+      if (this.g_media != null) {
+        fr.readAsArrayBuffer(this.g_media.slice(lba, lba + len))
+      }
     }
   }
 }

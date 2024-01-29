@@ -12,7 +12,7 @@ interface ICommunicator {
     onNewState: (state: number) => void;
     onStateChanged: (redirector: any, state: number) => void;
     onError: () => void;
-    start: <T>(c: new (path: string) => T) => void;
+    start: <T extends WebSocket>(c: new (path: string) => T) => void;
     socketSend: (data: string) => void;
     send: (data: string) => void;
     stop: () => void;

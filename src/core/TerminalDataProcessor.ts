@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
+import { type AmtTerminal } from './AMTTerminal'
 import { type IDataProcessor } from './Interfaces'
 
 /** class to process serial over lan data **/
 export class TerminalDataProcessor implements IDataProcessor {
-  terminal: any
+  terminal: AmtTerminal
   constructor (terminal) {
     this.terminal = terminal
   }

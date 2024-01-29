@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 export declare class AmtTerminal {
+    capture: string;
     terminalEmulation: number;
     fxEmulation: number;
     fxLineBreak: number;

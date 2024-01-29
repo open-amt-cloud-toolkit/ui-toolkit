@@ -36,7 +36,7 @@ export interface RedirectorConfig {
 export class AMTRedirector implements ICommunicator {
   state: number
   mode: 'kvm' | 'sol' | 'ider' | ''
-  socket: any
+  socket: WebSocket | null
   host: string
   port: number
   user: string
@@ -48,11 +48,11 @@ export class AMTRedirector implements ICommunicator {
   protocol: Protocol
   amtAccumulator: string
   amtSequence: number
-  amtKeepAliveTimer: any
+  amtKeepAliveTimer: NodeJS.Timeout | null
 
   fileReader: FileReader
   fileReaderInUse: boolean
-  fileReaderAcc: any[]
+  fileReaderAcc: Blob[]
   randomNonceChars: string
   RedirectStartSol: string
   RedirectStartKvm: string
@@ -122,7 +122,7 @@ export class AMTRedirector implements ICommunicator {
    * gets Ws Location and starts a websocket for listening
    * @param c is base type for WebSocket
    */
-  start<T> (c: new(path: string, auth: string) => T): any { // Using this generic signature allows us to pass the WebSocket type from unit tests or in production from a web browser
+  start<T extends WebSocket> (c: new(path: string, auth: string) => T): any { // Using this generic signature allows us to pass the WebSocket type from unit tests or in production from a web browser
     this.connectState = 0
     // let ws = new c(this.getWsLocation()) // using create function c invokes the constructor WebSocket()
     // eslint-disable-next-line new-cap
@@ -130,20 +130,21 @@ export class AMTRedirector implements ICommunicator {
     this.socket.onopen = this.onSocketConnected.bind(this)
     this.socket.onmessage = this.onMessage.bind(this)
     this.socket.onclose = this.onSocketClosed.bind(this)
-    const onload = (e: any): any => {
-      this.onSocketData(e.target.result)
+    const onload = (e: ProgressEvent<FileReader>): any => {
+      this.onSocketData(e.target?.result as string)
       if (this.fileReaderAcc.length === 0) {
         this.fileReaderInUse = false
       } else {
-        this.fileReader.readAsBinaryString(new Blob([this.fileReaderAcc.shift()]))
+        this.fileReader.readAsBinaryString(new Blob([this.fileReaderAcc.shift() as BlobPart]))
       }
     }
-    const onloadend = (e: any): any => {
-      this.onSocketData(e.target.result)
+    const onloadend = (e: ProgressEvent<FileReader>): any => {
+      this.onSocketData(e.target?.result as string)
       if (this.fileReaderAcc.length === 0) {
         this.fileReaderInUse = false
       } else {
-        this.fileReader.readAsArrayBuffer(this.fileReaderAcc.shift())
+        const next: Blob = this.fileReaderAcc.shift() ?? new Blob()
+        this.fileReader.readAsArrayBuffer(next)
       }
     }
     if (isTruthy(this.fileReader) && isTruthy(() => this.fileReader.readAsBinaryString.bind(this))) {
@@ -172,13 +173,13 @@ export class AMTRedirector implements ICommunicator {
    * Called when there is new data on the websocket
    * @param e data received over the websocket
    */
-  onMessage (e: any): any {
+  onMessage (e: MessageEvent<Blob | ArrayBufferLike>): any {
     try {
       // console.log(e.data)
       this.inDataCount++
       if (typeof e.data === 'object') {
         if (this.fileReaderInUse) {
-          this.fileReaderAcc.push(e.data)
+          this.fileReaderAcc.push(e.data as Blob)
           return
         }
         if (this.fileReader.readAsBinaryString != null) {
@@ -188,11 +189,15 @@ export class AMTRedirector implements ICommunicator {
         } else if (this.fileReader.readAsArrayBuffer != null) {
           // Chrome & Firefox (Spec)
           this.fileReaderInUse = true
-          this.fileReader.readAsArrayBuffer(e.data)
+          this.fileReader.readAsArrayBuffer(e.data as Blob)
         } else {
           // IE10, readAsBinaryString does not exist, use an alternative.
-          let binary = ''; const bytes = new Uint8Array(e.data); const length = bytes.byteLength
-          for (let i = 0; i < length; i++) { binary += String.fromCharCode(bytes[i]) }
+          let binary = ''
+          const bytes = new Uint8Array(e.data as ArrayBufferLike)
+          const length = bytes.byteLength
+          for (let i = 0; i < length; i++) {
+            binary += String.fromCharCode(bytes[i])
+          }
           this.onSocketData(binary)
         }
       } else {
@@ -300,7 +305,7 @@ export class AMTRedirector implements ICommunicator {
 
             // QOP
             let qoplen = 0
-            let qop: any = null
+            let qop: string = ''
             const cnonce: string = this.generateRandomNonce(32)
             const snc = '00000002'
             let extra = ''
@@ -313,8 +318,8 @@ export class AMTRedirector implements ICommunicator {
 
             const digest = this.hex_md5(this.hex_md5(this.user + ':' + realm + ':' + this.pass) + ':' + nonce + ':' + extra + this.hex_md5('POST:' + this.authUri))
             let totallen: number = this.user.length + realm.length + nonce.length + this.authUri.length + cnonce.length + snc.length + digest.length + 7
-            if (authType === 4) totallen += (parseInt(qop.length) + 1)
-            let buf: any = String.fromCharCode(0x13, 0x00, 0x00, 0x00, authType) + TypeConverter.IntToStrX(totallen) + String.fromCharCode(this.user.length) + this.user + String.fromCharCode(realm.length) + realm + String.fromCharCode(nonce.length) + nonce + String.fromCharCode(this.authUri.length) + this.authUri + String.fromCharCode(cnonce.length) + cnonce + String.fromCharCode(snc.length) + snc + String.fromCharCode(digest.length) + digest
+            if (authType === 4) totallen += (qop.length + 1)
+            let buf = String.fromCharCode(0x13, 0x00, 0x00, 0x00, authType) + TypeConverter.IntToStrX(totallen) + String.fromCharCode(this.user.length) + this.user + String.fromCharCode(realm.length) + realm + String.fromCharCode(nonce.length) + nonce + String.fromCharCode(this.authUri.length) + this.authUri + String.fromCharCode(cnonce.length) + cnonce + String.fromCharCode(snc.length) + snc + String.fromCharCode(digest.length) + digest
             if (authType === 4) buf = String(buf) + (String.fromCharCode(qop.length) + String(qop))
             this.socketSend(buf)
           } else
@@ -347,7 +352,7 @@ export class AMTRedirector implements ICommunicator {
           console.log('Response to settings')
           cmdsize = 23
           this.socketSend(String.fromCharCode(0x27, 0x00, 0x00, 0x00) + TypeConverter.IntToStrX(this.amtSequence++) + String.fromCharCode(0x00, 0x00, 0x1B, 0x00, 0x00, 0x00))
-          // eslint-disable-next-line @typescript-eslint/no-implied-eval
+          // eslint-disable-next-line @typescript-eslint/no-implied-eval, @typescript-eslint/no-unsafe-argument
           if (this.protocol === 1) { this.amtKeepAliveTimer = setInterval(this.sendAmtKeepAlive.bind(this), 2000) }
           this.connectState = 1
           this.onStateChange(3)
@@ -426,7 +431,7 @@ export class AMTRedirector implements ICommunicator {
     }
   }
 
-  sendAmtKeepAlive (): any {
+  sendAmtKeepAlive (): void {
     if (this.socket == null) return
     this.socketSend(String.fromCharCode(0x2B, 0x00, 0x00, 0x00) + TypeConverter.IntToStrX(this.amtSequence++))
   }

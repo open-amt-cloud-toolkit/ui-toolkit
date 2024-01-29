@@ -20,6 +20,7 @@ export class DataProcessor implements IDataProcessor {
   parent: Desktop
   constructor (comm: ICommunicator, parent: Desktop) {
     this.acc = ''
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     this.stateProcessorFac = new StateProcessorFactory(comm, parent, this.updateRFBState.bind(this))
     this.parent = parent
   }

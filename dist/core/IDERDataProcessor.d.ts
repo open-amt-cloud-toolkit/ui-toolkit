@@ -16,7 +16,7 @@ export declare class IDERDataProcessor {
     processHeartbeatCommand(): number;
     processWrittenCommand(): number;
     processDataFromHostCommand(): number;
-    handleSCSI(cdbFirstByte: number, dev: number, cdb: string, featureRegister: number, deviceFlags: any): number;
+    handleSCSI(cdbFirstByte: number, dev: number, cdb: string, featureRegister: number, deviceFlags: number): number;
     handleTestUnitReady(dev: number): number;
     handleRead6(dev: number, cdb: string, featureRegister: number): void;
     handleWrite6(dev: number, cdb: string): number;
@@ -28,7 +28,7 @@ export declare class IDERDataProcessor {
     handleRead10(dev: number, cdb: string, featureRegister: number): void;
     handleWrite10(dev: number, cdb: string): void;
     handleReadTOC(dev: number, cdb: string, featureRegister: number): number;
-    handleGetConfiguration(dev: any, cdb: any, featureRegister: any): number;
+    handleGetConfiguration(dev: number, cdb: string, featureRegister: any): number;
     handleGetEventStatusNotification(dev: number, cdb: string, featureRegister: number): void;
     handleReadDiscInfo(dev: number): number;
     handleModeSelect10(dev: number): number;
