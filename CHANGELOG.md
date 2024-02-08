@@ -1,3 +1,5 @@
+## [3.2.2](https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v3.2.1...v3.2.2) (2024-02-08)
+
 <a name="3.2.2"></a>
 ## [3.2.2] - 2024-02-08
 ### Build
