@@ -1,3 +1,28 @@
+<a name="3.2.3"></a>
+## [3.2.3] - 2024-03-08
+### Build
+- **deps:** bump github/codeql-action from 3.24.3 to 3.24.4 ([#907](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/907)) (#e382eba) 
+- **deps:** bump github/codeql-action from 3.24.5 to 3.24.6 ([#917](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/917)) (#d8ff07c) 
+- **deps:** bump github/codeql-action from 3.24.0 to 3.24.1 ([#900](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/900)) (#fc9f61a) 
+- **deps:** bump github/codeql-action from 3.24.1 to 3.24.2 ([#901](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/901)) (#1da1d46) 
+- **deps:** bump github/codeql-action from 3.24.4 to 3.24.5 ([#909](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/909)) (#64ce6ab) 
+- **deps:** bump github/codeql-action from 3.24.2 to 3.24.3 ([#903](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/903)) (#441d945) 
+- **deps:** bump codecov/codecov-action from 4.0.1 to 4.1.0 ([#913](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/913)) (#7206b8e) 
+- **deps:** bump actions/add-to-project from 0.5.0 to 0.6.0 ([#914](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/914)) (#28b362b) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.11.24 to 20.11.25 ([#919](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/919)) (#679bbc9) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.11.19 to 20.11.21 ([#915](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/915)) (#3f015b1) 
+- **deps-dev:** bump webpack from 5.90.2 to 5.90.3 ([#906](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/906)) (#2d0f7a1) 
+- **deps-dev:** bump eslint from 8.56.0 to 8.57.0 ([#911](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/911)) (#9cf03e3) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.11.18 to 20.11.19 ([#904](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/904)) (#08f179d) 
+- **deps-dev:** bump webpack from 5.90.1 to 5.90.2 ([#905](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/905)) (#0145d36) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.11.21 to 20.11.22 ([#916](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/916)) (#65533cb) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.11.17 to 20.11.18 ([#902](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/902)) (#a6ba095) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.11.22 to 20.11.24 ([#918](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/918)) (#fec9218) 
+- **deps-dev:** bump [@types](https://github.com/types)/node from 20.11.16 to 20.11.17 ([#897](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/897)) (#9037220) 
+
+### Chore
+- update build tasks, package.json and changelog (#dbb86cf) 
+
 ## [3.2.2](https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v3.2.1...v3.2.2) (2024-02-08)
 
 <a name="3.2.2"></a>
