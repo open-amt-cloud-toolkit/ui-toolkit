@@ -1,7 +1,7 @@
 ## [3.2.3](https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v3.2.2...v3.2.3) (2024-03-08)
 
 <a name="3.2.3"></a>
-## [3.2.3] - 2024-03-08
+## [3.2.3] - 2024-03-08.
 ### Build
 - **deps:** bump github/codeql-action from 3.24.3 to 3.24.4 ([#907](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/907)) (#e382eba) 
 - **deps:** bump github/codeql-action from 3.24.5 to 3.24.6 ([#917](https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues/917)) (#d8ff07c) 
