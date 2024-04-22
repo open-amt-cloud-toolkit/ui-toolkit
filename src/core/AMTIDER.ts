@@ -47,7 +47,7 @@ export class AMTIDER {
 
   g_readQueue: any = []
   g_reset: boolean = false
-  g_media: Blob | null
+  g_media: any = null
   g_dev: number
   g_lba: number
   g_len: number
@@ -257,10 +257,12 @@ export class AMTIDER {
     }
     if (fr.readAsBinaryString != null) {
       if (this.g_media != null) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         fr.readAsBinaryString(this.g_media.slice(lba, lba + len))
       }
     } else {
       if (this.g_media != null) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         fr.readAsArrayBuffer(this.g_media.slice(lba, lba + len))
       }
     }
