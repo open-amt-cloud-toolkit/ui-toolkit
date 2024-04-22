@@ -1,3 +1,10 @@
+## [3.2.5](https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v3.2.4...v3.2.5) (2024-04-22)
+
+
+### Bug Fixes
+
+* data transfer in ider ([315b053](https://github.com/open-amt-cloud-toolkit/ui-toolkit/commit/315b0534e0317ceca36d0a8bb3d25613a55481ac))
+
 ## [3.2.4](https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v3.2.3...v3.2.4) (2024-04-02)
 
 ## [3.2.3](https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v3.2.2...v3.2.3) (2024-03-08)
