@@ -40,7 +40,7 @@ jobs:
         if: ${{ matrix.node-version == '20.x' }}
       - run: mv junit.xml ui-toolkit-unit-${{ matrix.node-version }}.xml
       - name: Upload JEST Results
-        uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # v4.3.2
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
           name: ui-toolkit-unit-${{ matrix.node-version }}
           path: ui-toolkit-unit-${{ matrix.node-version }}.xml
