@@ -20,5 +20,5 @@ jobs:
 
       - uses: actions/add-to-project@9bfe908f2eaa7ba10340b31e314148fcfe6a2458 # v1.0.1
         with:
-          project-url: https://github.com/orgs/open-amt-cloud-toolkit/projects/5
+          project-url: https://github.com/orgs/open-amt-cloud-toolkit/projects/10
           github-token: ${{ secrets.PROJECTS_PAT }}
