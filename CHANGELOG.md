@@ -1,3 +1,5 @@
+## [3.2.8](https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v3.2.7...v3.2.8) (2024-08-12)
+
 ## [3.2.7](https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v3.2.6...v3.2.7) (2024-07-08)
 
 ## [3.2.6](https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v3.2.5...v3.2.6) (2024-06-05)
