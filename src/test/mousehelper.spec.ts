@@ -195,4 +195,16 @@ describe('Test MouseHelper', () => {
     expect(e.screenY).toBe(0)
   })
 
+  it('Test resetOffsets', () => {
+    // Input
+    const comm = new Communicator()
+    const desktop = new AmtDesktop()
+    const mousehelper = new MouseHelper(desktop, comm, 0)
+    
+    // Test resetOffsets
+    mousehelper.resetOffsets()
+
+    expect(mousehelper.leftposition).toBe(0)
+    expect(mousehelper.topposition).toBe(0)
+  })
 })
