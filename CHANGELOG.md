@@ -1,3 +1,10 @@
+# [3.3.0](https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v3.2.9...v3.3.0) (2025-01-13)
+
+
+### Features
+
+* allow resetting mouse offset ([17703e4](https://github.com/open-amt-cloud-toolkit/ui-toolkit/commit/17703e46eec76d05cbe44b325480071b5b2c85fb))
+
 ## [3.2.9](https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v3.2.8...v3.2.9) (2024-11-08)
 
 ## [3.2.8](https://github.com/open-amt-cloud-toolkit/ui-toolkit/compare/v3.2.7...v3.2.8) (2024-08-12)
