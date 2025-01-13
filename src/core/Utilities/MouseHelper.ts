@@ -114,4 +114,9 @@ export class MouseHelper {
     }
     return Position
   }
+
+  resetOffsets (): void {
+    this.topposition = 0
+    this.leftposition = 0
+  }
 }

@@ -40,7 +40,7 @@ export declare class AMTIDER {
     sectorStats: any;
     g_readQueue: any;
     g_reset: boolean;
-    g_media: Blob | null;
+    g_media: any;
     g_dev: number;
     g_lba: number;
     g_len: number;

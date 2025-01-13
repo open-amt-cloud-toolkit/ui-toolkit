@@ -25,4 +25,5 @@ export declare class MouseHelper {
     mousemove(e: MouseEvent): boolean;
     haltEvent(e: any): boolean;
     getPositionOfControl(c: HTMLElement | null): number[];
+    resetOffsets(): void;
 }
