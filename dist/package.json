@@ -14,9 +14,9 @@
   "author": "",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/open-amt-cloud-toolkit/ui-toolkit/issues"
+    "url": "https://github.com/device-management-toolkit/ui-toolkit/issues"
   },
-  "homepage": "https://github.com/open-amt-cloud-toolkit/ui-toolkit#readme",
+  "homepage": "https://github.com/device-management-toolkit/ui-toolkit#readme",
   "types": "index.d.ts",
   "dependencies": {
     "md5": "^2.2.1",
