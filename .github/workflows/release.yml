@@ -38,7 +38,7 @@ jobs:
       - run: rsync -a package.json README.md ./dist/
       - name: Semantic Release
         id: semantic
-        uses: cycjimmy/semantic-release-action@b12c8f6015dc215fe37bc154d4ad456dd3833c90 # v6.0.0
+        uses: cycjimmy/semantic-release-action@9e1f8a3ef91f1097285028e799a5fb8bb90e8899 # v8.1.0
         with:
           semantic_version: 25.0.2 # It is recommended to specify version range for semantic-release.
         env:
